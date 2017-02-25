@@ -1,0 +1,52 @@
+     ===========================================
+      README file for the `COCO2P' GAP4 package 
+     ===========================================
+
+COCO2P is a GAP 4 package for computing with coherent configurations
+and, more generally, with arc-colored graphs. It is meant to be a more
+modern version of the computer package COCO by Igor Faradzev and
+Mikhail Klin, but it does not pretend to superceed it. 
+
+The following persons contributed in various ways in the creation of
+COCO2P:
+	Mikhail Klin,
+	Christian Pech (maintainer),
+	Sven Reichard
+
+There exists another branch of development of COCO maintained by Sven
+Reichard. Misha Klin suggested to name the two branches COCO2R and
+COCO2P, respectively - hence the name of this package is
+COCO2P. We hope that eventually the two efforts to modernize COCO will
+lead to the creation of a GAP package COCO2.
+
+To get the newest version of COCO2P, download the
+archive file
+    coco2p-x.x.tar.gz
+
+If you are an administrator on your computer and have access to the
+root-directory of gap 4, then copy this file to the subdirectory 'pkg' of the root
+directory of gap 4.
+
+If you are not an administrator of your computer, or if you do not
+want coco2p to be available to all users of your computer, then go to
+the user root directory of gap4. You can find out its location from
+inside gap 4 by the following command:
+       GAPInfo.UserGapRoot;
+Copy the file coco2p-x.x.tar.gz to the subdirector 'pkg' of this
+directory (create it if it does not exist).
+
+Now unpack the coco2p archive using 
+    gunzip coco2p-x.x.tar.gz; tar xvf coco2p-x.x.tar
+
+this will create a subdirectory coco2p. The documentation of coco2p
+can now be found in './coco2p/doc/manual.pdf' 
+With this the installation of coco2p is finished.
+
+From whithin gap4 you can load coco2p by issuing the command:
+     LoadPackage("coco2p");
+
+Help about coco2p can be obtained from inside gap 4 using the command
+     ?coco2p
+
+
+
