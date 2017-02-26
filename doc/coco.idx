@@ -1,0 +1,142 @@
+\indexentry{ColorGraphByOrbitals@\texttt  {ColorGraphByOrbitals}|hyperpage}{4}
+\indexentry{ColorGraph@\texttt  {ColorGraph}|hyperpage}{5}
+\indexentry{ColorGraphByMatrix@\texttt  {ColorGraphByMatrix}|hyperpage}{6}
+\indexentry{ColorGraphByWLStabilization@\texttt  {ColorGraphByWLStabilization}|hyperpage}{6}
+\indexentry{ClassicalCompleteAffineScheme@\texttt  {ClassicalCompleteAffineScheme}|hyperpage}{6}
+\indexentry{JohnsonScheme@\texttt  {JohnsonScheme}|hyperpage}{6}
+\indexentry{CyclotomicColorGraph@\texttt  {CyclotomicColorGraph}|hyperpage}{7}
+\indexentry{AllAssociationSchemes@\texttt  {AllAssociationSchemes}|hyperpage}{7}
+\indexentry{OrderOfColorGraph@\texttt  {OrderOfColorGraph}|hyperpage}{7}
+\indexentry{OrderOfCocoObject@\texttt  {OrderOfCocoObject}!for color graphs|hyperpage}{7}
+\indexentry{Order@\texttt  {Order}!for color graphs|hyperpage}{7}
+\indexentry{RankOfColorGraph@\texttt  {RankOfColorGraph}|hyperpage}{7}
+\indexentry{Rank@\texttt  {Rank}!for color graphs|hyperpage}{7}
+\indexentry{VertexNamesOfCocoObject@\texttt  {VertexNamesOfCocoObject}!for color graphs|hyperpage}{7}
+\indexentry{ColorNames@\texttt  {ColorNames}|hyperpage}{8}
+\indexentry{ArcColorOfColorGraph@\texttt  {ArcColorOfColorGraph}|hyperpage}{8}
+\indexentry{ArcColorOfColorGraph@\texttt  {ArcColorOfColorGraph}|hyperpage}{8}
+\indexentry{ColorRepresentative@\texttt  {ColorRepresentative}|hyperpage}{8}
+\indexentry{Neighbors@\texttt  {Neighbors}|hyperpage}{9}
+\indexentry{Neighbors@\texttt  {Neighbors}|hyperpage}{9}
+\indexentry{AdjacencyMatrix@\texttt  {AdjacencyMatrix}|hyperpage}{9}
+\indexentry{RowOfColorGraph@\texttt  {RowOfColorGraph}|hyperpage}{9}
+\indexentry{ColumnOfColorGraph@\texttt  {ColumnOfColorGraph}|hyperpage}{10}
+\indexentry{Fibres@\texttt  {Fibres}|hyperpage}{10}
+\indexentry{NumberOfFibres@\texttt  {NumberOfFibres}|hyperpage}{10}
+\indexentry{LocalIntersectionArray@\texttt  {LocalIntersectionArray}|hyperpage}{10}
+\indexentry{LocalIntersectionArray@\texttt  {LocalIntersectionArray}!alternative|hyperpage}{10}
+\indexentry{ColorMates@\texttt  {ColorMates}|hyperpage}{11}
+\indexentry{OutValencies@\texttt  {OutValencies}!for WL-stable color graphs|hyperpage}{11}
+\indexentry{ReflexiveColors@\texttt  {ReflexiveColors}!for WL-stable color graphs|hyperpage}{11}
+\indexentry{ColorGraphByFusion@\texttt  {ColorGraphByFusion}|hyperpage}{12}
+\indexentry{QuotientColorGraph@\texttt  {QuotientColorGraph}|hyperpage}{12}
+\indexentry{InducedSubColorGraph@\texttt  {InducedSubColorGraph}|hyperpage}{13}
+\indexentry{DirectProductColorGraphs@\texttt  {DirectProductColorGraphs}|hyperpage}{13}
+\indexentry{WreathProductColorGraphs@\texttt  {WreathProductColorGraphs}|hyperpage}{13}
+\indexentry{ClosedSets@\texttt  {ClosedSets}!for homogeneous WL-stable color graphs|hyperpage}{14}
+\indexentry{PartitionClosedSet@\texttt  {PartitionClosedSet}!for homogeneous WL-stable color graphs|hyperpage}{14}
+\indexentry{BaseGraphOfColorGraph@\texttt  {BaseGraphOfColorGraph}|hyperpage}{14}
+\indexentry{BaseGraphOfColorGraph@\texttt  {BaseGraphOfColorGraph}|hyperpage}{14}
+\indexentry{IsUndirectedColorGraph@\texttt  {IsUndirectedColorGraph}|hyperpage}{15}
+\indexentry{IsHomogeneous@\texttt  {IsHomogeneous}|hyperpage}{15}
+\indexentry{IsWLStableColorGraph@\texttt  {IsWLStableColorGraph}|hyperpage}{16}
+\indexentry{IsSchurian@\texttt  {IsSchurian}|hyperpage}{16}
+\indexentry{IsPrimitive@\texttt  {IsPrimitive}!for WL-stable color graphs|hyperpage}{16}
+\indexentry{KnownGroupOfAutomorphisms@\texttt  {KnownGroupOfAutomorphisms}!for color graphs|hyperpage}{17}
+\indexentry{AutGroupOfCocoObject@\texttt  {AutGroupOfCocoObject}!for color graphs|hyperpage}{17}
+\indexentry{AutomorphismGroup@\texttt  {AutomorphismGroup}!for color graphs|hyperpage}{17}
+\indexentry{IsAutomorphismOfObject@\texttt  {IsAutomorphismOfObject}!for color graphs|hyperpage}{17}
+\indexentry{IsomorphismCocoObjects@\texttt  {IsomorphismCocoObjects}!for color graphs|hyperpage}{17}
+\indexentry{IsIsomorphicCocoObject@\texttt  {IsIsomorphicCocoObject}!for color graphs|hyperpage}{17}
+\indexentry{IsIsomorphismOfObjects@\texttt  {IsIsomorphismOfObjects}!for color graphs|hyperpage}{17}
+\indexentry{KnownGroupOfColorAutomorphisms@\texttt  {KnownGroupOfColorAutomorphisms}|hyperpage}{18}
+\indexentry{LiftToColorAutomorphism@\texttt  {LiftToColorAutomorphism}|hyperpage}{18}
+\indexentry{LiftToColorIsomorphism@\texttt  {LiftToColorIsomorphism}|hyperpage}{18}
+\indexentry{ColorIsomorphismColorGraphs@\texttt  {ColorIsomorphismColorGraphs}|hyperpage}{18}
+\indexentry{IsColorIsomorphicColorGraph@\texttt  {IsColorIsomorphicColorGraph}|hyperpage}{18}
+\indexentry{ColorAutomorphismGroup@\texttt  {ColorAutomorphismGroup}|hyperpage}{18}
+\indexentry{ColorAutomorphismGroupOnColors@\texttt  {ColorAutomorphismGroupOnColors}|hyperpage}{19}
+\indexentry{KnownGroupOfAlgebraicAutomorphisms@\texttt  {KnownGroupOfAlgebraicAutomorphisms}|hyperpage}{19}
+\indexentry{AlgebraicAutomorphismGroup@\texttt  {AlgebraicAutomorphismGroup}|hyperpage}{19}
+\indexentry{StructureConstantsOfColorGraph@\texttt  {StructureConstantsOfColorGraph}|hyperpage}{20}
+\indexentry{DenseTensorFromEntries@\texttt  {DenseTensorFromEntries}|hyperpage}{20}
+\indexentry{OrderOfTensor@\texttt  {OrderOfTensor}|hyperpage}{21}
+\indexentry{OrderOfCocoObject@\texttt  {OrderOfCocoObject}!for tensors|hyperpage}{21}
+\indexentry{Order@\texttt  {Order}!for tensors|hyperpage}{21}
+\indexentry{VertexNamesOfCocoObject@\texttt  {VertexNamesOfCocoObject}!for tensors|hyperpage}{21}
+\indexentry{EntryOfTensor@\texttt  {EntryOfTensor}|hyperpage}{21}
+\indexentry{ReflexiveColors@\texttt  {ReflexiveColors}!for structure constants tensors|hyperpage}{21}
+\indexentry{NumberOfFibres@\texttt  {NumberOfFibres}!for structure constants tensors|hyperpage}{21}
+\indexentry{FibreLengths@\texttt  {FibreLengths}!for structure constants tensors|hyperpage}{21}
+\indexentry{OutValencies@\texttt  {OutValencies}!for structure constants tensors|hyperpage}{22}
+\indexentry{Mates@\texttt  {Mates}!for structure constants tensors|hyperpage}{22}
+\indexentry{StartBlock@\texttt  {StartBlock}!for structure constants tensors|hyperpage}{22}
+\indexentry{FinishBlock@\texttt  {FinishBlock}!for structure constants tensors|hyperpage}{22}
+\indexentry{ClosedSets@\texttt  {ClosedSets}|hyperpage}{23}
+\indexentry{ComplexProduct@\texttt  {ComplexProduct}!for structure constants tensors|hyperpage}{23}
+\indexentry{ClosureSet@\texttt  {ClosureSet}|hyperpage}{23}
+\indexentry{IsTensorOfCC@\texttt  {IsTensorOfCC}|hyperpage}{23}
+\indexentry{IsCommutativeTensor@\texttt  {IsCommutativeTensor}|hyperpage}{23}
+\indexentry{IsHomogeneous@\texttt  {IsHomogeneous}!for structure constants tensors|hyperpage}{24}
+\indexentry{IsPrimitive@\texttt  {IsPrimitive}!for structure constants tensors|hyperpage}{24}
+\indexentry{KnownGroupOfAutomorphisms@\texttt  {KnownGroupOfAutomorphisms}!for tensors|hyperpage}{24}
+\indexentry{AutGroupOfCocoObject@\texttt  {AutGroupOfCocoObject}!for tensors|hyperpage}{24}
+\indexentry{AutomorphismGroup@\texttt  {AutomorphismGroup}!for tensors|hyperpage}{24}
+\indexentry{IsAutomorphismOfObject@\texttt  {IsAutomorphismOfObject}!for tensors|hyperpage}{24}
+\indexentry{IsomorphismCocoObjects@\texttt  {IsomorphismCocoObjects}!for tensors|hyperpage}{24}
+\indexentry{IsIsomorphicCocoObject@\texttt  {IsIsomorphicCocoObject}!for tensors|hyperpage}{25}
+\indexentry{IsIsomorphismOfObjects@\texttt  {IsIsomorphismOfObjects}!for tensors|hyperpage}{25}
+\indexentry{CharacterTableOfTensor@\texttt  {CharacterTableOfTensor}!for commutative structure constants tensors|hyperpage}{25}
+\indexentry{BuildGoodSet@\texttt  {BuildGoodSet}|hyperpage}{26}
+\indexentry{AsSet@\texttt  {AsSet}!for good sets|hyperpage}{27}
+\indexentry{TensorOfGoodSet@\texttt  {TensorOfGoodSet}|hyperpage}{27}
+\indexentry{PartitionOfGoodSet@\texttt  {PartitionOfGoodSet}|hyperpage}{27}
+\indexentry{HomogeneousGoodSetOrbits@\texttt  {HomogeneousGoodSetOrbits}!for structure constants tensors|hyperpage}{27}
+\indexentry{HomogeneousGoodSetOrbits@\texttt  {HomogeneousGoodSetOrbits}!for structure constants tensors, alternative|hyperpage}{27}
+\indexentry{GoodSetOrbit@\texttt  {GoodSetOrbit}|hyperpage}{27}
+\indexentry{CanonicalRepresentativeOfCocoOrbit@\texttt  {CanonicalRepresentativeOfCocoOrbit}!for orbits of good sets|hyperpage}{28}
+\indexentry{Representative@\texttt  {Representative}!for orbits of good sets|hyperpage}{28}
+\indexentry{UnderlyingGroupOfCocoOrbit@\texttt  {UnderlyingGroupOfCocoOrbit}!for orbits of good sets|hyperpage}{28}
+\indexentry{StabilizerOfCanonicalRepresentative@\texttt  {StabilizerOfCanonicalRepresentative}!for orbits of good sets|hyperpage}{28}
+\indexentry{Size@\texttt  {Size}!for orbits of good sets|hyperpage}{28}
+\indexentry{AsList@\texttt  {AsList}!for orbits of good sets|hyperpage}{28}
+\indexentry{AsSet@\texttt  {AsSet}!for orbits of good sets|hyperpage}{28}
+\indexentry{SubOrbitsOfCocoOrbit@\texttt  {SubOrbitsOfCocoOrbit}!for orbits of good sets|hyperpage}{29}
+\indexentry{SubOrbitsWithInvariantPropertyOfCocoOrbit@\texttt  {Sub}\discretionary {-}{}{}\texttt  {Orbits}\discretionary {-}{}{}\texttt  {With}\discretionary {-}{}{}\texttt  {Invariant}\discretionary {-}{}{}\texttt  {Property}\discretionary {-}{}{}\texttt  {Of}\discretionary {-}{}{}\texttt  {Coco}\discretionary {-}{}{}\texttt  {Orbit}!for orbits of good sets|hyperpage}{29}
+\indexentry{FusionFromPartition@\texttt  {FusionFromPartition}!for structure constant tensors|hyperpage}{29}
+\indexentry{AsPartition@\texttt  {AsPartition}|hyperpage}{29}
+\indexentry{PartitionOfFusion@\texttt  {PartitionOfFusion}|hyperpage}{29}
+\indexentry{TensorOfFusion@\texttt  {TensorOfFusion}|hyperpage}{30}
+\indexentry{BaseOfFusion@\texttt  {BaseOfFusion}|hyperpage}{30}
+\indexentry{RankOfFusion@\texttt  {RankOfFusion}|hyperpage}{30}
+\indexentry{HomogeneousFusionOrbits@\texttt  {HomogeneousFusionOrbits}!for structure constants tensors|hyperpage}{30}
+\indexentry{HomogeneousFusionOrbits@\texttt  {HomogeneousFusionOrbits}!for structure constants tensors, alternative|hyperpage}{30}
+\indexentry{FusionOrbit@\texttt  {FusionOrbit}|hyperpage}{30}
+\indexentry{CanonicalRepresentativeOfCocoOrbit@\texttt  {CanonicalRepresentativeOfCocoOrbit}!for orbits of fusions|hyperpage}{31}
+\indexentry{Representative@\texttt  {Representative}!for orbits of fusions|hyperpage}{31}
+\indexentry{UnderlyingGroupOfCocoOrbit@\texttt  {UnderlyingGroupOfCocoOrbit}!for orbits of fusions|hyperpage}{31}
+\indexentry{StabilizerOfCanonicalRepresentative@\texttt  {StabilizerOfCanonicalRepresentative}!for orbits of fusions|hyperpage}{31}
+\indexentry{Size@\texttt  {Size}!for orbits of fusions|hyperpage}{31}
+\indexentry{AsList@\texttt  {AsList}!for orbits of fusions|hyperpage}{31}
+\indexentry{AsSet@\texttt  {AsSet}!for orbits of fusions|hyperpage}{31}
+\indexentry{SubOrbitsOfCocoOrbit@\texttt  {SubOrbitsOfCocoOrbit}!for orbits of fusions|hyperpage}{32}
+\indexentry{SubOrbitsWithInvariantPropertyOfCocoOrbit@\texttt  {Sub}\discretionary {-}{}{}\texttt  {Orbits}\discretionary {-}{}{}\texttt  {With}\discretionary {-}{}{}\texttt  {Invariant}\discretionary {-}{}{}\texttt  {Property}\discretionary {-}{}{}\texttt  {Of}\discretionary {-}{}{}\texttt  {Coco}\discretionary {-}{}{}\texttt  {Orbit}!for orbits of fusions|hyperpage}{32}
+\indexentry{CocoPosetByFunctions@\texttt  {CocoPosetByFunctions}|hyperpage}{33}
+\indexentry{ElementsOfCocoPoset@\texttt  {ElementsOfCocoPoset}|hyperpage}{34}
+\indexentry{Size@\texttt  {Size}!for COCO-posets|hyperpage}{34}
+\indexentry{SuccessorsInCocoPoset@\texttt  {SuccessorsInCocoPoset}|hyperpage}{34}
+\indexentry{PredecessorsInCocoPoset@\texttt  {PredecessorsInCocoPoset}|hyperpage}{34}
+\indexentry{IdealInCocoPoset@\texttt  {IdealInCocoPoset}|hyperpage}{34}
+\indexentry{IdealInCocoPoset@\texttt  {IdealInCocoPoset}!for principal ideals|hyperpage}{34}
+\indexentry{FilterInCocoPoset@\texttt  {FilterInCocoPoset}|hyperpage}{34}
+\indexentry{FilterInCocoPoset@\texttt  {FilterInCocoPoset}!for principal filters|hyperpage}{34}
+\indexentry{MinimalElementsInCocoPoset@\texttt  {MinimalElementsInCocoPoset}|hyperpage}{34}
+\indexentry{MaximalElementsInCocoPoset@\texttt  {MaximalElementsInCocoPoset}|hyperpage}{35}
+\indexentry{InducedCocoPoset@\texttt  {InducedCocoPoset}|hyperpage}{35}
+\indexentry{GraphicCocoPoset@\texttt  {GraphicCocoPoset}|hyperpage}{35}
+\indexentry{ColorIsomorphicFusions@\texttt  {ColorIsomorphicFusions}|hyperpage}{35}
+\indexentry{SubColorIsomorphismPoset@\texttt  {SubColorIsomorphismPoset}|hyperpage}{35}
+\indexentry{GraphicCocoPoset@\texttt  {GraphicCocoPoset}!for posets of color graphs|hyperpage}{35}
+\indexentry{ColorSemiring@\texttt  {ColorSemiring}|hyperpage}{38}
+\indexentry{GeneratorsOfColorSemiring@\texttt  {GeneratorsOfColorSemiring}|hyperpage}{39}
+\indexentry{AsElementOfColorSemiring@\texttt  {AsElementOfColorSemiring}|hyperpage}{39}

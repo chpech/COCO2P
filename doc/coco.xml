@@ -1,0 +1,2153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE Book SYSTEM "gapdoc.dtd"
+[ <!ENTITY COCO "<Package>COCO2P</Package>">
+  ]>
+
+<Book Name="COCO2P">
+  <TitlePage>
+    <Title>The  &COCO; Package</Title>
+    <Version>Version 0.1</Version>
+    <Author>Mikhail Klin
+    <Email>klin@cs.bgu.ac.il
+    </Email>
+    </Author>
+    <Author>Christian Pech
+    <Email>christian.pech@tu-dresden.de</Email>
+    </Author>
+    <Author>Sven Reichard
+    <Email>sven.reichard@tu-dresden.de</Email>
+    </Author>
+    <Copyright>  &copyright; 2012, 2014 by the authors<P/>
+    This package may be distributed under the terms and conditions of the
+    GNU Public License Version 2 or higher.
+    </Copyright>
+  </TitlePage>
+  <TableOfContents/>
+  <Body>
+    <Chapter>
+      <Heading>Color Graphs</Heading>
+      <Section Label="sec:theory">
+	<Heading>Theory</Heading>
+	A color graph (cgr) in &COCO; is a triple <M>(V,C,f)</M>, where
+	<M>V</M> is a set of vertices, <M>C</M> is set of colors, and
+	<M>f : V \times V \to C</M> assigns to every arc its
+	color. &COCO; does not know the concept of
+	non-arcs. However,
+	this is not an essential restriction, since non-arcs 
+	may be simulated by introducing a special distinguished color.
+	<P/>
+	Of special interrest in &COCO; are WL-stable color graphs
+	(that is cgrs that are
+	stable under the Weisfeiler-Leman algorithm <Cite
+	Key="WeiL68"/>, <Cite Key="Wei76"/>). In the frames of &COCO; the maximal
+	monochromatic sets of arcs of a WL-stable color graph will
+	always form a <E>coherent configuration</E>. On the other hand, from
+	every coherent configuration we can obtain a WL-stable cgr
+	(every pair of vertices is colored by the relation it belongs
+	to). 
+	<P/>
+	For historical reasons, &COCO; uses the nomenclature of color
+	graphs. However, this is only of importance for concepts like
+	automorphisms and isomorphisms. While both, automorphisms and
+	isomorphisms have to preserve colors (as it is expected for
+	color graphs), color-automorphisms, and color-isomorphisms
+	only have to respect color classes, that is, they may map arcs
+	of one color to arcs of another color. 
+	<P/>
+	
+      </Section>
+      <Section Label="sec:cgr-representation">
+	<Heading> On the representation of color graphs in &COCO;
+	</Heading>
+	For a color graph, the set of vertices as well as the set of
+	colors may be any finite set representable in &GAP;. For
+	performance reasons, &COCO; does not use these sets inside its
+	algorithms (except when constructing color graphs). Instead,
+	&COCO; refers to vertices and colors by their position in the
+	vertex-set and color-set, respectively. In fact vertices and
+	colors are identified with these indices. In order not to
+	loose information, every color graph in &COCO; keeps a list of
+	names of vertices and a list of names of colors. The set of
+	vertex-names is equal to the original set of vertices, and the
+	set of color names is equal to the original set of colors.
+      </Section>
+      <Section Label="sec:cgr-constructors">
+	<Heading>Functions for the construction of color
+	graphs</Heading>
+	<ManSection>
+	  <Func Name="ColorGraphByOrbitals" Arg="grp[, domain [, Action [, completeDom]]]"/>
+	  <Description>
+	    This function constructs the color graph of orbitals color graphs from a group
+	    action by mapping each arc to a representative
+	    of its orbital of the given group action.
+	    <P/> 
+	    In its first form, the function returns the color graph of
+	    orbitals of the permutation group <A>grp</A> in its natural
+	    action (i.e. on <M>\{1,\dots,n\}</M>, where <M>n</M> is
+	    the largest moved point of <A>grp</A>). 
+	    <Example>
+<![CDATA[gap> d7 := Group( (1,2,3,4,5,6,7), (1,7)(2,6)(3,5));;
+gap> cgr := ColorGraphByOrbitals(d7);
+<color graph of order 7 and rank 4>]]>
+	    </Example>
+	    <P/>
+	    In the second form the function returns the color graph of
+	    orbitals of <A>grp</A> acting on <A>domain</A>
+	    <C>OnPoints</C>. If <A>domain</A> is not invariant under
+	    <A>grp</A>, then the smallest invariant extension of
+	    <A>domain</A> is taken as acting domain.
+	    <P/>
+	    <Example>
+<![CDATA[gap> d7 := Group( (1,2,3,4,5,6,7), (1,7)(2,6)(3,5));;
+gap> cgr := ColorGraph(d7, [1]);
+<color graph of order 7 and rank 4>]]>      
+	    </Example>
+	    <P/>
+	    In the third variant of <C>ColorGraphByOrbitals</C> an action can be
+	    given:
+	    <Example>
+<![CDATA[gap> cgr:=ColorGraph(SymmetricGroup(5), Combinations([1..5],2), OnSets);
+<color graph of order 10 and rank 3>]]>
+	    </Example>
+	    <P/>
+	    The optional fourth argument <A>completeDom</A> is a
+	    boolean. If it is <K>True</K>, then the function
+	    assumes that <A>domain</A> is closed under <A>action</A>
+	    of <A>grp</A>. This has the effect, that the function dows
+	    not try to complete it. The effect is that in the
+	    resulting color graph it is guaranteed that the vertex
+	    with number <C>i</C> corresponds exactly to
+	    <C>domain[i]</C>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="ColorGraph" Arg="grp[, domain [, action [,
+				       completeDom [, coloring]]]]"/>
+	  <Description>
+	    This is the most general function for the construction of
+	    color graphs. When called with less than <M>5</M>
+	    arguments, it is identical with the function <Ref
+	    Func="ColorGraphByOrbitals" Style="Text"/>
+	    <P/>
+	    The optional fifth argument <A>coloring</A> is a
+	    coloring-function. It takes as input two vertices
+	    (elements of the acting domain) <M>u, v</M>, and it has to
+	    return the color of the arc  <M>(u, v)</M>. In principle,
+	    the color can be any &GAP; object. However, it should be
+	    possible to compare colors and to form sets of them.
+	    <Example>
+<![CDATA[gap> cgr:=ColorGraph(SymmetricGroup(8),
+> Combinations([1..8],4), OnSets, true,
+> function(u,v) return
+> Length(Intersection(u,v));end);
+<color graph of order 70 and rank 5>]]>
+	    </Example>
+	    It is supposed that <A>coloring</A> is invariant under the
+	    given action (this is not checked!).
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="ColorGraphByMatrix" Arg="mat"/>
+	  <Description>
+	    This function constructs a color graph from its adjacency
+	    matrix. The argument <A>mat</A> is a list of <M>n</M>
+	    lists of length <M>n</M>. The vertex-set  of the resulting
+	    color graph is <M>\{1,\dots,n\}</M>, while the color of
+	    the arc <M>(i,j)</M> is <C>mat[i][j]</C>. The entries can
+	    be any kind of &GAP;-objects that can be compared and that
+	    can be organized in a set.
+	    <Example>
+<![CDATA[gap> m:=[["black","red"  ,"blue" ,"blue" ,"blue" ],
+>        ["blue" ,"black","red"  ,"blue" ,"blue" ],
+>        ["blue" ,"blue", "black","red"  ,"blue" ],
+>        ["blue" ,"blue", "blue" ,"black","red"  ],
+>        ["red"  ,"blue", "blue" ,"blue" ,"black"]];;
+gap> cgr:=ColorGraphByMatrix(m);
+<color graph of order 5 and rank 3>]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="ColorGraphByWLStabilization"
+		Arg="cgr"/>
+	  <Description>
+	    If <A>cgr</A> is WL-stable then the function returns
+	    <A>cgr</A>. Otherwise, the WL-stabilization of <A>cgr</A>
+	    is returned. The colors of the stabilization have names of
+	    the shape <C>[c,i]</C> where <C>c</C> is a
+	    color of <A>cgr</A> and <C>i</C> is the index of a
+	    fragment of color <C>c</C>.
+	    <P/>
+	    This function does not really implement the
+	    Weisfeiler-Leman algorithm. Rather it does a stabilization
+	    inside of a Schurian WL-stable fission of <A>cgr</A>. The
+	    performance depends mainly on the order of the group of
+	    known automorphisms of <A>cgr</A> (cf <Ref
+	    Oper="KnownGroupOfAutomorphisms" Label="for color graphs"/>). 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="ClassicalCompleteAffineScheme" Arg="q"/>
+	  <Description>
+	    The classical complete affine scheme is a WL-stable,
+	    Schurian, amorphic color  graph defined on the set
+	    of points of the affine plane over <M>GF(q)</M>. The
+	    reflexive closure of every irreflexive color class is an
+	    equivalence relation whose equivalence classes form a
+	    complete parallel class of lines. Moreover, to every
+	    parallel class there corresponds a color class.
+	    <P/>
+	    This function returns the classical complete affine scheme
+	    over <M>GF(q)</M>. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="JohnsonScheme" Arg="n,k"/>
+	  <Description>
+	    The Johnson scheme <M>J(n,k)</M> is a WL-stable, Schurian color
+	    graph. Its vertices are the <A>k</A>-element subsets of
+	    <M>\{1,\dots,n\}</M>.
+	    The colors are elements of <M>\{0,\dots,k\}</M>. The color
+	    of an arc <M>(M,N)</M> is the cardinality of the
+	    intersection of <M>M</M> and <M>N</M>.
+	    <P/>
+	    This function returns the Johnson scheme <M>J(n,k)</M>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="CyclotomicColorGraph" Arg="p,n,d"/>
+	  <Description>
+	    Let <M>p</M> be a prime, <M>n</M>, <M>d</M> be positive
+	    integers, such that <M>d</M> divides <M>(p^n-1)</M>. Let
+	    <M>q:=p^n</M>, and let <M>r</M> be a primitive element of
+	    <M>GF(q)</M>. Let <M>C</M> be the set of all powers of
+	    <M>r^d</M> in <M>GF(q)</M> the cyclotomic colored graph
+	    <M>Cyc(p,n,d)</M> has as vertices the elements of
+	    <M>GF(q)</M>. The set of colors is given by
+	    <M>\{*,0,1,...,d-1\}</M>. A pair <M>(x,y)</M> of vertices
+	    has color <M>*</M> in <M>Cyc(p,n,d)</M> if <M>x=y</M>. It
+	    has color <M>i</M> if <M>(x-y)</M> is an element of
+	    <M>C\cdot(r^i)</M>.  
+	  <P/>
+	  This function returns the Cyclotomic scheme <M>Cyc(p,n,d)</M>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="AllAssociationSchemes" Arg="n"/>
+	  <Description>
+	    This function creates an interface to the database of
+	    small association schemes by Akihide Hanaki and Izumi
+	    Miyamoto from
+	    <URL>http://math.shinshu-u.ac.jp/~hanaki/as/</URL> (further
+	    refered to as the Japanese catalogue)
+	    <P/>
+	    This function downloads the list of small association
+	    schemes of order <A>n</A>. Then it converts them to the
+	    internal format of &COCO; and returns the resulting
+	    list. Every color graph has a name of the shape
+	    <C>AS(n,k)</C> where <C>k</C> is the index of the scheme
+	    in the list of schemes of order <A>n</A> in the Japanese
+	    catalogue.
+	  </Description>
+	</ManSection>
+      </Section>	
+      <Section Label="sec:cgr-inspection">
+	<Heading>Functions for the inspection of color
+	graphs</Heading>
+	<ManSection>
+	  <Attr Name="OrderOfColorGraph" Arg="cgr"/>
+	  <Attr Name="OrderOfCocoObject" Arg="cgr" Label="for color graphs"/>
+	  <Attr Name="Order" Arg="cgr" Label="for color graphs"/>
+	  <Description>
+	    Returns the number of vertices of <A>cgr</A>. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="RankOfColorGraph" Arg="cgr"/>
+	  <Meth Name="Rank" Arg="cgr" Label="for color graphs"/>
+	  <Description>
+	    Returns the number of colors of <A>cgr</A>. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="VertexNamesOfCocoObject" Arg="cgr"
+		Label="for color graphs"/>
+	  <Description>
+	    Returns the list of names of the vertices of
+	    <A>cgr</A>. Unfortunately, the more elegant  name
+	    <C>VertexNames</C> is used in <Package>Grape</Package> as
+	    the name of a global function and can not be overloaded.
+	    <Example>
+<![CDATA[gap> cgr:=JohnsonScheme(5,2);;
+gap> VertexNamesOfCocoObject(cgr);
+[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+[ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="ColorNames" Arg="cgr"/>
+	  <Description>
+	    Returns the list of names of the colors of <A>cgr</A>.
+	    In the following example, the color names of the Johnson
+	    scheme are the possible cardinalities of the intersection
+	    of two <M>2</M>-element subsets of
+	    <M>\{1,2,3,4,5\}</M>. Thus loobs will get colored by
+	    <M>1</M>, since the intersection of a <M>2</M>-element set
+	    with itself will have cardinality <M>2</M>.
+	    <Example>
+<![CDATA[gap> cgr:=JohnsonScheme(5,2);;
+gap> ColorNames(cgr);
+[ 2, 1, 0 ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="ArcColorOfColorGraph" Arg="cgr, u,v"/>
+	  <Meth Name="ArcColorOfColorGraph" Arg="cgr, arc"/>
+	  <Description>
+	    Returns the color of the arc <M>(u,v)</M>. In the second
+	    form, the arc is <A>arc</A> is given as an ordered pair
+	    <C>[u,v]</C>.
+	    <Example>
+<![CDATA[gap> cgr:=JohnsonScheme(5,2);;
+gap> ColorNames(cgr);
+[ 2, 1, 0 ]
+gap> VertexNamesOfCocoObject(cgr);
+[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+[ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]
+gap> ArcColorOfColorGraph(cgr,1,10);
+3
+gap> ArcColorOfColorGraph(cgr,[2,9]);
+2]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="ColorRepresentative" Arg="cgr, i"/>
+	  <Description>
+	    Returns any arc of color <A>i</A> of <A>cgr</A>. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="Neighbors" Arg="cgr,v,colors"/>
+	  <Meth Name="Neighbors" Arg="cgr,v,color"/>
+	  <Description>
+	    The first variant returns the set of all vertices <M>w</M>
+	    of <A>cgr</A> such that the color of the arc <M>(v,w)</M>
+	    is an element of the set <A>colors</A>. 
+	    <P/>
+	    The second variant gets as third argument a single color
+	    of <A>cgr</A>. 
+	    <Example>
+<![CDATA[gap> cgr:=JohnsonScheme(5,2);;
+gap> ColorNames(cgr);
+[ 2, 1, 0 ]
+gap> VertexNamesOfCocoObject(cgr);
+[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+[ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]
+gap> Neighbors(cgr,1,3);
+[ 8, 9, 10 ]
+gap> Neighbors(cgr,1,[1,2]);
+[ 1, 2, 3, 4, 5, 6, 7 ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="AdjacencyMatrix" Arg="cgr"/>
+	  <Description>
+	    Returns the adjacency matrix of <A>cgr</A>. If <M>A</M> is
+	    the adjacency matrix of <A>cgr</A>, then <M>A(i,j)</M> is
+	    equal to the color (not to the color name!) of the arc
+	    <M>(i,j)</M>.
+	    <Example>
+<![CDATA[gap> m:=[["black","red"  ,"blue" ,"blue" ,"blue" ],
+>        ["blue" ,"black","red"  ,"blue" ,"blue" ],
+>        ["blue" ,"blue", "black","red"  ,"blue" ],
+>        ["blue" ,"blue", "blue" ,"black","red"  ],
+>        ["red"  ,"blue", "blue" ,"blue" ,"black"]];;
+gap> cgr:=ColorGraphByMatrix(m);
+<color graph of order 5 and rank 3> 
+gap> Display(AdjacencyMatrix(cgr));
+[ [  1,  3,  2,  2,  2 ],
+  [  2,  1,  3,  2,  2 ],
+  [  2,  2,  1,  3,  2 ],
+  [  2,  2,  2,  1,  3 ],
+  [  3,  2,  2,  2,  1 ] ]
+gap> ColorNames(cgr)
+[ "black", "blue", "red" ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="RowOfColorGraph" Arg="cgr, i"/>
+	  <Description>
+	    Returns the <M>i</M>-th row of the adjacency matrix of
+	    <A>cgr</A> (<Ref Oper="AdjacencyMatrix"/>).
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="ColumnOfColorGraph" Arg="cgr,j"/>
+	  <Description>
+	    Returns the <M>j</M>-th column of the adjacency matrix of
+	    <A>cgr</A> (<Ref Oper="AdjacencyMatrix"/>).
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="Fibres" Arg="cgr"/>
+	  <Description>
+	    The <E>Fibres</E> of a color graph are the maximal sets of
+	    vertices whose corresponding loops all have the same color.
+	    <Example>
+<![CDATA[gap> cgr:=ColorGraph(SymmetricGroup(4), Combinations([1..4]), OnSets,
+> true, functions(m1,m2) return Length(Intersection(m1,m2));end);
+<color graph of order 16 and rank 5>
+gap> Fibres(cgr);
+[ [ 1 ], [ 2, 10, 14, 16 ], [ 3, 7, 9, 11, 13, 15 ], [ 4, 6, 8, 12 ], [ 5 ] ]
+gap> VertexNamesOfCocoObject(cgr);
+[ [  ], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 2, 3, 4 ], [ 1, 2, 4 ], 
+[ 1, 3 ], [ 1, 3, 4 ], [ 1, 4 ], [ 2 ], [ 2, 3 ], [ 2, 3, 4 ], 
+[ 2, 4 ], [ 3 ], [ 3, 4 ], [ 4 ] ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="NumberOfFibres" Arg="cgr"/>
+	  <Description>
+	    Returns the number of different colors of loops of
+	    <A>cgr</A> (cf. <Ref Oper="Fibres"/>).
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="LocalIntersectionArray" Arg="cgr,v,w"/>
+	  <Meth Name="LocalIntersectionArray" Arg="cgr, arc"
+		Label="alternative"/>
+	  <Description>
+	    The input to this operation is a color graph <A>cgr</A>
+	    and an arc. In the first version this arc is given as two
+	    parameters <A>v</A>, and <A>w</A>. In the second form the
+	    arc is given as ordered pair <A>arc</A>. We will assume in
+	    the following that <C>arc=[v,w]</C>. The local
+	    intersection array of the arc <M>(v,w)</M> is the square
+	    matrix <M>A</M> of order <C>RankOfColorGraph(cgr)</C>
+	    where <M>A(i,j)</M> is equal to the number of vertices
+	    <M>u</M> of <A>cgr</A> such that the arc <M>(v,u)</M> has
+	    color <M>i</M> and the arc <M>(u,w)</M> has color
+	    <M>j</M>. 
+	    <Example>
+<![CDATA[gap> cgr:=JohnsonScheme(5,2);
+<color graph of order 10 and rank 3>
+gap> ColorRepresentative(cgr,1);
+[ 1, 1 ]
+gap> ColorRepresentative(cgr,2);
+[ 1, 2 ]
+gap> ColorRepresentative(cgr,3);
+[ 1, 8 ]
+gap> Display(LocalIntersectionArray(cgr,1,1)); 
+[ [  1,  0,  0 ],
+  [  0,  6,  0 ],
+  [  0,  0,  3 ] ]
+gap> Display(LocalIntersectionArray(cgr,1,2));
+[ [  0,  1,  0 ],
+  [  1,  3,  2 ],
+  [  0,  2,  1 ] ]
+gap> Display(LocalIntersectionArray(cgr,1,8)); 
+[ [  0,  0,  1 ],
+  [  0,  4,  2 ],
+  [  1,  2,  0 ] ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="ColorMates" Arg="cgr"/>
+	  <Description>
+	    In a WL-stable color graph for every color <M>i</M> there
+	    exists a color <M>i'</M> such that whenever an arc
+	    <M>(u,v)</M> has color <M>i</M>, then the opposite arc
+	    <M>(v,u)</M> has color <M>i'</M>. The mapping from
+	    <M>i</M> to <M>i'</M> is a permutation of the colors. The
+	    function <C>ColorMates</C> returns this permutation.
+	    <Example>
+<![CDATA[gap> cgr:=ColorGraph(Group((1,2,3,4,5)));;
+gap> Display(AdjacencyMatrix(cgr));
+[ [  1,  2,  3,  4,  5 ],
+  [  5,  1,  2,  3,  4 ],
+  [  4,  5,  1,  2,  3 ],
+  [  3,  4,  5,  1,  2 ],
+  [  2,  3,  4,  5,  1 ] ]
+gap> ColorMates(cgr);
+(2,5)(3,4)]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="OutValencies" Arg="cgr" Label="for WL-stable color graphs"/>
+	  <Description>
+	    Let <M>i</M> and a color of <A>cgr</A>. Then there is a
+	    number <M>d(i)</M> such that for every vertex <M>v</M> of
+	    <A>cgr</A> there is either no arc, or there are exactly
+	    <M>d(i)</M> arcs leaving <M>v</M>. The number <M>d(i)</M>
+	    is called the <E>subdegree</E> of the color <M>i</M>.
+	    <P/>
+	    The function <C>OutValencies</C> returns a the list <C>[d(1),d(2),...,d(RankOfColorGraph(cgr))]</C>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="ReflexiveColors" Arg="cgr" Label="for WL-stable color graphs"/>
+	  <Description>
+	    This function returns the list of all reflexive colors of
+	    the WL-stable color graph <A>cgr</A>.
+	  </Description>
+	</ManSection>
+     </Section>
+     <Section Label="sec:cgr-functors">
+	<Heading> Creating new (color) graphs from given color
+	graphs</Heading>
+	<ManSection>
+	  <Oper Name="ColorGraphByFusion" Arg="cgr,fusion"/>
+	  <Description>
+	    The function takes as arguments a color graph <A>cgr</A>
+	    and a fusion. The fusion can be either a list of sets of
+	    colors, or it belongs to the category <C>IsFusionOfTensor</C> and more concretely to the
+	    family
+	    <C>FusionFamily(StructureConstantsOfColorGraph(cgr))</C>. In
+	    the latter case, <A>cgr</A> has to be WL-stable. 
+	    <P/>
+	    The fusion-color graph has the same order like
+	    <A>cgr</A>. The color of an arc <M>(i,j)</M> in the fusion
+	    color graph is the list of all classes of <A>fusion</A> to
+	    which <C>ArcColorOfColorGraph(cgr,i,j)</C> belongs.
+	    If <A>fusion</A> is a partition, then the effect is that
+	    all colors in one class are fused into the same new color.
+	    If <A>fusion</A> is not a partition, then the resulting
+	    color graph will be color-isomorphic to the fusion color
+	    graph of <A>cgr</A> with respect to the coarsest partition
+	    that allows to obtain every element  of <A>fusion</A> as a
+	    union of classes.
+	    <Example>
+<![CDATA[gap> cgr:=ColorGraph(Group((1,2,3,4,5)));
+<color graph of order 5 and rank 5>
+gap> cgr2:=ColorGraphByFusion(cgr,[[1],[2,3],[4],[5]]);
+<color graph of order 5 and rank 4>
+gap> Display(AdjacencyMatrix(cgr)); 
+[ [  1,  2,  3,  4,  5 ],
+  [  5,  1,  2,  3,  4 ],
+  [  4,  5,  1,  2,  3 ],
+  [  3,  4,  5,  1,  2 ],
+  [  2,  3,  4,  5,  1 ] ]
+gap> Display(AdjacencyMatrix(cgr2));
+[ [  1,  2,  2,  3,  4 ],
+  [  4,  1,  2,  2,  3 ],
+  [  3,  4,  1,  2,  2 ],
+  [  2,  3,  4,  1,  2 ],
+  [  2,  2,  3,  4,  1 ] ]
+gap> ColorNames(cgr2);
+[ [ [ 1 ] ], [ [ 2, 3 ] ], [ [ 4 ] ], [ [ 5 ] ] ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="QuotientColorGraph" Arg="cgr,part"/>
+	  <Description>
+	    <A>part</A> is a partition of the vertex set of the color
+	    graph <A>cgr</A> (it has to be a set of sets of
+	    vertices). 
+	    The quotient graph of <A>cgr</A> with respect 
+	    to <A>part</A> has as vertex set the classes of
+	    <A>part</A>. the color of the arc <M>([u], [v])</M> the
+	    quotient graph is the
+	    set of all colors <M>i</M> of <A>cgr</A> such that there are vertices
+	    <M>u'\in [u]</M> and <M>v'\in [v]</M> such that the arc
+	    <M>(u', v')</M> has color <M>i</M>.
+	    <P/>
+	    The above described color graph is also well-defined, if
+	    <A>part</A> is not a partition but any set of sets of
+	    vertices of <A>cgr</A>. In fact, <C>QuotientColorGraph</C>
+	    does not check, whether <A>part</A> is indeed a partition.
+	    <Example>
+<![CDATA[gap> s5:=SymmetricGroup(5);;
+gap> cgr:=ColorGraph(s5, Arrangements([1..5],2), OnPairs,true);
+<color graph of order 20 and rank 7>
+gap> part:=Set(Orbit(s5, [[1,2],[2,1]], OnSetsTuples));;
+gap> part:=Set(part, x->Set(x, y->Position(VertexNamesOfCocoObject(cgr),y)));
+[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ], 
+[ 8, 18 ], [ 11, 15 ], [ 12, 19 ], [ 16, 20 ] ]
+gap> cgr2:=QuotientColorGraph(cgr,part);
+<color graph of order 10 and rank 3>
+gap> ColorNames(cgr2);
+[ [ 1, 3 ], [ 2, 4, 5, 6 ], [ 7 ] ]
+gap> VertexNamesOfCocoObject(cgr2);
+[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ], 
+[ 8, 18 ], [ 11, 15 ], [ 12, 19 ], [ 16, 20 ] ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="InducedSubColorGraph" Arg="cgr,set"/>
+	  <Description>
+	    This function returns a color graph that is isomorphic to
+	    the sub color graph induced by <A>set</A>. The function
+	    that maps <M>i</M> to <C>set[i]</C> is an embedding of the
+	    induced subgraph into <A>cgr</A>.
+	    <Example>
+<![CDATA[gap> cgr:=ColorGraph(SymmetricGroup(5), Combinations([1..5]), OnSets, true);
+<color graph of order 32 and rank 56>
+gap> vn:=VertexNamesOfCocoObject(cgr);;
+gap> fibre:=Filtered([1..Length(vn)], i->Length(vn[i])=2);
+[ 3, 11, 15, 17, 19, 23, 25, 27, 29, 31 ]
+gap> cgr2:=InducedSubColorGraph(cgr,fibre);
+<color graph of order 10 and rank 3>
+gap> VertexNamesOfCocoObject(cgr2);
+[ 3, 11, 15, 17, 19, 23, 25, 27, 29, 31 ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="DirectProductColorGraphs" Arg="cgr1,cgr2"/>
+	  <Description>
+	    Suppose, <A>cgr1</A> is the color graph
+	    <M>(V_1,C_1,f_1)</M>, and <A>cgr2</A> is the color graph
+	    <M>(V_2,C_2,f_2)</M>. Then the direct product of
+	    <A>cgr1</A> with <A>cgr2</A> has vertex set <M>V_1 \times
+	    V_2</M>, and color set <M>C_1 \times C_2</M>. The coloring
+	    function is <M>f_1 \times f_2</M>. Here <M>f_1 \times
+	    f_2</M> acts coordinate wise.
+	    <P/>
+	    The operation <C>DirectProductColorGraphs</C> returns the
+	    direct product of <A>cgr1</A> with <A>cgr2</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="WreathProductColorGraphs" Arg="cgr1,cgr2"/>
+	  <Description>
+	    Suppose, <A>cgr1</A> is the color graph
+	    <M>(V_1,C_1,f_1)</M>, and <A>cgr2</A> is the color graph
+	    <M>(V_2,C_2,f_2)</M>. Suppose, <M>D_1</M> is the set of
+	    all those colors of <A>cgr1</A> whose color class contains
+	    reflexive tuples. Then the wreath product of
+	    <A>cgr1</A> with <A>cgr2</A> has vertex set <M>V_1 \times
+	    V_2</M>. The set of colors is the union of <M>C_1 \times
+	    \{*\}</M> with <M>D_1 \times C_2</M>. The coloring
+	    function maps pairs <M>((a_1,a_2), (a_1,b_2))</M>
+	    to <M>(f_1(a_1,a_1),f_2(b_1,b_2))</M>, and other pairs
+	    <M>((a_1,a_2),(b_1,b_2))</M> to <M>(f_1(a_1,a_2),*)</M>. 
+	    <P/>
+	    The operation <C>WreathProductColorGraphs</C> returns the
+	    direct product of <A>cgr1</A> with <A>cgr2</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="ClosedSets" Arg="cgr" 
+		Label="for homogeneous WL-stable color graphs"/>
+	  <Description>
+	    A set <C>cset</C> of colors of <A>cgr</A> is closed if the
+	    collections of all arcs whose color is from <C>cset</C>
+	    forms an equivalence relation. This function returns a
+	    list of all closed sets of colors of <A>cgr</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="PartitionClosedSet" Arg="cgr,cset" 
+		Label="for homogeneous WL-stable color graphs"/>
+	  <Description>
+	    A set <A>cset</A> of colors of <A>cgr</A> is closed if the
+	    collections of all arcs whose color is from <A>cset</A>
+	    forms an equivalence relation. This function returns the
+	    vertex-partition corresponding to this equivalence
+	    relation. It is not tested, whether <A>cset</A> is indeed
+	    closed. It is required that <A>cgr</A> is  a
+	    homogeneous WL-stable color graph. 
+	    <Example>
+<![CDATA[gap> s5:=SymmetricGroup(5);;
+gap> d6:=Subgroup(s5, [(1,2),(1,2,3)(4,5)]);;
+gap> cgr:=ColorGraph(s5,s5,OnRight,true, function(a,b) return a*b;end);
+<color graph of order 120 and rank 120>
+gap> cset:=Set(d6, x->Position(ColorNames(cgr),x));
+[ 1, 8, 13, 24, 29, 31, 61, 68, 73, 84, 89, 91 ]
+gap> IsWLStableColorGraph(cgr);         
+true
+gap> IsHomogeneous(cgr);                
+true
+gap> part:=PartitionClosedSet(cgr,cset);;
+gap> cgr2:=QuotientColorGraph(cgr,part);
+<color graph of order 10 and rank 3>]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="BaseGraphOfColorGraph" Arg="cgr,color"/>
+	  <Meth Name="BaseGraphOfColorGraph" Arg="cgr,cset"/>
+	  <Description>
+	    This function extracts graphs from a color graph. In the
+	    first variant, the second argument is one color. In this
+	    case the digraph with vertex set
+	    <C>[1..OrderOfColorGraph(cgr)]</C> and with all arcs of
+	    color <A>color</A> from <A>cgr</A>.
+	    <P/>
+	    In the second case the arc-set of the result consists of
+	    all arcs with color from <A>cset</A> of <A>cgr</A>.
+	    <P/>
+	    This function is available only if
+	    <Package>Grape</Package> is loaded.
+	    <Example>
+<![CDATA[gap> cgr:=JohnsonScheme(5,2);
+<color graph of order 10 and rank 3>
+gap> OutValencies(cgr);
+[ 1, 6, 3 ]
+gap> gamma:=BaseGraphOfColorGraph(cgr,3);;
+gap> IsDistanceRegular(gamma);
+true
+gap> GlobalParameters(gamma);
+[ [ 0, 0, 3 ], [ 1, 0, 2 ], [ 1, 2, 0 ] ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+      </Section>
+
+
+      <Section Label="Sec:cgr-properties">
+	<Heading>
+	  Testing properties of color graphs
+	</Heading>
+	<ManSection>
+	  <Prop Name="IsUndirectedColorGraph" Arg="cgr"/>
+	  <Description>
+	    A color graph is called <E>undirected</E> if for all
+	    vertices <M>u</M> and <M>v</M> the arc <M>(u,v)</M> has
+	    the same color as the arc <M>(v,u)</M>. The function tests
+	    this property for <A>cgr</A>.
+	    <Example>
+<![CDATA[gap> cgr:=ColorGraph(Group((1,2,3,4,5)));
+<color graph of order 5 and rank 5>
+gap> IsUndirectedColorGraph(cgr);
+false
+gap> ArcColorOfColorGraph(cgr,[1,2]);
+2
+gap> ArcColorOfColorGraph(cgr,[2,1]);
+5
+gap> cgr2:=ColorGraphByFusion(cgr, [[1],[2,5],[3,4]]);
+<color graph of order 5 and rank 3>
+gap> IsUndirectedColorGraph(cgr2);
+true]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Prop Name="IsHomogeneous" Arg="cgr"/>
+	  <Description>
+	    A color graph is homogeneous if it has just one fibre. For
+	    a WL-stable color graph this means that it has just one
+	    reflexive color. For a WL-stable color graph this means
+	    that it correspond to an association scheme. 
+	    <Example>
+<![CDATA[gap> e8:=ElementaryAbelianGroup(8);    
+<pc group of size 8 with 3 generators>
+gap> e8:=Action(e8,AsList(e8), OnRight); 
+Group([ (1,2)(3,5)(4,6)(7,8), (1,3)(2,5)(4,7)(6,8), (1,4)(2,6)(3,7)(5,8) ])
+gap> cgr:=ColorGraph(e8,Combinations([1..DegreeAction(g)],2), OnSets); 
+<color graph of order 28 and rank 112>
+gap> IsHomogeneous(cgr);
+false]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Prop Name="IsWLStableColorGraph" Arg="cgr"/>
+	  <Description>
+	    This function returns true if <A>cgr</A> is stable under
+	    the Weisfeiler-Leman algorithm, that is, whether it is the
+	    color graph of a coherent configuration.
+	    <Example>
+<![CDATA[gap> cgr:=ColorGraph(Center(GL(2,7)), GF(7)^2, OnRight, true, 
+> function(a,b) return NormedRowVector(a-b);end); 
+<color graph of order 49 and rank 9>
+gap> IsWLStableColorGraph(cgr);
+true]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Prop Name="IsSchurian" Arg="cgr"/>
+	  <Description>
+	    A color graph is called <E>Schurian</E> if it is color
+	    isomorphic to the color graph of orbitals of its
+	    automorphism group.
+	    <Example>
+<![CDATA[gap> lcgr:=AllAssociationSchemes(15);;
+gap> lcgr:=Filtered(lcgr, x->not IsSchurian(x));
+[ AS(15,5) ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Prop Name="IsPrimitive"
+		Arg="cgr"
+		Label="for WL-stable color graphs"/>
+	  <Description>
+	    A WL-stable color graph is primitive if all its
+	    loopless base graphs are strongly connected (cf. <Ref
+	    Oper="BaseGraphOfColorGraph"/>).
+	    This function tests, whether <A>cgr</A> is primitive or
+	    not. 
+	    <Example>
+<![CDATA[gap> cgr:=ColorGraph(Group((1,2,3,4)));
+<color graph of order 4 and rank 4>
+gap> IsPrimitive(cgr);
+false
+gap> ReflexiveColors(cgr);
+[ 1 ]
+gap> IsConnectedGraph(BaseGraphOfColorGraph(cgr,2));
+true
+gap> IsConnectedGraph(BaseGraphOfColorGraph(cgr,3)); 
+false
+gap> IsConnectedGraph(BaseGraphOfColorGraph(cgr,4)); 
+true]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+      </Section>
+      <Section>
+	<Heading>Symmetries of color graphs</Heading>
+	<ManSection>
+	  <Oper Name="KnownGroupOfAutomorphisms" Arg="cgr" Label="for color graphs"/>
+	  <Description>
+	    This function returns the group of all automorphisms of
+	    <A>cgr</A> that &COCO; knows at the given moment. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="AutGroupOfCocoObject" Arg="cgr" Label="for color graphs"/>
+	  <Meth Name="AutomorphismGroup" Arg="cgr" Label="for color graphs"/>
+	  <Description>
+	    Returns the group of all permutations of the vertices of
+	    <A>cgr</A> that preserve the color of all arcs.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IsAutomorphismOfObject" 
+		Arg="cgr, perm"
+		Label="for color graphs"/>
+	  <Description>
+	    Returns <C>true</C>, if <A>perm</A> is an automorphism of
+	    <A>cgr</A>. In that case &COCO; adds <A>perm</A> to the
+	    known automorphisms of <A>cgr</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IsomorphismCocoObjects" 
+		Arg="cgr1,cgr2"
+		Label="for color graphs"/>
+	  <Description>
+	    An isomorphism from <A>cgr1</A> to <A>cgr2</A> is a bijection between
+	    the vertex sets that preserves the color of arcs
+	    (including the names of colors). 
+	    <P/>
+	    This operation returns an isomorphism from <A>cgr1</A>
+	    to <A>cgr2</A> if it exists, and <C>fail</C> if it does
+	    not exists.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IsIsomorphicCocoObject" 
+		Arg="cgr1,cgr2"
+		Label="for color graphs"/>
+	  <Description>
+	    Returns <C>true</C> if <A>cgr1</A> and <A>cgr2</A> are
+	    isomorphic, and <C>false</C> otherwise (cf. <Ref
+	    Oper="IsomorphismCocoObjects" 
+	    Label="for color graphs"/>)
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IsIsomorphismOfObjects" 
+		Arg="cgr1,cgr2,g"
+		Label="for color graphs"/>
+	  <Description>
+	    Returns <C>true</C> if <A>g</A> is an isomorphism fro
+	    <A>cgr1</A> to <A>cgr2</A>, and <C>false</C> otherwise (cf. <Ref
+	    Oper="IsomorphismCocoObjects" 
+	    Label="for color graphs"/>).
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="KnownGroupOfColorAutomorphisms" Arg="cgr"/>
+	  <Description>
+	    This function returns the group of all color automorphisms of
+	    <A>cgr</A> that &COCO; knows at the given moment. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="LiftToColorAutomorphism" Arg="cgr,perm"/>
+	  <Description>
+	    <A>cgr</A> is a color graph and <A>perm</A> is a
+	    permutation of its colors. The function constructs a color
+	    automorphism of <A>cgr</A> that acts like <A>perm</A> on
+	    the colors. If such a color automorphism does not exist,
+	    then <C>fail</C> is returned. 
+	    <P/>
+	    If <A>perm</A> is liftable, then the result of the lifting
+	    is added to the known group of color automorphisms of
+	    <A>cgr</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="LiftToColorIsomorphism" Arg="cgr1,cgr2,ciso"/>
+	  <Description>
+	    <A>cgr1</A> and <A>cgr2</A> are color graphs of the same
+	    rank, and <A>ciso</A> is a bijection from the colors of
+	    <A>cgr1</A> to the colors of <A>cgr2</A>. The function constructs a color
+	    isomorphism from <A>cgr1</A> to <A>cgr2</A> that acts like <A>ciso</A> on
+	    the colors. If such a color isomorphism does not exist,
+	    then <C>fail</C> is returned. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="ColorIsomorphismColorGraphs" Arg="cgr1,cgr2"/>
+	  <Description>
+	    This operation returns  a color isomorphism from
+	    <A>cgr1</A> to <A>cgr2</A>, and <C>fail</C> otherwise.
+	    <P/>
+	    At the moment, this operation is implemented only from
+	    WL-stable color graphs.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IsColorIsomorphicColorGraph" Arg="cgr1,cgr2"/>
+	  <Description>
+	    This operation returns  <C>true</C> if <A>cgr1</A> and
+	    <A>cgr2</A> are color isomorphic, and <C>false</C> otherwise.
+	    <P/>
+	    At the moment, this operation is implemented only from
+	    WL-stable color graphs.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="ColorAutomorphismGroup" Arg="cgr"/>
+	  <Description>
+	    This function computes and returns the color automorphism
+	    group of <A>cgr</A>. This group consists of all
+	    permutations of the vertices of the color graph, that map
+	    arcs of the same color to arcs of the same color. In
+	    particular, it may act non-trivially on the colors of
+	    <A>cgr</A>. 
+	    <P/>
+	    If <A>cgr</A> is a Schurian WL-stable color graph, then
+	    its color automorphism group is equal to the normalizer of
+	    its automorphism group in the full symmetric group of the
+	    vertices of <A>cgr</A>. In some (rare) cases, this way to
+	    compute normalizers can be quicker than the built-in
+	    gap-functions. 
+	    <P/>
+	    At the moment, this function is implemented only for
+	    WL-stable color graphs.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="ColorAutomorphismGroupOnColors" Arg="cgr"/>
+	  <Description>
+	    The color automorphism of <A>cgr</A> acts on the colors of
+	    <A>cgr</A> with the automorphism group of <A>cgr</A> as
+	    kernel. This function computes and returns this action. 
+	    <P/>
+	    At the moment, this function is implemented only for
+	    WL-stable color graphs. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="KnownGroupOfAlgebraicAutomorphisms" Arg="cgr"/>
+	  <Description>
+	    This function returns the group of all algebraic automorphisms of
+	    <A>cgr</A> that &COCO; knows at the given moment. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="AlgebraicAutomorphismGroup" Arg="cgr"/>
+	  <Description>
+	    The algebraic automorphism group of a WL-stable color
+	    graph is nothing but the automorphism group of its tensor
+	    of structure constants. The color automorphism group in
+	    its action on colors embeds naturally into the algebraic
+	    automorphism group. 
+	  </Description>
+	</ManSection>
+      </Section>
+    </Chapter>
+    <Chapter>
+      <Heading>Structure Constants Tensors</Heading>
+      <Section>
+	<Heading>Introduction</Heading>
+	&COCO; introduces its own data-type for structure constants
+	tensors of coherent algebras. The methods provided by &COCO;
+	are tailored for this use. The emphasis lies on symmetries,
+	quotients (by closed sets) and mergings (fusions).  
+      </Section>
+      <Section>
+	<Heading> Functions for the construction of tensors </Heading>
+	<ManSection>
+	  <Attr Name="StructureConstantsOfColorGraph" Arg="cgr"/>
+	  <Description>
+	    This function expects a WL-stable color graph <A>cgr</A>, and
+	    computes its tensor of structure constants. The result is
+	    the structure constants tensor <M>T</M> of <A>cgr</A>. This object
+	    encodes a third-order tensor. For every color <M>k</M> of
+	    <A>cgr</A>, the matrix <M>T(i,j,k)</M> is equal to the
+	    <Ref Oper="LocalIntersectionArray"/> of any arc of color
+	    <M>k</M> in <A>cgr</A>.  
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="DenseTensorFromEntries" Arg="entries"/>
+	  <Description>
+	    The argument <A>entries</A> is a list of lists of lists of
+	    integers. There has to be a number <M>n</M> such that
+	    <C>Length(entries)=n</C>, for all <M>1\le i,j \le n</M>
+	    <C>Length(entries[i])=n</C>, and
+	    <C>Length(entries[i][j]=n</C>. Otherwise there are no
+	    restrictions. 
+	    <P/>
+	    The function returns the tensor-object for <A>entries</A>.
+	    <P/>
+	    Note that this function does not check, whether the
+	    entries are integers or even numbers. One can also view
+	    the datatype of tensors as a type that encodes complete
+	    colored hyper-graphs with hyper-arcs of length
+	    <M>3</M>. Even though there is not much infrastructure
+	    implemented in &COCO; for such objects, at least it is
+	    possible to check isomorphism and to compute automorphism
+	    groups. 
+	  </Description>
+	</ManSection>
+      </Section>
+      <Section>
+	<Heading>Functions for the inspection of tensors</Heading>
+	<ManSection>
+	  <Attr Name="OrderOfTensor" Arg="tensor"/>
+	  <Attr Name="OrderOfCocoObject" Arg="tensor" Label="for tensors"/>
+	  <Attr Name="Order" Arg="tensor" Label="for tensors"/>
+	  <Description>
+	    Returns the order of the tensor. If it is equal to
+	    <M>n</M> then this means that <A>tensor</A> is  an <M>n\times n
+	    \times n</M>-array.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="VertexNamesOfCocoObject" Arg="tensor" 
+		Label="for tensors"/>
+	  <Description>
+	    Returns the list of names of the vertices of
+	    <A>tensor</A>. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="EntryOfTensor" Arg="tensor, i, j, k"/>
+	  <Description>
+   	    Returns the entry at index <M>(i,j,k)</M> of <A>tensor</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="ReflexiveColors" Arg="tensor" 
+		Label="for structure constants tensors"/>
+	  <Description>
+	    If <A>tensor</A> is the structure constants tensor of the
+	    WL-stable color graph <C>cgr</C>, then
+	    <C>ReflexiveColors(tensor)</C> return the list of all
+	    reflexive colors of <C>cgr</C>.
+	    <Example>
+<![CDATA[gap> e8:=Action(e8,AsList(e8), OnRight); 
+Group([ (1,2)(3,5)(4,6)(7,8), (1,3)(2,5)(4,7)(6,8), (1,4)(2,6)(3,7)(5,8) ])
+gap> cgr:=ColorGraph(e8,Combinations([1..DegreeAction(g)],2), OnSets);
+<color graph of order 28 and rank 112>
+gap> T:=StructureConstantsOfColorGraph(cgr);
+<Tensor of order 112>
+gap> ReflexiveColors(T);
+[ 1, 18, 35, 52, 69, 86, 103 ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="NumberOfFibres" 
+		Arg="tensor" 
+		Label="for structure constants tensors"/>
+	  <Description>
+	    Returns the number of reflexive colors of <A>tensor</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="FibreLengths" Arg="tensor" 
+		Label="for structure constants tensors"/>
+	  <Description>
+	    If <A>tensor</A> is the structure constants tensor of the
+	    WL-stable color graph <C>cgr</C>, then
+	    <C>FibreLengths(tensor)</C> returns the list of lengths
+	    of all fibres of <C>cgr</C>. The order corresponds to the
+	    result of <C>ReflexiveColors(T)</C>.
+	    <Example>
+<![CDATA[gap> a5:=AlternatingGroup(5);
+Alt( [ 1 .. 5 ] )
+gap> g:=Action(a5, Combinations([1..5],2), OnSets);
+Group([ (1,5,8,10,4)(2,6,9,3,7), (2,3,4)(5,6,7)(8,10,9) ])
+gap> g:=Stabilizer(g,1);
+Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
+gap> cgr:=ColorGraph(g);
+<color graph of order 10 and rank 19>
+gap> T:=StructureConstantsOfColorGraph(cgr);
+<Tensor of order 19>
+gap> ReflexiveColors(T);  
+[ 1, 5, 18 ]
+gap> FibreLengths(T);
+[ 1, 6, 3 ]
+gap> Fibres(cgr);
+[ [ 1 ], [ 2, 3, 4, 5, 6, 7 ], [ 8, 9, 10 ] ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="OutValencies" Arg="tensor" 
+		Label="for structure constants tensors"/>
+	  <Description>
+	    If <A>tensor</A> is the structure constants tensor of the
+	    WL-stable color graph <C>cgr</C>, then
+	    <C>OutValencies(tensor)</C> returns the <Ref
+	    Meth="OutValencies" Label="for WL-stable color graphs"/> of <A>cgr</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="Mates" Arg="tensor" 
+		Label="for structure constants tensors"/>
+	  <Description>
+	    If <A>tensor</A> is the structure constants tensor of the
+	    WL-stable color graph <C>cgr</C>, then
+	    <C>OutValencies(tensor)</C> returns the permutation
+	    <C>ColorMates(cgr)</C> (<Ref
+	    Attr="ColorMates" Style="Number"/>).
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="StartBlock" Arg="tensor, i" 
+		Label="for structure constants tensors"/>
+	  <Description>
+	    If <A>tensor</A> is the structure constants tensor of the
+	    WL-stable color graph <C>cgr</C>, then in particular, the
+	    vertices of <A>tensor</A> are the colors of
+	    <C>cgr</C>. All arcs of color <A>i</A> have their
+	    starting vertex in the same fibre of <C>cgr</C>. Moreover,
+	    the loops over the vertices of one fibre all have the same
+	    color.  
+	    <P/>
+	    This function returns the
+	    index <M>j</M> into <C>ReflexiveColors(T)</C> (cf. 
+	    <Ref Attr="ReflexiveColors" 
+	    Label="for structure constants tensors" Style="Number"/>)
+	    such that at the start of every arc of
+	    color <A>i</A> there is a loop to color <C>ReflexiveColors(T)[j]</C>. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="FinishBlock" Arg="tensor, i" 
+		Label="for structure constants tensors"/>
+	  <Description>
+	    If <A>tensor</A> is the structure constants tensor of the
+	    WL-stable color graph <C>cgr</C>, then in particular, the
+	    vertices of <A>tensor</A> are the colors of
+	    <C>cgr</C>. All arcs of color <A>i</A> have their
+	    finishing vertex in the same fibre of <C>cgr</C>. Moreover,
+	    the loops over the vertices of one fibre all have the same
+	    color.  
+	    <P/>
+	    This function returns the
+	    index <M>j</M> into <C>ReflexiveColors(T)</C> (cf. 
+	    <Ref Attr="ReflexiveColors" 
+	    Label="for structure constants tensors" Style="Number"/>)
+	    such that at the 
+	    end of every arc of 
+	    color <A>i</A> there is a loop to color <C>ReflexiveColors(T)[j]</C>. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="ClosedSets" Arg="tensor"/>
+	  <Description>
+	    A set <M>M</M> of vertices of <A>tensor</A> is called <E>closed</E>
+	    if whenever <M>i,j</M> are in <M>M</M>, then also all such
+	    <M>k</M> are in <M>M</M> for which
+	    <C>EntryOfTensor(tensor,i,j,k)</C> is non-zero. 
+	    <P/>
+	    This function returns all closed sets of <A>tensor</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="ComplexProduct" 
+		Arg="tensor,set1,set2" 
+		Label="for structure constants tensors"/>
+	  <Description>
+	    Suppose that <A>tensor</A> is the structure constants
+	    tensor of the WL-stale color graph <C>cgr</C>. the colors
+	    of <C>cgr</C> canonically correspond to the standard-basis
+	    elements of the coherent algebra <M>W</M> that is
+	    associated with <A>cgr</A>. The elements of <M>W</M> can
+	    naturally be encoded as vectors of length
+	    <C>Rank(cgr)</C>. The arguments <A>set1</A> and
+	    <A>set2</A> are sets of colors of <C>cgr</C>
+	    (i.e. vertices of <A>tensor</A>). Their characteristic
+	    vectors, can hence be understood as elements of <M>W</M>.
+	    <P/>
+	    The operation <C>ComplexProduct</C> returns the
+	    coefficient-vector of the product of the characteristic
+	    vector of <A>set1</A> with the characteristic vector of
+	    <A>set2</A> in <M>W</M>.  
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="ClosureSet" 
+		Arg="tensor,set" />
+	  <Description>
+	    <A>set</A> is a set of vertices of <A>tensor</A>. The
+	    function returns the smallest closed set of <A>tensor</A>
+	    that contains <A>set</A> (cf. <Ref Oper="ClosedSets"/>)
+	  </Description>
+	</ManSection>
+      </Section>
+      <Section>
+	<Heading>
+	  Testing properties of tensors
+	</Heading>
+	<ManSection>
+	  <Prop Name="IsTensorOfCC" Arg="tensor"/>
+	  <Description>
+	    If <A>tensor</A> has this property, then this means that
+	    &COCO; knows, that it is the structure constants tensor of
+	    a WL-stable color graph. There is no method installed for
+	    this property, as it is in general hard to
+	    prove that a given tensor belongs to a WL-stable color
+	    graph. The property is set by the constructor that created
+	    <A>tensor</A>.  
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Prop Name="IsCommutativeTensor" Arg="tensor"/>
+	  <Description>
+	    <A>tensor</A> has this property, if for all <M>i,j,k</M>
+	    holds <C>EntryOfTensor(tensor,i,j,k)=</C> <C>EntryOfTensor(tensor,j,i,k)</C>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Prop Name="IsHomogeneous" 
+		Arg="tensor"
+		Label="for structure constants tensors"/>
+	  <Description>
+	    Returns whether <A>tensor</A> has just one reflexive
+	    color. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Prop Name="IsPrimitive"
+		Arg="tensor"
+		Label="for structure constants tensors"/>
+	  <Description>
+	    A structure constants tensor is <E>primitive</E> if it is
+	    homogeneous and if it has only the trivial closed sets
+	    (i.e. the singleton of the unique reflexive color and the
+	    set of all colors).
+	    <P/>
+	    If <A>tensor</A> is the structure constants tensor of the
+	    color graph <C>cgr</C>, then <A>tensor</A> is primitive if
+	    and only if <C>cgr</C> is primitive (cf. <Ref
+	    Prop="IsPrimitive" Label="for WL-stable color graphs"/>). 
+	  </Description>
+	</ManSection>
+      </Section>
+      <Section>
+	<Heading>Symmetries of tensors</Heading>
+	<ManSection>
+	  <Oper Name="KnownGroupOfAutomorphisms" Arg="tensor" Label="for tensors"/>
+	  <Description>
+	    This function returns the group of all automorphisms of
+	    <A>tensor</A> that &COCO; knows at the given moment. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="AutGroupOfCocoObject" Arg="tensor" Label="for tensors"/>
+	  <Meth Name="AutomorphismGroup" Arg="tensor" Label="for tensors"/>
+	  <Description>
+	    Returns the group of all automorphisms of
+	    <A>tensor</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IsAutomorphismOfObject" 
+		Arg="tensor, perm"
+		Label="for tensors"/>
+	  <Description>
+	    Returns <C>true</C>, if <A>perm</A> is an automorphism of
+	    <A>tensor</A>. In that case &COCO; adds <A>perm</A> to the
+	    known automorphisms of <A>tensor</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IsomorphismCocoObjects" 
+		Arg="tensor1,tensor2"
+		Label="for tensors"/>
+	  <Description>
+	    This operation returns an isomorphism from <A>tensor1</A>
+	    to <A>tensor2</A> if it exists, and <C>fail</C> if it does
+	    not exists.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IsIsomorphicCocoObject" 
+		Arg="tensor1,tensor2"
+		Label="for tensors"/>
+	  <Description>
+	    Returns <C>true</C> if <A>tensor1</A> and <A>tensor2</A> are
+	    isomorphic, and <C>false</C> otherwise.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IsIsomorphismOfObjects" 
+		Arg="tensor1,tensor2,g"
+		Label="for tensors"/>
+	  <Description>
+	    Returns <C>true</C> if <A>g</A> is an isomorphism fro
+	    <A>tensor1</A> to <A>tensor2</A>, and <C>false</C> otherwise.
+	  </Description>
+	</ManSection>
+      </Section>
+      <Section>
+	<Heading>Character tables of structure constants
+	tensors</Heading>
+	The structure constants tensor of a WL-stable color graph encodes
+	the structure of the associated coherent algebra. If this
+	algebra is commutative, then &COCO; is able to compute its
+	character table provided, the irrationalities occuring are
+	representable in &GAP;. The algorithm that computes the
+	character tables involves Gröbner-bases. The computation of
+	the Gröbner bases defines the overall performance of the
+	algorithm for the computation of character tables.
+	<ManSection>
+	  <Attr Name="CharacterTableOfTensor"
+		Arg="tensor"
+		Label="for commutative structure constants tensors"/>
+	  <Description>
+	    This function returns a record with two components:
+	    <C>characters</C> and <C>multiplicities</C>. If <C>ct</C> is the
+	    character table of <A>tensor</A>, then
+	    <C>ct.characters[i][j]</C> is the value of the <M>i</M>-th
+	    irreducible character of the standard-basis element corresponding to
+	    color <M>j</M> of <A>tensor</A>. Moreover,
+	    <C>ct.multiplicities[i]</C> is the multiplicity of the
+	    <M>i</M>-th irreducible character.
+	    <Example>
+<![CDATA[gap> cgr:=JohnsonScheme(6,3);
+<color graph of order 20 and rank 4>
+gap> T:=StructureConstantsOfColorGraph(cgr);
+<Tensor of order 4>
+gap> IsCommutativeTensor(T);
+true
+gap> CharacterTable(T);
+rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ], 
+      [ 1, 3, -3, -1 ] ], multiplicities := [ 1, 9, 5, 5 ] )]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+      </Section>
+    </Chapter>
+    <Chapter>
+      <Heading>WL-Stable Fusions Color Graphs</Heading>
+      <Section>
+	<Heading>Introduction</Heading>
+	One of the fundamental methods how to derive new color graphs
+	from a color graph <M>\Gamma</M>, is to <E>fuse</E> (i.e
+	identify) colors.  Color graphs that are derived from
+	<M>\Gamma</M> in this way are called <E>fusion color
+	graphs</E>. Every fusion color graph <M>\Delta</M>  of <M>\Gamma</M> defines a partition on
+	the colors of <M>\Gamma</M>. This partition is called the
+	<E>fusion</E> associated with the fusion color graph
+	<M>\Delta</M> of <M>\Gamma</M>. If <M>\Delta</M> is WL-stable,
+	then its fusion is called a <E>stable fusion</E>.
+	<P/>
+	One of the fundamental algorithmical problems in
+	algebraic combinatorics is to enumerate all WL-stable fusion
+	color graphs of a given color graph.  At the moment &COCO; can
+	solve a part of this problem &ndash; namely starting from any
+	WL-stable color graph <M>\Gamma</M> it can enumerate (orbits
+	of) stable fusions that lead to homogeneous WL-stable fusion
+	color graphs. Such fusions we will call <E>homogeneous</E>.  
+	<P/>
+	Computing stable fusions, in &COCO; is a two-stages process:
+	<Enum>
+	  <Item>Computation of good sets of colors,</Item>
+	  <Item>Fitting together good sets to stable fusions.</Item>
+	</Enum>
+	Good sets are the building blocks of stable fusions. A set of
+	colors of a WL-stable color graph is called a <E>good set</E>
+	if there exists a stable fusion of the cgr in which the set
+	appears as a class. It is called a <E>homogeneous good set</E>
+	if it is part of a homogeneous stable fusion. 
+	Note that the property to be a (homogeneous) good set
+	does only depend on the structure constants of the color
+	graph. 
+      </Section>
+      <Section>
+	<Heading>Good sets</Heading>
+	<ManSection>
+	  <Func Name="BuildGoodSet" Arg="tensor, set[, part]"/>
+	  <Description>
+	    <A>tensor</A> is the structure constants tensor of a
+	    WL-stable color graph <C>cgr</C>. <A>set</A> is a set of
+	    colors of <C>cgr</C> (i.e. of vertices of
+	    <A>tensor</A>). <A>part</A> is supposed to be the coarsest
+	    stable partition of the colors of <C>cgr</C> that contains
+	    <A>set</A>  as a class (the stability is not checked by
+	    the function). The function returns the corresponding
+	    good-set object.
+	    <P/>
+	    If <A>part</A> is not given, then it is computed. If this
+	    computation fails (because <A>set</A> is not a good set),
+	    then <C>fail</C> is returned.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="AsSet" Arg="gs" Label="for good sets"/>
+	  <Description>
+	    Converts the good set object <A>gs</A> into a usual set.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="TensorOfGoodSet" Arg="gs"/>
+	  <Description>
+	    Returns the structure constants tensor over which the good
+	    set <A>gs</A> is <Q>good</Q>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="PartitionOfGoodSet" Arg="gs"/>
+	  <Description>
+	    This function returns the coarsest stable fusion (as a
+	    partition, i.e. a set of sets of colors), that contains
+	    <A>gs</A> as a class.
+	  </Description>
+	</ManSection>
+      </Section>
+      <Section>
+	<Heading>Orbits of good sets</Heading>
+	&COCO; implements a datatype for orbits of combinatorial
+	objects. This section describes the functions that deal with
+	orbits of good sets. For every orbit of good sets, only the
+	lexicographically smallest representative and its set-wise
+	stabilizer is saved. This allows to deal with good sets of
+	color graphs of comparatively high rank, provided they have
+	many algebraic automorphisms. 
+	<ManSection>
+	  <Attr Name="HomogeneousGoodSetOrbits" 
+		Arg="tensor"
+		Label="for structure constants tensors"/>
+	  <Meth Name="HomogeneousGoodSetOrbits" 
+		Arg="group,tensor,[mode]"
+		Label="for structure constants tensors, alternative"/>
+	  <Description>
+	    <A>group</A> is supposed to consist only of automorphisms
+	    of <A>tensor</A>. &COCO; learns new automorphisms by
+	    checking this property. If group is not given, then the
+	    full automorphism group of <A>tensor</A> is taken for
+	    <A>group</A>. 
+	    <P/>
+	    This function returns all
+	    <A>group</A>-orbits of homogeneous good sets.
+	    <P/>
+	    If <A>mode</A> is equal to <C>"s"</C>, then only orbits of
+	    symmetric good sets are returned.
+	    If <A>mode</A> is equal to <C>"a"</C>, then only orbits of
+	    asymmetric good sets are returned.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="GoodSetOrbit" Arg="group, gs[, stab]"/>
+	  <Description>
+	    <A>gs</A> is a good set. <A>group</A> has to be a subgroup
+	    of the automorphism group of
+	    <C>TensorOfGoodSet(gs)</C>. <A>stab</A> (if given) has to
+	    be the full set-wise stabilizer of <A>gs</A> in
+	    <A>group</A>.
+	    <P/>
+	    The function constructs a &COCO;-orbit object of the
+	    setwise orbit of <A>gs</A> under <A>group</A>. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="CanonicalRepresentativeOfCocoOrbit" 
+		Arg="gsorb"
+		Label="for orbits of good sets"/>
+	  <Description>
+	    This function returns the lexicographically smallest
+	    element of the orbit of good sets <A>gsorb</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="Representative" 
+		Arg="gsorb"
+		Label="for orbits of good sets"/>
+	  <Description>
+	    This function returns any element of the orbit of good
+	    sets <A>gsorb</A>. At the moment it in fact returns the
+	    lexicographically smallest element.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="UnderlyingGroupOfCocoOrbit" 
+		Arg="gsorb"
+		Label="for orbits of good sets"/>
+	  <Description>
+	    This function returns the group under which <A>gsorb</A> is
+	    an orbit.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="StabilizerOfCanonicalRepresentative" 
+		Arg="gsorb"
+		Label="for orbits of good sets"/>
+	  <Description>
+	    This function returns the setwise stabilizer of
+	    <C>CanonicalRepresentativeOfCocoOrbit(gsorb)</C> in <C>UnderlyingGroupOfCocoOrbit(gsorb)</C>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="Size" 
+		Arg="gsorb"
+		Label="for orbits of good sets"/>
+	  <Description>
+	    returns the size of <A>gsorb</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="AsList"
+		Arg="gsorb"
+		Label="for orbits of good sets"/>
+	  <Description>
+	    expands the &COCO;-orbit object <A>gsorb</A> into a list
+	    of good sets. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="AsSet"
+		Arg="gsorb"
+		Label="for orbits of good sets"/>
+	  <Description>
+	    expands the &COCO;-orbit object <A>gsorb</A> into a set
+	    of good sets. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="SubOrbitsOfCocoOrbit" 
+		Arg="group, gsorb"
+		Label="for orbits of good sets"/>
+	  <Description>
+	    <A>group</A> is a subgroup of the underlying group of the
+	    orbit of good sets <A>gsorb</A>. The given orbit splits
+	    into suborbits under this group. The function returns a
+	    list of these suborbits. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="SubOrbitsWithInvariantPropertyOfCocoOrbit" 
+		Arg="group, gsorb, prop"
+		Label="for orbits of good sets"/>
+	  <Description>
+	    <A>prop</A> is a function that takes a single good set as
+	    argument and returns <C>true</C> or <C>false</C>. It has
+	    to be invariant under the set-wise action of
+	    <A>group</A>. Note that this property is not checked by
+	    the function.
+	    <P/>
+	    This function does the same as
+	    <Listing>Filtered(SubOrbitsOfCocoOrbit(group,gsorb), x->prop(Representative(x)));</Listing>
+	    However, the former code is generally much less efficient
+	    than calling
+	    <Listing>SubOrbitsWithInvariantPropertyOfCocoOrbit(group,gsorb,prop);</Listing>
+	  </Description>
+	</ManSection>
+      </Section>
+      <Section>
+	<Heading>Fusions</Heading>
+      <ManSection>
+	<Func Name="FusionFromPartition" 
+	      Arg="tensor,part"
+	      Label="for structure constant tensors"/>
+	<Description>
+	  if <A>tensor</A> is the structure constants tensor of the
+	  WL-stable color graph <C>cgr</C>, and if <A>part</A> is a
+	  partition of the colors of <C>cgr</C> (a set of sets of
+	  colors), then this function returns a fusion-object, or
+	  <C>fail</C> if <A>part</A> is not a fusion of <C>cgr</C>.
+	</Description>
+      </ManSection>
+      <ManSection>
+	  <Attr Name="AsPartition"
+		Arg="fusion"/>
+	  <Description>
+	    Converts the fusion-object <A>fusion</A> into a set of
+	    sets of colors.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="PartitionOfFusion"
+		Arg="fusion"/>
+	  <Description>
+	    Converts the fusion object <A>fusion</A> into a list of
+	    sets. In contrast to te result of
+	    <C>AsPartition(fusion)</C>, the resulting list of classes
+	    is sorted in short-lex order. This means that first it is
+	    sorted by cardinality of classes, and then the classes of
+	    equal size are sorted lexicographically.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="TensorOfFusion"
+		Arg="fusion"/>
+	  <Description>
+	    returns the structure constants tensor, over which the
+	    fusion <A>fusion</A> is a stable fusion.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="BaseOfFusion"
+		Arg="fusion"/>
+	  <Description>
+	    The base of a fusion is the smallest list of classes of
+	    <A>fusion</A> (in the short lex order) that generates
+	    <A>fusion</A> in the sense that there is no coarser stable
+	    fusion that contains the classes of the base.
+	    <P/>
+	    This function returns the base of <A>fusion</A> if &COCO;
+	    knows it. At the moment there is no method for computing
+	    the base. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="RankOfFusion"
+		Arg="fusion"/>
+	  <Description>
+	    returns the number of classes of <A>fusion</A>. 
+	  </Description>
+	</ManSection>
+      </Section>
+      <Section>
+	<Heading> Orbits of fusions</Heading>
+	&COCO; implements a datatype for orbits of combinatorial
+	objects. This section describes the functions that deal with
+	orbits of stable fusion. For every orbit of fusions, only the
+	smallest representative in the short-lex order and its
+	partition-wise stabilizer is saved. This allows to deal with fusions of
+	color graphs of comparatively high rank.
+	<ManSection>
+	  <Attr Name="HomogeneousFusionOrbits" 
+		Arg="tensor"
+		Label="for structure constants tensors"/>
+	  <Meth Name="HomogeneousFusionOrbits" 
+		Arg="group,tensor"
+		Label="for structure constants tensors, alternative"/>
+	  <Description>
+	    <A>group</A> is supposed to consist only of automorphisms
+	    of <A>tensor</A>. &COCO; learns new automorphisms by
+	    checking this property. If group is not given, then the
+	    full automorphism group of <A>tensor</A> is taken for
+	    <A>group</A>. 
+	    <P/>
+	    This function returns all
+	    <A>group</A>-orbits of homogeneous stable fusions.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="FusionOrbit" Arg="group, fusion[, stab]"/>
+	  <Description>
+	    <A>fusion</A> is a fusion object. <A>group</A> has to be a subgroup
+	    of the automorphism group of
+	    <C>TensorOfFusion(fusion)</C>. <A>stab</A> (if given) has to
+	    be the full partition-wise stabilizer of <A>fusion</A> in
+	    <A>group</A>.
+	    <P/>
+	    The function constructs a &COCO;-orbit object of the
+	    partition-wise orbit of <A>fusion</A> under <A>group</A>. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="CanonicalRepresentativeOfCocoOrbit" 
+		Arg="fusionorb"
+		Label="for orbits of fusions"/>
+	  <Description>
+	    This function returns the smallest
+	    element (in the short-lex order) of the orbit of fusions <A>fusionorb</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="Representative" 
+		Arg="fusionorb"
+		Label="for orbits of fusions"/>
+	  <Description>
+	    This function returns any element of the orbit of fusions
+	    sets <A>fusionorb</A>. At the moment it in fact returns the
+	    canonical representative.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="UnderlyingGroupOfCocoOrbit" 
+		Arg="fusionorb"
+		Label="for orbits of fusions"/>
+	  <Description>
+	    This function returns the group under which <A>fusionorb</A> is
+	    an orbit.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="StabilizerOfCanonicalRepresentative" 
+		Arg="fusion"
+		Label="for orbits of fusions"/>
+	  <Description>
+	    This function returns the partition-wise stabilizer of
+	    <C>CanonicalRepresentativeOfCocoOrbit(fusionorb)</C> in <C>UnderlyingGroupOfCocoOrbit(fusionorb)</C>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="Size" 
+		Arg="fusionorb"
+		Label="for orbits of fusions"/>
+	  <Description>
+	    returns the size of <A>fusionorb</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="AsList"
+		Arg="fusionorb"
+		Label="for orbits of fusions"/>
+	  <Description>s
+	    expands the &COCO;-orbit object <A>fusionorb</A> into a list
+	    of fusions. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="AsSet"
+		Arg="fusionorb"
+		Label="for orbits of fusions"/>
+	  <Description>
+	    expands the &COCO;-orbit object <A>fusionorb</A> into a set
+	    of fusions. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="SubOrbitsOfCocoOrbit" 
+		Arg="group, fusion"
+		Label="for orbits of fusions"/>
+	  <Description>
+	    <A>group</A> is a subgroup of the underlying group of the
+	    orbit of fusions <A>fusionorb</A>. The given orbit splits
+	    into suborbits under this group. The function returns a
+	    list of these suborbits. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="SubOrbitsWithInvariantPropertyOfCocoOrbit" 
+		Arg="group, fusionorb, prop"
+		Label="for orbits of fusions"/>
+	  <Description>
+	    <A>prop</A> is a function that takes a single fusion as
+	    argument and returns <C>true</C> or <C>false</C>. It has
+	    to be invariant under the partition-wise action of
+	    <A>group</A>. Note that the invariance is not checked by
+	    the function.
+	    <P/>
+	    This function does the same as
+	    <Listing>Filtered(SubOrbitsOfCocoOrbit(group,fusionorb), x->prop(Representative(x)));</Listing>
+	    However, the former code is generally much less efficient
+	    than calling
+	    <Listing>SubOrbitsWithInvariantPropertyOfCocoOrbit(group,fusion,prop);</Listing>
+	  </Description>
+	</ManSection>
+      </Section>
+    </Chapter>
+    <Chapter>
+      <Heading>Partially ordered sets</Heading>
+      <Section>
+	<Heading>Introduction</Heading>
+	&COCO; implements a data-type for partially ordered
+	sets. The reason is, that for the posets of interest in &COCO;
+	the test whether two elements are in order-relation is rather
+	expensive, and &COCO; takes care to minimize the necessary
+	tests. The other reason is, that this approach allows a nice
+	and unified interface to &XGAP; for all kinds of posets that
+	are introduced in &COCO; (i.e. posets of color graphs, posets
+	of fusion orbits, lattices of fusions, lattices of closed
+	sets, for now). 
+	<P/>
+	Like for combinatorial objects, &COCO; internally does not
+	work directly with the elements of a poset, but instead uses
+	indices into a list of elements (cf. ). Only two functions refer
+	directly to the elements: <Ref Func="CocoPosetByFunctions"/>
+	and <Ref Oper="ElementsOfCocoPoset"/>. Therefore, in the following, we will
+	identify the index to an element with the element.
+      </Section>
+      <Section>
+	<Heading>General functions for &COCO;-posets</Heading>
+	<ManSection>
+	  <Func Name="CocoPosetByFunctions"
+		Arg="elements, order, linpreorder"/>
+	  <Description>
+	    This is the main constructor for posets in &COCO;. All
+	    other constructors, behind the scenes, use this function.
+	    <P/>
+	    <A>elements</A> is the underlying set of the
+	    poset. 
+	    <P/>
+	    <A>order</A> is a binary boolean function on
+	    <A>elements</A> that
+	    returns <C>true</C> on an input pair <M>(x,y)</M> is <M>x</M> is
+	    less than  or equal <M>y</M> in the poset to be
+	    constructed. Otherwise it has to return <C>false</C>. The
+	    function <A>order</A> may be algorithmically difficult.
+	    <P/>
+	    <A>linpreorder</A> is a binary boolean function that
+	    defines a linear preorder (reflexive, transitive, total
+	    relation) on <A>elements</A>, that extends the partial
+	    order relation defined by <A>order</A> such that the
+	    strict order of elements is preserved. That is, if
+	    <M>y</M> is strictly above <M>x</M> in <A>order</A>, then
+	    so it is in <A>linpreorder</A>. 
+	    <P/>
+	    The function
+	    <A>linpreorder</A> is used to speed up the computations of
+	    the successor-relation of the goal poset. It should be much quicker than
+	    <A>order</A> in order to really lead to a speedup. E.g.,
+	    when computing a poset of sets, <A>order</A> may be the
+	    inclusion order, and <A>linpreorder</A> may be the
+	    function that compares cardinalities.  
+	    <P/>
+	    The function returns a &COCO;-poset object that encodes
+	    the poset defined by <A>order</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="ElementsOfCocoPoset"
+		Arg="poset"/>
+	  <Description>
+	    This function returns the list of elements of
+	    <A>poset</A>. Indices returned by other operations for
+	    posets, will be relative to this list.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="Size"
+		Arg="poset"
+		Label="for COCO-posets"/>
+	  <Description>
+	    This function returns the number of elements of <A>poset</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="SuccessorsInCocoPoset"
+		Arg="poset,i"/>
+	  <Description>
+	    This functions returns the successors of
+	    <A>i</A> in  <A>poset</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="PredecessorsInCocoPoset"
+		Arg="poset,i"/>
+	  <Description>
+	    This functions returns the predecessors of
+	    <A>i</A> in <A>poset</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IdealInCocoPoset"
+		Arg="poset, set"/>
+	  <Oper Name="IdealInCocoPoset"
+		Arg="poset, i"
+		Label="for principal ideals" />
+	  <Description>
+	    This function returns the order ideal (a.k.a. downset) generated
+	    by <A>set</A> in <A>poset</A>. 
+	    <P/>
+	    In the second form, the principal order ideal generated by
+	    <A>i</A> in <A>poset</A> is returned. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="FilterInCocoPoset"
+		Arg="poset, set"/>
+	  <Oper Name="FilterInCocoPoset"
+		Arg="poset, i"
+		Label="for principal filters" />
+	  <Description>
+	    This function returns the order filter (a.k.a. upset) generated
+	    by <A>set</A> in <A>poset</A>. 
+	    <P/>
+	    In the second form, the principal order filter generated by
+	    <A>i</A> in <A>poset</A> is returned. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="MinimalElementsInCocoPoset"
+		Arg="poset,set"/>
+	  <Description>
+	    This function returns the minimal elements of <A>set</A>
+	    in <A>poset</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="MaximalElementsInCocoPoset"
+		Arg="poset,set"/>
+	  <Description>
+	    This function returns the maximal elements of <A>set</A>
+	    in <A>poset</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="InducedCocoPoset"
+		Arg="poset, set"/>
+	  <Description>
+	    This function returns the subposet of <A>poset</A> that is
+	    induced by <A>set</A>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="GraphicCocoPoset" Arg="poset"/>
+	  <Description>
+	    This function creates a graphical representation of
+	    <A>poset</A> using &XGAP;. 
+	  </Description>
+	</ManSection>
+      </Section>
+      <Section>
+	<Heading>Posets of color graphs</Heading>
+	The class of color graphs of order <M>n</M> can be endowed
+	with a preorder relation (i.e. a reflexive, transitive
+	relation): We say that a color graph <C>cgr1</C> is sub color
+	isomorphic to another color graph <C>cgr2</C> if there is a
+	fusion color graph <C>cgr3</C> of <C>cgr2</C> that is color
+	isomorphic to <C>cgr1</C>.
+	<P/>
+	Restricted to a set of mutually non color isomorphic color
+	graphs, the relation of sub color isomorphism induces a
+	partial order. &COCO; is able to compute this induced order
+	for lists of WL-stable color graphs.
+	<ManSection>
+	  <Func Name="ColorIsomorphicFusions"
+		Arg="cgr1,cgr2"/>
+	  <Description>
+	    This function returns a list of all fusion orbits under
+	    the color automorphism group of <A>cgr1</A> whose representatives
+	    induce a color graph that is color isomorphic to
+	    <A>cgr2</A>. 
+	    <P/>
+	    At the moment this function is implemented
+	    only for WL-stable color graphs <A>cgr1</A> and <A>cgr2</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="SubColorIsomorphismPoset"
+		Arg="cgrlist"/>
+	  <Description>
+	    <A>cgrlist</A> is a list of WL-stable color graphs all of the same
+	    order and no two of them color isomorphic. The function
+	    returns a &COCO;-poset of <A>cgrlist</A> ordered by sub
+	    color isomorphism.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Meth Name="GraphicCocoPoset"
+		Arg="poset" Label="for posets of color graphs"/>
+	  <Description>
+	    <A>poset</A> is a &COCO;-poset of colored graphs. This
+	    function creates a graphical representation of this
+	    poset. The labels  of the nodes of the graphical poset
+	    correspond to the indices in the given poset. The
+	    context-menu of each node gives additional information
+	    about the node. If for some node it is known whether the
+	    underlying color graph is surian or not, then this is made
+	    visible in the graphical poset. Nodes for which it is not
+	    known whether the cgr is Schurian, are represented by
+	    squares. Schurian nodes are represented by circles, and
+	    non-Schurian nodes are represented by diamonds.
+	    <P/>
+	    This function is available only from &XGAP;.
+	    <Example>
+<![CDATA[gap> lcgr:=AllAssociationSchemes(15);
+[ AS(15,1), AS(15,2), AS(15,3), AS(15,4), AS(15,5), AS(15,6), AS(15,7), 
+  AS(15,8), AS(15,9), AS(15,10), AS(15,11), AS(15,12), AS(15,13), AS(15,14), 
+  AS(15,15), AS(15,16), AS(15,17), AS(15,18), AS(15,19), AS(15,20), AS(15,21), 
+  AS(15,22), AS(15,23), AS(15,24) ]
+gap> Apply(lcgr, IsSchurian);
+gap> pos:=SubColorIsomorphismPoset(lcgr);;
+gap> GraphicCocoPoset(pos);
+<graphic poset "Iso-poset of color graphs">
+gap> ]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+      </Section>
+    </Chapter>
+    <Chapter>
+      <Heading>Color Semirings</Heading>
+      <Section>
+	<Heading>Introduction</Heading>
+	Color semirings are an experimental feature that give an
+	alternate interface to WL-stable color graphs, in the style of
+	<Cite Key="Zie96"/> and <Cite Key="Zie05"/>.
+	<P/>
+	In the center stands the observation that the complexes (i.e.,
+	subsets of colors) of WL-stable color graphs can be endowed
+	with a multiplication: Let <M>\Gamma=(V,C,f)</M> be a WL-stable color
+	graph with structure constants tensor <M>T</M>, and let <M>M,N</M>
+	be subsets of the color set <M>C</M>. Then the product <M>M
+	\cdot N</M> is defined as the set of all colors <M>k</M> such
+	that there exists <M>i\in M</M>, and <M>j\in N</M> such that
+	<M>T(i,j,k)>0</M>. It is not hard to see that this operation
+	is associative and that the set <M>I</M> of all reflexive colors is a
+	neutral element. Moreover, this product-operation is
+	distributive over the operation of union of complexes. Thus
+	<M>(P(C), \cup, \cdot, \emptyset, I)</M> forms a so-called
+	semiring (cf. <Cite Key="Gol99"/>, <Cite Key="wiki:semiring"/>). 
+	<P/>
+	The color semiring of <M>\Gamma</M> acts naturally on the
+	powerset <M>P(V)</M> of the vertex set of <M>\Gamma</M> from the
+	left and from the right. Let <M>C</M> be an element of the
+	color semiring, and let <M>M</M> be a set of vertices of
+	<M>\Gamma</M>. Then
+	<Display>
+	  C \cdot M := \{ v\in V \mid \exists w \in M : f(v,w) \in C\}, 
+	</Display>
+	<Display>
+	  M \cdot C := \{ w\in V \mid \exists v \in M : f(v,w) \in C\}.
+	</Display>
+	<P/>
+	&GAP; has one operation symbold <C>+</C> for addition-like
+	operations and one operation symbol <C>*</C> for
+	multiplication-like operations. Thus in color semirings, the
+	operation of union of complexes is denoted by <C>+</C>, and
+	the operation of the product of complexes is denoted by
+	<C>*</C>. 
+	<P/>
+	Since in &COCO; both, colors and vertices of a color graph are
+	represented by positive integers, in order to distinguish
+	complexes of colors and subsets of vertices, one of the two
+	has to get its own type. The elements of color semirings
+	(i.e., complexes of colors) all belong to the category
+	<C>IsElementOfColorSemiring</C>. On the other hand, sets of
+	vertices are simple sets of positive integers (no special
+	category is created for them). In the &GAP;-output, complexes
+	are denoted like <C>&lt;[ a,b,c ]&gt;</C>. The conversion of
+	sets of colors to complexes is handled by the function <Ref
+	Func="AsElementOfColorSemiring"/>, while the conversion of a
+	complex to a set is done by the function <Ref Meth="AsSet" BookName="ref"/>. 
+	<Example>
+<![CDATA[gap> cgr:=JohnsonScheme(6,3);
+<color graph of order 20 and rank 4>
+gap> T:=StructureConstantsOfColorGraph(cgr);                       
+<Tensor of order 4>
+gap> sr:=ColorSemiring(cgr);
+<ColorSemiring>
+gap> s2:=AsElementOfColorSemiring(sr,[2]);
+<[ 2 ]>
+gap> s3:=AsElementOfColorSemiring(sr,[3]);
+<[ 3 ]>
+gap> s2*s3;
+<[ 2, 3, 4 ]>
+gap> ComplexProduct(T,[2],[3]);
+[ 0, 4, 4, 9 ]
+gap> 1*s2;
+[ 2, 3, 4, 5, 6, 7, 11, 12, 13 ]
+gap> Neighbors(cgr,1,2);
+[ 2, 3, 4, 5, 6, 7, 11, 12, 13 ]
+gap> Neighbors(cgr,1,3);
+[ 8, 9, 10, 14, 15, 16, 17, 18, 19 ]
+gap> 1*(s2+s3);
+[ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ]]]>
+	</Example>
+	<Example>
+<![CDATA[gap> g:=DihedralGroup(IsPermGroup,10);
+Group([ (1,2,3,4,5), (2,5)(3,4) ])
+gap> cgr:=ColorGraph(g, Combinations([1..5],2), OnSets,true);
+<color graph of order 10 and rank 12>
+gap> ColorMates(cgr);
+(2,7)(3,10)(6,12)
+gap> csr:=ColorSemiring(cgr);
+<ColorSemiring>
+gap> s2:=AsElementOfColorSemiring(csr,[2]);
+<[ 2 ]>
+gap> s3:=AsElementOfColorSemiring(csr,[3]); 
+<[ 3 ]>
+gap> 1*(s2+s3);                            
+[ 2, 3, 6, 7 ]
+gap> Neighbors(cgr,1,[2,3]);
+[ 2, 3, 6, 7 ]
+gap> (s2+s3)*[2,3,6,7];
+[ 1, 4, 5, 8, 10 ]]]>
+	</Example>
+	<P/>
+	Many standard functions of &GAP; are applicable to color
+	semirings, as a color semiring is just a structure, that is at
+	the same time an additive magma with zero and a magma with
+	one, such that multiplication and addition  are associative
+	and where the multiplication is distributive over the addition.
+	<ManSection>
+	  <Func Name="ColorSemiring" Arg="cgr"/>
+	  <Description>
+	    <A>cgr</A> is a WL-stable color graph. The function
+	    returns an object, representing the color semiring of <A>cgr</A>
+	    <Example>
+<![CDATA[gap> cgr:=JohnsonScheme(6,3);
+<color graph of order 20 and rank 4>
+gap> sr:=ColorSemiring(cgr);
+<ColorSemiring>
+gap> Elements(sr);           
+[ <[  ]>, <[ 1 ]>, <[ 1, 2 ]>, <[ 1, 2, 3 ]>, <[ 1, 2, 3, 4 ]>, 
+  <[ 1, 2, 4 ]>, <[ 1, 3 ]>, <[ 1, 3, 4 ]>, <[ 1, 4 ]>, <[ 2 ]>, <[ 2, 3 ]>, 
+  <[ 2, 3, 4 ]>, <[ 2, 4 ]>, <[ 3 ]>, <[ 3, 4 ]>, <[ 4 ]> ]
+gap> List(last,AsSet);          
+[ [  ], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 2, 3, 4 ], [ 1, 2, 4 ], [ 1, 3 ], 
+  [ 1, 3, 4 ], [ 1, 4 ], [ 2 ], [ 2, 3 ], [ 2, 3, 4 ], [ 2, 4 ], [ 3 ], 
+  [ 3, 4 ], [ 4 ] ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="GeneratorsOfColorSemiring" Arg="csr"/>
+	  <Description>
+	    This function returns a list of additive generators of the
+	    color semiring <A>csr</A>.
+	    <Example>
+<![CDATA[gap> cgr:=JohnsonScheme(6,3);
+<color graph of order 20 and rank 4>
+gap> sr:=ColorSemiring(cgr);
+<ColorSemiring>
+gap> gens:=GeneratorsOfColorSemiring(sr);
+[ <[ 1 ]>, <[ 2 ]>, <[ 3 ]>, <[ 4 ]> ]]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="AsElementOfColorSemiring" Arg="csr,cset"/>
+	  <Description>
+	    This function takes as input a color semiring <A>csr</A>
+	    and a set of colors <A>cset</A>. It returns the element of
+	    <A>csr</A> that corresponds to <A>cset</A>.
+	    <Example>
+<![CDATA[gap> cgr:=JohnsonScheme(6,3);
+<color graph of order 20 and rank 4>
+gap> sr:=ColorSemiring(cgr);
+<ColorSemiring>
+gap> s2:=AsElementOfColorSemiring(sr,[2]);
+<[ 2 ]>
+gap> s3:=AsElementOfColorSemiring(sr,[3]);
+<[ 3 ]>
+gap> s2*s3;
+<[ 2, 3, 4 ]>]]>
+	    </Example>
+	  </Description>
+	</ManSection>
+      </Section>
+    </Chapter>
+  </Body>
+  <Bibliography Databases="coco"/>
+  <TheIndex/>
+</Book>

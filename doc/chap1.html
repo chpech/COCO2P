@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>GAP (COCO2P) - Chapter 1: Color Graphs</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap1"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p><a id="X781EAC478657D5C5" name="X781EAC478657D5C5"></a></p>
+<div class="ChapSects"><a href="chap1.html#X781EAC478657D5C5">1 <span class="Heading">Color Graphs</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X8729B87B848E3F89">1.1 <span class="Heading">Theory</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X80F46A7E8307F148">1.2 <span class="Heading"> On the representation of color graphs in <strong class="pkg">COCO2P</strong>
+	</span></a>
+</span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7B42CC2287F1C3FB">1.3 <span class="Heading">Functions for the construction of color
+	graphs</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7DCB8AAF7946F031">1.3-1 ColorGraphByOrbitals</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7DF2D0B07C280D55">1.3-2 ColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X858BF76A7DC9D2E1">1.3-3 ColorGraphByMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X85EAC9AD7F1758E6">1.3-4 ColorGraphByWLStabilization</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X78E3485F85B414A5">1.3-5 ClassicalCompleteAffineScheme</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D6476BA7C79C9DA">1.3-6 JohnsonScheme</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7F9D294A789CBE87">1.3-7 CyclotomicColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8779C97084BB92B6">1.3-8 AllAssociationSchemes</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X79B04A5F80234A2D">1.4 <span class="Heading">Functions for the inspection of color
+	graphs</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X807C46F481D7086B">1.4-1 OrderOfColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X843D2FA779BA5DCC">1.4-2 RankOfColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X83F7E42D834CCF92">1.4-3 VertexNamesOfCocoObject</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8245B4797DD0F6AA">1.4-4 ColorNames</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D99F6358037F517">1.4-5 ArcColorOfColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8121E35482D9FA8E">1.4-6 ColorRepresentative</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X86296CF882FAC92D">1.4-7 Neighbors</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7DC2CD70830BEE60">1.4-8 AdjacencyMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7AA71C1184987543">1.4-9 RowOfColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X80EEDBD98326C1DC">1.4-10 ColumnOfColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X86D9A6888762649A">1.4-11 Fibres</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X79A514887835C4AA">1.4-12 NumberOfFibres</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D0A6D4885D48FC2">1.4-13 LocalIntersectionArray</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8700CA5B8386F320">1.4-14 ColorMates</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82C2C8757BBAEA34">1.4-15 OutValencies</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7AF42EF4872960C8">1.4-16 ReflexiveColors</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X80FDAC6280914B37">1.5 <span class="Heading"> Creating new (color) graphs from given color
+	graphs</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X78832D1D7E45C6F6">1.5-1 ColorGraphByFusion</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8038EA2E7CCAC248">1.5-2 QuotientColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7F38CEA4787B91AE">1.5-3 InducedSubColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7A1C8D2979CB4C5E">1.5-4 DirectProductColorGraphs</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7DD4DAEB781E3E47">1.5-5 WreathProductColorGraphs</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X879CDC86855A5C3C">1.5-6 ClosedSets</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7AA812417AFD425A">1.5-7 PartitionClosedSet</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D8ADAEA7891AA3E">1.5-8 BaseGraphOfColorGraph</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X82904EE47E50D920">1.6 <span class="Heading">
+	  Testing properties of color graphs
+	</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7ABD36357BBD6F03">1.6-1 IsUndirectedColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D8EA4528082A74D">1.6-2 IsHomogeneous</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82B217447E358C43">1.6-3 IsWLStableColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7EC0451D798802B9">1.6-4 IsSchurian</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7DEB50307A5353B5">1.6-5 IsPrimitive</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X82E1845978248868">1.7 <span class="Heading">Symmetries of color graphs</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7EC9E8857F29742B">1.7-1 KnownGroupOfAutomorphisms</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7ED15B0F7C276AEB">1.7-2 AutGroupOfCocoObject</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7FEA59547C68E12D">1.7-3 IsAutomorphismOfObject</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7E72DC9C81E1FC86">1.7-4 IsomorphismCocoObjects</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X848658A983BFE358">1.7-5 IsIsomorphicCocoObject</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X821668C487B0EC6B">1.7-6 IsIsomorphismOfObjects</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82ACB834799F31B4">1.7-7 KnownGroupOfColorAutomorphisms</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X85B8184C834A3863">1.7-8 LiftToColorAutomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8081D1EF7A47A665">1.7-9 LiftToColorIsomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D5857C385A376FE">1.7-10 ColorIsomorphismColorGraphs</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7FAD8F0F79023E02">1.7-11 IsColorIsomorphicColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82A68C3F81741249">1.7-12 ColorAutomorphismGroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D339D77856CE298">1.7-13 ColorAutomorphismGroupOnColors</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7FD158627A750218">1.7-14 KnownGroupOfAlgebraicAutomorphisms</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7C10A5D37F3DDAD5">1.7-15 AlgebraicAutomorphismGroup</a></span>
+</div></div>
+</div>
+
+<h3>1 <span class="Heading">Color Graphs</span></h3>
+
+<p><a id="X8729B87B848E3F89" name="X8729B87B848E3F89"></a></p>
+
+<h4>1.1 <span class="Heading">Theory</span></h4>
+
+<p>A color graph (cgr) in <strong class="pkg">COCO2P</strong> is a triple <span class="SimpleMath">(V,C,f)</span>, where <span class="SimpleMath">V</span> is a set of vertices, <span class="SimpleMath">C</span> is set of colors, and <span class="SimpleMath">f : V × V -&gt; C</span> assigns to every arc its color. <strong class="pkg">COCO2P</strong> does not know the concept of non-arcs. However, this is not an essential restriction, since non-arcs may be simulated by introducing a special distinguished color.</p>
+
+<p>Of special interrest in <strong class="pkg">COCO2P</strong> are WL-stable color graphs (that is cgrs that are stable under the Weisfeiler-Leman algorithm <a href="chapBib.html#biBWeiL68">[WL68]</a>, <a href="chapBib.html#biBWei76">[Wei76]</a>). In the frames of <strong class="pkg">COCO2P</strong> the maximal monochromatic sets of arcs of a WL-stable color graph will always form a <em>coherent configuration</em>. On the other hand, from every coherent configuration we can obtain a WL-stable cgr (every pair of vertices is colored by the relation it belongs to).</p>
+
+<p>For historical reasons, <strong class="pkg">COCO2P</strong> uses the nomenclature of color graphs. However, this is only of importance for concepts like automorphisms and isomorphisms. While both, automorphisms and isomorphisms have to preserve colors (as it is expected for color graphs), color-automorphisms, and color-isomorphisms only have to respect color classes, that is, they may map arcs of one color to arcs of another color.</p>
+
+<p><a id="X80F46A7E8307F148" name="X80F46A7E8307F148"></a></p>
+
+<h4>1.2 <span class="Heading"> On the representation of color graphs in <strong class="pkg">COCO2P</strong>
+	</span></h4>
+
+<p>For a color graph, the set of vertices as well as the set of colors may be any finite set representable in <strong class="pkg">GAP</strong>. For performance reasons, <strong class="pkg">COCO2P</strong> does not use these sets inside its algorithms (except when constructing color graphs). Instead, <strong class="pkg">COCO2P</strong> refers to vertices and colors by their position in the vertex-set and color-set, respectively. In fact vertices and colors are identified with these indices. In order not to loose information, every color graph in <strong class="pkg">COCO2P</strong> keeps a list of names of vertices and a list of names of colors. The set of vertex-names is equal to the original set of vertices, and the set of color names is equal to the original set of colors.</p>
+
+<p><a id="X7B42CC2287F1C3FB" name="X7B42CC2287F1C3FB"></a></p>
+
+<h4>1.3 <span class="Heading">Functions for the construction of color
+	graphs</span></h4>
+
+<p><a id="X7DCB8AAF7946F031" name="X7DCB8AAF7946F031"></a></p>
+
+<h5>1.3-1 ColorGraphByOrbitals</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorGraphByOrbitals</code>( <var class="Arg">grp</var>[, <var class="Arg">domain</var>[, <var class="Arg">Action</var>[, <var class="Arg">completeDom</var>]]] )</td><td class="tdright">( function )</td></tr></table></div>
+<p>This function constructs the color graph of orbitals color graphs from a group action by mapping each arc to a representative of its orbital of the given group action.</p>
+
+<p>In its first form, the function returns the color graph of orbitals of the permutation group <var class="Arg">grp</var> in its natural action (i.e. on <span class="SimpleMath">{1,dots,n}</span>, where <span class="SimpleMath">n</span> is the largest moved point of <var class="Arg">grp</var>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">d7 := Group( (1,2,3,4,5,6,7), (1,7)(2,6)(3,5));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr := ColorGraphByOrbitals(d7);</span>
+&lt;color graph of order 7 and rank 4&gt;
+	    </pre></div>
+
+<p>In the second form the function returns the color graph of orbitals of <var class="Arg">grp</var> acting on <var class="Arg">domain</var> <code class="code">OnPoints</code>. If <var class="Arg">domain</var> is not invariant under <var class="Arg">grp</var>, then the smallest invariant extension of <var class="Arg">domain</var> is taken as acting domain.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">d7 := Group( (1,2,3,4,5,6,7), (1,7)(2,6)(3,5));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr := ColorGraph(d7, [1]);</span>
+&lt;color graph of order 7 and rank 4&gt;      
+	    </pre></div>
+
+<p>In the third variant of <code class="code">ColorGraphByOrbitals</code> an action can be given:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(SymmetricGroup(5), Combinations([1..5],2), OnSets);</span>
+&lt;color graph of order 10 and rank 3&gt;
+	    </pre></div>
+
+<p>The optional fourth argument <var class="Arg">completeDom</var> is a boolean. If it is <code class="keyw">True</code>, then the function assumes that <var class="Arg">domain</var> is closed under <var class="Arg">action</var> of <var class="Arg">grp</var>. This has the effect, that the function dows not try to complete it. The effect is that in the resulting color graph it is guaranteed that the vertex with number <code class="code">i</code> corresponds exactly to <code class="code">domain[i]</code>.</p>
+
+<p><a id="X7DF2D0B07C280D55" name="X7DF2D0B07C280D55"></a></p>
+
+<h5>1.3-2 ColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorGraph</code>( <var class="Arg">grp</var>[, <var class="Arg">domain</var>[, <var class="Arg">action</var>[, <var class="Arg">completeDom</var>[, <var class="Arg">coloring</var>]]]] )</td><td class="tdright">( function )</td></tr></table></div>
+<p>This is the most general function for the construction of color graphs. When called with less than <span class="SimpleMath">5</span> arguments, it is identical with the function <code class="func">ColorGraphByOrbitals</code> (<a href="chap1.html#X7DCB8AAF7946F031"><span class="RefLink">1.3-1</span></a>)</p>
+
+<p>The optional fifth argument <var class="Arg">coloring</var> is a coloring-function. It takes as input two vertices (elements of the acting domain) <span class="SimpleMath">u, v</span>, and it has to return the color of the arc <span class="SimpleMath">(u, v)</span>. In principle, the color can be any <strong class="pkg">GAP</strong> object. However, it should be possible to compare colors and to form sets of them.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(SymmetricGroup(8),</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">Combinations([1..8],4), OnSets, true,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">function(u,v) return</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">Length(Intersection(u,v));end);</span>
+&lt;color graph of order 70 and rank 5&gt;
+	    </pre></div>
+
+<p>It is supposed that <var class="Arg">coloring</var> is invariant under the given action (this is not checked!).</p>
+
+<p><a id="X858BF76A7DC9D2E1" name="X858BF76A7DC9D2E1"></a></p>
+
+<h5>1.3-3 ColorGraphByMatrix</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorGraphByMatrix</code>( <var class="Arg">mat</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p>This function constructs a color graph from its adjacency matrix. The argument <var class="Arg">mat</var> is a list of <span class="SimpleMath">n</span> lists of length <span class="SimpleMath">n</span>. The vertex-set of the resulting color graph is <span class="SimpleMath">{1,dots,n}</span>, while the color of the arc <span class="SimpleMath">(i,j)</span> is <code class="code">mat[i][j]</code>. The entries can be any kind of <strong class="pkg">GAP</strong>-objects that can be compared and that can be organized in a set.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m:=[["black","red"  ,"blue" ,"blue" ,"blue" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       ["blue" ,"black","red"  ,"blue" ,"blue" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       ["blue" ,"blue", "black","red"  ,"blue" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       ["blue" ,"blue", "blue" ,"black","red"  ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       ["red"  ,"blue", "blue" ,"blue" ,"black"]];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraphByMatrix(m);</span>
+&lt;color graph of order 5 and rank 3&gt;
+	    </pre></div>
+
+<p><a id="X85EAC9AD7F1758E6" name="X85EAC9AD7F1758E6"></a></p>
+
+<h5>1.3-4 ColorGraphByWLStabilization</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorGraphByWLStabilization</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p>If <var class="Arg">cgr</var> is WL-stable then the function returns <var class="Arg">cgr</var>. Otherwise, the WL-stabilization of <var class="Arg">cgr</var> is returned. The colors of the stabilization have names of the shape <code class="code">[c,i]</code> where <code class="code">c</code> is a color of <var class="Arg">cgr</var> and <code class="code">i</code> is the index of a fragment of color <code class="code">c</code>.</p>
+
+<p>This function does not really implement the Weisfeiler-Leman algorithm. Rather it does a stabilization inside of a Schurian WL-stable fission of <var class="Arg">cgr</var>. The performance depends mainly on the order of the group of known automorphisms of <var class="Arg">cgr</var> (cf <code class="func">KnownGroupOfAutomorphisms</code> (<a href="chap1.html#X7EC9E8857F29742B"><span class="RefLink">1.7-1</span></a>)).</p>
+
+<p><a id="X78E3485F85B414A5" name="X78E3485F85B414A5"></a></p>
+
+<h5>1.3-5 ClassicalCompleteAffineScheme</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ClassicalCompleteAffineScheme</code>( <var class="Arg">q</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p>The classical complete affine scheme is a WL-stable, Schurian, amorphic color graph defined on the set of points of the affine plane over <span class="SimpleMath">GF(q)</span>. The reflexive closure of every irreflexive color class is an equivalence relation whose equivalence classes form a complete parallel class of lines. Moreover, to every parallel class there corresponds a color class.</p>
+
+<p>This function returns the classical complete affine scheme over <span class="SimpleMath">GF(q)</span>.</p>
+
+<p><a id="X7D6476BA7C79C9DA" name="X7D6476BA7C79C9DA"></a></p>
+
+<h5>1.3-6 JohnsonScheme</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JohnsonScheme</code>( <var class="Arg">n</var>, <var class="Arg">k</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p>The Johnson scheme <span class="SimpleMath">J(n,k)</span> is a WL-stable, Schurian color graph. Its vertices are the <var class="Arg">k</var>-element subsets of <span class="SimpleMath">{1,dots,n}</span>. The colors are elements of <span class="SimpleMath">{0,dots,k}</span>. The color of an arc <span class="SimpleMath">(M,N)</span> is the cardinality of the intersection of <span class="SimpleMath">M</span> and <span class="SimpleMath">N</span>.</p>
+
+<p>This function returns the Johnson scheme <span class="SimpleMath">J(n,k)</span>.</p>
+
+<p><a id="X7F9D294A789CBE87" name="X7F9D294A789CBE87"></a></p>
+
+<h5>1.3-7 CyclotomicColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CyclotomicColorGraph</code>( <var class="Arg">p</var>, <var class="Arg">n</var>, <var class="Arg">d</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p>Let <span class="SimpleMath">p</span> be a prime, <span class="SimpleMath">n</span>, <span class="SimpleMath">d</span> be positive integers, such that <span class="SimpleMath">d</span> divides <span class="SimpleMath">(p^n-1)</span>. Let <span class="SimpleMath">q:=p^n</span>, and let <span class="SimpleMath">r</span> be a primitive element of <span class="SimpleMath">GF(q)</span>. Let <span class="SimpleMath">C</span> be the set of all powers of <span class="SimpleMath">r^d</span> in <span class="SimpleMath">GF(q)</span> the cyclotomic colored graph <span class="SimpleMath">Cyc(p,n,d)</span> has as vertices the elements of <span class="SimpleMath">GF(q)</span>. The set of colors is given by <span class="SimpleMath">{*,0,1,...,d-1}</span>. A pair <span class="SimpleMath">(x,y)</span> of vertices has color <span class="SimpleMath">*</span> in <span class="SimpleMath">Cyc(p,n,d)</span> if <span class="SimpleMath">x=y</span>. It has color <span class="SimpleMath">i</span> if <span class="SimpleMath">(x-y)</span> is an element of <span class="SimpleMath">C⋅(r^i)</span>.</p>
+
+<p>This function returns the Cyclotomic scheme <span class="SimpleMath">Cyc(p,n,d)</span>.</p>
+
+<p><a id="X8779C97084BB92B6" name="X8779C97084BB92B6"></a></p>
+
+<h5>1.3-8 AllAssociationSchemes</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllAssociationSchemes</code>( <var class="Arg">n</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<p>This function creates an interface to the database of small association schemes by Akihide Hanaki and Izumi Miyamoto from <span class="URL"><a href="http://math.shinshu-u.ac.jp/~hanaki/as/">http://math.shinshu-u.ac.jp/~hanaki/as/</a></span> (further refered to as the Japanese catalogue)</p>
+
+<p>This function downloads the list of small association schemes of order <var class="Arg">n</var>. Then it converts them to the internal format of <strong class="pkg">COCO2P</strong> and returns the resulting list. Every color graph has a name of the shape <code class="code">AS(n,k)</code> where <code class="code">k</code> is the index of the scheme in the list of schemes of order <var class="Arg">n</var> in the Japanese catalogue.</p>
+
+<p><a id="X79B04A5F80234A2D" name="X79B04A5F80234A2D"></a></p>
+
+<h4>1.4 <span class="Heading">Functions for the inspection of color
+	graphs</span></h4>
+
+<p><a id="X807C46F481D7086B" name="X807C46F481D7086B"></a></p>
+
+<h5>1.4-1 OrderOfColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderOfColorGraph</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderOfCocoObject</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Order</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>Returns the number of vertices of <var class="Arg">cgr</var>.</p>
+
+<p><a id="X843D2FA779BA5DCC" name="X843D2FA779BA5DCC"></a></p>
+
+<h5>1.4-2 RankOfColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RankOfColorGraph</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Rank</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<p>Returns the number of colors of <var class="Arg">cgr</var>.</p>
+
+<p><a id="X83F7E42D834CCF92" name="X83F7E42D834CCF92"></a></p>
+
+<h5>1.4-3 VertexNamesOfCocoObject</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; VertexNamesOfCocoObject</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns the list of names of the vertices of <var class="Arg">cgr</var>. Unfortunately, the more elegant name <code class="code">VertexNames</code> is used in <strong class="pkg">Grape</strong> as the name of a global function and can not be overloaded.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=JohnsonScheme(5,2);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VertexNamesOfCocoObject(cgr);</span>
+[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+[ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]
+	    </pre></div>
+
+<p><a id="X8245B4797DD0F6AA" name="X8245B4797DD0F6AA"></a></p>
+
+<h5>1.4-4 ColorNames</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorNames</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns the list of names of the colors of <var class="Arg">cgr</var>. In the following example, the color names of the Johnson scheme are the possible cardinalities of the intersection of two <span class="SimpleMath">2</span>-element subsets of <span class="SimpleMath">{1,2,3,4,5}</span>. Thus loobs will get colored by <span class="SimpleMath">1</span>, since the intersection of a <span class="SimpleMath">2</span>-element set with itself will have cardinality <span class="SimpleMath">2</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=JohnsonScheme(5,2);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorNames(cgr);</span>
+[ 2, 1, 0 ]
+	    </pre></div>
+
+<p><a id="X7D99F6358037F517" name="X7D99F6358037F517"></a></p>
+
+<h5>1.4-5 ArcColorOfColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ArcColorOfColorGraph</code>( <var class="Arg">cgr</var>, <var class="Arg">u</var>, <var class="Arg">v</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ArcColorOfColorGraph</code>( <var class="Arg">cgr</var>, <var class="Arg">arc</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<p>Returns the color of the arc <span class="SimpleMath">(u,v)</span>. In the second form, the arc is <var class="Arg">arc</var> is given as an ordered pair <code class="code">[u,v]</code>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=JohnsonScheme(5,2);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorNames(cgr);</span>
+[ 2, 1, 0 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VertexNamesOfCocoObject(cgr);</span>
+[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+[ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArcColorOfColorGraph(cgr,1,10);</span>
+3
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArcColorOfColorGraph(cgr,[2,9]);</span>
+2
+	    </pre></div>
+
+<p><a id="X8121E35482D9FA8E" name="X8121E35482D9FA8E"></a></p>
+
+<h5>1.4-6 ColorRepresentative</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorRepresentative</code>( <var class="Arg">cgr</var>, <var class="Arg">i</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns any arc of color <var class="Arg">i</var> of <var class="Arg">cgr</var>.</p>
+
+<p><a id="X86296CF882FAC92D" name="X86296CF882FAC92D"></a></p>
+
+<h5>1.4-7 Neighbors</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Neighbors</code>( <var class="Arg">cgr</var>, <var class="Arg">v</var>, <var class="Arg">colors</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Neighbors</code>( <var class="Arg">cgr</var>, <var class="Arg">v</var>, <var class="Arg">color</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<p>The first variant returns the set of all vertices <span class="SimpleMath">w</span> of <var class="Arg">cgr</var> such that the color of the arc <span class="SimpleMath">(v,w)</span> is an element of the set <var class="Arg">colors</var>.</p>
+
+<p>The second variant gets as third argument a single color of <var class="Arg">cgr</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=JohnsonScheme(5,2);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorNames(cgr);</span>
+[ 2, 1, 0 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VertexNamesOfCocoObject(cgr);</span>
+[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+[ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Neighbors(cgr,1,3);</span>
+[ 8, 9, 10 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Neighbors(cgr,1,[1,2]);</span>
+[ 1, 2, 3, 4, 5, 6, 7 ]
+	    </pre></div>
+
+<p><a id="X7DC2CD70830BEE60" name="X7DC2CD70830BEE60"></a></p>
+
+<h5>1.4-8 AdjacencyMatrix</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AdjacencyMatrix</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns the adjacency matrix of <var class="Arg">cgr</var>. If <span class="SimpleMath">A</span> is the adjacency matrix of <var class="Arg">cgr</var>, then <span class="SimpleMath">A(i,j)</span> is equal to the color (not to the color name!) of the arc <span class="SimpleMath">(i,j)</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">m:=[["black","red"  ,"blue" ,"blue" ,"blue" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       ["blue" ,"black","red"  ,"blue" ,"blue" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       ["blue" ,"blue", "black","red"  ,"blue" ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       ["blue" ,"blue", "blue" ,"black","red"  ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">       ["red"  ,"blue", "blue" ,"blue" ,"black"]];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraphByMatrix(m);</span>
+&lt;color graph of order 5 and rank 3&gt; 
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(AdjacencyMatrix(cgr));</span>
+[ [  1,  3,  2,  2,  2 ],
+  [  2,  1,  3,  2,  2 ],
+  [  2,  2,  1,  3,  2 ],
+  [  2,  2,  2,  1,  3 ],
+  [  3,  2,  2,  2,  1 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorNames(cgr)</span>
+[ "black", "blue", "red" ]
+	    </pre></div>
+
+<p><a id="X7AA71C1184987543" name="X7AA71C1184987543"></a></p>
+
+<h5>1.4-9 RowOfColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RowOfColorGraph</code>( <var class="Arg">cgr</var>, <var class="Arg">i</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns the <span class="SimpleMath">i</span>-th row of the adjacency matrix of <var class="Arg">cgr</var> (<code class="func">AdjacencyMatrix</code> (<a href="chap1.html#X7DC2CD70830BEE60"><span class="RefLink">1.4-8</span></a>)).</p>
+
+<p><a id="X80EEDBD98326C1DC" name="X80EEDBD98326C1DC"></a></p>
+
+<h5>1.4-10 ColumnOfColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColumnOfColorGraph</code>( <var class="Arg">cgr</var>, <var class="Arg">j</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns the <span class="SimpleMath">j</span>-th column of the adjacency matrix of <var class="Arg">cgr</var> (<code class="func">AdjacencyMatrix</code> (<a href="chap1.html#X7DC2CD70830BEE60"><span class="RefLink">1.4-8</span></a>)).</p>
+
+<p><a id="X86D9A6888762649A" name="X86D9A6888762649A"></a></p>
+
+<h5>1.4-11 Fibres</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Fibres</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The <em>Fibres</em> of a color graph are the maximal sets of vertices whose corresponding loops all have the same color.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(SymmetricGroup(4), Combinations([1..4]), OnSets,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">true, functions(m1,m2) return Length(Intersection(m1,m2));end);</span>
+&lt;color graph of order 16 and rank 5&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Fibres(cgr);</span>
+[ [ 1 ], [ 2, 10, 14, 16 ], [ 3, 7, 9, 11, 13, 15 ], [ 4, 6, 8, 12 ], [ 5 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VertexNamesOfCocoObject(cgr);</span>
+[ [  ], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 2, 3, 4 ], [ 1, 2, 4 ], 
+[ 1, 3 ], [ 1, 3, 4 ], [ 1, 4 ], [ 2 ], [ 2, 3 ], [ 2, 3, 4 ], 
+[ 2, 4 ], [ 3 ], [ 3, 4 ], [ 4 ] ]
+	    </pre></div>
+
+<p><a id="X79A514887835C4AA" name="X79A514887835C4AA"></a></p>
+
+<h5>1.4-12 NumberOfFibres</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NumberOfFibres</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>Returns the number of different colors of loops of <var class="Arg">cgr</var> (cf. <code class="func">Fibres</code> (<a href="chap1.html#X86D9A6888762649A"><span class="RefLink">1.4-11</span></a>)).</p>
+
+<p><a id="X7D0A6D4885D48FC2" name="X7D0A6D4885D48FC2"></a></p>
+
+<h5>1.4-13 LocalIntersectionArray</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LocalIntersectionArray</code>( <var class="Arg">cgr</var>, <var class="Arg">v</var>, <var class="Arg">w</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LocalIntersectionArray</code>( <var class="Arg">cgr</var>, <var class="Arg">arc</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<p>The input to this operation is a color graph <var class="Arg">cgr</var> and an arc. In the first version this arc is given as two parameters <var class="Arg">v</var>, and <var class="Arg">w</var>. In the second form the arc is given as ordered pair <var class="Arg">arc</var>. We will assume in the following that <code class="code">arc=[v,w]</code>. The local intersection array of the arc <span class="SimpleMath">(v,w)</span> is the square matrix <span class="SimpleMath">A</span> of order <code class="code">RankOfColorGraph(cgr)</code> where <span class="SimpleMath">A(i,j)</span> is equal to the number of vertices <span class="SimpleMath">u</span> of <var class="Arg">cgr</var> such that the arc <span class="SimpleMath">(v,u)</span> has color <span class="SimpleMath">i</span> and the arc <span class="SimpleMath">(u,w)</span> has color <span class="SimpleMath">j</span>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=JohnsonScheme(5,2);</span>
+&lt;color graph of order 10 and rank 3&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorRepresentative(cgr,1);</span>
+[ 1, 1 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorRepresentative(cgr,2);</span>
+[ 1, 2 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorRepresentative(cgr,3);</span>
+[ 1, 8 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(LocalIntersectionArray(cgr,1,1)); </span>
+[ [  1,  0,  0 ],
+  [  0,  6,  0 ],
+  [  0,  0,  3 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(LocalIntersectionArray(cgr,1,2));</span>
+[ [  0,  1,  0 ],
+  [  1,  3,  2 ],
+  [  0,  2,  1 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(LocalIntersectionArray(cgr,1,8)); </span>
+[ [  0,  0,  1 ],
+  [  0,  4,  2 ],
+  [  1,  2,  0 ] ]
+	    </pre></div>
+
+<p><a id="X8700CA5B8386F320" name="X8700CA5B8386F320"></a></p>
+
+<h5>1.4-14 ColorMates</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorMates</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>In a WL-stable color graph for every color <span class="SimpleMath">i</span> there exists a color <span class="SimpleMath">i'</span> such that whenever an arc <span class="SimpleMath">(u,v)</span> has color <span class="SimpleMath">i</span>, then the opposite arc <span class="SimpleMath">(v,u)</span> has color <span class="SimpleMath">i'</span>. The mapping from <span class="SimpleMath">i</span> to <span class="SimpleMath">i'</span> is a permutation of the colors. The function <code class="code">ColorMates</code> returns this permutation.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(Group((1,2,3,4,5)));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(AdjacencyMatrix(cgr));</span>
+[ [  1,  2,  3,  4,  5 ],
+  [  5,  1,  2,  3,  4 ],
+  [  4,  5,  1,  2,  3 ],
+  [  3,  4,  5,  1,  2 ],
+  [  2,  3,  4,  5,  1 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorMates(cgr);</span>
+(2,5)(3,4)
+	    </pre></div>
+
+<p><a id="X82C2C8757BBAEA34" name="X82C2C8757BBAEA34"></a></p>
+
+<h5>1.4-15 OutValencies</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OutValencies</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<p>Let <span class="SimpleMath">i</span> and a color of <var class="Arg">cgr</var>. Then there is a number <span class="SimpleMath">d(i)</span> such that for every vertex <span class="SimpleMath">v</span> of <var class="Arg">cgr</var> there is either no arc, or there are exactly <span class="SimpleMath">d(i)</span> arcs leaving <span class="SimpleMath">v</span>. The number <span class="SimpleMath">d(i)</span> is called the <em>subdegree</em> of the color <span class="SimpleMath">i</span>.</p>
+
+<p>The function <code class="code">OutValencies</code> returns a the list <code class="code">[d(1),d(2),...,d(RankOfColorGraph(cgr))]</code></p>
+
+<p><a id="X7AF42EF4872960C8" name="X7AF42EF4872960C8"></a></p>
+
+<h5>1.4-16 ReflexiveColors</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ReflexiveColors</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<p>This function returns the list of all reflexive colors of the WL-stable color graph <var class="Arg">cgr</var>.</p>
+
+<p><a id="X80FDAC6280914B37" name="X80FDAC6280914B37"></a></p>
+
+<h4>1.5 <span class="Heading"> Creating new (color) graphs from given color
+	graphs</span></h4>
+
+<p><a id="X78832D1D7E45C6F6" name="X78832D1D7E45C6F6"></a></p>
+
+<h5>1.5-1 ColorGraphByFusion</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorGraphByFusion</code>( <var class="Arg">cgr</var>, <var class="Arg">fusion</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>The function takes as arguments a color graph <var class="Arg">cgr</var> and a fusion. The fusion can be either a list of sets of colors, or it belongs to the category <code class="code">IsFusionOfTensor</code> and more concretely to the family <code class="code">FusionFamily(StructureConstantsOfColorGraph(cgr))</code>. In the latter case, <var class="Arg">cgr</var> has to be WL-stable.</p>
+
+<p>The fusion-color graph has the same order like <var class="Arg">cgr</var>. The color of an arc <span class="SimpleMath">(i,j)</span> in the fusion color graph is the list of all classes of <var class="Arg">fusion</var> to which <code class="code">ArcColorOfColorGraph(cgr,i,j)</code> belongs. If <var class="Arg">fusion</var> is a partition, then the effect is that all colors in one class are fused into the same new color. If <var class="Arg">fusion</var> is not a partition, then the resulting color graph will be color-isomorphic to the fusion color graph of <var class="Arg">cgr</var> with respect to the coarsest partition that allows to obtain every element of <var class="Arg">fusion</var> as a union of classes.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(Group((1,2,3,4,5)));</span>
+&lt;color graph of order 5 and rank 5&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr2:=ColorGraphByFusion(cgr,[[1],[2,3],[4],[5]]);</span>
+&lt;color graph of order 5 and rank 4&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(AdjacencyMatrix(cgr)); </span>
+[ [  1,  2,  3,  4,  5 ],
+  [  5,  1,  2,  3,  4 ],
+  [  4,  5,  1,  2,  3 ],
+  [  3,  4,  5,  1,  2 ],
+  [  2,  3,  4,  5,  1 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(AdjacencyMatrix(cgr2));</span>
+[ [  1,  2,  2,  3,  4 ],
+  [  4,  1,  2,  2,  3 ],
+  [  3,  4,  1,  2,  2 ],
+  [  2,  3,  4,  1,  2 ],
+  [  2,  2,  3,  4,  1 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorNames(cgr2);</span>
+[ [ [ 1 ] ], [ [ 2, 3 ] ], [ [ 4 ] ], [ [ 5 ] ] ]
+	    </pre></div>
+
+<p><a id="X8038EA2E7CCAC248" name="X8038EA2E7CCAC248"></a></p>
+
+<h5>1.5-2 QuotientColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QuotientColorGraph</code>( <var class="Arg">cgr</var>, <var class="Arg">part</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><var class="Arg">part</var> is a partition of the vertex set of the color graph <var class="Arg">cgr</var> (it has to be a set of sets of vertices). The quotient graph of <var class="Arg">cgr</var> with respect to <var class="Arg">part</var> has as vertex set the classes of <var class="Arg">part</var>. the color of the arc <span class="SimpleMath">([u], [v])</span> the quotient graph is the set of all colors <span class="SimpleMath">i</span> of <var class="Arg">cgr</var> such that there are vertices <span class="SimpleMath">u'∈ [u]</span> and <span class="SimpleMath">v'∈ [v]</span> such that the arc <span class="SimpleMath">(u', v')</span> has color <span class="SimpleMath">i</span>.</p>
+
+<p>The above described color graph is also well-defined, if <var class="Arg">part</var> is not a partition but any set of sets of vertices of <var class="Arg">cgr</var>. In fact, <code class="code">QuotientColorGraph</code> does not check, whether <var class="Arg">part</var> is indeed a partition.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s5:=SymmetricGroup(5);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(s5, Arrangements([1..5],2), OnPairs,true);</span>
+&lt;color graph of order 20 and rank 7&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">part:=Set(Orbit(s5, [[1,2],[2,1]], OnSetsTuples));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">part:=Set(part, x-&gt;Set(x, y-&gt;Position(VertexNamesOfCocoObject(cgr),y)));</span>
+[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ], 
+[ 8, 18 ], [ 11, 15 ], [ 12, 19 ], [ 16, 20 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr2:=QuotientColorGraph(cgr,part);</span>
+&lt;color graph of order 10 and rank 3&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorNames(cgr2);</span>
+[ [ 1, 3 ], [ 2, 4, 5, 6 ], [ 7 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VertexNamesOfCocoObject(cgr2);</span>
+[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ], 
+[ 8, 18 ], [ 11, 15 ], [ 12, 19 ], [ 16, 20 ] ]
+	    </pre></div>
+
+<p><a id="X7F38CEA4787B91AE" name="X7F38CEA4787B91AE"></a></p>
+
+<h5>1.5-3 InducedSubColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InducedSubColorGraph</code>( <var class="Arg">cgr</var>, <var class="Arg">set</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>This function returns a color graph that is isomorphic to the sub color graph induced by <var class="Arg">set</var>. The function that maps <span class="SimpleMath">i</span> to <code class="code">set[i]</code> is an embedding of the induced subgraph into <var class="Arg">cgr</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(SymmetricGroup(5), Combinations([1..5]), OnSets, true);</span>
+&lt;color graph of order 32 and rank 56&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">vn:=VertexNamesOfCocoObject(cgr);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">fibre:=Filtered([1..Length(vn)], i-&gt;Length(vn[i])=2);</span>
+[ 3, 11, 15, 17, 19, 23, 25, 27, 29, 31 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr2:=InducedSubColorGraph(cgr,fibre);</span>
+&lt;color graph of order 10 and rank 3&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VertexNamesOfCocoObject(cgr2);</span>
+[ 3, 11, 15, 17, 19, 23, 25, 27, 29, 31 ]
+	    </pre></div>
+
+<p><a id="X7A1C8D2979CB4C5E" name="X7A1C8D2979CB4C5E"></a></p>
+
+<h5>1.5-4 DirectProductColorGraphs</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DirectProductColorGraphs</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Suppose, <var class="Arg">cgr1</var> is the color graph <span class="SimpleMath">(V_1,C_1,f_1)</span>, and <var class="Arg">cgr2</var> is the color graph <span class="SimpleMath">(V_2,C_2,f_2)</span>. Then the direct product of <var class="Arg">cgr1</var> with <var class="Arg">cgr2</var> has vertex set <span class="SimpleMath">V_1 × V_2</span>, and color set <span class="SimpleMath">C_1 × C_2</span>. The coloring function is <span class="SimpleMath">f_1 × f_2</span>. Here <span class="SimpleMath">f_1 × f_2</span> acts coordinate wise.</p>
+
+<p>The operation <code class="code">DirectProductColorGraphs</code> returns the direct product of <var class="Arg">cgr1</var> with <var class="Arg">cgr2</var>.</p>
+
+<p><a id="X7DD4DAEB781E3E47" name="X7DD4DAEB781E3E47"></a></p>
+
+<h5>1.5-5 WreathProductColorGraphs</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; WreathProductColorGraphs</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Suppose, <var class="Arg">cgr1</var> is the color graph <span class="SimpleMath">(V_1,C_1,f_1)</span>, and <var class="Arg">cgr2</var> is the color graph <span class="SimpleMath">(V_2,C_2,f_2)</span>. Suppose, <span class="SimpleMath">D_1</span> is the set of all those colors of <var class="Arg">cgr1</var> whose color class contains reflexive tuples. Then the wreath product of <var class="Arg">cgr1</var> with <var class="Arg">cgr2</var> has vertex set <span class="SimpleMath">V_1 × V_2</span>. The set of colors is the union of <span class="SimpleMath">C_1 × {*}</span> with <span class="SimpleMath">D_1 × C_2</span>. The coloring function maps pairs <span class="SimpleMath">((a_1,a_2), (a_1,b_2))</span> to <span class="SimpleMath">(f_1(a_1,a_1),f_2(b_1,b_2))</span>, and other pairs <span class="SimpleMath">((a_1,a_2),(b_1,b_2))</span> to <span class="SimpleMath">(f_1(a_1,a_2),*)</span>.</p>
+
+<p>The operation <code class="code">WreathProductColorGraphs</code> returns the direct product of <var class="Arg">cgr1</var> with <var class="Arg">cgr2</var>.</p>
+
+<p><a id="X879CDC86855A5C3C" name="X879CDC86855A5C3C"></a></p>
+
+<h5>1.5-6 ClosedSets</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ClosedSets</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>A set <code class="code">cset</code> of colors of <var class="Arg">cgr</var> is closed if the collections of all arcs whose color is from <code class="code">cset</code> forms an equivalence relation. This function returns a list of all closed sets of colors of <var class="Arg">cgr</var>.</p>
+
+<p><a id="X7AA812417AFD425A" name="X7AA812417AFD425A"></a></p>
+
+<h5>1.5-7 PartitionClosedSet</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PartitionClosedSet</code>( <var class="Arg">cgr</var>, <var class="Arg">cset</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>A set <var class="Arg">cset</var> of colors of <var class="Arg">cgr</var> is closed if the collections of all arcs whose color is from <var class="Arg">cset</var> forms an equivalence relation. This function returns the vertex-partition corresponding to this equivalence relation. It is not tested, whether <var class="Arg">cset</var> is indeed closed. It is required that <var class="Arg">cgr</var> is a homogeneous WL-stable color graph.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">s5:=SymmetricGroup(5);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">d6:=Subgroup(s5, [(1,2),(1,2,3)(4,5)]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(s5,s5,OnRight,true, function(a,b) return a*b;end);</span>
+&lt;color graph of order 120 and rank 120&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cset:=Set(d6, x-&gt;Position(ColorNames(cgr),x));</span>
+[ 1, 8, 13, 24, 29, 31, 61, 68, 73, 84, 89, 91 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsWLStableColorGraph(cgr);         </span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsHomogeneous(cgr);                </span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">part:=PartitionClosedSet(cgr,cset);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr2:=QuotientColorGraph(cgr,part);</span>
+&lt;color graph of order 10 and rank 3&gt;
+	    </pre></div>
+
+<p><a id="X7D8ADAEA7891AA3E" name="X7D8ADAEA7891AA3E"></a></p>
+
+<h5>1.5-8 BaseGraphOfColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BaseGraphOfColorGraph</code>( <var class="Arg">cgr</var>, <var class="Arg">color</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BaseGraphOfColorGraph</code>( <var class="Arg">cgr</var>, <var class="Arg">cset</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<p>This function extracts graphs from a color graph. In the first variant, the second argument is one color. In this case the digraph with vertex set <code class="code">[1..OrderOfColorGraph(cgr)]</code> and with all arcs of color <var class="Arg">color</var> from <var class="Arg">cgr</var>.</p>
+
+<p>In the second case the arc-set of the result consists of all arcs with color from <var class="Arg">cset</var> of <var class="Arg">cgr</var>.</p>
+
+<p>This function is available only if <strong class="pkg">Grape</strong> is loaded.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=JohnsonScheme(5,2);</span>
+&lt;color graph of order 10 and rank 3&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">OutValencies(cgr);</span>
+[ 1, 6, 3 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gamma:=BaseGraphOfColorGraph(cgr,3);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsDistanceRegular(gamma);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GlobalParameters(gamma);</span>
+[ [ 0, 0, 3 ], [ 1, 0, 2 ], [ 1, 2, 0 ] ]
+	    </pre></div>
+
+<p><a id="X82904EE47E50D920" name="X82904EE47E50D920"></a></p>
+
+<h4>1.6 <span class="Heading">
+	  Testing properties of color graphs
+	</span></h4>
+
+<p><a id="X7ABD36357BBD6F03" name="X7ABD36357BBD6F03"></a></p>
+
+<h5>1.6-1 IsUndirectedColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsUndirectedColorGraph</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>A color graph is called <em>undirected</em> if for all vertices <span class="SimpleMath">u</span> and <span class="SimpleMath">v</span> the arc <span class="SimpleMath">(u,v)</span> has the same color as the arc <span class="SimpleMath">(v,u)</span>. The function tests this property for <var class="Arg">cgr</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(Group((1,2,3,4,5)));</span>
+&lt;color graph of order 5 and rank 5&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsUndirectedColorGraph(cgr);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArcColorOfColorGraph(cgr,[1,2]);</span>
+2
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArcColorOfColorGraph(cgr,[2,1]);</span>
+5
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr2:=ColorGraphByFusion(cgr, [[1],[2,5],[3,4]]);</span>
+&lt;color graph of order 5 and rank 3&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsUndirectedColorGraph(cgr2);</span>
+true
+	    </pre></div>
+
+<p><a id="X7D8EA4528082A74D" name="X7D8EA4528082A74D"></a></p>
+
+<h5>1.6-2 IsHomogeneous</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsHomogeneous</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>A color graph is homogeneous if it has just one fibre. For a WL-stable color graph this means that it has just one reflexive color. For a WL-stable color graph this means that it correspond to an association scheme.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">e8:=ElementaryAbelianGroup(8);    </span>
+&lt;pc group of size 8 with 3 generators&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">e8:=Action(e8,AsList(e8), OnRight); </span>
+Group([ (1,2)(3,5)(4,6)(7,8), (1,3)(2,5)(4,7)(6,8), (1,4)(2,6)(3,7)(5,8) ])
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(e8,Combinations([1..DegreeAction(g)],2), OnSets); </span>
+&lt;color graph of order 28 and rank 112&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsHomogeneous(cgr);</span>
+false
+	    </pre></div>
+
+<p><a id="X82B217447E358C43" name="X82B217447E358C43"></a></p>
+
+<h5>1.6-3 IsWLStableColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsWLStableColorGraph</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>This function returns true if <var class="Arg">cgr</var> is stable under the Weisfeiler-Leman algorithm, that is, whether it is the color graph of a coherent configuration.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(Center(GL(2,7)), GF(7)^2, OnRight, true, </span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">function(a,b) return NormedRowVector(a-b);end); </span>
+&lt;color graph of order 49 and rank 9&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsWLStableColorGraph(cgr);</span>
+true
+	    </pre></div>
+
+<p><a id="X7EC0451D798802B9" name="X7EC0451D798802B9"></a></p>
+
+<h5>1.6-4 IsSchurian</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSchurian</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>A color graph is called <em>Schurian</em> if it is color isomorphic to the color graph of orbitals of its automorphism group.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lcgr:=AllAssociationSchemes(15);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lcgr:=Filtered(lcgr, x-&gt;not IsSchurian(x));</span>
+[ AS(15,5) ]
+	    </pre></div>
+
+<p><a id="X7DEB50307A5353B5" name="X7DEB50307A5353B5"></a></p>
+
+<h5>1.6-5 IsPrimitive</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPrimitive</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<p>A WL-stable color graph is primitive if all its loopless base graphs are strongly connected (cf. <code class="func">BaseGraphOfColorGraph</code> (<a href="chap1.html#X7D8ADAEA7891AA3E"><span class="RefLink">1.5-8</span></a>)). This function tests, whether <var class="Arg">cgr</var> is primitive or not.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(Group((1,2,3,4)));</span>
+&lt;color graph of order 4 and rank 4&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsPrimitive(cgr);</span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ReflexiveColors(cgr);</span>
+[ 1 ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedGraph(BaseGraphOfColorGraph(cgr,2));</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedGraph(BaseGraphOfColorGraph(cgr,3)); </span>
+false
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedGraph(BaseGraphOfColorGraph(cgr,4)); </span>
+true
+	    </pre></div>
+
+<p><a id="X82E1845978248868" name="X82E1845978248868"></a></p>
+
+<h4>1.7 <span class="Heading">Symmetries of color graphs</span></h4>
+
+<p><a id="X7EC9E8857F29742B" name="X7EC9E8857F29742B"></a></p>
+
+<h5>1.7-1 KnownGroupOfAutomorphisms</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfAutomorphisms</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>This function returns the group of all automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">COCO2P</strong> knows at the given moment.</p>
+
+<p><a id="X7ED15B0F7C276AEB" name="X7ED15B0F7C276AEB"></a></p>
+
+<h5>1.7-2 AutGroupOfCocoObject</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AutGroupOfCocoObject</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AutomorphismGroup</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<p>Returns the group of all permutations of the vertices of <var class="Arg">cgr</var> that preserve the color of all arcs.</p>
+
+<p><a id="X7FEA59547C68E12D" name="X7FEA59547C68E12D"></a></p>
+
+<h5>1.7-3 IsAutomorphismOfObject</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAutomorphismOfObject</code>( <var class="Arg">cgr</var>, <var class="Arg">perm</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns <code class="code">true</code>, if <var class="Arg">perm</var> is an automorphism of <var class="Arg">cgr</var>. In that case <strong class="pkg">COCO2P</strong> adds <var class="Arg">perm</var> to the known automorphisms of <var class="Arg">cgr</var>.</p>
+
+<p><a id="X7E72DC9C81E1FC86" name="X7E72DC9C81E1FC86"></a></p>
+
+<h5>1.7-4 IsomorphismCocoObjects</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsomorphismCocoObjects</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>An isomorphism from <var class="Arg">cgr1</var> to <var class="Arg">cgr2</var> is a bijection between the vertex sets that preserves the color of arcs (including the names of colors).</p>
+
+<p>This operation returns an isomorphism from <var class="Arg">cgr1</var> to <var class="Arg">cgr2</var> if it exists, and <code class="code">fail</code> if it does not exists.</p>
+
+<p><a id="X848658A983BFE358" name="X848658A983BFE358"></a></p>
+
+<h5>1.7-5 IsIsomorphicCocoObject</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphicCocoObject</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns <code class="code">true</code> if <var class="Arg">cgr1</var> and <var class="Arg">cgr2</var> are isomorphic, and <code class="code">false</code> otherwise (cf. <code class="func">IsomorphismCocoObjects</code> (<a href="chap1.html#X7E72DC9C81E1FC86"><span class="RefLink">1.7-4</span></a>))</p>
+
+<p><a id="X821668C487B0EC6B" name="X821668C487B0EC6B"></a></p>
+
+<h5>1.7-6 IsIsomorphismOfObjects</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphismOfObjects</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var>, <var class="Arg">g</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>Returns <code class="code">true</code> if <var class="Arg">g</var> is an isomorphism fro <var class="Arg">cgr1</var> to <var class="Arg">cgr2</var>, and <code class="code">false</code> otherwise (cf. <code class="func">IsomorphismCocoObjects</code> (<a href="chap1.html#X7E72DC9C81E1FC86"><span class="RefLink">1.7-4</span></a>)).</p>
+
+<p><a id="X82ACB834799F31B4" name="X82ACB834799F31B4"></a></p>
+
+<h5>1.7-7 KnownGroupOfColorAutomorphisms</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfColorAutomorphisms</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>This function returns the group of all color automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">COCO2P</strong> knows at the given moment.</p>
+
+<p><a id="X85B8184C834A3863" name="X85B8184C834A3863"></a></p>
+
+<h5>1.7-8 LiftToColorAutomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LiftToColorAutomorphism</code>( <var class="Arg">cgr</var>, <var class="Arg">perm</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><var class="Arg">cgr</var> is a color graph and <var class="Arg">perm</var> is a permutation of its colors. The function constructs a color automorphism of <var class="Arg">cgr</var> that acts like <var class="Arg">perm</var> on the colors. If such a color automorphism does not exist, then <code class="code">fail</code> is returned.</p>
+
+<p>If <var class="Arg">perm</var> is liftable, then the result of the lifting is added to the known group of color automorphisms of <var class="Arg">cgr</var>.</p>
+
+<p><a id="X8081D1EF7A47A665" name="X8081D1EF7A47A665"></a></p>
+
+<h5>1.7-9 LiftToColorIsomorphism</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LiftToColorIsomorphism</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var>, <var class="Arg">ciso</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p><var class="Arg">cgr1</var> and <var class="Arg">cgr2</var> are color graphs of the same rank, and <var class="Arg">ciso</var> is a bijection from the colors of <var class="Arg">cgr1</var> to the colors of <var class="Arg">cgr2</var>. The function constructs a color isomorphism from <var class="Arg">cgr1</var> to <var class="Arg">cgr2</var> that acts like <var class="Arg">ciso</var> on the colors. If such a color isomorphism does not exist, then <code class="code">fail</code> is returned.</p>
+
+<p><a id="X7D5857C385A376FE" name="X7D5857C385A376FE"></a></p>
+
+<h5>1.7-10 ColorIsomorphismColorGraphs</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorIsomorphismColorGraphs</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>This operation returns a color isomorphism from <var class="Arg">cgr1</var> to <var class="Arg">cgr2</var>, and <code class="code">fail</code> otherwise.</p>
+
+<p>At the moment, this operation is implemented only from WL-stable color graphs.</p>
+
+<p><a id="X7FAD8F0F79023E02" name="X7FAD8F0F79023E02"></a></p>
+
+<h5>1.7-11 IsColorIsomorphicColorGraph</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsColorIsomorphicColorGraph</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>This operation returns <code class="code">true</code> if <var class="Arg">cgr1</var> and <var class="Arg">cgr2</var> are color isomorphic, and <code class="code">false</code> otherwise.</p>
+
+<p>At the moment, this operation is implemented only from WL-stable color graphs.</p>
+
+<p><a id="X82A68C3F81741249" name="X82A68C3F81741249"></a></p>
+
+<h5>1.7-12 ColorAutomorphismGroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorAutomorphismGroup</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>This function computes and returns the color automorphism group of <var class="Arg">cgr</var>. This group consists of all permutations of the vertices of the color graph, that map arcs of the same color to arcs of the same color. In particular, it may act non-trivially on the colors of <var class="Arg">cgr</var>.</p>
+
+<p>If <var class="Arg">cgr</var> is a Schurian WL-stable color graph, then its color automorphism group is equal to the normalizer of its automorphism group in the full symmetric group of the vertices of <var class="Arg">cgr</var>. In some (rare) cases, this way to compute normalizers can be quicker than the built-in gap-functions.</p>
+
+<p>At the moment, this function is implemented only for WL-stable color graphs.</p>
+
+<p><a id="X7D339D77856CE298" name="X7D339D77856CE298"></a></p>
+
+<h5>1.7-13 ColorAutomorphismGroupOnColors</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorAutomorphismGroupOnColors</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>The color automorphism of <var class="Arg">cgr</var> acts on the colors of <var class="Arg">cgr</var> with the automorphism group of <var class="Arg">cgr</var> as kernel. This function computes and returns this action.</p>
+
+<p>At the moment, this function is implemented only for WL-stable color graphs.</p>
+
+<p><a id="X7FD158627A750218" name="X7FD158627A750218"></a></p>
+
+<h5>1.7-14 KnownGroupOfAlgebraicAutomorphisms</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfAlgebraicAutomorphisms</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<p>This function returns the group of all algebraic automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">COCO2P</strong> knows at the given moment.</p>
+
+<p><a id="X7C10A5D37F3DDAD5" name="X7C10A5D37F3DDAD5"></a></p>
+
+<h5>1.7-15 AlgebraicAutomorphismGroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlgebraicAutomorphismGroup</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<p>The algebraic automorphism group of a WL-stable color graph is nothing but the automorphism group of its tensor of structure constants. The color automorphism group in its action on colors embeds naturally into the algebraic automorphism group.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0.html">Top</a>  <a href="chap1.html">1</a>  <a href="chap2.html">2</a>  <a href="chap3.html">3</a>  <a href="chap4.html">4</a>  <a href="chap5.html">5</a>  <a href="chapBib.html">Bib</a>  <a href="chapInd.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

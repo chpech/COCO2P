@@ -1,0 +1,309 @@
+  
+  [1X2 [33X[0;0YStructure Constants Tensors[133X[101X
+  
+  
+  [1X2.1 [33X[0;0YIntroduction[133X[101X
+  
+  [33X[0;0Y[5XCOCO2P[105X  introduces  its  own  data-type  for  structure constants tensors of
+  coherent algebras. The methods provided by [5XCOCO2P[105X are tailored for this use.
+  The  emphasis  lies  on  symmetries, quotients (by closed sets) and mergings
+  (fusions).[133X
+  
+  
+  [1X2.2 [33X[0;0YFunctions for the construction of tensors[133X[101X
+  
+  [1X2.2-1 StructureConstantsOfColorGraph[101X
+  
+  [29X[2XStructureConstantsOfColorGraph[102X( [3Xcgr[103X ) [32X attribute
+  
+  [33X[0;0YThis  function  expects a WL-stable color graph [3Xcgr[103X, and computes its tensor
+  of  structure  constants.  The result is the structure constants tensor [22XT[122X of
+  [3Xcgr[103X. This object encodes a third-order tensor. For every color [22Xk[122X of [3Xcgr[103X, the
+  matrix  [22XT(i,j,k)[122X  is equal to the [2XLocalIntersectionArray[102X ([14X1.4-13[114X) of any arc
+  of color [22Xk[122X in [3Xcgr[103X.[133X
+  
+  [1X2.2-2 DenseTensorFromEntries[101X
+  
+  [29X[2XDenseTensorFromEntries[102X( [3Xentries[103X ) [32X function
+  
+  [33X[0;0YThe  argument  [3Xentries[103X is a list of lists of lists of integers. There has to
+  be   a  number  [22Xn[122X  such  that  [10XLength(entries)=n[110X,  for  all  [22X1le  i,j  le  n[122X
+  [10XLength(entries[i])=n[110X,  and  [10XLength(entries[i][j]=n[110X.  Otherwise  there are no
+  restrictions.[133X
+  
+  [33X[0;0YThe function returns the tensor-object for [3Xentries[103X.[133X
+  
+  [33X[0;0YNote  that this function does not check, whether the entries are integers or
+  even  numbers.  One  can  also  view  the datatype of tensors as a type that
+  encodes  complete  colored  hyper-graphs  with  hyper-arcs of length [22X3[122X. Even
+  though  there  is  not  much  infrastructure  implemented in [5XCOCO2P[105X for such
+  objects,  at  least  it  is  possible  to  check  isomorphism and to compute
+  automorphism groups.[133X
+  
+  
+  [1X2.3 [33X[0;0YFunctions for the inspection of tensors[133X[101X
+  
+  [1X2.3-1 OrderOfTensor[101X
+  
+  [29X[2XOrderOfTensor[102X( [3Xtensor[103X ) [32X attribute
+  [29X[2XOrderOfCocoObject[102X( [3Xtensor[103X ) [32X attribute
+  [29X[2XOrder[102X( [3Xtensor[103X ) [32X attribute
+  
+  [33X[0;0YReturns  the  order  of the tensor. If it is equal to [22Xn[122X then this means that
+  [3Xtensor[103X is an [22Xn× n × n[122X-array.[133X
+  
+  [1X2.3-2 VertexNamesOfCocoObject[101X
+  
+  [29X[2XVertexNamesOfCocoObject[102X( [3Xtensor[103X ) [32X operation
+  
+  [33X[0;0YReturns the list of names of the vertices of [3Xtensor[103X.[133X
+  
+  [1X2.3-3 EntryOfTensor[101X
+  
+  [29X[2XEntryOfTensor[102X( [3Xtensor[103X, [3Xi[103X, [3Xj[103X, [3Xk[103X ) [32X operation
+  
+  [33X[0;0YReturns the entry at index [22X(i,j,k)[122X of [3Xtensor[103X.[133X
+  
+  [1X2.3-4 ReflexiveColors[101X
+  
+  [29X[2XReflexiveColors[102X( [3Xtensor[103X ) [32X attribute
+  
+  [33X[0;0YIf  [3Xtensor[103X  is  the  structure constants tensor of the WL-stable color graph
+  [10Xcgr[110X, then [10XReflexiveColors(tensor)[110X return the list of all reflexive colors of
+  [10Xcgr[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xe8:=Action(e8,AsList(e8), OnRight); [127X[104X
+    [4X[28XGroup([ (1,2)(3,5)(4,6)(7,8), (1,3)(2,5)(4,7)(6,8), (1,4)(2,6)(3,7)(5,8) ])[128X[104X
+    [4X[25Xgap>[125X [27Xcgr:=ColorGraph(e8,Combinations([1..DegreeAction(g)],2), OnSets);[127X[104X
+    [4X[28X<color graph of order 28 and rank 112>[128X[104X
+    [4X[25Xgap>[125X [27XT:=StructureConstantsOfColorGraph(cgr);[127X[104X
+    [4X[28X<Tensor of order 112>[128X[104X
+    [4X[25Xgap>[125X [27XReflexiveColors(T);[127X[104X
+    [4X[28X[ 1, 18, 35, 52, 69, 86, 103 ][128X[104X
+    [4X[28X	    [128X[104X
+  [4X[32X[104X
+  
+  [1X2.3-5 NumberOfFibres[101X
+  
+  [29X[2XNumberOfFibres[102X( [3Xtensor[103X ) [32X attribute
+  
+  [33X[0;0YReturns the number of reflexive colors of [3Xtensor[103X.[133X
+  
+  [1X2.3-6 FibreLengths[101X
+  
+  [29X[2XFibreLengths[102X( [3Xtensor[103X ) [32X attribute
+  
+  [33X[0;0YIf  [3Xtensor[103X  is  the  structure constants tensor of the WL-stable color graph
+  [10Xcgr[110X,  then [10XFibreLengths(tensor)[110X returns the list of lengths of all fibres of
+  [10Xcgr[110X. The order corresponds to the result of [10XReflexiveColors(T)[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xa5:=AlternatingGroup(5);[127X[104X
+    [4X[28XAlt( [ 1 .. 5 ] )[128X[104X
+    [4X[25Xgap>[125X [27Xg:=Action(a5, Combinations([1..5],2), OnSets);[127X[104X
+    [4X[28XGroup([ (1,5,8,10,4)(2,6,9,3,7), (2,3,4)(5,6,7)(8,10,9) ])[128X[104X
+    [4X[25Xgap>[125X [27Xg:=Stabilizer(g,1);[127X[104X
+    [4X[28XGroup([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])[128X[104X
+    [4X[25Xgap>[125X [27Xcgr:=ColorGraph(g);[127X[104X
+    [4X[28X<color graph of order 10 and rank 19>[128X[104X
+    [4X[25Xgap>[125X [27XT:=StructureConstantsOfColorGraph(cgr);[127X[104X
+    [4X[28X<Tensor of order 19>[128X[104X
+    [4X[25Xgap>[125X [27XReflexiveColors(T);  [127X[104X
+    [4X[28X[ 1, 5, 18 ][128X[104X
+    [4X[25Xgap>[125X [27XFibreLengths(T);[127X[104X
+    [4X[28X[ 1, 6, 3 ][128X[104X
+    [4X[25Xgap>[125X [27XFibres(cgr);[127X[104X
+    [4X[28X[ [ 1 ], [ 2, 3, 4, 5, 6, 7 ], [ 8, 9, 10 ] ][128X[104X
+    [4X[28X	    [128X[104X
+  [4X[32X[104X
+  
+  [1X2.3-7 OutValencies[101X
+  
+  [29X[2XOutValencies[102X( [3Xtensor[103X ) [32X attribute
+  
+  [33X[0;0YIf  [3Xtensor[103X  is  the  structure constants tensor of the WL-stable color graph
+  [10Xcgr[110X, then [10XOutValencies(tensor)[110X returns the [2XOutValencies[102X ([14X1.4-15[114X) of [3Xcgr[103X.[133X
+  
+  [1X2.3-8 Mates[101X
+  
+  [29X[2XMates[102X( [3Xtensor[103X ) [32X attribute
+  
+  [33X[0;0YIf  [3Xtensor[103X  is  the  structure constants tensor of the WL-stable color graph
+  [10Xcgr[110X,  then  [10XOutValencies(tensor)[110X  returns  the  permutation  [10XColorMates(cgr)[110X
+  ([2XColorMates[102X ([14X1.4-14[114X)).[133X
+  
+  [1X2.3-9 StartBlock[101X
+  
+  [29X[2XStartBlock[102X( [3Xtensor[103X, [3Xi[103X ) [32X operation
+  
+  [33X[0;0YIf  [3Xtensor[103X  is  the  structure constants tensor of the WL-stable color graph
+  [10Xcgr[110X,  then  in particular, the vertices of [3Xtensor[103X are the colors of [10Xcgr[110X. All
+  arcs  of  color  [3Xi[103X  have  their  starting  vertex  in the same fibre of [10Xcgr[110X.
+  Moreover, the loops over the vertices of one fibre all have the same color.[133X
+  
+  [33X[0;0YThis   function   returns   the   index   [22Xj[122X   into  [10XReflexiveColors(T)[110X  (cf.
+  [2XReflexiveColors[102X  ([14X2.3-4[114X))  such  that  at  the start of every arc of color [3Xi[103X
+  there is a loop to color [10XReflexiveColors(T)[j][110X.[133X
+  
+  [1X2.3-10 FinishBlock[101X
+  
+  [29X[2XFinishBlock[102X( [3Xtensor[103X, [3Xi[103X ) [32X operation
+  
+  [33X[0;0YIf  [3Xtensor[103X  is  the  structure constants tensor of the WL-stable color graph
+  [10Xcgr[110X,  then  in particular, the vertices of [3Xtensor[103X are the colors of [10Xcgr[110X. All
+  arcs  of  color  [3Xi[103X  have  their  finishing  vertex in the same fibre of [10Xcgr[110X.
+  Moreover, the loops over the vertices of one fibre all have the same color.[133X
+  
+  [33X[0;0YThis   function   returns   the   index   [22Xj[122X   into  [10XReflexiveColors(T)[110X  (cf.
+  [2XReflexiveColors[102X  ([14X2.3-4[114X)) such that at the end of every arc of color [3Xi[103X there
+  is a loop to color [10XReflexiveColors(T)[j][110X.[133X
+  
+  [1X2.3-11 ClosedSets[101X
+  
+  [29X[2XClosedSets[102X( [3Xtensor[103X ) [32X operation
+  
+  [33X[0;0YA  set  [22XM[122X  of  vertices of [3Xtensor[103X is called [13Xclosed[113X if whenever [22Xi,j[122X are in [22XM[122X,
+  then  also  all  such  [22Xk[122X  are  in [22XM[122X for which [10XEntryOfTensor(tensor,i,j,k)[110X is
+  non-zero.[133X
+  
+  [33X[0;0YThis function returns all closed sets of [3Xtensor[103X.[133X
+  
+  [1X2.3-12 ComplexProduct[101X
+  
+  [29X[2XComplexProduct[102X( [3Xtensor[103X, [3Xset1[103X, [3Xset2[103X ) [32X operation
+  
+  [33X[0;0YSuppose  that [3Xtensor[103X is the structure constants tensor of the WL-stale color
+  graph  [10Xcgr[110X.  the  colors of [10Xcgr[110X canonically correspond to the standard-basis
+  elements of the coherent algebra [22XW[122X that is associated with [3Xcgr[103X. The elements
+  of  [22XW[122X can naturally be encoded as vectors of length [10XRank(cgr)[110X. The arguments
+  [3Xset1[103X  and  [3Xset2[103X  are  sets of colors of [10Xcgr[110X (i.e. vertices of [3Xtensor[103X). Their
+  characteristic vectors, can hence be understood as elements of [22XW[122X.[133X
+  
+  [33X[0;0YThe  operation  [10XComplexProduct[110X returns the coefficient-vector of the product
+  of  the characteristic vector of [3Xset1[103X with the characteristic vector of [3Xset2[103X
+  in [22XW[122X.[133X
+  
+  [1X2.3-13 ClosureSet[101X
+  
+  [29X[2XClosureSet[102X( [3Xtensor[103X, [3Xset[103X ) [32X function
+  
+  [33X[0;0Y[3Xset[103X is a set of vertices of [3Xtensor[103X. The function returns the smallest closed
+  set of [3Xtensor[103X that contains [3Xset[103X (cf. [2XClosedSets[102X ([14X2.3-11[114X))[133X
+  
+  
+  [1X2.4 [33X[0;0YTesting properties of tensors[133X[101X
+  
+  [1X2.4-1 IsTensorOfCC[101X
+  
+  [29X[2XIsTensorOfCC[102X( [3Xtensor[103X ) [32X property
+  
+  [33X[0;0YIf  [3Xtensor[103X  has this property, then this means that [5XCOCO2P[105X knows, that it is
+  the  structure  constants  tensor  of  a  WL-stable color graph. There is no
+  method installed for this property, as it is in general hard to prove that a
+  given  tensor belongs to a WL-stable color graph. The property is set by the
+  constructor that created [3Xtensor[103X.[133X
+  
+  [1X2.4-2 IsCommutativeTensor[101X
+  
+  [29X[2XIsCommutativeTensor[102X( [3Xtensor[103X ) [32X property
+  
+  [33X[0;0Y[3Xtensor[103X     has     this     property,     if    for    all    [22Xi,j,k[122X    holds
+  [10XEntryOfTensor(tensor,i,j,k)=[110X [10XEntryOfTensor(tensor,j,i,k)[110X.[133X
+  
+  [1X2.4-3 IsHomogeneous[101X
+  
+  [29X[2XIsHomogeneous[102X( [3Xtensor[103X ) [32X property
+  
+  [33X[0;0YReturns whether [3Xtensor[103X has just one reflexive color.[133X
+  
+  [1X2.4-4 IsPrimitive[101X
+  
+  [29X[2XIsPrimitive[102X( [3Xtensor[103X ) [32X property
+  
+  [33X[0;0YA structure constants tensor is [13Xprimitive[113X if it is homogeneous and if it has
+  only  the  trivial  closed  sets (i.e. the singleton of the unique reflexive
+  color and the set of all colors).[133X
+  
+  [33X[0;0YIf  [3Xtensor[103X  is  the  structure constants tensor of the color graph [10Xcgr[110X, then
+  [3Xtensor[103X  is  primitive  if  and  only  if  [10Xcgr[110X  is primitive (cf. [2XIsPrimitive[102X
+  ([14X1.6-5[114X)).[133X
+  
+  
+  [1X2.5 [33X[0;0YSymmetries of tensors[133X[101X
+  
+  [1X2.5-1 KnownGroupOfAutomorphisms[101X
+  
+  [29X[2XKnownGroupOfAutomorphisms[102X( [3Xtensor[103X ) [32X operation
+  
+  [33X[0;0YThis  function  returns the group of all automorphisms of [3Xtensor[103X that [5XCOCO2P[105X
+  knows at the given moment.[133X
+  
+  [1X2.5-2 AutGroupOfCocoObject[101X
+  
+  [29X[2XAutGroupOfCocoObject[102X( [3Xtensor[103X ) [32X attribute
+  [29X[2XAutomorphismGroup[102X( [3Xtensor[103X ) [32X method
+  
+  [33X[0;0YReturns the group of all automorphisms of [3Xtensor[103X.[133X
+  
+  [1X2.5-3 IsAutomorphismOfObject[101X
+  
+  [29X[2XIsAutomorphismOfObject[102X( [3Xtensor[103X, [3Xperm[103X ) [32X operation
+  
+  [33X[0;0YReturns [10Xtrue[110X, if [3Xperm[103X is an automorphism of [3Xtensor[103X. In that case [5XCOCO2P[105X adds
+  [3Xperm[103X to the known automorphisms of [3Xtensor[103X.[133X
+  
+  [1X2.5-4 IsomorphismCocoObjects[101X
+  
+  [29X[2XIsomorphismCocoObjects[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X operation
+  
+  [33X[0;0YThis  operation returns an isomorphism from [3Xtensor1[103X to [3Xtensor2[103X if it exists,
+  and [10Xfail[110X if it does not exists.[133X
+  
+  [1X2.5-5 IsIsomorphicCocoObject[101X
+  
+  [29X[2XIsIsomorphicCocoObject[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X operation
+  
+  [33X[0;0YReturns [10Xtrue[110X if [3Xtensor1[103X and [3Xtensor2[103X are isomorphic, and [10Xfalse[110X otherwise.[133X
+  
+  [1X2.5-6 IsIsomorphismOfObjects[101X
+  
+  [29X[2XIsIsomorphismOfObjects[102X( [3Xtensor1[103X, [3Xtensor2[103X, [3Xg[103X ) [32X operation
+  
+  [33X[0;0YReturns  [10Xtrue[110X  if  [3Xg[103X  is  an  isomorphism  fro [3Xtensor1[103X to [3Xtensor2[103X, and [10Xfalse[110X
+  otherwise.[133X
+  
+  
+  [1X2.6 [33X[0;0YCharacter tables of structure constants tensors[133X[101X
+  
+  [33X[0;0YThe  structure  constants  tensor  of  a  WL-stable  color graph encodes the
+  structure   of   the   associated  coherent  algebra.  If  this  algebra  is
+  commutative,  then  [5XCOCO2P[105X  is able to compute its character table provided,
+  the  irrationalities  occuring  are representable in [5XGAP[105X. The algorithm that
+  computes the character tables involves Gröbner-bases. The computation of the
+  Gröbner  bases  defines  the  overall  performance  of the algorithm for the
+  computation of character tables.[133X
+  
+  [1X2.6-1 CharacterTableOfTensor[101X
+  
+  [29X[2XCharacterTableOfTensor[102X( [3Xtensor[103X ) [32X attribute
+  
+  [33X[0;0YThis   function  returns  a  record  with  two  components:  [10Xcharacters[110X  and
+  [10Xmultiplicities[110X.   If   [10Xct[110X   is   the   character   table   of  [3Xtensor[103X,  then
+  [10Xct.characters[i][j][110X  is  the  value of the [22Xi[122X-th irreducible character of the
+  standard-basis  element  corresponding  to  color  [22Xj[122X  of  [3Xtensor[103X.  Moreover,
+  [10Xct.multiplicities[i][110X is the multiplicity of the [22Xi[122X-th irreducible character.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xcgr:=JohnsonScheme(6,3);[127X[104X
+    [4X[28X<color graph of order 20 and rank 4>[128X[104X
+    [4X[25Xgap>[125X [27XT:=StructureConstantsOfColorGraph(cgr);[127X[104X
+    [4X[28X<Tensor of order 4>[128X[104X
+    [4X[25Xgap>[125X [27XIsCommutativeTensor(T);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27XCharacterTable(T);[127X[104X
+    [4X[28Xrec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ], [128X[104X
+    [4X[28X      [ 1, 3, -3, -1 ] ], multiplicities := [ 1, 9, 5, 5 ] )[128X[104X
+    [4X[28X	    [128X[104X
+  [4X[32X[104X
+  

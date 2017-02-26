@@ -1,0 +1,245 @@
+\begin{theindex}
+
+  \item \texttt  {AdjacencyMatrix}, \hyperpage{9}
+  \item \texttt  {AlgebraicAutomorphismGroup}, \hyperpage{19}
+  \item \texttt  {AllAssociationSchemes}, \hyperpage{7}
+  \item \texttt  {ArcColorOfColorGraph}, \hyperpage{8}
+  \item \texttt  {AsElementOfColorSemiring}, \hyperpage{39}
+  \item \texttt  {AsList}
+    \subitem for orbits of fusions, \hyperpage{31}
+    \subitem for orbits of good sets, \hyperpage{28}
+  \item \texttt  {AsPartition}, \hyperpage{29}
+  \item \texttt  {AsSet}
+    \subitem for good sets, \hyperpage{27}
+    \subitem for orbits of fusions, \hyperpage{31}
+    \subitem for orbits of good sets, \hyperpage{28}
+  \item \texttt  {AutGroupOfCocoObject}
+    \subitem for color graphs, \hyperpage{17}
+    \subitem for tensors, \hyperpage{24}
+  \item \texttt  {AutomorphismGroup}
+    \subitem for color graphs, \hyperpage{17}
+    \subitem for tensors, \hyperpage{24}
+
+  \indexspace
+
+  \item \texttt  {BaseGraphOfColorGraph}, \hyperpage{14}
+  \item \texttt  {BaseOfFusion}, \hyperpage{30}
+  \item \texttt  {BuildGoodSet}, \hyperpage{26}
+
+  \indexspace
+
+  \item \texttt  {CanonicalRepresentativeOfCocoOrbit}
+    \subitem for orbits of fusions, \hyperpage{31}
+    \subitem for orbits of good sets, \hyperpage{28}
+  \item \texttt  {CharacterTableOfTensor}
+    \subitem for commutative structure constants tensors, 
+		\hyperpage{25}
+  \item \texttt  {ClassicalCompleteAffineScheme}, \hyperpage{6}
+  \item \texttt  {ClosedSets}, \hyperpage{23}
+    \subitem for homogeneous WL-stable color graphs, \hyperpage{14}
+  \item \texttt  {ClosureSet}, \hyperpage{23}
+  \item \texttt  {CocoPosetByFunctions}, \hyperpage{33}
+  \item \texttt  {ColorAutomorphismGroup}, \hyperpage{18}
+  \item \texttt  {ColorAutomorphismGroupOnColors}, \hyperpage{19}
+  \item \texttt  {ColorGraph}, \hyperpage{5}
+  \item \texttt  {ColorGraphByFusion}, \hyperpage{12}
+  \item \texttt  {ColorGraphByMatrix}, \hyperpage{6}
+  \item \texttt  {ColorGraphByOrbitals}, \hyperpage{4}
+  \item \texttt  {ColorGraphByWLStabilization}, \hyperpage{6}
+  \item \texttt  {ColorIsomorphicFusions}, \hyperpage{35}
+  \item \texttt  {ColorIsomorphismColorGraphs}, \hyperpage{18}
+  \item \texttt  {ColorMates}, \hyperpage{11}
+  \item \texttt  {ColorNames}, \hyperpage{8}
+  \item \texttt  {ColorRepresentative}, \hyperpage{8}
+  \item \texttt  {ColorSemiring}, \hyperpage{38}
+  \item \texttt  {ColumnOfColorGraph}, \hyperpage{10}
+  \item \texttt  {ComplexProduct}
+    \subitem for structure constants tensors, \hyperpage{23}
+  \item \texttt  {CyclotomicColorGraph}, \hyperpage{7}
+
+  \indexspace
+
+  \item \texttt  {DenseTensorFromEntries}, \hyperpage{20}
+  \item \texttt  {DirectProductColorGraphs}, \hyperpage{13}
+
+  \indexspace
+
+  \item \texttt  {ElementsOfCocoPoset}, \hyperpage{34}
+  \item \texttt  {EntryOfTensor}, \hyperpage{21}
+
+  \indexspace
+
+  \item \texttt  {FibreLengths}
+    \subitem for structure constants tensors, \hyperpage{21}
+  \item \texttt  {Fibres}, \hyperpage{10}
+  \item \texttt  {FilterInCocoPoset}, \hyperpage{34}
+    \subitem for principal filters, \hyperpage{34}
+  \item \texttt  {FinishBlock}
+    \subitem for structure constants tensors, \hyperpage{22}
+  \item \texttt  {FusionFromPartition}
+    \subitem for structure constant tensors, \hyperpage{29}
+  \item \texttt  {FusionOrbit}, \hyperpage{30}
+
+  \indexspace
+
+  \item \texttt  {GeneratorsOfColorSemiring}, \hyperpage{39}
+  \item \texttt  {GoodSetOrbit}, \hyperpage{27}
+  \item \texttt  {GraphicCocoPoset}, \hyperpage{35}
+    \subitem for posets of color graphs, \hyperpage{35}
+
+  \indexspace
+
+  \item \texttt  {HomogeneousFusionOrbits}
+    \subitem for structure constants tensors, \hyperpage{30}
+    \subitem for structure constants tensors, alternative, 
+		\hyperpage{30}
+  \item \texttt  {HomogeneousGoodSetOrbits}
+    \subitem for structure constants tensors, \hyperpage{27}
+    \subitem for structure constants tensors, alternative, 
+		\hyperpage{27}
+
+  \indexspace
+
+  \item \texttt  {IdealInCocoPoset}, \hyperpage{34}
+    \subitem for principal ideals, \hyperpage{34}
+  \item \texttt  {InducedCocoPoset}, \hyperpage{35}
+  \item \texttt  {InducedSubColorGraph}, \hyperpage{13}
+  \item \texttt  {IsAutomorphismOfObject}
+    \subitem for color graphs, \hyperpage{17}
+    \subitem for tensors, \hyperpage{24}
+  \item \texttt  {IsColorIsomorphicColorGraph}, \hyperpage{18}
+  \item \texttt  {IsCommutativeTensor}, \hyperpage{23}
+  \item \texttt  {IsHomogeneous}, \hyperpage{15}
+    \subitem for structure constants tensors, \hyperpage{24}
+  \item \texttt  {IsIsomorphicCocoObject}
+    \subitem for color graphs, \hyperpage{17}
+    \subitem for tensors, \hyperpage{25}
+  \item \texttt  {IsIsomorphismOfObjects}
+    \subitem for color graphs, \hyperpage{17}
+    \subitem for tensors, \hyperpage{25}
+  \item \texttt  {IsomorphismCocoObjects}
+    \subitem for color graphs, \hyperpage{17}
+    \subitem for tensors, \hyperpage{24}
+  \item \texttt  {IsPrimitive}
+    \subitem for structure constants tensors, \hyperpage{24}
+    \subitem for WL-stable color graphs, \hyperpage{16}
+  \item \texttt  {IsSchurian}, \hyperpage{16}
+  \item \texttt  {IsTensorOfCC}, \hyperpage{23}
+  \item \texttt  {IsUndirectedColorGraph}, \hyperpage{15}
+  \item \texttt  {IsWLStableColorGraph}, \hyperpage{16}
+
+  \indexspace
+
+  \item \texttt  {JohnsonScheme}, \hyperpage{6}
+
+  \indexspace
+
+  \item \texttt  {KnownGroupOfAlgebraicAutomorphisms}, \hyperpage{19}
+  \item \texttt  {KnownGroupOfAutomorphisms}
+    \subitem for color graphs, \hyperpage{17}
+    \subitem for tensors, \hyperpage{24}
+  \item \texttt  {KnownGroupOfColorAutomorphisms}, \hyperpage{18}
+
+  \indexspace
+
+  \item \texttt  {LiftToColorAutomorphism}, \hyperpage{18}
+  \item \texttt  {LiftToColorIsomorphism}, \hyperpage{18}
+  \item \texttt  {LocalIntersectionArray}, \hyperpage{10}
+    \subitem alternative, \hyperpage{10}
+
+  \indexspace
+
+  \item \texttt  {Mates}
+    \subitem for structure constants tensors, \hyperpage{22}
+  \item \texttt  {MaximalElementsInCocoPoset}, \hyperpage{35}
+  \item \texttt  {MinimalElementsInCocoPoset}, \hyperpage{34}
+
+  \indexspace
+
+  \item \texttt  {Neighbors}, \hyperpage{9}
+  \item \texttt  {NumberOfFibres}, \hyperpage{10}
+    \subitem for structure constants tensors, \hyperpage{21}
+
+  \indexspace
+
+  \item \texttt  {Order}
+    \subitem for color graphs, \hyperpage{7}
+    \subitem for tensors, \hyperpage{21}
+  \item \texttt  {OrderOfCocoObject}
+    \subitem for color graphs, \hyperpage{7}
+    \subitem for tensors, \hyperpage{21}
+  \item \texttt  {OrderOfColorGraph}, \hyperpage{7}
+  \item \texttt  {OrderOfTensor}, \hyperpage{21}
+  \item \texttt  {OutValencies}
+    \subitem for structure constants tensors, \hyperpage{22}
+    \subitem for WL-stable color graphs, \hyperpage{11}
+
+  \indexspace
+
+  \item \texttt  {PartitionClosedSet}
+    \subitem for homogeneous WL-stable color graphs, \hyperpage{14}
+  \item \texttt  {PartitionOfFusion}, \hyperpage{29}
+  \item \texttt  {PartitionOfGoodSet}, \hyperpage{27}
+  \item \texttt  {PredecessorsInCocoPoset}, \hyperpage{34}
+
+  \indexspace
+
+  \item \texttt  {QuotientColorGraph}, \hyperpage{12}
+
+  \indexspace
+
+  \item \texttt  {Rank}
+    \subitem for color graphs, \hyperpage{7}
+  \item \texttt  {RankOfColorGraph}, \hyperpage{7}
+  \item \texttt  {RankOfFusion}, \hyperpage{30}
+  \item \texttt  {ReflexiveColors}
+    \subitem for structure constants tensors, \hyperpage{21}
+    \subitem for WL-stable color graphs, \hyperpage{11}
+  \item \texttt  {Representative}
+    \subitem for orbits of fusions, \hyperpage{31}
+    \subitem for orbits of good sets, \hyperpage{28}
+  \item \texttt  {RowOfColorGraph}, \hyperpage{9}
+
+  \indexspace
+
+  \item \texttt  {Size}
+    \subitem for COCO-posets, \hyperpage{34}
+    \subitem for orbits of fusions, \hyperpage{31}
+    \subitem for orbits of good sets, \hyperpage{28}
+  \item \texttt  {StabilizerOfCanonicalRepresentative}
+    \subitem for orbits of fusions, \hyperpage{31}
+    \subitem for orbits of good sets, \hyperpage{28}
+  \item \texttt  {StartBlock}
+    \subitem for structure constants tensors, \hyperpage{22}
+  \item \texttt  {StructureConstantsOfColorGraph}, \hyperpage{20}
+  \item \texttt  {SubColorIsomorphismPoset}, \hyperpage{35}
+  \item \texttt  {SubOrbitsOfCocoOrbit}
+    \subitem for orbits of fusions, \hyperpage{32}
+    \subitem for orbits of good sets, \hyperpage{29}
+  \item \texttt  {Sub}\discretionary {-}{}{}\texttt  {Orbits}\discretionary {-}{}{}\texttt  {With}\discretionary {-}{}{}\texttt  {Invariant}\discretionary {-}{}{}\texttt  {Property}\discretionary {-}{}{}\texttt  {Of}\discretionary {-}{}{}\texttt  {Coco}\discretionary {-}{}{}\texttt  {Orbit}
+    \subitem for orbits of fusions, \hyperpage{32}
+    \subitem for orbits of good sets, \hyperpage{29}
+  \item \texttt  {SuccessorsInCocoPoset}, \hyperpage{34}
+
+  \indexspace
+
+  \item \texttt  {TensorOfFusion}, \hyperpage{30}
+  \item \texttt  {TensorOfGoodSet}, \hyperpage{27}
+
+  \indexspace
+
+  \item \texttt  {UnderlyingGroupOfCocoOrbit}
+    \subitem for orbits of fusions, \hyperpage{31}
+    \subitem for orbits of good sets, \hyperpage{28}
+
+  \indexspace
+
+  \item \texttt  {VertexNamesOfCocoObject}
+    \subitem for color graphs, \hyperpage{7}
+    \subitem for tensors, \hyperpage{21}
+
+  \indexspace
+
+  \item \texttt  {WreathProductColorGraphs}, \hyperpage{13}
+
+\end{theindex}
