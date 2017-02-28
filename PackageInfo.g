@@ -52,8 +52,7 @@ Date := "07/02/2015",
 ##  <#/GAPDoc>
 
 PackageWWWHome :=
-  Concatenation( "http://www.math.tu-dresden.de/~pech/",
-      LowercaseString( ~.PackageName ), "/" ),
+  Concatenation( "https://github.com/chpech/COCO2P/" ) ,
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.tar.gz' or '-win.zip', which are given next.
@@ -63,7 +62,7 @@ PackageWWWHome :=
 ##  directory containing the package (in our "example" probably:
 ##  example/init.g, ...    or example-3.3/init.g, ...  )
 # 
-ArchiveURL := Concatenation( ~.PackageWWWHome, "coco2p-", ~.Version ),
+ArchiveURL := Concatenation( ~.PackageWWWHome, "archive/", "coco2p-", ~.Version ),
 
 ##  All provided formats as list of file extensions, separated by white
 ##  space or commas.
