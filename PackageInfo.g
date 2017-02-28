@@ -219,9 +219,9 @@ Status := "dev",
 ##  and updating of the package in the GAP distribution.
 #
 README_URL := 
-  Concatenation( ~.PackageWWWHome, "README" ),
+  Concatenation( ~.PackageWWWHome, "blob/master/README" ),
 PackageInfoURL := 
-  Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
+  Concatenation( ~.PackageWWWHome, "blob/master/PackageInfo.g" ),
 
 ##  Here you  must provide a short abstract explaining the package content 
 ##  in HTML format (used on the package overview Web page) and an URL 
