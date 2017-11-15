@@ -1,9 +1,6 @@
-This is makeindex, version 2.15 [TeX Live 2017] (kpathsea + Thai support).
-Scanning input file coco.idx....
-!! Input index error (file = coco.idx, line = 99):
-   -- Extra `@' at position 31 of first argument.
-done (152 entries accepted, 1 rejected).
-Sorting entries....done (1234 comparisons).
-Generating output file coco.ind....done (263 lines written, 0 warnings).
+This is makeindex, version 2.15 [TeX Live 2014] (kpathsea + Thai support).
+Scanning input file coco.idx....done (142 entries accepted, 0 rejected).
+Sorting entries....done (1108 comparisons).
+Generating output file coco.ind....done (245 lines written, 0 warnings).
 Output written in coco.ind.
 Transcript written in coco.ilg.

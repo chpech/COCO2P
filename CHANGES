@@ -1,16 +1,4 @@
-Changes from version 0.14 to version 0.15
-colgraph.gi  - added new method for Adjacency matrix
-	     - Corrected DirectProductColorGraph
-	     - added new constructor BIKColorGraph
-colgraph.gd  - added Synonyms IsIsomorphicColorGraph, IsomorphismColorGraphs,
-                              IsIsomorphismOfColorGraphs, IsAutomorphismOfColorGraph,
-			      VertexNamesOfColorGraph
-tensor.gi    - added Method for \[\] to support the syntax T[i,j,k]
-tensor.gd    - added Synonyms IsIsomorphicTensor, IsomorphismTensors,
-                              IsIsomorphismOfTensors, IsAutomorphismOfTensor,
-			      VertexNamesOfTensor
-
-Changes from version 0.13 to version 0.14
+Changes from version 0.12 to version 0.14
 tensor.gi    - corrected DenseTensorFromEntries
              - created PbagBuildObject for general tensors
 coco.xml     - changed name from DenseTensorOfEntries to DenseTensorFromEntries

@@ -22,14 +22,12 @@
   semiring, and let [22XM[122X be a set of vertices of [22XΓ[122X. Then[133X
   
   
-  [24X[33X[0;6YC \cdot M := \{ v\in V \mid \exists w \in M : f(v,w) \in C\},[133X
-  
-  [124X
+        [33X[1;6Y[24X[33X[0;0YC \cdot M := \{ v\in V \mid \exists w \in M : f(v,w) \in C\},[133X [124X[133X
   
   
-  [24X[33X[0;6YM \cdot C := \{ w\in V \mid \exists v \in M : f(v,w) \in C\}.[133X
   
-  [124X
+        [33X[1;6Y[24X[33X[0;0YM \cdot C := \{ w\in V \mid \exists v \in M : f(v,w) \in C\}.[133X [124X[133X
+  
   
   [33X[0;0Y[5XGAP[105X  has  one  operation  symbold  [10X+[110X  for  addition-like  operations and one
   operation  symbol  [10X*[110X  for  multiplication-like  operations.  Thus  in  color

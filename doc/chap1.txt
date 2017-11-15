@@ -217,7 +217,6 @@
   [1X1.4-3 VertexNamesOfCocoObject[101X
   
   [29X[2XVertexNamesOfCocoObject[102X( [3Xcgr[103X ) [32X operation
-  [29X[2XVertexNamesOfColorGraph[102X( [3Xcgr[103X ) [32X operation
   
   [33X[0;0YReturns  the  list  of names of the vertices of [3Xcgr[103X. Unfortunately, the more
   elegant  name  [10XVertexNames[110X is used in [5XGrape[105X as the name of a global function
@@ -302,8 +301,7 @@
   
   [1X1.4-8 AdjacencyMatrix[101X
   
-  [29X[2XAdjacencyMatrix[102X( [3Xcgr[103X ) [32X method
-  [29X[2XAdjacencyMatrix[102X( [3Xcgr[103X, [3Xcolors[103X ) [32X method
+  [29X[2XAdjacencyMatrix[102X( [3Xcgr[103X ) [32X operation
   
   [33X[0;0YReturns  the  adjacency  matrix of [3Xcgr[103X. If [22XA[122X is the adjacency matrix of [3Xcgr[103X,
   then [22XA(i,j)[122X is equal to the color (not to the color name!) of the arc [22X(i,j)[122X.[133X
@@ -325,20 +323,6 @@
     [4X[25Xgap>[125X [27XColorNames(cgr)[127X[104X
     [4X[28X[ "black", "blue", "red" ][128X[104X
     [4X[28X	    [128X[104X
-  [4X[32X[104X
-  
-  [33X[0;0YIn  the second form [10XAdjacencyMatrix(cgr,colors)[110X returns a 0/1-matrix [22XA(i,j)[122X,
-  that  has entry 1 at [22X(i,j)[122X iff the entry of [10XAdjacencyMatrix(cgr)[110X at [22X(i,j)[122X is
-  an element of the list [3Xcolors[103X.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XDisplay(AdjacencyMatrix(cgr, [1,3]));[127X[104X
-    [4X[28X[ [  1,  1,  0,  0,  0 ],[128X[104X
-    [4X[28X  [  0,  1,  1,  0,  0 ],[128X[104X
-    [4X[28X  [  0,  0,  1,  1,  0 ],[128X[104X
-    [4X[28X  [  0,  0,  0,  1,  1 ],[128X[104X
-    [4X[28X  [  1,  0,  0,  0,  1 ] ][128X[104X
-    [4X[28X        [128X[104X
   [4X[32X[104X
   
   [1X1.4-9 RowOfColorGraph[101X
@@ -580,7 +564,7 @@
   [22X(f_1(a_1,a_1),f_2(b_1,b_2))[122X,   and   other  pairs  [22X((a_1,a_2),(b_1,b_2))[122X  to
   [22X(f_1(a_1,a_2),*)[122X.[133X
   
-  [33X[0;0YThe  operation  [10XWreathProductColorGraphs[110X  returns the wreath product of [3Xcgr1[103X
+  [33X[0;0YThe  operation  [10XWreathProductColorGraphs[110X  returns the direct product of [3Xcgr1[103X
   with [3Xcgr2[103X.[133X
   
   [1X1.5-6 ClosedSets[101X
@@ -768,7 +752,6 @@
   [1X1.7-3 IsAutomorphismOfObject[101X
   
   [29X[2XIsAutomorphismOfObject[102X( [3Xcgr[103X, [3Xperm[103X ) [32X operation
-  [29X[2XIsAutomorphismOfColorGraph[102X( [3Xcgr[103X, [3Xperm[103X ) [32X operation
   
   [33X[0;0YReturns  [10Xtrue[110X,  if  [3Xperm[103X is an automorphism of [3Xcgr[103X. In that case [5XCOCO2P[105X adds
   [3Xperm[103X to the known automorphisms of [3Xcgr[103X.[133X
@@ -776,7 +759,6 @@
   [1X1.7-4 IsomorphismCocoObjects[101X
   
   [29X[2XIsomorphismCocoObjects[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
-  [29X[2XIsomorphismColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
   
   [33X[0;0YAn isomorphism from [3Xcgr1[103X to [3Xcgr2[103X is a bijection between the vertex sets that
   preserves the color of arcs (including the names of colors).[133X
@@ -787,7 +769,6 @@
   [1X1.7-5 IsIsomorphicCocoObject[101X
   
   [29X[2XIsIsomorphicCocoObject[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
-  [29X[2XIsIsomorphicColorGraph[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
   
   [33X[0;0YReturns  [10Xtrue[110X  if  [3Xcgr1[103X  and  [3Xcgr2[103X  are isomorphic, and [10Xfalse[110X otherwise (cf.
   [2XIsomorphismCocoObjects[102X ([14X1.7-4[114X))[133X
@@ -795,7 +776,6 @@
   [1X1.7-6 IsIsomorphismOfObjects[101X
   
   [29X[2XIsIsomorphismOfObjects[102X( [3Xcgr1[103X, [3Xcgr2[103X, [3Xg[103X ) [32X operation
-  [29X[2XIsIsomorphismOfColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X, [3Xg[103X ) [32X operation
   
   [33X[0;0YReturns  [10Xtrue[110X  if  [3Xg[103X is an isomorphism fro [3Xcgr1[103X to [3Xcgr2[103X, and [10Xfalse[110X otherwise
   (cf. [2XIsomorphismCocoObjects[102X ([14X1.7-4[114X)).[133X

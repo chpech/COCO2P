@@ -37,7 +37,6 @@ DeclareGlobalFunction("CyclotomicColorGraph");                                  
 DeclareGlobalFunction("ClassicalCompleteAffineScheme");                                                         # documented
 DeclareGlobalFunction("JohnsonScheme");                                                                         # documented
 DeclareGlobalFunction("ColorGraphByWLStabilization" );                                                          # documented
-DeclareGlobalFunction("BIKColorGraph" );                                                                        # still undocumented
 
 
 ###
@@ -79,12 +78,6 @@ DeclareOperation( "LiftToColorAutomorphism",                 [IsColorGraph, IsPe
 DeclareOperation( "LiftToColorIsomorphism",                  [IsColorGraph, IsColorGraph, IsPerm] );                 # documented
 DeclareOperation( "ColorIsomorphismColorGraphs",             [IsColorGraph, IsColorGraph] );                         # for WL-stable; documented
 DeclareOperation( "IsColorIsomorphicColorGraph",             [IsColorGraph, IsColorGraph] );                         # for WL-stable; documented
-DeclareSynonym( "IsIsomorphicColorGraph", IsIsomorphicCocoObject);                                                   # documented
-DeclareSynonym( "IsomorphismColorGraphs", IsomorphismCocoObjects);                                                   # documented
-DeclareSynonym( "IsIsomorphismOfColorGraphs", IsIsomorphismOfObjects);                                               # documented
-DeclareSynonym( "VertexNamesOfColorGraph", VertexNamesOfCocoObject);                                                 # documented
-DeclareSynonym( "IsAutomorphismOfColorGraph", IsAutomorphismOfObject);                                               # documented
-
 
 if TestPackageAvailability("grape","0")=true then
     DeclareOperation( "BaseGraphOfColorGraph",                   [IsColorGraph, IsPosInt] );                         # only declare if <grape> is loaded; documented

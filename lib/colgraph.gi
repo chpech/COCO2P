@@ -227,17 +227,6 @@ function(cgr)
             ArcColorOfColorGraph(cgr, x, y)));
 end);
 
-InstallOtherMethod(AdjacencyMatrix,
-     "for color graphs and a list of colors",
-     [IsColorGraph, IsList],
-function(cgr, colors)
-    return List([1..Order(cgr)], x->List([1..Order(cgr)], function(y) 
-        if ArcColorOfColorGraph(cgr,x,y) in colors then 
-            return 1; 
-        fi;
-        return 0;
-    end));
-end);
 
 
 ####################
@@ -685,8 +674,8 @@ end);
 
 
 InstallOtherMethod(OutValencies,
-  "for WL-stable color graphs",
-  [IsColorGraph and IsWLStableColorGraph],
+  "for color graphs",
+  [IsColorGraph],
 function(cgr)
    local reps;
    reps:=List([1..Rank(cgr)], x->ColorRepresentative(cgr,x));
@@ -867,56 +856,6 @@ function(cgr,fusion)
     res:= ColorGraphByFusion(cgr, PartitionOfFusion(fusion));
     SetIsWLStableColorGraph(res,true);
     return res;
-end);
-
-# 
-InstallGlobalFunction(BIKColorGraph,
-function(m)
-    local  p, maxsingular, i, vert, g, act, cgr;
-    
-    p:=v->v{[1..m]}*v{[m+1..2*m]};
-    
-    maxsingular:=IdentityMat(2*m,GF(2)){[1..m]};
-    
-    vert:=GF(2)^(2*m);
-    maxsingular:=SubspaceNC(vert, maxsingular,"base");
-    g:=GeneralLinearGroup(m,2);
-    
-    act:=function(v,A) 
-        local v1,v2,res1,res2;
-        v1:=v{[1..m]};
-        v2:=v{[m+1..2*m]};
-        res1:=A*v1;
-        res2:=(TransposedMat(A)^(-1))*v2;
-        return Concatenation(res1,res2);
-    end;
-    
-    cgr:= ColorGraph(g, vert, act, true, 
-    function(v,w) 
-        local s,f1,f2;
-        if v=w then
-            return "=";
-        fi;
-        s:=v+w;
-        f1:= p(v+w)=Zero(GF(2));
-        if not f1 then
-            return "Q-";
-        fi;
-        f2:= s in maxsingular;
-        if f2 then
-            return "Q+S+";
-        else
-            return "Q+S-";
-        fi;
-    end);
-    vert:=VertexNamesOfCocoObject(cgr);
-    
-    SetKnownGroupOfAutomorphismsNC(cgr, ClosureGroup(KnownGroupOfAutomorphisms(cgr),
-            List(IdentityMat(2*m,GF(2)), x->PermList(List(vert, v->Position(vert, v+x))))));
-
-    SetIsWLStableColorGraph(cgr,true);
-    
-    return cgr;
 end);
 
 
@@ -1197,16 +1136,14 @@ InstallMethod(DirectProductColorGraphs,
         "for color graphs",
         [IsColorGraph, IsColorGraph],
 function(cgr1,cgr2)
-    local  OnVertexPairs, g, c1, c2, v1, v2,p1,p2;
+    local  OnVertexPairs, g, c1, c2, v1, v2;
     
     OnVertexPairs:=function(p,x)
-        return [v1[Position(v1,p[1])^(Image(p1,x))],
-                v2[Position(v2,p[2])^(Image(p2,x))]];
+        return [v1[Position(v1,p[1]^(Image(Projection(g,1),x)))],
+                v2[Position(v2, p[2]^(Image(Projection(g,2),x)))]];
     end;
     
     g:=DirectProduct(KnownGroupOfAutomorphisms(cgr1), KnownGroupOfAutomorphisms(cgr2));
-    p1:=Projection(g,1);
-    p2:=Projection(g,2);
     
     c1:=ColorNames(cgr1);
     c2:=ColorNames(cgr2);
