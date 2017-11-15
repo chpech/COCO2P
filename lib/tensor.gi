@@ -906,6 +906,13 @@ function(tensor)
     return IsHomogeneous(tensor) and Length(ClosedSets(tensor))<=2;
 end);
 
+InstallOtherMethod(\[\],
+        "for tensors",
+        [ IsTensor, IsList ],
+        function( tensor, lidx)
+    return EntryOfTensor(tensor,lidx[1],lidx[2],lidx[3]);
+end);
+
     
 #################################################################
 #M  ViewObject( <tensor> )

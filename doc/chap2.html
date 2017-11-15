@@ -19,6 +19,7 @@
 
 <div class="chlinkprevnexttop">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3.html">[Next Chapter]</a>&nbsp;  </div>
 
+<p id="mathjaxlink" class="pcenter"></p>
 <p><a id="X79EEFFAF7BB75DEA" name="X79EEFFAF7BB75DEA"></a></p>
 <div class="ChapSects"><a href="chap2.html#X79EEFFAF7BB75DEA">2 <span class="Heading">Structure Constants Tensors</span></a>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7DFB63A97E67C0A1">2.1 <span class="Heading">Introduction</span></a>
@@ -123,6 +124,7 @@
 <h5>2.3-2 VertexNamesOfCocoObject</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; VertexNamesOfCocoObject</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; VertexNamesOfTensor</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Returns the list of names of the vertices of <var class="Arg">tensor</var>.</p>
 
 <p><a id="X84B4DA3282F5965C" name="X84B4DA3282F5965C"></a></p>
@@ -302,6 +304,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 <h5>2.5-3 IsAutomorphismOfObject</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAutomorphismOfObject</code>( <var class="Arg">tensor</var>, <var class="Arg">perm</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAutomorphismOfTensor</code>( <var class="Arg">tensor</var>, <var class="Arg">perm</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Returns <code class="code">true</code>, if <var class="Arg">perm</var> is an automorphism of <var class="Arg">tensor</var>. In that case <strong class="pkg">COCO2P</strong> adds <var class="Arg">perm</var> to the known automorphisms of <var class="Arg">tensor</var>.</p>
 
 <p><a id="X7EE1D367802B6726" name="X7EE1D367802B6726"></a></p>
@@ -309,6 +312,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 <h5>2.5-4 IsomorphismCocoObjects</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsomorphismCocoObjects</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsomorphismTensors</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>This operation returns an isomorphism from <var class="Arg">tensor1</var> to <var class="Arg">tensor2</var> if it exists, and <code class="code">fail</code> if it does not exists.</p>
 
 <p><a id="X867CF32F827578F8" name="X867CF32F827578F8"></a></p>
@@ -316,6 +320,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 <h5>2.5-5 IsIsomorphicCocoObject</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphicCocoObject</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphicTensor</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Returns <code class="code">true</code> if <var class="Arg">tensor1</var> and <var class="Arg">tensor2</var> are isomorphic, and <code class="code">false</code> otherwise.</p>
 
 <p><a id="X84122BB6867A77CB" name="X84122BB6867A77CB"></a></p>
@@ -323,6 +328,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 <h5>2.5-6 IsIsomorphismOfObjects</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphismOfObjects</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var>, <var class="Arg">g</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphismOfTensors</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var>, <var class="Arg">g</var> )</td><td class="tdright">( operation )</td></tr></table></div>
 <p>Returns <code class="code">true</code> if <var class="Arg">g</var> is an isomorphism fro <var class="Arg">tensor1</var> to <var class="Arg">tensor2</var>, and <code class="code">false</code> otherwise.</p>
 
 <p><a id="X7AC08470842F62FB" name="X7AC08470842F62FB"></a></p>

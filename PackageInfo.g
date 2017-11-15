@@ -42,7 +42,7 @@ Subtitle := "Computations in Coherent Configurations",
 Version := "0.14",
 ##  Release date of the current version in dd/mm/yyyy format.
 ##
-Date := "07/02/2015",
+Date := "14/11/2017",
 ##  Optional: if the package manual uses GAPDoc, you may duplicate the 
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
@@ -51,8 +51,7 @@ Date := "07/02/2015",
 ##  <!ENTITY RELEASEDATE "29 September 2012">
 ##  <#/GAPDoc>
 
-PackageWWWHome :=
-  Concatenation( "https://github.com/chpech/COCO2P/" ) ,
+PackageWWWHome := "https://github.com/chpech/COCO2P/",
 
 ##  URL of the archive(s) of the current package release, but *without*
 ##  the format extension(s), like '.tar.gz' or '-win.zip', which are given next.
@@ -161,14 +160,11 @@ Persons := [
     FirstNames    := "Christian",
     IsAuthor      := true,
     IsMaintainer  := true,
-    Email         := "christian.pech@tu-dresden.de",
-    WWWHome       := "http://tu-dresden.de/Members/christian.pech",
-    PostalAddress := Concatenation( [
-                      "Institute of Algebra\n",
-                      "TU Dresden\n",
-                      "01062 Dresden,\n" ] ),
-    Place         := "Dresden",
-    Institution   := "TU Dresden"
+    Email         := "cpech@freenet.de",
+    WWWHome       := "https://www.researchgate.net/profile/Christian_Pech2",
+    PostalAddress := "",
+    Place         := "",
+    Institution   := ""
   ),
   rec( 
     LastName      := "Reichard",

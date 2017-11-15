@@ -51,6 +51,12 @@ DeclareOperation( "ComplexProduct",                 [IsTensor, IsList,IsList] );
 DeclareOperation( "StartBlock",                     [IsTensor and IsTensorOfCC, IsPosInt] );            # documented
 DeclareOperation( "FinishBlock",                    [IsTensor and IsTensorOfCC, IsPosInt] );            # documented
 
+DeclareSynonym( "IsIsomorphicTensor", IsIsomorphicCocoObject);                                          # documented 
+DeclareSynonym( "IsomorphismTensors", IsomorphismCocoObjects);                                          # documented 
+DeclareSynonym( "IsIsomorphismOfTensors", IsIsomorphismOfObjects);                                      # documented
+DeclareSynonym( "VertexNamesOfTensor", VertexNamesOfCocoObject);                                        # documented 
+DeclareSynonym( "IsAutomorphismOfTensor", IsAutomorphismOfObject);                                      # documented
+
 
 ###
 ### Attributes
