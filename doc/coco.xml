@@ -272,8 +272,8 @@ gap> cgr:=ColorGraphByMatrix(m);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="VertexNamesOfCocoObject" Arg="cgr"
-		Label="for color graphs"/>
+	  <Oper Name="VertexNamesOfCocoObject" Arg="cgr" Label="for color graphs"/>
+      <Oper Name="VertexNamesOfColorGraph" Arg="cgr" Label="for color graphs"/>
 	  <Description>
 	    Returns the list of names of the vertices of
 	    <A>cgr</A>. Unfortunately, the more elegant  name
@@ -356,7 +356,8 @@ gap> Neighbors(cgr,1,[1,2]);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="AdjacencyMatrix" Arg="cgr"/>
+	  <Meth Name="AdjacencyMatrix" Arg="cgr"/>
+      <Meth Name="AdjacencyMatrix" Arg="cgr,colors"/>
 	  <Description>
 	    Returns the adjacency matrix of <A>cgr</A>. If <M>A</M> is
 	    the adjacency matrix of <A>cgr</A>, then <M>A(i,j)</M> is
@@ -379,6 +380,15 @@ gap> Display(AdjacencyMatrix(cgr));
 gap> ColorNames(cgr)
 [ "black", "blue", "red" ]]]>
 	    </Example>
+        In the second form <C>AdjacencyMatrix(cgr,colors)</C> returns a 0/1-matrix <M>A(i,j)</M>, that has entry 1 at <M>(i,j)</M> iff the entry of <C>AdjacencyMatrix(cgr)</C> at <M>(i,j)</M> is an element of the list  <A>colors</A>.
+        <Example>
+<![CDATA[gap> Display(AdjacencyMatrix(cgr, [1,3]));
+[ [  1,  1,  0,  0,  0 ],
+  [  0,  1,  1,  0,  0 ],
+  [  0,  0,  1,  1,  0 ],
+  [  0,  0,  0,  1,  1 ],
+  [  1,  0,  0,  0,  1 ] ]]]>
+        </Example>
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -635,7 +645,7 @@ gap> VertexNamesOfCocoObject(cgr2);
 	    <M>((a_1,a_2),(b_1,b_2))</M> to <M>(f_1(a_1,a_2),*)</M>. 
 	    <P/>
 	    The operation <C>WreathProductColorGraphs</C> returns the
-	    direct product of <A>cgr1</A> with <A>cgr2</A>.
+	    wreath product of <A>cgr1</A> with <A>cgr2</A>.
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -826,9 +836,8 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsAutomorphismOfObject" 
-		Arg="cgr, perm"
-		Label="for color graphs"/>
+	  <Oper Name="IsAutomorphismOfObject" Arg="cgr, perm" Label="for color graphs"/>
+      <Oper Name="IsAutomorphismOfColorGraph" Arg="cgr, perm" Label="for color graphs"/>
 	  <Description>
 	    Returns <C>true</C>, if <A>perm</A> is an automorphism of
 	    <A>cgr</A>. In that case &COCO; adds <A>perm</A> to the
@@ -836,9 +845,8 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsomorphismCocoObjects" 
-		Arg="cgr1,cgr2"
-		Label="for color graphs"/>
+	  <Oper Name="IsomorphismCocoObjects" Arg="cgr1,cgr2" Label="for color graphs"/>
+      <Oper Name="IsomorphismColorGraphs" Arg="cgr1,cgr2" Label="for color graphs"/>
 	  <Description>
 	    An isomorphism from <A>cgr1</A> to <A>cgr2</A> is a bijection between
 	    the vertex sets that preserves the color of arcs
@@ -850,9 +858,8 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsIsomorphicCocoObject" 
-		Arg="cgr1,cgr2"
-		Label="for color graphs"/>
+	  <Oper Name="IsIsomorphicCocoObject" Arg="cgr1,cgr2" Label="for color graphs"/>
+      <Oper Name="IsIsomorphicColorGraph" Arg="cgr1,cgr2" Label="for color graphs"/>
 	  <Description>
 	    Returns <C>true</C> if <A>cgr1</A> and <A>cgr2</A> are
 	    isomorphic, and <C>false</C> otherwise (cf. <Ref
@@ -861,9 +868,8 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsIsomorphismOfObjects" 
-		Arg="cgr1,cgr2,g"
-		Label="for color graphs"/>
+	  <Oper Name="IsIsomorphismOfObjects" Arg="cgr1,cgr2,g"	Label="for color graphs"/>
+      <Oper Name="IsIsomorphismOfColorGraphs" Arg="cgr1,cgr2,g"    Label="for color graphs"/>
 	  <Description>
 	    Returns <C>true</C> if <A>g</A> is an isomorphism fro
 	    <A>cgr1</A> to <A>cgr2</A>, and <C>false</C> otherwise (cf. <Ref
@@ -1033,8 +1039,8 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="VertexNamesOfCocoObject" Arg="tensor" 
-		Label="for tensors"/>
+	  <Oper Name="VertexNamesOfCocoObject" Arg="tensor" Label="for tensors"/>
+      <Oper Name="VertexNamesOfTensor" Arg="tensor" Label="for tensors"/>
 	  <Description>
 	    Returns the list of names of the vertices of
 	    <A>tensor</A>. 
@@ -1275,9 +1281,8 @@ gap> Fibres(cgr);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsAutomorphismOfObject" 
-		Arg="tensor, perm"
-		Label="for tensors"/>
+	  <Oper Name="IsAutomorphismOfObject" Arg="tensor, perm" Label="for tensors"/>
+      <Oper Name="IsAutomorphismOfTensor" Arg="tensor, perm" Label="for tensors"/>
 	  <Description>
 	    Returns <C>true</C>, if <A>perm</A> is an automorphism of
 	    <A>tensor</A>. In that case &COCO; adds <A>perm</A> to the
@@ -1285,9 +1290,8 @@ gap> Fibres(cgr);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsomorphismCocoObjects" 
-		Arg="tensor1,tensor2"
-		Label="for tensors"/>
+	  <Oper Name="IsomorphismCocoObjects" Arg="tensor1,tensor2"	Label="for tensors"/>
+      <Oper Name="IsomorphismTensors" Arg="tensor1,tensor2"    Label="for tensors"/>
 	  <Description>
 	    This operation returns an isomorphism from <A>tensor1</A>
 	    to <A>tensor2</A> if it exists, and <C>fail</C> if it does
@@ -1295,18 +1299,16 @@ gap> Fibres(cgr);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsIsomorphicCocoObject" 
-		Arg="tensor1,tensor2"
-		Label="for tensors"/>
+	  <Oper Name="IsIsomorphicCocoObject" Arg="tensor1,tensor2"	Label="for tensors"/>
+      <Oper Name="IsIsomorphicTensor" Arg="tensor1,tensor2"    Label="for tensors"/>
 	  <Description>
 	    Returns <C>true</C> if <A>tensor1</A> and <A>tensor2</A> are
 	    isomorphic, and <C>false</C> otherwise.
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsIsomorphismOfObjects" 
-		Arg="tensor1,tensor2,g"
-		Label="for tensors"/>
+	  <Oper Name="IsIsomorphismOfObjects" Arg="tensor1,tensor2,g" Label="for tensors"/>
+      <Oper Name="IsIsomorphismOfTensors" Arg="tensor1,tensor2,g" Label="for tensors"/>
 	  <Description>
 	    Returns <C>true</C> if <A>g</A> is an isomorphism fro
 	    <A>tensor1</A> to <A>tensor2</A>, and <C>false</C> otherwise.

@@ -2,24 +2,20 @@
   
   [1XReferences[101X
   
-  [[20XGol99[120X]  [16XGolan,  J.  S.[116X,  [17XSemirings and their applications.[117X, Kluwer Academic
-  Publishers, Dordrecht (1999).
+  [[20XGol99[120X] [16XGolan, J. S.[116X, [17XSemirings and their applications.[117X, Kluwer Academic Publishers, Dordrecht (1999).
   
-  [[20XWei76[120X] ([1m[31mWeisfeiler, B.[15X, Ed.), [17XOn construction and identification of graphs[117X,
-  Springer, Lecture Notes in Math., [19X558[119X, Berlin (1976).
+  [[20XWei76[120X]  ([1m[31mWeisfeiler,  B.[15X,  Ed.),  [17XOn  construction  and identification of graphs[117X, Springer, Lecture Notes in Math., [19X558[119X, Berlin
+  (1976).
   
-  [[20XWL68[120X]  [16XWeisfeiler,  B.  J.  and  Leman,  A. A.[116X, [17XA reduction of a graph to a
-  canonical  form  and  an  algebra  arising  during this reduction[117X, [18XNauchno -
-  Technicheskaja Informatsia[118X, [19X9[119X, Seria 2 (1968), 12--16, (((Russian))).
+  [[20XWik11[120X] [16XWikipedia, [116X, [17XSemiring --- Wikipedia, The Free Encyclopedia[117X (2011), (([Online; accessed 5-April-2011])).
   
-  [[20XWik11[120X]  [16XWikipedia,  [116X, [17XSemiring --- Wikipedia, The Free Encyclopedia[117X (2011),
-  (([Online; accessed 5-April-2011])).
+  [[20XWL68[120X]  [16XWeisfeiler,  B.  J.  and  Leman,  A.  A.[116X,  [17XA reduction of a graph to a canonical form and an algebra arising during this
+  reduction[117X, [18XNauchno - Technicheskaja Informatsia[118X, [19X9[119X, Seria 2 (1968), 12--16, (((Russian))).
   
-  [[20XZie96[120X]  [16XZieschang,  P.-H.[116X,  [17XAn  algebraic  approach to association schemes[117X,
-  Springer, Lecture Notes in Mathematics, [19X1628[119X, Berlin (1996).
+  [[20XZie96[120X]  [16XZieschang,  P.-H.[116X,  [17XAn  algebraic approach to association schemes[117X, Springer, Lecture Notes in Mathematics, [19X1628[119X, Berlin
+  (1996).
   
-  [[20XZie05[120X]   [16XZieschang,   P.-H.[116X,   [17XTheory  of  association  schemes[117X,  Springer,
-  Monographs in Mathematics, Berlin (2005).
+  [[20XZie05[120X] [16XZieschang, P.-H.[116X, [17XTheory of association schemes[117X, Springer, Monographs in Mathematics, Berlin (2005).
   
   
   

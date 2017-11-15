@@ -2,148 +2,155 @@
   
   [1XIndex[101X
   
-  [2XAdjacencyMatrix[102X  1.4-8
-  [2XAlgebraicAutomorphismGroup[102X  1.7-15
-  [2XAllAssociationSchemes[102X  1.3-8
-  [2XArcColorOfColorGraph[102X  1.4-5
-  [2XArcColorOfColorGraph[102X  1.4-5
-  [2XAsElementOfColorSemiring[102X  5.1-3
-  [2XAsList[102X (for orbits of good sets)  3.3-8
-  [2XAsList[102X (for orbits of fusions)  3.5-8
-  [2XAsPartition[102X  3.4-2
-  [2XAsSet[102X (for good sets)  3.2-2
-  [2XAsSet[102X (for orbits of good sets)  3.3-9
-  [2XAsSet[102X (for orbits of fusions)  3.5-9
-  [2XAutGroupOfCocoObject[102X (for color graphs)  1.7-2
-  [2XAutGroupOfCocoObject[102X (for tensors)  2.5-2
-  [2XAutomorphismGroup[102X (for color graphs)  1.7-2
-  [2XAutomorphismGroup[102X (for tensors)  2.5-2
-  [2XBaseGraphOfColorGraph[102X  1.5-8
-  [2XBaseGraphOfColorGraph[102X  1.5-8
-  [2XBaseOfFusion[102X  3.4-5
-  [2XBuildGoodSet[102X  3.2-1
-  [2XCanonicalRepresentativeOfCocoOrbit[102X (for orbits of good sets)  3.3-3
-  [2XCanonicalRepresentativeOfCocoOrbit[102X (for orbits of fusions)  3.5-3
-  [2XCharacterTableOfTensor[102X (for commutative structure constants tensors)  2.6-1
-  [2XClassicalCompleteAffineScheme[102X  1.3-5
-  [2XClosedSets[102X (for homogeneous WL-stable color graphs)  1.5-6
-  [2XClosedSets[102X  2.3-11
-  [2XClosureSet[102X  2.3-13
-  [2XCocoPosetByFunctions[102X  4.2-1
-  [2XColorAutomorphismGroup[102X  1.7-12
-  [2XColorAutomorphismGroupOnColors[102X  1.7-13
-  [2XColorGraph[102X  1.3-2
-  [2XColorGraphByFusion[102X  1.5-1
-  [2XColorGraphByMatrix[102X  1.3-3
-  [2XColorGraphByOrbitals[102X  1.3-1
-  [2XColorGraphByWLStabilization[102X  1.3-4
-  [2XColorIsomorphicFusions[102X  4.3-1
-  [2XColorIsomorphismColorGraphs[102X  1.7-10
-  [2XColorMates[102X  1.4-14
-  [2XColorNames[102X  1.4-4
-  [2XColorRepresentative[102X  1.4-6
-  [2XColorSemiring[102X  5.1-1
-  [2XColumnOfColorGraph[102X  1.4-10
-  [2XComplexProduct[102X (for structure constants tensors)  2.3-12
-  [2XCyclotomicColorGraph[102X  1.3-7
-  [2XDenseTensorFromEntries[102X  2.2-2
-  [2XDirectProductColorGraphs[102X  1.5-4
-  [2XElementsOfCocoPoset[102X  4.2-2
-  [2XEntryOfTensor[102X  2.3-3
-  [2XFibreLengths[102X (for structure constants tensors)  2.3-6
-  [2XFibres[102X  1.4-11
-  [2XFilterInCocoPoset[102X  4.2-7
-  [2XFilterInCocoPoset[102X (for principal filters)  4.2-7
-  [2XFinishBlock[102X (for structure constants tensors)  2.3-10
-  [2XFusionFromPartition[102X (for structure constant tensors)  3.4-1
-  [2XFusionOrbit[102X  3.5-2
-  [2XGeneratorsOfColorSemiring[102X  5.1-2
-  [2XGoodSetOrbit[102X  3.3-2
-  [2XGraphicCocoPoset[102X  4.2-11
-  [2XGraphicCocoPoset[102X (for posets of color graphs)  4.3-3
-  [2XHomogeneousFusionOrbits[102X (for structure constants tensors)  3.5-1
-  [2XHomogeneousFusionOrbits[102X (for structure constants tensors, alternative)  3.5-1
-  [2XHomogeneousGoodSetOrbits[102X (for structure constants tensors)  3.3-1
-  [2XHomogeneousGoodSetOrbits[102X (for structure constants tensors, alternative)  3.3-1
-  [2XIdealInCocoPoset[102X  4.2-6
-  [2XIdealInCocoPoset[102X (for principal ideals)  4.2-6
-  [2XInducedCocoPoset[102X  4.2-10
-  [2XInducedSubColorGraph[102X  1.5-3
-  [2XIsAutomorphismOfObject[102X (for color graphs)  1.7-3
-  [2XIsAutomorphismOfObject[102X (for tensors)  2.5-3
-  [2XIsColorIsomorphicColorGraph[102X  1.7-11
-  [2XIsCommutativeTensor[102X  2.4-2
-  [2XIsHomogeneous[102X  1.6-2
-  [2XIsHomogeneous[102X (for structure constants tensors)  2.4-3
-  [2XIsIsomorphicCocoObject[102X (for color graphs)  1.7-5
-  [2XIsIsomorphicCocoObject[102X (for tensors)  2.5-5
-  [2XIsIsomorphismOfObjects[102X (for color graphs)  1.7-6
-  [2XIsIsomorphismOfObjects[102X (for tensors)  2.5-6
-  [2XIsomorphismCocoObjects[102X (for color graphs)  1.7-4
-  [2XIsomorphismCocoObjects[102X (for tensors)  2.5-4
-  [2XIsPrimitive[102X (for WL-stable color graphs)  1.6-5
-  [2XIsPrimitive[102X (for structure constants tensors)  2.4-4
-  [2XIsSchurian[102X  1.6-4
-  [2XIsTensorOfCC[102X  2.4-1
-  [2XIsUndirectedColorGraph[102X  1.6-1
-  [2XIsWLStableColorGraph[102X  1.6-3
-  [2XJohnsonScheme[102X  1.3-6
-  [2XKnownGroupOfAlgebraicAutomorphisms[102X  1.7-14
-  [2XKnownGroupOfAutomorphisms[102X (for color graphs)  1.7-1
-  [2XKnownGroupOfAutomorphisms[102X (for tensors)  2.5-1
-  [2XKnownGroupOfColorAutomorphisms[102X  1.7-7
-  [2XLiftToColorAutomorphism[102X  1.7-8
-  [2XLiftToColorIsomorphism[102X  1.7-9
-  [2XLocalIntersectionArray[102X  1.4-13
-  [2XLocalIntersectionArray[102X (alternative)  1.4-13
-  [2XMates[102X (for structure constants tensors)  2.3-8
-  [2XMaximalElementsInCocoPoset[102X  4.2-9
-  [2XMinimalElementsInCocoPoset[102X  4.2-8
-  [2XNeighbors[102X  1.4-7
-  [2XNeighbors[102X  1.4-7
-  [2XNumberOfFibres[102X  1.4-12
-  [2XNumberOfFibres[102X (for structure constants tensors)  2.3-5
-  [2XOrder[102X (for color graphs)  1.4-1
-  [2XOrder[102X (for tensors)  2.3-1
-  [2XOrderOfCocoObject[102X (for color graphs)  1.4-1
-  [2XOrderOfCocoObject[102X (for tensors)  2.3-1
-  [2XOrderOfColorGraph[102X  1.4-1
-  [2XOrderOfTensor[102X  2.3-1
-  [2XOutValencies[102X (for WL-stable color graphs)  1.4-15
-  [2XOutValencies[102X (for structure constants tensors)  2.3-7
-  [2XPartitionClosedSet[102X (for homogeneous WL-stable color graphs)  1.5-7
-  [2XPartitionOfFusion[102X  3.4-3
-  [2XPartitionOfGoodSet[102X  3.2-4
-  [2XPredecessorsInCocoPoset[102X  4.2-5
-  [2XQuotientColorGraph[102X  1.5-2
-  [2XRank[102X (for color graphs)  1.4-2
-  [2XRankOfColorGraph[102X  1.4-2
-  [2XRankOfFusion[102X  3.4-6
-  [2XReflexiveColors[102X (for WL-stable color graphs)  1.4-16
-  [2XReflexiveColors[102X (for structure constants tensors)  2.3-4
-  [2XRepresentative[102X (for orbits of good sets)  3.3-4
-  [2XRepresentative[102X (for orbits of fusions)  3.5-4
-  [2XRowOfColorGraph[102X  1.4-9
-  [2XSize[102X (for orbits of good sets)  3.3-7
-  [2XSize[102X (for orbits of fusions)  3.5-7
-  [2XSize[102X (for COCO-posets)  4.2-3
-  [2XStabilizerOfCanonicalRepresentative[102X (for orbits of good sets)  3.3-6
-  [2XStabilizerOfCanonicalRepresentative[102X (for orbits of fusions)  3.5-6
-  [2XStartBlock[102X (for structure constants tensors)  2.3-9
-  [2XStructureConstantsOfColorGraph[102X  2.2-1
-  [2XSubColorIsomorphismPoset[102X  4.3-2
-  [2XSubOrbitsOfCocoOrbit[102X (for orbits of good sets)  3.3-10
-  [2XSubOrbitsOfCocoOrbit[102X (for orbits of fusions)  3.5-10
-  [2XSubOrbitsWithInvariantPropertyOfCocoOrbit[102X (for orbits of good sets)  3.3-11
-  [2XSubOrbitsWithInvariantPropertyOfCocoOrbit[102X (for orbits of fusions)  3.5-11
-  [2XSuccessorsInCocoPoset[102X  4.2-4
-  [2XTensorOfFusion[102X  3.4-4
-  [2XTensorOfGoodSet[102X  3.2-3
-  [2XUnderlyingGroupOfCocoOrbit[102X (for orbits of good sets)  3.3-5
-  [2XUnderlyingGroupOfCocoOrbit[102X (for orbits of fusions)  3.5-5
-  [2XVertexNamesOfCocoObject[102X (for color graphs)  1.4-3
-  [2XVertexNamesOfCocoObject[102X (for tensors)  2.3-2
-  [2XWreathProductColorGraphs[102X  1.5-5
+  [2XAdjacencyMatrix[102X 1.4-8  1.4-8 
+  [2XAlgebraicAutomorphismGroup[102X 1.7-15 
+  [2XAllAssociationSchemes[102X 1.3-8 
+  [2XArcColorOfColorGraph[102X 1.4-5  1.4-5 
+  [2XAsElementOfColorSemiring[102X 5.1-3 
+  [2XAsList[102X, for orbits of fusions 3.5-8 
+      for orbits of good sets 3.3-8 
+  [2XAsPartition[102X 3.4-2 
+  [2XAsSet[102X, for good sets 3.2-2 
+      for orbits of fusions 3.5-9 
+      for orbits of good sets 3.3-9 
+  [2XAutGroupOfCocoObject[102X, for color graphs 1.7-2 
+      for tensors 2.5-2 
+  [2XAutomorphismGroup[102X, for color graphs 1.7-2 
+      for tensors 2.5-2 
+  [2XBaseGraphOfColorGraph[102X 1.5-8  1.5-8 
+  [2XBaseOfFusion[102X 3.4-5 
+  [2XBuildGoodSet[102X 3.2-1 
+  [2XCanonicalRepresentativeOfCocoOrbit[102X, for orbits of fusions 3.5-3 
+      for orbits of good sets 3.3-3 
+  [2XCharacterTableOfTensor[102X, for commutative structure constants tensors 2.6-1 
+  [2XClassicalCompleteAffineScheme[102X 1.3-5 
+  [2XClosedSets[102X 2.3-11 
+      for homogeneous WL-stable color graphs 1.5-6 
+  [2XClosureSet[102X 2.3-13 
+  [2XCocoPosetByFunctions[102X 4.2-1 
+  [2XColorAutomorphismGroup[102X 1.7-12 
+  [2XColorAutomorphismGroupOnColors[102X 1.7-13 
+  [2XColorGraph[102X 1.3-2 
+  [2XColorGraphByFusion[102X 1.5-1 
+  [2XColorGraphByMatrix[102X 1.3-3 
+  [2XColorGraphByOrbitals[102X 1.3-1 
+  [2XColorGraphByWLStabilization[102X 1.3-4 
+  [2XColorIsomorphicFusions[102X 4.3-1 
+  [2XColorIsomorphismColorGraphs[102X 1.7-10 
+  [2XColorMates[102X 1.4-14 
+  [2XColorNames[102X 1.4-4 
+  [2XColorRepresentative[102X 1.4-6 
+  [2XColorSemiring[102X 5.1-1 
+  [2XColumnOfColorGraph[102X 1.4-10 
+  [2XComplexProduct[102X, for structure constants tensors 2.3-12 
+  [2XCyclotomicColorGraph[102X 1.3-7 
+  [2XDenseTensorFromEntries[102X 2.2-2 
+  [2XDirectProductColorGraphs[102X 1.5-4 
+  [2XElementsOfCocoPoset[102X 4.2-2 
+  [2XEntryOfTensor[102X 2.3-3 
+  [2XFibreLengths[102X, for structure constants tensors 2.3-6 
+  [2XFibres[102X 1.4-11 
+  [2XFilterInCocoPoset[102X 4.2-7 
+      for principal filters 4.2-7 
+  [2XFinishBlock[102X, for structure constants tensors 2.3-10 
+  [2XFusionFromPartition[102X, for structure constant tensors 3.4-1 
+  [2XFusionOrbit[102X 3.5-2 
+  [2XGeneratorsOfColorSemiring[102X 5.1-2 
+  [2XGoodSetOrbit[102X 3.3-2 
+  [2XGraphicCocoPoset[102X 4.2-11 
+      for posets of color graphs 4.3-3 
+  [2XHomogeneousFusionOrbits[102X, for structure constants tensors 3.5-1 
+      for structure constants tensors, alternative 3.5-1 
+  [2XHomogeneousGoodSetOrbits[102X, for structure constants tensors 3.3-1 
+      for structure constants tensors, alternative 3.3-1 
+  [2XIdealInCocoPoset[102X 4.2-6 
+      for principal ideals 4.2-6 
+  [2XInducedCocoPoset[102X 4.2-10 
+  [2XInducedSubColorGraph[102X 1.5-3 
+  [2XIsAutomorphismOfColorGraph[102X, for color graphs 1.7-3 
+  [2XIsAutomorphismOfObject[102X, for color graphs 1.7-3 
+      for tensors 2.5-3 
+  [2XIsAutomorphismOfTensor[102X, for tensors 2.5-3 
+  [2XIsColorIsomorphicColorGraph[102X 1.7-11 
+  [2XIsCommutativeTensor[102X 2.4-2 
+  [2XIsHomogeneous[102X 1.6-2 
+      for structure constants tensors 2.4-3 
+  [2XIsIsomorphicCocoObject[102X, for color graphs 1.7-5 
+      for tensors 2.5-5 
+  [2XIsIsomorphicColorGraph[102X, for color graphs 1.7-5 
+  [2XIsIsomorphicTensor[102X, for tensors 2.5-5 
+  [2XIsIsomorphismOfColorGraphs[102X, for color graphs 1.7-6 
+  [2XIsIsomorphismOfObjects[102X, for color graphs 1.7-6 
+      for tensors 2.5-6 
+  [2XIsIsomorphismOfTensors[102X, for tensors 2.5-6 
+  [2XIsomorphismCocoObjects[102X, for color graphs 1.7-4 
+      for tensors 2.5-4 
+  [2XIsomorphismColorGraphs[102X, for color graphs 1.7-4 
+  [2XIsomorphismTensors[102X, for tensors 2.5-4 
+  [2XIsPrimitive[102X, for structure constants tensors 2.4-4 
+      for WL-stable color graphs 1.6-5 
+  [2XIsSchurian[102X 1.6-4 
+  [2XIsTensorOfCC[102X 2.4-1 
+  [2XIsUndirectedColorGraph[102X 1.6-1 
+  [2XIsWLStableColorGraph[102X 1.6-3 
+  [2XJohnsonScheme[102X 1.3-6 
+  [2XKnownGroupOfAlgebraicAutomorphisms[102X 1.7-14 
+  [2XKnownGroupOfAutomorphisms[102X, for color graphs 1.7-1 
+      for tensors 2.5-1 
+  [2XKnownGroupOfColorAutomorphisms[102X 1.7-7 
+  [2XLiftToColorAutomorphism[102X 1.7-8 
+  [2XLiftToColorIsomorphism[102X 1.7-9 
+  [2XLocalIntersectionArray[102X 1.4-13 
+      alternative 1.4-13 
+  [2XMates[102X, for structure constants tensors 2.3-8 
+  [2XMaximalElementsInCocoPoset[102X 4.2-9 
+  [2XMinimalElementsInCocoPoset[102X 4.2-8 
+  [2XNeighbors[102X 1.4-7  1.4-7 
+  [2XNumberOfFibres[102X 1.4-12 
+      for structure constants tensors 2.3-5 
+  [2XOrder[102X, for color graphs 1.4-1 
+      for tensors 2.3-1 
+  [2XOrderOfCocoObject[102X, for color graphs 1.4-1 
+      for tensors 2.3-1 
+  [2XOrderOfColorGraph[102X 1.4-1 
+  [2XOrderOfTensor[102X 2.3-1 
+  [2XOutValencies[102X, for structure constants tensors 2.3-7 
+      for WL-stable color graphs 1.4-15 
+  [2XPartitionClosedSet[102X, for homogeneous WL-stable color graphs 1.5-7 
+  [2XPartitionOfFusion[102X 3.4-3 
+  [2XPartitionOfGoodSet[102X 3.2-4 
+  [2XPredecessorsInCocoPoset[102X 4.2-5 
+  [2XQuotientColorGraph[102X 1.5-2 
+  [2XRank[102X, for color graphs 1.4-2 
+  [2XRankOfColorGraph[102X 1.4-2 
+  [2XRankOfFusion[102X 3.4-6 
+  [2XReflexiveColors[102X, for structure constants tensors 2.3-4 
+      for WL-stable color graphs 1.4-16 
+  [2XRepresentative[102X, for orbits of fusions 3.5-4 
+      for orbits of good sets 3.3-4 
+  [2XRowOfColorGraph[102X 1.4-9 
+  [2XSize[102X, for COCO-posets 4.2-3 
+      for orbits of fusions 3.5-7 
+      for orbits of good sets 3.3-7 
+  [2XStabilizerOfCanonicalRepresentative[102X, for orbits of fusions 3.5-6 
+      for orbits of good sets 3.3-6 
+  [2XStartBlock[102X, for structure constants tensors 2.3-9 
+  [2XStructureConstantsOfColorGraph[102X 2.2-1 
+  [2XSubColorIsomorphismPoset[102X 4.3-2 
+  [2XSubOrbitsOfCocoOrbit[102X, for orbits of fusions 3.5-10 
+      for orbits of good sets 3.3-10 
+  [2XSubOrbitsWithInvariantPropertyOfCocoOrbit[102X, for orbits of fusions 3.5-11 
+      for orbits of good sets 3.3-11 
+  [2XSuccessorsInCocoPoset[102X 4.2-4 
+  [2XTensorOfFusion[102X 3.4-4 
+  [2XTensorOfGoodSet[102X 3.2-3 
+  [2XUnderlyingGroupOfCocoOrbit[102X, for orbits of fusions 3.5-5 
+      for orbits of good sets 3.3-5 
+  [2XVertexNamesOfCocoObject[102X, for color graphs 1.4-3 
+      for tensors 2.3-2 
+  [2XVertexNamesOfColorGraph[102X, for color graphs 1.4-3 
+  [2XVertexNamesOfTensor[102X, for tensors 2.3-2 
+  [2XWreathProductColorGraphs[102X 1.5-5 
   
   
   -------------------------------------------------------

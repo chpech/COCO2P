@@ -55,6 +55,7 @@
   [1X2.3-2 VertexNamesOfCocoObject[101X
   
   [29X[2XVertexNamesOfCocoObject[102X( [3Xtensor[103X ) [32X operation
+  [29X[2XVertexNamesOfTensor[102X( [3Xtensor[103X ) [32X operation
   
   [33X[0;0YReturns the list of names of the vertices of [3Xtensor[103X.[133X
   
@@ -249,6 +250,7 @@
   [1X2.5-3 IsAutomorphismOfObject[101X
   
   [29X[2XIsAutomorphismOfObject[102X( [3Xtensor[103X, [3Xperm[103X ) [32X operation
+  [29X[2XIsAutomorphismOfTensor[102X( [3Xtensor[103X, [3Xperm[103X ) [32X operation
   
   [33X[0;0YReturns [10Xtrue[110X, if [3Xperm[103X is an automorphism of [3Xtensor[103X. In that case [5XCOCO2P[105X adds
   [3Xperm[103X to the known automorphisms of [3Xtensor[103X.[133X
@@ -256,6 +258,7 @@
   [1X2.5-4 IsomorphismCocoObjects[101X
   
   [29X[2XIsomorphismCocoObjects[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X operation
+  [29X[2XIsomorphismTensors[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X operation
   
   [33X[0;0YThis  operation returns an isomorphism from [3Xtensor1[103X to [3Xtensor2[103X if it exists,
   and [10Xfail[110X if it does not exists.[133X
@@ -263,12 +266,14 @@
   [1X2.5-5 IsIsomorphicCocoObject[101X
   
   [29X[2XIsIsomorphicCocoObject[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X operation
+  [29X[2XIsIsomorphicTensor[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X operation
   
   [33X[0;0YReturns [10Xtrue[110X if [3Xtensor1[103X and [3Xtensor2[103X are isomorphic, and [10Xfalse[110X otherwise.[133X
   
   [1X2.5-6 IsIsomorphismOfObjects[101X
   
   [29X[2XIsIsomorphismOfObjects[102X( [3Xtensor1[103X, [3Xtensor2[103X, [3Xg[103X ) [32X operation
+  [29X[2XIsIsomorphismOfTensors[102X( [3Xtensor1[103X, [3Xtensor2[103X, [3Xg[103X ) [32X operation
   
   [33X[0;0YReturns  [10Xtrue[110X  if  [3Xg[103X  is  an  isomorphism  fro [3Xtensor1[103X to [3Xtensor2[103X, and [10Xfalse[110X
   otherwise.[133X
