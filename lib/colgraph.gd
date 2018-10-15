@@ -38,6 +38,7 @@ DeclareGlobalFunction("ClassicalCompleteAffineScheme");                         
 DeclareGlobalFunction("JohnsonScheme");                                                                         # documented
 DeclareGlobalFunction("ColorGraphByWLStabilization" );                                                          # documented
 DeclareGlobalFunction("BIKColorGraph" );                                                                        # still undocumented
+DeclareGlobalFunction("IvanovColorGraph" );                                                                     # still undocumented
 
 
 ###
@@ -82,7 +83,7 @@ DeclareOperation( "IsColorIsomorphicColorGraph",             [IsColorGraph, IsCo
 DeclareSynonym( "IsIsomorphicColorGraph", IsIsomorphicCocoObject);                                                   # documented
 DeclareSynonym( "IsomorphismColorGraphs", IsomorphismCocoObjects);                                                   # documented
 DeclareSynonym( "IsIsomorphismOfColorGraphs", IsIsomorphismOfObjects);                                               # documented
-DeclareSynonym( "VertexNamesOfColorGraph", VertexNamesOfCocoObject);                                                 # documented
+DeclareSynonymAttr( "VertexNamesOfColorGraph", VertexNamesOfCocoObject);                                                 # documented
 DeclareSynonym( "IsAutomorphismOfColorGraph", IsAutomorphismOfObject);                                               # documented
 
 

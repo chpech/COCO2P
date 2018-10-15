@@ -1,3 +1,13 @@
+Changes from version 0.15 to version 0.16
+coco.xml     - added Documentation for additional methods of Neighbors
+cobject.gd   - made an attribute from VertexNamesOfCocoObject
+colgraph.gi  - added new constructor IvanovColorGraph
+	       added new Methods for Neighbors
+	       corrected IsSchurian
+fusion.gi    - corrected Rank
+schemesdb.gi - added new globale function AllCoherentConfigurations (interface to the database by Matan Ziv-Av)
+tensor.gd    - Added synonym attribute VertexNamesOfTensor
+
 Changes from version 0.14 to version 0.15
 colgraph.gi  - added new method for Adjacency matrix
 	     - Corrected DirectProductColorGraph

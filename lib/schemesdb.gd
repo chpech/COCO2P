@@ -1,1 +1,2 @@
 DeclareGlobalFunction("AllAssociationSchemes");
+DeclareGlobalFunction("AllCoherentConfigurations");

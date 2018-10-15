@@ -35,7 +35,6 @@ DeclareOperation( "IsIsomorphismOfObjects",       [IsCocoObject, IsCocoObject, I
 DeclareOperation( "KnownGroupOfAutomorphisms",    [IsCocoObject] ); 
 DeclareOperation( "SetKnownGroupOfAutomorphisms", [IsCocoObject,IsPermGroup] );
 DeclareOperation( "SetKnownGroupOfAutomorphismsNC", [IsCocoObject, IsPermGroup] );
-DeclareOperation( "VertexNamesOfCocoObject",      [IsCocoObject] );
 DeclareOperation( "IsomorphismCocoObjects",       [IsCocoObject, IsCocoObject] );
 DeclareOperation( "IsIsomorphicCocoObject",       [IsCocoObject, IsCocoObject] );
 DeclareOperation( "IsomorphismCocoObjectsInGroup", [IsPermGroup, IsCocoObject, IsCocoObject] );
@@ -53,3 +52,4 @@ DeclareGlobalFunction( "NewPbagObjectWithInvariantPartition" );
 DeclareAttribute( "OrderOfCocoObject",         IsCocoObject );
 DeclareAttribute( "KnownGroups",               IsCocoObject, "mutable" );
 DeclareAttribute( "AutGroupOfCocoObject",      IsCocoObject );
+DeclareAttribute( "VertexNamesOfCocoObject",   IsCocoObject );

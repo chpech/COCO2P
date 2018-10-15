@@ -88,7 +88,7 @@ InstallOtherMethod(Rank,
 		"for fusions of structure constants tensors",
 		[IsFusionOfTensor],
 function(fusion)
-   return Rank(fusion);
+   return RankOfFusion(fusion);
 end);
 
 InstallMethod(PartitionOfFusion,

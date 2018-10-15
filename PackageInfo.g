@@ -39,10 +39,10 @@ Subtitle := "Computations in Coherent Configurations",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers. For an automatic package distribution update
 ##  you must provide a new version number even after small changes.
-Version := "0.14",
+Version := "0.16",
 ##  Release date of the current version in dd/mm/yyyy format.
 ##
-Date := "14/11/2017",
+Date := "15/10/2018",
 ##  Optional: if the package manual uses GAPDoc, you may duplicate the 
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
@@ -144,8 +144,8 @@ Persons := [
     FirstNames    := "Mikhail",
     IsAuthor      := true,
     IsMaintainer  := false,
-    Email         := "klin@cs.bgu.ac.il",
-    WWWHome       := "http://www.cs.bgu.ac.il/~klin/klin/klin.html",
+    Email         := "klin@math.bgu.ac.il",
+    WWWHome       := "https://www.researchgate.net/profile/Mikhail_Klin",
     PostalAddress := Concatenation( [
             "Department of Mathematics\n",
             "Ben Gurion University of the Negev\n",
@@ -172,7 +172,7 @@ Persons := [
     IsAuthor      := true,
     IsMaintainer  := false,
     Email         := "sven.reichard@tu-dresden.de",
-    WWWHome       := "http://tu-dresden.de/Members/sven.reichard",
+    WWWHome       := "https://www.math.tu-dresden.de/~reichard/",
     PostalAddress := Concatenation( [
                       "Institute of Algebra\n",
                       "TU Dresden\n",

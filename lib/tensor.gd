@@ -54,7 +54,7 @@ DeclareOperation( "FinishBlock",                    [IsTensor and IsTensorOfCC, 
 DeclareSynonym( "IsIsomorphicTensor", IsIsomorphicCocoObject);                                          # documented 
 DeclareSynonym( "IsomorphismTensors", IsomorphismCocoObjects);                                          # documented 
 DeclareSynonym( "IsIsomorphismOfTensors", IsIsomorphismOfObjects);                                      # documented
-DeclareSynonym( "VertexNamesOfTensor", VertexNamesOfCocoObject);                                        # documented 
+DeclareSynonymAttr( "VertexNamesOfTensor", VertexNamesOfCocoObject);                                        # documented 
 DeclareSynonym( "IsAutomorphismOfTensor", IsAutomorphismOfObject);                                      # documented
 
 

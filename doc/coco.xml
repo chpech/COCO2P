@@ -332,15 +332,18 @@ gap> ArcColorOfColorGraph(cgr,[2,9]);
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Meth Name="Neighbors" Arg="cgr,vertices,colors"/>
 	  <Meth Name="Neighbors" Arg="cgr,v,colors"/>
-	  <Meth Name="Neighbors" Arg="cgr,v,color"/>
+      <Meth Name="Neighbors" Arg="cgr,vertices,color"/>
+      <Meth Name="Neighbors" Arg="cgr,v,color"/>
 	  <Description>
 	    The first variant returns the set of all vertices <M>w</M>
 	    of <A>cgr</A> such that the color of the arc <M>(v,w)</M>
-	    is an element of the set <A>colors</A>. 
+	    is an element of the set <A>colors</A>, for all <M>v</M> in <A>vertices</A>.
 	    <P/>
-	    The second variant gets as third argument a single color
-	    of <A>cgr</A>. 
+	    The second variant gets as the second  argument a single vertex of <A>cgr</A>,
+        the third gets a single color and the fourth variant gets both, a single
+        vertex and a single color..
 	    <Example>
 <![CDATA[gap> cgr:=JohnsonScheme(5,2);;
 gap> ColorNames(cgr);
