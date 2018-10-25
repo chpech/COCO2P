@@ -1,14 +1,4 @@
 
-#################################################################
-#W  $Id$
-##
-##  $Log$
-##
-##
-
-Revision.colgraph_gi :=
-  "@(#)$Id$";
-
 #############################################################################
 ##
 ##  colgraph.gi                  COCO package
@@ -62,10 +52,10 @@ function(arg)
             od;
         od;
     od;
-    
+
     MakeImmutable(obj.twoOrbReps);
     MakeImmutable(obj.twoOrbitNumbers);
-    
+
     obj.colorNames:=obj.twoOrbReps;
     obj :=  Objectify(NewType(ColorGraphFam, IsSchurianCCRep), obj);
     SetIsWLStableColorGraph(obj,true);
@@ -231,9 +221,9 @@ InstallOtherMethod(AdjacencyMatrix,
      "for color graphs and a list of colors",
      [IsColorGraph, IsList],
 function(cgr, colors)
-    return List([1..Order(cgr)], x->List([1..Order(cgr)], function(y) 
-        if ArcColorOfColorGraph(cgr,x,y) in colors then 
-            return 1; 
+    return List([1..Order(cgr)], x->List([1..Order(cgr)], function(y)
+        if ArcColorOfColorGraph(cgr,x,y) in colors then
+            return 1;
         fi;
         return 0;
     end));
@@ -339,7 +329,7 @@ function(cgr, x, lcolor)
     result := Filtered([1..Length(row)], y -> row[y] in lcolor);
     return result;
 end);
-    
+
 InstallOtherMethod( Neighbors,
         "for a color graph, a vertex, and a color",
         [IsColorGraph, IsPosInt, IsPosInt],
@@ -414,7 +404,7 @@ InstallMethod(IsWLStableColorGraph,
          [IsColorGraph and IsColorGraphRep],
 function(cgr)
    local tensor,tor;
-   
+
    tor:=List([1..Rank(cgr!.schurianCC)], x->ColorRepresentative(cgr!.schurianCC,x));
    tensor:=TensorFromColorReps(cgr,tor);
    if tensor=fail then
@@ -452,9 +442,7 @@ function(cgr)
    return VertexNamesOfCocoObject(cgr!.schurianCC);
 end);
 
-InstallMethod(NewPbagObject,
-		"for color graphs",
-		[IsColorGraph],
+InstallGlobalFunction(NewPbagObjectForColorGraph,
 function(cgr)
     local obj,g;
 
@@ -469,6 +457,20 @@ function(cgr)
     g:=KnownGroupOfAutomorphisms(cgr);
     obj.stabChain:=StabChainMutable(g);
     return obj;
+end);
+
+InstallMethod(NewPbagObject,
+		"for color graphs",
+		[IsColorGraph],
+function(cgr)
+  return NewPbagObjectForColorGraph(cgr);
+end);
+
+InstallMethod(NewPbagObjects,
+  "for color graphs",
+  [IsColorGraph, IsColorGraph],
+function(cgr1,cgr2)
+  return [NewPbagObjectForColorGraph(cgr1), NewPbagObjectForColorGraph(cgr2)];
 end);
 
 InstallGlobalFunction(RowOfCgrObject,
@@ -487,8 +489,8 @@ end);
 
 InstallMethod(PbagInvariant,
    "for color graphs",
-   [IsColorGraph],
-function(cgr)
+   [IsColorGraph, IsColorGraph],
+function(cgr1,cgr2)
    local TestIsomorphism, TestAutomorphism, Invariant, HashFunction;
 
    TestIsomorphism:=function(TRec1, TRec2, perm)
@@ -641,7 +643,7 @@ function(W,g)
    return res;
 end);
 
-InstallMethod(LiftToColorIsomorphism, 
+InstallMethod(LiftToColorIsomorphism,
         "for color graphs",
         [IsColorGraph, IsColorGraph, IsPerm],
 function(W1,W2,g)
@@ -791,20 +793,20 @@ end);
 # the cyclotomic colored graph Cyc(p,n,d) has as vertices the elements of GF(q)
 # the set of colors is given by {*,0,1,...,d-1}
 # a pair $(x,y)$ of vertices has color * in Cyc(p,n,d) if x=y. It has
-# color i if (x-y) is an element of  C*(r^i) 
+# color i if (x-y) is an element of  C*(r^i)
 InstallGlobalFunction(CyclotomicColorGraph,
 function(p,n,d)
     local  q, F, r, md, V, gens, pp, g, lab, names, cyccgr;
-    
-    if not IsPrimeInt(p) or not IsPosInt(n) or not IsPosInt(d) then 
+
+    if not IsPrimeInt(p) or not IsPosInt(n) or not IsPosInt(d) then
         return fail;
     fi;
-    
+
     q:=p^n;
     if (q-1) mod d <> 0 then
         return fail;
     fi;
-    
+
     F:=GF(q);
     r:=PrimitiveElement(F);
     md:=Set([0..(q-1)/d], i->r^(d*i));
@@ -815,7 +817,7 @@ function(p,n,d)
     lab:=[[Zero(F)]];
     Append(lab,List([0..d-1], x->Set(md*r^x)));
     names:=Concatenation(["*"],[0..d-1]);
-    
+
     cyccgr:=ColorGraph(g, [1..Length(V)], OnPoints, true, function(a,b) return names[First([1..d+1], i->(V[a]-V[b]) in lab[i])];end);
     return cyccgr;
 end);
@@ -826,7 +828,7 @@ end);
 #    if not IsPrimePowerInt(q) or not IsPosInt(d) then
 #       return fail;
 #    fi;
-   	
+
 #    if (q^2-1) mod d<>0 then
 #       return fail;
 #    fi;
@@ -872,7 +874,7 @@ InstallMethod(ColorGraphByFusion,
         [IsColorGraph, IsFusionOfTensor],
 function(cgr,fusion)
     local T,res;
-    
+
     T:=StructureConstantsOfColorGraph(cgr);
     if not IsIdenticalObj(FusionFamily(T), FamilyObj(fusion)) then
         Error("The given fusion must belong to the given color graph!");
@@ -882,20 +884,20 @@ function(cgr,fusion)
     return res;
 end);
 
-# 
+#
 InstallGlobalFunction(BIKColorGraph,
 function(m)
     local  p, maxsingular, i, vert, g, act, cgr;
-    
+
     p:=v->v{[1..m]}*v{[m+1..2*m]};
-    
+
     maxsingular:=IdentityMat(2*m,GF(2)){[1..m]};
-    
+
     vert:=GF(2)^(2*m);
     maxsingular:=SubspaceNC(vert, maxsingular,"base");
     g:=GeneralLinearGroup(m,2);
-    
-    act:=function(v,A) 
+
+    act:=function(v,A)
         local v1,v2,res1,res2;
         v1:=v{[1..m]};
         v2:=v{[m+1..2*m]};
@@ -903,9 +905,9 @@ function(m)
         res2:=(TransposedMat(A)^(-1))*v2;
         return Concatenation(res1,res2);
     end;
-    
-    cgr:= ColorGraph(g, vert, act, true, 
-    function(v,w) 
+
+    cgr:= ColorGraph(g, vert, act, true,
+    function(v,w)
         local s,f1,f2;
         if v=w then
             return "=";
@@ -923,12 +925,12 @@ function(m)
         fi;
     end);
     vert:=VertexNamesOfCocoObject(cgr);
-    
+
     SetKnownGroupOfAutomorphismsNC(cgr, ClosureGroup(KnownGroupOfAutomorphisms(cgr),
             List(IdentityMat(2*m,GF(2)), x->PermList(List(vert, v->Position(vert, v+x))))));
 
     SetIsWLStableColorGraph(cgr,true);
-    
+
     return cgr;
 end);
 
@@ -936,13 +938,13 @@ end);
 InstallGlobalFunction(IvanovColorGraph,
 function(m)
     local p,vert,cgr,g,act1,act2,act3,act4;
-        
+
     p:=v->(v{[1..m]}*v{[m+1..2*m]})+v[m]+v[2*m];
-    
+
     vert:=AsList(GF(2)^(2*m));
     g:=GeneralLinearGroup(m-1,2);
-    
-    act1:=function(v,A) 
+
+    act1:=function(v,A)
         local v1,v2,res1,res2;
         v1:=v{[1..m-1]};
         v2:=v{[m+1..2*m-1]};
@@ -950,17 +952,17 @@ function(m)
         res2:=(TransposedMat(A)^(-1))*v2;
         return Concatenation(res1,[v[m]],res2,[v[2*m]]);
     end;
-    cgr:= ColorGraph(g,vert, act1, true, 
-    function(v,w) 
+    cgr:= ColorGraph(g,vert, act1, true,
+    function(v,w)
         local s;
-        
+
         if v=w then
             return "=";
         fi;
         s:=v+w;
         if ForAll(s{[m..2*m]}, x->x=Zero(GF(2))) then
             return "Q+S+";
-        elif ForAll(s{[m+1..2*m-1]}, x->x=Zero(GF(2))) then 
+        elif ForAll(s{[m+1..2*m-1]}, x->x=Zero(GF(2))) then
             return "Q-O+";
         elif p(s)=Zero(GF(2)) then
             return "Q+S-";
@@ -968,20 +970,20 @@ function(m)
             return "Q-O-";
         fi;
     end);
-    
+
     SetKnownGroupOfAutomorphismsNC(cgr, ClosureGroup(KnownGroupOfAutomorphisms(cgr), List(IdentityMat(2*m,GF(2)), x->PermList(List(vert, v->Position(vert, v+x))))));
-    
+
     act2:=function(v,A)
         local res,w;
-        
+
         w:=A*v{[m,2*m]};
         return Concatenation(v{[1..m-1]},[w[1]],v{[m+1..2*m-1]},[w[2]]);
     end;
 
     g:=GeneralLinearGroup(2,2);
-    
+
     SetKnownGroupOfAutomorphismsNC(cgr, ClosureGroup(KnownGroupOfAutomorphisms(cgr), Action(g,vert,act2)));
-    
+
     act3:=function(v,b)
         local A;
         A:=IdentityMat(2*m,GF(2));
@@ -990,9 +992,9 @@ function(m)
         A{[m]}{[m+1..2*m-1]}:=[b];
         return A*v;
     end;
-    
+
     SetKnownGroupOfAutomorphismsNC(cgr, ClosureGroup(KnownGroupOfAutomorphisms(cgr), List(IdentityMat(m-1,GF(2)),b->Permutation(b,vert,act3))));
-    
+
     act4:=function(v,d)
         local A;
         A:=IdentityMat(2*m,GF(2));
@@ -1001,21 +1003,21 @@ function(m)
         A{[2*m]}{[m+1..2*m-1]}:=[d];
         return A*v;
     end;
-    
+
     SetKnownGroupOfAutomorphismsNC(cgr, ClosureGroup(KnownGroupOfAutomorphisms(cgr), List(IdentityMat(m-1,GF(2)),d->Permutation(d,vert,act4))));
-    
-    
+
+
     SetIsWLStableColorGraph(cgr,true);
 
     return cgr;
 end);
-    
-    
+
+
 InstallOtherMethod(ColorGraphByFusion,
         "for a color graph and a partition of the colors",
         [IsColorGraph, IsList],
 function(cgr,part)
-   return ColorGraph(KnownGroupOfAutomorphisms(cgr), [1..Order(cgr)], OnPoints, true, 
+   return ColorGraph(KnownGroupOfAutomorphisms(cgr), [1..Order(cgr)], OnPoints, true,
               function(a,b) return Filtered(part, x->ArcColorOfColorGraph(cgr,a,b) in x);end);
 end);
 
@@ -1026,7 +1028,7 @@ function(m)
 end);
 
 
-InstallMethod(QuotientColorGraph, 
+InstallMethod(QuotientColorGraph,
         "for a color graph and a vertex-partition",
         [IsColorGraph, IsSet],
 function(cgr,part)
@@ -1038,7 +1040,7 @@ function(cgr,part)
 end);
 
 
-InstallMethod(ColorNames, 
+InstallMethod(ColorNames,
         "for color graphs",
         [IsColorGraph],
 function(cgr)
@@ -1060,7 +1062,7 @@ InstallMethod(IsSchurian, "for WL-stable color graphs",
 		[IsColorGraph and IsWLStableColorGraph],
 function(cgr)
     local orbs;
-    
+
     orbs:=List(Orbits(AutGroupOfCocoObject(cgr),[1..OrderOfColorGraph(cgr)]), Representative);
     return Sum(List(orbs, x->Length(Orbits(Stabilizer(AutGroupOfCocoObject(cgr),x),[1..OrderOfColorGraph(cgr)]))))=RankOfColorGraph(cgr);
 #    return RankAction(AutGroupOfCocoObject(cgr),[1..OrderOfColorGraph(cgr)])=RankOfColorGraph(cgr);
@@ -1123,7 +1125,7 @@ InstallMethod(IsomorphismCocoObjects,
 		IsIdenticalObj,
 	[IsColorGraph, IsColorGraph],
 function(cgr1,cgr2)
-    local   cnames1,  cnames2,  colormap,  i,  pos,  xcgr1,  xcgr2,  
+    local   cnames1,  cnames2,  colormap,  i,  pos,  xcgr1,  xcgr2,
             res,  kaut1,  kaut2;
 
    cnames1:=ColorNames(cgr1);
@@ -1144,7 +1146,7 @@ function(cgr1,cgr2)
    fi;
     kaut1:=KnownGroupOfAutomorphisms(cgr1);
     kaut2:=KnownGroupOfAutomorphisms(cgr2);
-    
+
     SetKnownGroupOfAutomorphismsNC(cgr1, ClosureGroup(kaut1,
             List(GeneratorsOfGroup(kaut2), h->h^(res^-1))));
     SetKnownGroupOfAutomorphismsNC(cgr2, ClosureGroup(kaut2,
@@ -1157,7 +1159,7 @@ InstallMethod(IsIsomorphismOfObjects,
 		function(a,b,c) return IsIdenticalObj(a,b);end,
 	[IsColorGraph, IsColorGraph, IsPerm],
 function(cgr1,cgr2,g)
-    local   cnames1,  cnames2,  colormap,  i,  pos,  xcgr1,  xcgr2,  
+    local   cnames1,  cnames2,  colormap,  i,  pos,  xcgr1,  xcgr2,
             res,  kaut1,  kaut2;
 
    cnames1:=ColorNames(cgr1);
@@ -1175,11 +1177,11 @@ function(cgr1,cgr2,g)
    if not XCgrInvariant.test(xcgr1,xcgr2,g) then
        return false;
    fi;
-   
+
     kaut1:=KnownGroupOfAutomorphisms(cgr1);
     kaut2:=KnownGroupOfAutomorphisms(cgr2);
-    
-    
+
+
     SetKnownGroupOfAutomorphismsNC(cgr1, ClosureGroup(kaut1,
             List(GeneratorsOfGroup(kaut2), h->h^(g^-1))));
     SetKnownGroupOfAutomorphismsNC(cgr2, ClosureGroup(kaut2,
@@ -1192,9 +1194,9 @@ InstallMethod(IsomorphismCocoObjectsInGroup,
 			function(f1,f2,f3) return IsIdenticalObj(f2,f3);end,
 	[IsPermGroup, IsColorGraph, IsColorGraph],
 function(G, cgr1,cgr2)
-    local   cnames1,  cnames2,  colormap,  i,  pos,  xcgr1,  xcgr2,  
+    local   cnames1,  cnames2,  colormap,  i,  pos,  xcgr1,  xcgr2,
             res,  kaut1,  kaut2;
-    
+
     cnames1:=ColorNames(cgr1);
     cnames2:=ColorNames(cgr2);
     colormap:=[];
@@ -1213,7 +1215,7 @@ function(G, cgr1,cgr2)
     fi;
     kaut1:=KnownGroupOfAutomorphisms(cgr1);
     kaut2:=KnownGroupOfAutomorphisms(cgr2);
-    
+
     SetKnownGroupOfAutomorphismsNC(cgr1, ClosureGroup(kaut1,
             List(GeneratorsOfGroup(kaut2), h->h^(res^-1))));
     SetKnownGroupOfAutomorphismsNC(cgr2, ClosureGroup(kaut2,
@@ -1227,21 +1229,21 @@ InstallMethod(ColorIsomorphismColorGraphs,
 	[IsColorGraph and IsWLStableColorGraph, IsColorGraph and IsWLStableColorGraph],
 function(cgr1,cgr2)
    local T1,T2,aiso,xcgr1,xcgr2,naiso,res,PrepareStabChain,S;
-   
+
    PrepareStabChain:=function(S, part)
        local newpart,m, o1,o2,y,pt,resH, i, xi, crep;
-       
+
        if StbcIsTrivialStabChainNode(S) then
            return;
        fi;
 
        newpart:=StbcRefineOrbits(S,part, OrderOfTensor(T1));
        S.part:=newpart;
-       
+
        PrepareStabChain(S.stabilizer, newpart);
    end;
-   
-   
+
+
    T1:=StructureConstantsOfColorGraph(cgr1);
    T2:=StructureConstantsOfColorGraph(cgr2);
    aiso:=IsomorphismCocoObjects(T1,T2);
@@ -1249,10 +1251,10 @@ function(cgr1,cgr2)
        return fail;
    fi;
    S:=StabChainMutable(AutGroupOfCocoObject(T1));
-   
+
    PrepareStabChain(S,rec(orbits:=[[1..RankOfColorGraph(cgr1)]], map:=ListWithIdenticalEntries(RankOfColorGraph(cgr1),1)));
-   
-   
+
+
    xcgr1:=BuildXCgr(cgr1,[1..RankOfColorGraph(cgr1)]);
    xcgr2:=BuildXCgr(cgr2,[1..RankOfColorGraph(cgr2)]);
    res:=[];
@@ -1279,10 +1281,10 @@ InstallMethod(InducedSubColorGraph,
         [IsColorGraph, IsList],
 function(cgr,l)
     local sl,g;
-    
+
     sl:=Set(l);
     g:=Stabilizer(KnownGroupOfAutomorphisms(cgr),sl,OnSets);
-    
+
     return ColorGraph(g, sl, OnPoints, true, function(v,w)
         return ColorNames(cgr)[ArcColorOfColorGraph(cgr,v,w)];
     end);
@@ -1293,23 +1295,23 @@ InstallMethod(DirectProductColorGraphs,
         [IsColorGraph, IsColorGraph],
 function(cgr1,cgr2)
     local  OnVertexPairs, g, c1, c2, v1, v2,p1,p2;
-    
+
     OnVertexPairs:=function(p,x)
         return [v1[Position(v1,p[1])^(Image(p1,x))],
                 v2[Position(v2,p[2])^(Image(p2,x))]];
     end;
-    
+
     g:=DirectProduct(KnownGroupOfAutomorphisms(cgr1), KnownGroupOfAutomorphisms(cgr2));
     p1:=Projection(g,1);
     p2:=Projection(g,2);
-    
+
     c1:=ColorNames(cgr1);
     c2:=ColorNames(cgr2);
     v1:=VertexNamesOfCocoObject(cgr1);
     v2:=VertexNamesOfCocoObject(cgr2);
-   
-    return ColorGraph(g, Cartesian(v1,v2), OnVertexPairs, true, 
-                   function(a,b) return [c1[ArcColorOfColorGraph(cgr1,Position(v1,a[1]),Position(v1,b[1]))], 
+
+    return ColorGraph(g, Cartesian(v1,v2), OnVertexPairs, true,
+                   function(a,b) return [c1[ArcColorOfColorGraph(cgr1,Position(v1,a[1]),Position(v1,b[1]))],
                                          c2[ArcColorOfColorGraph(cgr2,Position(v2,a[2]),Position(v2,b[2]))]]; end);
 end);
 
@@ -1318,25 +1320,25 @@ InstallMethod(WreathProductColorGraphs,
         [IsColorGraph, IsColorGraph],
 function(cgr1,cgr2)
     local  OnVertexPairs, g, c1, c2, v1, v2;
-    
+
     OnVertexPairs:=function(p,x)
         return [v1[Position(v1,p[1]^(Image(Projection(g,1),x)))],
         v2[Position(v2, p[2]^(Image(Projection(g,2),x)))]];
     end;
-    
+
     g:=DirectProduct(KnownGroupOfAutomorphisms(cgr1), KnownGroupOfAutomorphisms(cgr2));
-    
+
     c1:=ColorNames(cgr1);
     c2:=ColorNames(cgr2);
     v1:=VertexNamesOfCocoObject(cgr1);
     v2:=VertexNamesOfCocoObject(cgr2);
-   
-    return ColorGraph(g, Cartesian(v1,v2), OnVertexPairs, true, 
-    function(a,b) 
-        if a[1]<>b[1] then 
+
+    return ColorGraph(g, Cartesian(v1,v2), OnVertexPairs, true,
+    function(a,b)
+        if a[1]<>b[1] then
             return [c1[ArcColorOfColorGraph(cgr1,Position(v1,a[1]),Position(v1,b[1]))], "*"];
         else
-            return [c1[ArcColorOfColorGraph(cgr1,Position(v1,a[1]),Position(v1,b[1]))], 
+            return [c1[ArcColorOfColorGraph(cgr1,Position(v1,a[1]),Position(v1,b[1]))],
                     c2[ArcColorOfColorGraph(cgr2,Position(v2,a[2]),Position(v2,b[2]))]];
         fi;
     end);
@@ -1365,13 +1367,13 @@ end);
 
 InstallGlobalFunction(ColorGraphByWLStabilization,
 function(cgr)
-    local   aut,  scgr,  tor,  part,  i,  c,  h,  spart,  npart,  acl,  
+    local   aut,  scgr,  tor,  part,  i,  c,  h,  spart,  npart,  acl,
             ccounter,  colors,rpart,scl,rcgr;
-    
+
     if IsWLStableColorGraph(cgr) then
         return cgr;
     fi;
-    
+
     aut:=KnownGroupOfAutomorphisms(cgr);
     scgr:=ColorGraphByOrbitals(aut,[1..OrderOfColorGraph(cgr)], OnPoints,true);
     tor:=ColorNames(scgr);
@@ -1383,7 +1385,7 @@ function(cgr)
     h:=ColorMates(scgr);
     spart:=List(part, x->Intersection(x,OnSets(x,h)));
     rpart:=List(spart, x->Intersection(x, ReflexiveColors(scgr)));
-    
+
     npart:=[];
     for i in [1..Length(part)] do
         if spart[i]<>[] then
@@ -1391,7 +1393,7 @@ function(cgr)
             if acl<>[] then
                 Add(npart,acl);
             fi;
-            
+
             if rpart[i]<>[] then
                 Add(npart,rpart[i]);
                 scl:=Difference(spart[i],rpart[i]);
@@ -1413,13 +1415,13 @@ function(cgr)
     part:=part.classes;
     ccounter:=List([1..RankOfColorGraph(cgr)], x->1);
     colors:=[];
-    
+
     for i in [1..Length(part)] do
         c:=ArcColorOfColorGraph(cgr,tor[part[i][1]]);
         Add(colors,[c,ccounter[c]]);
         ccounter[c]:=ccounter[c]+1;
     od;
-    
+
     rcgr:=ColorGraph(aut,[1..OrderOfColorGraph(cgr)], OnPoints,true,
     function(u,v)
         local col,cidx;
@@ -1432,15 +1434,47 @@ function(cgr)
 end);
 
 
-################################
-#M ViewObj(cgr)
 ####################
-InstallMethod(ViewObj,
+#M ViewString(cgr)
+####################
+InstallMethod(ViewString,
         "for color graphs",
         [IsColorGraph],
 function(x)
-    Print("<");
-    Print("color graph of order ", OrderOfCocoObject(x),
-          " and rank ", RankOfColorGraph(x), ">");
+    return Concatenation("<", "color graph of order ",
+                   String(OrderOfCocoObject(x)), " and rank ",
+                   String(RankOfColorGraph(x)), ">");
 end);
 
+
+
+
+InstallMethod( Display,
+        "for color graphs",
+        [IsColorGraph],
+        function(cgr)
+    local names;
+
+    names:=ColorNames(cgr);
+    Display(List(AdjacencyMatrix(cgr),r->List(r, e->names[e])));
+end);
+
+InstallMethod( PrintString,
+        "for color graphs",
+        [IsColorGraph],
+        function(cgr)
+    local names;
+    names:=ColorNames(cgr);
+    return PRINT_STRINGIFY("ColorGraphByMatrix( ",
+                   List(AdjacencyMatrix(cgr),r->List(r, e->names[e]))," )");
+end);
+
+InstallMethod( String,
+        "for color graphs",
+        [IsColorGraph],
+        function(cgr)
+    local names;
+    names:=ColorNames(cgr);
+    return STRINGIFY("ColorGraphByMatrix( ",
+                   List(AdjacencyMatrix(cgr),r->List(r, e->names[e]))," )");
+end);

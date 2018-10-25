@@ -105,7 +105,7 @@
 
 <h5>3.2-1 BuildGoodSet</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BuildGoodSet</code>( <var class="Arg">tensor</var>, <var class="Arg">set</var>[, <var class="Arg">part</var>] )</td><td class="tdright">( function )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BuildGoodSet</code>( <var class="Arg">tensor</var>, <var class="Arg">set</var>[, <var class="Arg">part</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p><var class="Arg">tensor</var> is the structure constants tensor of a WL-stable color graph <code class="code">cgr</code>. <var class="Arg">set</var> is a set of colors of <code class="code">cgr</code> (i.e. of vertices of <var class="Arg">tensor</var>). <var class="Arg">part</var> is supposed to be the coarsest stable partition of the colors of <code class="code">cgr</code> that contains <var class="Arg">set</var> as a class (the stability is not checked by the function). The function returns the corresponding good-set object.</p>
 
 <p>If <var class="Arg">part</var> is not given, then it is computed. If this computation fails (because <var class="Arg">set</var> is not a good set), then <code class="code">fail</code> is returned.</p>
@@ -114,21 +114,21 @@
 
 <h5>3.2-2 AsSet</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsSet</code>( <var class="Arg">gs</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsSet</code>( <var class="Arg">gs</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Converts the good set object <var class="Arg">gs</var> into a usual set.</p>
 
 <p><a id="X7B76EDA4800DAB0F" name="X7B76EDA4800DAB0F"></a></p>
 
 <h5>3.2-3 TensorOfGoodSet</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TensorOfGoodSet</code>( <var class="Arg">gs</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TensorOfGoodSet</code>( <var class="Arg">gs</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns the structure constants tensor over which the good set <var class="Arg">gs</var> is "good".</p>
 
 <p><a id="X866BB45B7AE2320B" name="X866BB45B7AE2320B"></a></p>
 
 <h5>3.2-4 PartitionOfGoodSet</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PartitionOfGoodSet</code>( <var class="Arg">gs</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PartitionOfGoodSet</code>( <var class="Arg">gs</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns the coarsest stable fusion (as a partition, i.e. a set of sets of colors), that contains <var class="Arg">gs</var> as a class.</p>
 
 <p><a id="X7C8FC58D8552CAB2" name="X7C8FC58D8552CAB2"></a></p>
@@ -141,8 +141,8 @@
 
 <h5>3.3-1 HomogeneousGoodSetOrbits</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomogeneousGoodSetOrbits</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomogeneousGoodSetOrbits</code>( <var class="Arg">group</var>, <var class="Arg">tensor</var>[, <var class="Arg">mode</var>] )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomogeneousGoodSetOrbits</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomogeneousGoodSetOrbits</code>( <var class="Arg">group</var>, <var class="Arg">tensor</var>[, <var class="Arg">mode</var>] )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
 <p><var class="Arg">group</var> is supposed to consist only of automorphisms of <var class="Arg">tensor</var>. <strong class="pkg">COCO2P</strong> learns new automorphisms by checking this property. If group is not given, then the full automorphism group of <var class="Arg">tensor</var> is taken for <var class="Arg">group</var>.</p>
 
 <p>This function returns all <var class="Arg">group</var>-orbits of homogeneous good sets.</p>
@@ -153,7 +153,7 @@
 
 <h5>3.3-2 GoodSetOrbit</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GoodSetOrbit</code>( <var class="Arg">group</var>, <var class="Arg">gs</var>[, <var class="Arg">stab</var>] )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GoodSetOrbit</code>( <var class="Arg">group</var>, <var class="Arg">gs</var>[, <var class="Arg">stab</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p><var class="Arg">gs</var> is a good set. <var class="Arg">group</var> has to be a subgroup of the automorphism group of <code class="code">TensorOfGoodSet(gs)</code>. <var class="Arg">stab</var> (if given) has to be the full set-wise stabilizer of <var class="Arg">gs</var> in <var class="Arg">group</var>.</p>
 
 <p>The function constructs a <strong class="pkg">COCO2P</strong>-orbit object of the setwise orbit of <var class="Arg">gs</var> under <var class="Arg">group</var>.</p>
@@ -162,63 +162,63 @@
 
 <h5>3.3-3 CanonicalRepresentativeOfCocoOrbit</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CanonicalRepresentativeOfCocoOrbit</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CanonicalRepresentativeOfCocoOrbit</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns the lexicographically smallest element of the orbit of good sets <var class="Arg">gsorb</var>.</p>
 
 <p><a id="X7ADE295E7CB04AF7" name="X7ADE295E7CB04AF7"></a></p>
 
 <h5>3.3-4 Representative</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Representative</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Representative</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns any element of the orbit of good sets <var class="Arg">gsorb</var>. At the moment it in fact returns the lexicographically smallest element.</p>
 
 <p><a id="X7B8CEEE08351083F" name="X7B8CEEE08351083F"></a></p>
 
 <h5>3.3-5 UnderlyingGroupOfCocoOrbit</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; UnderlyingGroupOfCocoOrbit</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; UnderlyingGroupOfCocoOrbit</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns the group under which <var class="Arg">gsorb</var> is an orbit.</p>
 
 <p><a id="X7EACF062833AF3FF" name="X7EACF062833AF3FF"></a></p>
 
 <h5>3.3-6 StabilizerOfCanonicalRepresentative</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StabilizerOfCanonicalRepresentative</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StabilizerOfCanonicalRepresentative</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns the setwise stabilizer of <code class="code">CanonicalRepresentativeOfCocoOrbit(gsorb)</code> in <code class="code">UnderlyingGroupOfCocoOrbit(gsorb)</code>.</p>
 
 <p><a id="X79AE3E387AB90F45" name="X79AE3E387AB90F45"></a></p>
 
 <h5>3.3-7 Size</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Size</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Size</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
 <p>returns the size of <var class="Arg">gsorb</var>.</p>
 
 <p><a id="X8334694B7EC2CEC3" name="X8334694B7EC2CEC3"></a></p>
 
 <h5>3.3-8 AsList</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsList</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsList</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
 <p>expands the <strong class="pkg">COCO2P</strong>-orbit object <var class="Arg">gsorb</var> into a list of good sets.</p>
 
 <p><a id="X7CFBE61D8153E4F9" name="X7CFBE61D8153E4F9"></a></p>
 
 <h5>3.3-9 AsSet</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsSet</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsSet</code>( <var class="Arg">gsorb</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
 <p>expands the <strong class="pkg">COCO2P</strong>-orbit object <var class="Arg">gsorb</var> into a set of good sets.</p>
 
 <p><a id="X85280FDF86123458" name="X85280FDF86123458"></a></p>
 
 <h5>3.3-10 SubOrbitsOfCocoOrbit</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubOrbitsOfCocoOrbit</code>( <var class="Arg">group</var>, <var class="Arg">gsorb</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubOrbitsOfCocoOrbit</code>( <var class="Arg">group</var>, <var class="Arg">gsorb</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p><var class="Arg">group</var> is a subgroup of the underlying group of the orbit of good sets <var class="Arg">gsorb</var>. The given orbit splits into suborbits under this group. The function returns a list of these suborbits.</p>
 
 <p><a id="X79370B047C27512A" name="X79370B047C27512A"></a></p>
 
 <h5>3.3-11 SubOrbitsWithInvariantPropertyOfCocoOrbit</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubOrbitsWithInvariantPropertyOfCocoOrbit</code>( <var class="Arg">group</var>, <var class="Arg">gsorb</var>, <var class="Arg">prop</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubOrbitsWithInvariantPropertyOfCocoOrbit</code>( <var class="Arg">group</var>, <var class="Arg">gsorb</var>, <var class="Arg">prop</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p><var class="Arg">prop</var> is a function that takes a single good set as argument and returns <code class="code">true</code> or <code class="code">false</code>. It has to be invariant under the set-wise action of <var class="Arg">group</var>. Note that this property is not checked by the function.</p>
 
 <p>This function does the same as</p>
@@ -239,35 +239,35 @@
 
 <h5>3.4-1 FusionFromPartition</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FusionFromPartition</code>( <var class="Arg">tensor</var>, <var class="Arg">part</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FusionFromPartition</code>( <var class="Arg">tensor</var>, <var class="Arg">part</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>if <var class="Arg">tensor</var> is the structure constants tensor of the WL-stable color graph <code class="code">cgr</code>, and if <var class="Arg">part</var> is a partition of the colors of <code class="code">cgr</code> (a set of sets of colors), then this function returns a fusion-object, or <code class="code">fail</code> if <var class="Arg">part</var> is not a fusion of <code class="code">cgr</code>.</p>
 
 <p><a id="X8493C9117A37FDEE" name="X8493C9117A37FDEE"></a></p>
 
 <h5>3.4-2 AsPartition</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsPartition</code>( <var class="Arg">fusion</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsPartition</code>( <var class="Arg">fusion</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>Converts the fusion-object <var class="Arg">fusion</var> into a set of sets of colors.</p>
 
 <p><a id="X83FC0D2881F64830" name="X83FC0D2881F64830"></a></p>
 
 <h5>3.4-3 PartitionOfFusion</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PartitionOfFusion</code>( <var class="Arg">fusion</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PartitionOfFusion</code>( <var class="Arg">fusion</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Converts the fusion object <var class="Arg">fusion</var> into a list of sets. In contrast to te result of <code class="code">AsPartition(fusion)</code>, the resulting list of classes is sorted in short-lex order. This means that first it is sorted by cardinality of classes, and then the classes of equal size are sorted lexicographically.</p>
 
 <p><a id="X85138D32850D82E0" name="X85138D32850D82E0"></a></p>
 
 <h5>3.4-4 TensorOfFusion</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TensorOfFusion</code>( <var class="Arg">fusion</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TensorOfFusion</code>( <var class="Arg">fusion</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>returns the structure constants tensor, over which the fusion <var class="Arg">fusion</var> is a stable fusion.</p>
 
 <p><a id="X8770B6517FBFCC4C" name="X8770B6517FBFCC4C"></a></p>
 
 <h5>3.4-5 BaseOfFusion</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BaseOfFusion</code>( <var class="Arg">fusion</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BaseOfFusion</code>( <var class="Arg">fusion</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>The base of a fusion is the smallest list of classes of <var class="Arg">fusion</var> (in the short lex order) that generates <var class="Arg">fusion</var> in the sense that there is no coarser stable fusion that contains the classes of the base.</p>
 
 <p>This function returns the base of <var class="Arg">fusion</var> if <strong class="pkg">COCO2P</strong> knows it. At the moment there is no method for computing the base.</p>
@@ -276,7 +276,7 @@
 
 <h5>3.4-6 RankOfFusion</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RankOfFusion</code>( <var class="Arg">fusion</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RankOfFusion</code>( <var class="Arg">fusion</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>returns the number of classes of <var class="Arg">fusion</var>.</p>
 
 <p><a id="X79E3348682BC2376" name="X79E3348682BC2376"></a></p>
@@ -289,8 +289,8 @@
 
 <h5>3.5-1 HomogeneousFusionOrbits</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomogeneousFusionOrbits</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomogeneousFusionOrbits</code>( <var class="Arg">group</var>, <var class="Arg">tensor</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomogeneousFusionOrbits</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; HomogeneousFusionOrbits</code>( <var class="Arg">group</var>, <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
 <p><var class="Arg">group</var> is supposed to consist only of automorphisms of <var class="Arg">tensor</var>. <strong class="pkg">COCO2P</strong> learns new automorphisms by checking this property. If group is not given, then the full automorphism group of <var class="Arg">tensor</var> is taken for <var class="Arg">group</var>.</p>
 
 <p>This function returns all <var class="Arg">group</var>-orbits of homogeneous stable fusions.</p>
@@ -299,7 +299,7 @@
 
 <h5>3.5-2 FusionOrbit</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FusionOrbit</code>( <var class="Arg">group</var>, <var class="Arg">fusion</var>[, <var class="Arg">stab</var>] )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FusionOrbit</code>( <var class="Arg">group</var>, <var class="Arg">fusion</var>[, <var class="Arg">stab</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p><var class="Arg">fusion</var> is a fusion object. <var class="Arg">group</var> has to be a subgroup of the automorphism group of <code class="code">TensorOfFusion(fusion)</code>. <var class="Arg">stab</var> (if given) has to be the full partition-wise stabilizer of <var class="Arg">fusion</var> in <var class="Arg">group</var>.</p>
 
 <p>The function constructs a <strong class="pkg">COCO2P</strong>-orbit object of the partition-wise orbit of <var class="Arg">fusion</var> under <var class="Arg">group</var>.</p>
@@ -308,63 +308,63 @@
 
 <h5>3.5-3 CanonicalRepresentativeOfCocoOrbit</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CanonicalRepresentativeOfCocoOrbit</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CanonicalRepresentativeOfCocoOrbit</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns the smallest element (in the short-lex order) of the orbit of fusions <var class="Arg">fusionorb</var>.</p>
 
 <p><a id="X85BAA5A87BA76215" name="X85BAA5A87BA76215"></a></p>
 
 <h5>3.5-4 Representative</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Representative</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Representative</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns any element of the orbit of fusions sets <var class="Arg">fusionorb</var>. At the moment it in fact returns the canonical representative.</p>
 
 <p><a id="X7B4255C57867788C" name="X7B4255C57867788C"></a></p>
 
 <h5>3.5-5 UnderlyingGroupOfCocoOrbit</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; UnderlyingGroupOfCocoOrbit</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; UnderlyingGroupOfCocoOrbit</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns the group under which <var class="Arg">fusionorb</var> is an orbit.</p>
 
 <p><a id="X7B8F411C863F4179" name="X7B8F411C863F4179"></a></p>
 
 <h5>3.5-6 StabilizerOfCanonicalRepresentative</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StabilizerOfCanonicalRepresentative</code>( <var class="Arg">fusion</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StabilizerOfCanonicalRepresentative</code>( <var class="Arg">fusion</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns the partition-wise stabilizer of <code class="code">CanonicalRepresentativeOfCocoOrbit(fusionorb)</code> in <code class="code">UnderlyingGroupOfCocoOrbit(fusionorb)</code>.</p>
 
 <p><a id="X7C0606D6878E1F35" name="X7C0606D6878E1F35"></a></p>
 
 <h5>3.5-7 Size</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Size</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Size</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
 <p>returns the size of <var class="Arg">fusionorb</var>.</p>
 
 <p><a id="X87538F0F86B539BA" name="X87538F0F86B539BA"></a></p>
 
 <h5>3.5-8 AsList</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsList</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsList</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
 <p>s expands the <strong class="pkg">COCO2P</strong>-orbit object <var class="Arg">fusionorb</var> into a list of fusions.</p>
 
 <p><a id="X80C57CB5862EA0E0" name="X80C57CB5862EA0E0"></a></p>
 
 <h5>3.5-9 AsSet</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsSet</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AsSet</code>( <var class="Arg">fusionorb</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
 <p>expands the <strong class="pkg">COCO2P</strong>-orbit object <var class="Arg">fusionorb</var> into a set of fusions.</p>
 
 <p><a id="X7842968983700F79" name="X7842968983700F79"></a></p>
 
 <h5>3.5-10 SubOrbitsOfCocoOrbit</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubOrbitsOfCocoOrbit</code>( <var class="Arg">group</var>, <var class="Arg">fusion</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubOrbitsOfCocoOrbit</code>( <var class="Arg">group</var>, <var class="Arg">fusion</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p><var class="Arg">group</var> is a subgroup of the underlying group of the orbit of fusions <var class="Arg">fusionorb</var>. The given orbit splits into suborbits under this group. The function returns a list of these suborbits.</p>
 
 <p><a id="X7B053C1D7CD14AD8" name="X7B053C1D7CD14AD8"></a></p>
 
 <h5>3.5-11 SubOrbitsWithInvariantPropertyOfCocoOrbit</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubOrbitsWithInvariantPropertyOfCocoOrbit</code>( <var class="Arg">group</var>, <var class="Arg">fusionorb</var>, <var class="Arg">prop</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubOrbitsWithInvariantPropertyOfCocoOrbit</code>( <var class="Arg">group</var>, <var class="Arg">fusionorb</var>, <var class="Arg">prop</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p><var class="Arg">prop</var> is a function that takes a single fusion as argument and returns <code class="code">true</code> or <code class="code">false</code>. It has to be invariant under the partition-wise action of <var class="Arg">group</var>. Note that the invariance is not checked by the function.</p>
 
 <p>This function does the same as</p>

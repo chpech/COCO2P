@@ -92,14 +92,14 @@
 
 <h5>2.2-1 StructureConstantsOfColorGraph</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StructureConstantsOfColorGraph</code>( <var class="Arg">cgr</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StructureConstantsOfColorGraph</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>This function expects a WL-stable color graph <var class="Arg">cgr</var>, and computes its tensor of structure constants. The result is the structure constants tensor <span class="SimpleMath">T</span> of <var class="Arg">cgr</var>. This object encodes a third-order tensor. For every color <span class="SimpleMath">k</span> of <var class="Arg">cgr</var>, the matrix <span class="SimpleMath">T(i,j,k)</span> is equal to the <code class="func">LocalIntersectionArray</code> (<a href="chap1.html#X7D0A6D4885D48FC2"><span class="RefLink">1.4-13</span></a>) of any arc of color <span class="SimpleMath">k</span> in <var class="Arg">cgr</var>.</p>
 
 <p><a id="X8683BAE181ED9E76" name="X8683BAE181ED9E76"></a></p>
 
 <h5>2.2-2 DenseTensorFromEntries</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DenseTensorFromEntries</code>( <var class="Arg">entries</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DenseTensorFromEntries</code>( <var class="Arg">entries</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>The argument <var class="Arg">entries</var> is a list of lists of lists of integers. There has to be a number <span class="SimpleMath">n</span> such that <code class="code">Length(entries)=n</code>, for all <span class="SimpleMath">1le i,j le n</span> <code class="code">Length(entries[i])=n</code>, and <code class="code">Length(entries[i][j]=n</code>. Otherwise there are no restrictions.</p>
 
 <p>The function returns the tensor-object for <var class="Arg">entries</var>.</p>
@@ -114,31 +114,31 @@
 
 <h5>2.3-1 OrderOfTensor</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderOfTensor</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderOfCocoObject</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Order</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderOfTensor</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrderOfCocoObject</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Order</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>Returns the order of the tensor. If it is equal to <span class="SimpleMath">n</span> then this means that <var class="Arg">tensor</var> is an <span class="SimpleMath">n× n × n</span>-array.</p>
 
 <p><a id="X79CBAB5483A0BD8A" name="X79CBAB5483A0BD8A"></a></p>
 
 <h5>2.3-2 VertexNamesOfCocoObject</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; VertexNamesOfCocoObject</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; VertexNamesOfTensor</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; VertexNamesOfCocoObject</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; VertexNamesOfTensor</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns the list of names of the vertices of <var class="Arg">tensor</var>.</p>
 
 <p><a id="X84B4DA3282F5965C" name="X84B4DA3282F5965C"></a></p>
 
 <h5>2.3-3 EntryOfTensor</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; EntryOfTensor</code>( <var class="Arg">tensor</var>, <var class="Arg">i</var>, <var class="Arg">j</var>, <var class="Arg">k</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; EntryOfTensor</code>( <var class="Arg">tensor</var>, <var class="Arg">i</var>, <var class="Arg">j</var>, <var class="Arg">k</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns the entry at index <span class="SimpleMath">(i,j,k)</span> of <var class="Arg">tensor</var>.</p>
 
 <p><a id="X854662A2783CDD3A" name="X854662A2783CDD3A"></a></p>
 
 <h5>2.3-4 ReflexiveColors</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ReflexiveColors</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ReflexiveColors</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>If <var class="Arg">tensor</var> is the structure constants tensor of the WL-stable color graph <code class="code">cgr</code>, then <code class="code">ReflexiveColors(tensor)</code> return the list of all reflexive colors of <code class="code">cgr</code>.</p>
 
 
@@ -157,14 +157,14 @@ Group([ (1,2)(3,5)(4,6)(7,8), (1,3)(2,5)(4,7)(6,8), (1,4)(2,6)(3,7)(5,8) ])
 
 <h5>2.3-5 NumberOfFibres</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NumberOfFibres</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; NumberOfFibres</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>Returns the number of reflexive colors of <var class="Arg">tensor</var>.</p>
 
 <p><a id="X82BDF90179606738" name="X82BDF90179606738"></a></p>
 
 <h5>2.3-6 FibreLengths</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FibreLengths</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FibreLengths</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>If <var class="Arg">tensor</var> is the structure constants tensor of the WL-stable color graph <code class="code">cgr</code>, then <code class="code">FibreLengths(tensor)</code> returns the list of lengths of all fibres of <code class="code">cgr</code>. The order corresponds to the result of <code class="code">ReflexiveColors(T)</code>.</p>
 
 
@@ -191,21 +191,21 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 
 <h5>2.3-7 OutValencies</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OutValencies</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OutValencies</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>If <var class="Arg">tensor</var> is the structure constants tensor of the WL-stable color graph <code class="code">cgr</code>, then <code class="code">OutValencies(tensor)</code> returns the <code class="func">OutValencies</code> (<a href="chap1.html#X82C2C8757BBAEA34"><span class="RefLink">1.4-15</span></a>) of <var class="Arg">cgr</var>.</p>
 
 <p><a id="X7BEBEC40870FDC88" name="X7BEBEC40870FDC88"></a></p>
 
 <h5>2.3-8 Mates</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Mates</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Mates</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>If <var class="Arg">tensor</var> is the structure constants tensor of the WL-stable color graph <code class="code">cgr</code>, then <code class="code">OutValencies(tensor)</code> returns the permutation <code class="code">ColorMates(cgr)</code> (<code class="func">ColorMates</code> (<a href="chap1.html#X8700CA5B8386F320"><span class="RefLink">1.4-14</span></a>)).</p>
 
 <p><a id="X7C07E78B7EF614F2" name="X7C07E78B7EF614F2"></a></p>
 
 <h5>2.3-9 StartBlock</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StartBlock</code>( <var class="Arg">tensor</var>, <var class="Arg">i</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StartBlock</code>( <var class="Arg">tensor</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>If <var class="Arg">tensor</var> is the structure constants tensor of the WL-stable color graph <code class="code">cgr</code>, then in particular, the vertices of <var class="Arg">tensor</var> are the colors of <code class="code">cgr</code>. All arcs of color <var class="Arg">i</var> have their starting vertex in the same fibre of <code class="code">cgr</code>. Moreover, the loops over the vertices of one fibre all have the same color.</p>
 
 <p>This function returns the index <span class="SimpleMath">j</span> into <code class="code">ReflexiveColors(T)</code> (cf. <code class="func">ReflexiveColors</code> (<a href="chap2.html#X854662A2783CDD3A"><span class="RefLink">2.3-4</span></a>)) such that at the start of every arc of color <var class="Arg">i</var> there is a loop to color <code class="code">ReflexiveColors(T)[j]</code>.</p>
@@ -214,7 +214,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 
 <h5>2.3-10 FinishBlock</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FinishBlock</code>( <var class="Arg">tensor</var>, <var class="Arg">i</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; FinishBlock</code>( <var class="Arg">tensor</var>, <var class="Arg">i</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>If <var class="Arg">tensor</var> is the structure constants tensor of the WL-stable color graph <code class="code">cgr</code>, then in particular, the vertices of <var class="Arg">tensor</var> are the colors of <code class="code">cgr</code>. All arcs of color <var class="Arg">i</var> have their finishing vertex in the same fibre of <code class="code">cgr</code>. Moreover, the loops over the vertices of one fibre all have the same color.</p>
 
 <p>This function returns the index <span class="SimpleMath">j</span> into <code class="code">ReflexiveColors(T)</code> (cf. <code class="func">ReflexiveColors</code> (<a href="chap2.html#X854662A2783CDD3A"><span class="RefLink">2.3-4</span></a>)) such that at the end of every arc of color <var class="Arg">i</var> there is a loop to color <code class="code">ReflexiveColors(T)[j]</code>.</p>
@@ -223,7 +223,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 
 <h5>2.3-11 ClosedSets</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ClosedSets</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ClosedSets</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>A set <span class="SimpleMath">M</span> of vertices of <var class="Arg">tensor</var> is called <em>closed</em> if whenever <span class="SimpleMath">i,j</span> are in <span class="SimpleMath">M</span>, then also all such <span class="SimpleMath">k</span> are in <span class="SimpleMath">M</span> for which <code class="code">EntryOfTensor(tensor,i,j,k)</code> is non-zero.</p>
 
 <p>This function returns all closed sets of <var class="Arg">tensor</var>.</p>
@@ -232,7 +232,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 
 <h5>2.3-12 ComplexProduct</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ComplexProduct</code>( <var class="Arg">tensor</var>, <var class="Arg">set1</var>, <var class="Arg">set2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ComplexProduct</code>( <var class="Arg">tensor</var>, <var class="Arg">set1</var>, <var class="Arg">set2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Suppose that <var class="Arg">tensor</var> is the structure constants tensor of the WL-stale color graph <code class="code">cgr</code>. the colors of <code class="code">cgr</code> canonically correspond to the standard-basis elements of the coherent algebra <span class="SimpleMath">W</span> that is associated with <var class="Arg">cgr</var>. The elements of <span class="SimpleMath">W</span> can naturally be encoded as vectors of length <code class="code">Rank(cgr)</code>. The arguments <var class="Arg">set1</var> and <var class="Arg">set2</var> are sets of colors of <code class="code">cgr</code> (i.e. vertices of <var class="Arg">tensor</var>). Their characteristic vectors, can hence be understood as elements of <span class="SimpleMath">W</span>.</p>
 
 <p>The operation <code class="code">ComplexProduct</code> returns the coefficient-vector of the product of the characteristic vector of <var class="Arg">set1</var> with the characteristic vector of <var class="Arg">set2</var> in <span class="SimpleMath">W</span>.</p>
@@ -241,7 +241,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 
 <h5>2.3-13 ClosureSet</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ClosureSet</code>( <var class="Arg">tensor</var>, <var class="Arg">set</var> )</td><td class="tdright">( function )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ClosureSet</code>( <var class="Arg">tensor</var>, <var class="Arg">set</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p><var class="Arg">set</var> is a set of vertices of <var class="Arg">tensor</var>. The function returns the smallest closed set of <var class="Arg">tensor</var> that contains <var class="Arg">set</var> (cf. <code class="func">ClosedSets</code> (<a href="chap2.html#X7C09E4D3805EFC78"><span class="RefLink">2.3-11</span></a>))</p>
 
 <p><a id="X81668D007D5A8982" name="X81668D007D5A8982"></a></p>
@@ -254,28 +254,28 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 
 <h5>2.4-1 IsTensorOfCC</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsTensorOfCC</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsTensorOfCC</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
 <p>If <var class="Arg">tensor</var> has this property, then this means that <strong class="pkg">COCO2P</strong> knows, that it is the structure constants tensor of a WL-stable color graph. There is no method installed for this property, as it is in general hard to prove that a given tensor belongs to a WL-stable color graph. The property is set by the constructor that created <var class="Arg">tensor</var>.</p>
 
 <p><a id="X7F9FD88986CBBA27" name="X7F9FD88986CBBA27"></a></p>
 
 <h5>2.4-2 IsCommutativeTensor</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsCommutativeTensor</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsCommutativeTensor</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
 <p><var class="Arg">tensor</var> has this property, if for all <span class="SimpleMath">i,j,k</span> holds <code class="code">EntryOfTensor(tensor,i,j,k)=</code> <code class="code">EntryOfTensor(tensor,j,i,k)</code>.</p>
 
 <p><a id="X82E7A3EC7D036D9B" name="X82E7A3EC7D036D9B"></a></p>
 
 <h5>2.4-3 IsHomogeneous</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsHomogeneous</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsHomogeneous</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
 <p>Returns whether <var class="Arg">tensor</var> has just one reflexive color.</p>
 
 <p><a id="X799D354A7A3C382D" name="X799D354A7A3C382D"></a></p>
 
 <h5>2.4-4 IsPrimitive</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPrimitive</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( property )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPrimitive</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
 <p>A structure constants tensor is <em>primitive</em> if it is homogeneous and if it has only the trivial closed sets (i.e. the singleton of the unique reflexive color and the set of all colors).</p>
 
 <p>If <var class="Arg">tensor</var> is the structure constants tensor of the color graph <code class="code">cgr</code>, then <var class="Arg">tensor</var> is primitive if and only if <code class="code">cgr</code> is primitive (cf. <code class="func">IsPrimitive</code> (<a href="chap1.html#X7DEB50307A5353B5"><span class="RefLink">1.6-5</span></a>)).</p>
@@ -288,47 +288,47 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 
 <h5>2.5-1 KnownGroupOfAutomorphisms</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfAutomorphisms</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfAutomorphisms</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns the group of all automorphisms of <var class="Arg">tensor</var> that <strong class="pkg">COCO2P</strong> knows at the given moment.</p>
 
 <p><a id="X7A1AAC707A327410" name="X7A1AAC707A327410"></a></p>
 
 <h5>2.5-2 AutGroupOfCocoObject</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AutGroupOfCocoObject</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AutomorphismGroup</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( method )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AutGroupOfCocoObject</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AutomorphismGroup</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
 <p>Returns the group of all automorphisms of <var class="Arg">tensor</var>.</p>
 
 <p><a id="X7B5F5D7A7DA27A8D" name="X7B5F5D7A7DA27A8D"></a></p>
 
 <h5>2.5-3 IsAutomorphismOfObject</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAutomorphismOfObject</code>( <var class="Arg">tensor</var>, <var class="Arg">perm</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAutomorphismOfTensor</code>( <var class="Arg">tensor</var>, <var class="Arg">perm</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAutomorphismOfObject</code>( <var class="Arg">tensor</var>, <var class="Arg">perm</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAutomorphismOfTensor</code>( <var class="Arg">tensor</var>, <var class="Arg">perm</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns <code class="code">true</code>, if <var class="Arg">perm</var> is an automorphism of <var class="Arg">tensor</var>. In that case <strong class="pkg">COCO2P</strong> adds <var class="Arg">perm</var> to the known automorphisms of <var class="Arg">tensor</var>.</p>
 
 <p><a id="X7EE1D367802B6726" name="X7EE1D367802B6726"></a></p>
 
 <h5>2.5-4 IsomorphismCocoObjects</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsomorphismCocoObjects</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsomorphismTensors</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsomorphismCocoObjects</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsomorphismTensors</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This operation returns an isomorphism from <var class="Arg">tensor1</var> to <var class="Arg">tensor2</var> if it exists, and <code class="code">fail</code> if it does not exists.</p>
 
 <p><a id="X867CF32F827578F8" name="X867CF32F827578F8"></a></p>
 
 <h5>2.5-5 IsIsomorphicCocoObject</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphicCocoObject</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphicTensor</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphicCocoObject</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphicTensor</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns <code class="code">true</code> if <var class="Arg">tensor1</var> and <var class="Arg">tensor2</var> are isomorphic, and <code class="code">false</code> otherwise.</p>
 
 <p><a id="X84122BB6867A77CB" name="X84122BB6867A77CB"></a></p>
 
 <h5>2.5-6 IsIsomorphismOfObjects</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphismOfObjects</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var>, <var class="Arg">g</var> )</td><td class="tdright">( operation )</td></tr></table></div>
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphismOfTensors</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var>, <var class="Arg">g</var> )</td><td class="tdright">( operation )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphismOfObjects</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var>, <var class="Arg">g</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsIsomorphismOfTensors</code>( <var class="Arg">tensor1</var>, <var class="Arg">tensor2</var>, <var class="Arg">g</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>Returns <code class="code">true</code> if <var class="Arg">g</var> is an isomorphism fro <var class="Arg">tensor1</var> to <var class="Arg">tensor2</var>, and <code class="code">false</code> otherwise.</p>
 
 <p><a id="X7AC08470842F62FB" name="X7AC08470842F62FB"></a></p>
@@ -342,7 +342,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 
 <h5>2.6-1 CharacterTableOfTensor</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CharacterTableOfTensor</code>( <var class="Arg">tensor</var> )</td><td class="tdright">( attribute )</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CharacterTableOfTensor</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>This function returns a record with two components: <code class="code">characters</code> and <code class="code">multiplicities</code>. If <code class="code">ct</code> is the character table of <var class="Arg">tensor</var>, then <code class="code">ct.characters[i][j]</code> is the value of the <span class="SimpleMath">i</span>-th irreducible character of the standard-basis element corresponding to color <span class="SimpleMath">j</span> of <var class="Arg">tensor</var>. Moreover, <code class="code">ct.multiplicities[i]</code> is the multiplicity of the <span class="SimpleMath">i</span>-th irreducible character.</p>
 
 

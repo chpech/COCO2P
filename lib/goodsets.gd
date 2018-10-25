@@ -1,14 +1,3 @@
-############################################
-##  $Id$
-##
-##  $Log$
-##
-############################################
-
-Revision.goosets_gd :=
-  "@(#)$Id$";
-
-
 #############################################################################
 ##
 ##  goodsets.gd                  COCO package
@@ -67,4 +56,3 @@ DeclareGlobalFunction( "SUBHomSymGSReps" );                                    #
 DeclareGlobalFunction( "GoodSetOrbit" );                                       # documented
 DeclareGlobalFunction( "GoodSetOrbitNC" );                                     # undocumented
 DeclareAttribute( "HomogeneousGoodSetOrbits", IsTensor and IsTensorOfCC );     # documented
-

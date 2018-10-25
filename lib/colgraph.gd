@@ -1,19 +1,6 @@
-############################################
-##  $Id: colgraph.gd,v 1.0 2008-11-27 15:32:16+01 zeka Exp zeka $
-##
-##  $Log: colgraph.gd,v $
-##  Revision 1.0  2008-11-27 15:32:16+01  zeka
-##  Initial revision
-##
-##
-############################################
-
-Revision.colgraph_gd :=
-  "@(#)$Id: colgraph.gd,v 1.0 2008-11-27 15:32:16+01 zeka Exp zeka $";
-
 #############################################################################
 ##
-##  colgraph.gd                  COCO package                      
+##  colgraph.gd                  COCO package
 ##                                                              Mikhail Klin
 ##                                                            Christian Pech
 ##                                                             Sven Reichard
@@ -37,8 +24,8 @@ DeclareGlobalFunction("CyclotomicColorGraph");                                  
 DeclareGlobalFunction("ClassicalCompleteAffineScheme");                                                         # documented
 DeclareGlobalFunction("JohnsonScheme");                                                                         # documented
 DeclareGlobalFunction("ColorGraphByWLStabilization" );                                                          # documented
-DeclareGlobalFunction("BIKColorGraph" );                                                                        # still undocumented
-DeclareGlobalFunction("IvanovColorGraph" );                                                                     # still undocumented
+DeclareGlobalFunction("BIKColorGraph" );                                                                        # documented
+DeclareGlobalFunction("IvanovColorGraph" );                                                                     # documented
 
 
 ###
@@ -113,3 +100,7 @@ DeclareAttribute( "AlgebraicAutomorphismGroup",     IsColorGraph and IsWLStableC
 
 DeclareGlobalFunction( "RowOfCgrObject" );                                                                           # undocumented
 
+###
+### auxiliary functions
+###
+DeclareGlobalFunction( "NewPbagObjectForColorGraph" );

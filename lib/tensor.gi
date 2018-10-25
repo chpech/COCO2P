@@ -1,16 +1,3 @@
-#################################################################
-#W  $Id: tensor.gi,v 1.0 2008-11-25 22:32:27+01 zeka Exp zeka $
-##
-##  $Log: tensor.gi,v $
-##  Revision 1.0  2008-11-25 22:32:27+01  zeka
-##  Initial revision
-##
-
-
-Revision.tensor_gi :=
-  "@(#)$Id: tensor.gi,v 1.0 2008-11-25 22:32:27+01 zeka Exp zeka $";
-
-
 #############################################################################
 ##
 ##  tensor.gi                      COCO package
@@ -50,7 +37,7 @@ DeclareRepresentation( "IsBlockedTensorRep",
          "knownAutGroup",   #
          "vertexNames",     # names of the colors (that are vertices of the tensor...)
          "entries"          # the actual entries of the tensor
-         ]);                
+         ]);
 
 
 ############################################
@@ -264,7 +251,7 @@ function(cgr,tor)
          fi;
       od;
    od;
-   
+
    if Length(blocks)>1 then
        tensor:=rec(
                    reflexiveColors := reflexiveColors,
@@ -286,10 +273,10 @@ function(cgr,tor)
                      knownAutGroup   := KnownGroupOfColorAutomorphisms(cgr),
                      vertexNames     := ColorNames(cgr)
                      );
-       
+
        tensor:= Objectify(NewType(TensorFam, IsTensorRep), tensor);
    fi;
-   
+
    if HasMates(cgr) then
        SetMates(tensor, Mates(cgr));
    fi;
@@ -490,7 +477,7 @@ function(tensor)
     if res=fail then
         Error("???");
     fi;
-    
+
     return res;
 end);
 
@@ -579,9 +566,7 @@ function(tensor)
    return tensor!.knownAutGroup;
 end);
 
-InstallMethod(NewPbagObject,
-   "for tensors of coherent configurations",
-   [IsTensor and IsTensorOfCC],
+InstallGlobalFunction(NewPbagObjectForTensorOfCC,
 function(tensor)
    local GlobalInvariant, InitialPartition, obj, G, initial, stab;
 
@@ -655,8 +640,20 @@ function(tensor)
 end);
 
 InstallMethod(NewPbagObject,
+  "for tensors of coherent configurations",
+  [IsTensor and IsTensorOfCC],
+function(tensor)
+  return NewPbagObjectForTensorOfCC(tensor);
+end);
+
+InstallMethod(NewPbagObjects,
    "for tensors of coherent configurations",
-   [IsTensor],
+   [IsTensor and IsTensorOfCC, IsTensor and IsTensorOfCC],
+function(tensor1,tensor2)
+  return [NewPbagObjectForTensorOfCC(tensor1), NewPbagObjectForTensorOfCC(tensor2)];
+end);
+
+InstallGlobalFunction(NewPbagObjectForDenseTensor,
 function(tensor)
    local  obj, G, initial, stab;
 
@@ -677,10 +674,26 @@ function(tensor)
     return obj;
 end);
 
+
+InstallMethod(NewPbagObject,
+  "for tensors",
+  [IsTensor],
+function(tensor)
+  return NewPbagObjectForDenseTensor(tensor);
+end);
+
+InstallMethod(NewPbagObjects,
+   "for tensors",
+   [IsTensor, IsTensor],
+function(tensor1,tensor2)
+  return [NewPbagObjectForDenseTensor(tensor1), NewPbagObjectForDenseTensor(tensor2)];
+end);
+
+
 InstallMethod(PbagInvariant,
    "for tensors",
-   [IsTensor],
-function(tensor)
+   [IsTensor, IsTensor],
+function(tensor1,tensor2)
    local TestAutomorphism, TestIsomorphism, Invariant, HashFunction;
 
    TestIsomorphism:=function(T1, T2, perm)
@@ -724,9 +737,9 @@ function(tensor)
 
         for j in TRec.ST do
            Add(inv, EntryOfTensor(TRec.T, j,j,i));
-           if TRec.S<>[] then 
+           if TRec.S<>[] then
              lk:=[TRec.S[Length(TRec.S)]];
-           else 
+           else
              lk:=[];
            fi;
            for k in lk do #TRec.ST do
@@ -879,13 +892,13 @@ InstallGlobalFunction( ClosureSet,
     return result;
 end);
 
-##  
+##
 InstallMethod( ClosedSets,
         "for tensors",
         [ IsTensor ],
         function( tensor )
     local   minimal,  sets,  i,  j,  new;
-    
+
     minimal := List([1..Order(tensor)], x -> ClosureSet(tensor, [x]));
     sets := Set(minimal);
     for i in sets do
@@ -913,57 +926,61 @@ InstallOtherMethod(\[\],
     return EntryOfTensor(tensor,lidx[1],lidx[2],lidx[3]);
 end);
 
-    
+
 #################################################################
-#M  ViewObject( <tensor> )
+#M  ViewString( <tensor> )
 ##
-InstallMethod(ViewObj,
+InstallMethod(ViewString,
         "for tensors",
         [IsTensor],
         function(x)
-    Print("<");
+    local res;
+    res:="<";
     if IsMutable(x) then
-        Print("mutable ");
+        Append(res, "mutable ");
     fi;
-    Print("Tensor of order ", Order(x), ">");
+    res:=Concatenation(res, "Tensor of order ", String(Order(x)), ">");
+    return res;
 end);
 
 #################################################################
-#M  PrintObject( <tensor> )
+#M  PrintString( <tensor> )
 ##
-InstallMethod(PrintObj,
+InstallMethod(PrintString,
         "for tensors",
         [IsTensor],
         function(x)
-    Print("DenseTensorFromEntries( ",
+    return PRINT_STRINGIFY("DenseTensorFromEntries( ", x!.entries, " )");
+end);
+
+InstallMethod(String,
+        "for tensors",
+        [IsTensor],
+        function(x)
+    return STRINGIFY("DenseTensorFromEntries( ",
           KnownGroupOfAutomorphisms(x), ", ",
           Order(x), ", ", x!.entries,
           " )");
 end);
+
 ##
-PrintWidth := function(width, number)
+TensorString := function(number,width)
     local i, l;
-    if number = 0 then
-        l := 0;
+
+    if number=0 then
+        return String("-", width);
     else
-        l := LogInt(number, 10);
-    fi;
-    for i in [l+2..width] do
-        Print(" ");
-    od;
-    if (number = 0) then
-       Print("-");
-    else
-        Print(number);
+        return String(number,width);
     fi;
 end;
 
+
 ##
-InstallMethod( Display,
+InstallMethod( DisplayString,
         "for tensors",
         [IsTensor],
         function(x)
-    local i, j, k, max, width, totalWidth;
+    local i, j, k, max, width, totalWidth,res;
     max := 0;
     for i in [1..Order(x)] do
         for k in [1..Order(x)] do
@@ -974,15 +991,16 @@ InstallMethod( Display,
     od;
     width := LogInt(max, 10) + 3;
     totalWidth := Order(x) * width + 1;
-    Print("+", List([1..totalWidth], x -> '-'), "+\n");
+    res:=Concatenation("+", List([1..totalWidth], x -> '-'), "+\n");
     for i in [1..Order(x)] do
         for k in [1..Order(x)] do
-            Print("|");
+            Append(res,"|");
             for j in [1..Order(x)] do
-                PrintWidth(width, EntryOfTensor(x, i, j, k));
+                Append(res, TensorString(EntryOfTensor(x, i, j, k), width));
             od;
-            Print(" |\n");
+            Append(res, " |\n");
         od;
-        Print("+", List([1..totalWidth], x -> '-'), "+\n");
+        Append(res, Concatenation("+", List([1..totalWidth], x -> '-'), "+\n"));
     od;
+    return res;
 end);

@@ -2,10 +2,13 @@
   
   [1XIndex[101X
   
-  [2XAdjacencyMatrix[102X 1.4-8  1.4-8 
+  [2XAdjacencyMatrix[102X, first variant 1.4-8 
+      second variant 1.4-8 
   [2XAlgebraicAutomorphismGroup[102X 1.7-15 
-  [2XAllAssociationSchemes[102X 1.3-8 
-  [2XArcColorOfColorGraph[102X 1.4-5  1.4-5 
+  [2XAllAssociationSchemes[102X 1.3-10 
+  [2XAllCoherentConfigurations[102X 1.3-11 
+  [2XArcColorOfColorGraph[102X, first variant 1.4-5 
+      second variant 1.4-5 
   [2XAsElementOfColorSemiring[102X 5.1-3 
   [2XAsList[102X, for orbits of fusions 3.5-8 
       for orbits of good sets 3.3-8 
@@ -17,8 +20,10 @@
       for tensors 2.5-2 
   [2XAutomorphismGroup[102X, for color graphs 1.7-2 
       for tensors 2.5-2 
-  [2XBaseGraphOfColorGraph[102X 1.5-8  1.5-8 
+  [2XBaseGraphOfColorGraph[102X, first variant 1.5-8 
+      second variant 1.5-8 
   [2XBaseOfFusion[102X 3.4-5 
+  [2XBIKColorGraph[102X 1.3-8 
   [2XBuildGoodSet[102X 3.2-1 
   [2XCanonicalRepresentativeOfCocoOrbit[102X, for orbits of fusions 3.5-3 
       for orbits of good sets 3.3-3 
@@ -82,7 +87,7 @@
   [2XIsIsomorphismOfColorGraphs[102X, for color graphs 1.7-6 
   [2XIsIsomorphismOfObjects[102X, for color graphs 1.7-6 
       for tensors 2.5-6 
-  [2XIsIsomorphismOfTensors[102X, for tensors 2.5-6 
+  [2XIsIsomorphismOfTensors[102X, for tensors 2.5-6 
   [2XIsomorphismCocoObjects[102X, for color graphs 1.7-4 
       for tensors 2.5-4 
   [2XIsomorphismColorGraphs[102X, for color graphs 1.7-4 
@@ -93,6 +98,7 @@
   [2XIsTensorOfCC[102X 2.4-1 
   [2XIsUndirectedColorGraph[102X 1.6-1 
   [2XIsWLStableColorGraph[102X 1.6-3 
+  [2XIvanovColorGraph[102X 1.3-9 
   [2XJohnsonScheme[102X 1.3-6 
   [2XKnownGroupOfAlgebraicAutomorphisms[102X 1.7-14 
   [2XKnownGroupOfAutomorphisms[102X, for color graphs 1.7-1 
@@ -105,7 +111,10 @@
   [2XMates[102X, for structure constants tensors 2.3-8 
   [2XMaximalElementsInCocoPoset[102X 4.2-9 
   [2XMinimalElementsInCocoPoset[102X 4.2-8 
-  [2XNeighbors[102X 1.4-7  1.4-7 
+  [2XNeighbors[102X, first variant 1.4-7 
+      fourth variant 1.4-7 
+      second variant 1.4-7 
+      third variant 1.4-7 
   [2XNumberOfFibres[102X 1.4-12 
       for structure constants tensors 2.3-5 
   [2XOrder[102X, for color graphs 1.4-1 

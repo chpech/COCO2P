@@ -1,13 +1,3 @@
-############################################
-##  $Id$
-##
-##  $Log$
-##
-############################################
-
-Revision.wlclosure_gi :=
-  "@(#)$Id$";
-
 #############################################################################
 ##
 ##  wlclosure.gi                  COCO package
@@ -334,7 +324,7 @@ end);
 InstallGlobalFunction(WLBuildFixedPartition,
 function(p)
     local part,l,i;
-    
+
     part:=rec();
     part.classes:=Set(List(p,Set));
     l:=Length(part.classes);
@@ -353,7 +343,7 @@ end);
 InstallGlobalFunction(WLIsStablePartition,
 function(T,p)
     local part;
-    
+
     part:=WLBuildFixedPartition(p);
     if WLStabil(T,part)<>false then
         return true;
@@ -361,5 +351,3 @@ function(T,p)
         return false;
     fi;
 end);
-
-

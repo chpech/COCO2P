@@ -1,13 +1,3 @@
-############################################
-##  $Id$
-##
-##  $Log$
-##
-############################################
-
-Revision.cobject_gi :=
-  "@(#)$Id$";
-
 #############################################################################
 ##
 ##  cobject.gi                  COCO package
@@ -31,7 +21,7 @@ InstallMethod(AutGroupOfCocoObject,
         "for all coco-objects",
         [IsCocoObject],
 function(t)
-   return AutGroupOfPbagObject(NewPbagObject(t),KnownGroupOfAutomorphisms(t), PbagInvariant(t));
+   return AutGroupOfPbagObject(NewPbagObject(t),KnownGroupOfAutomorphisms(t), PbagInvariant(t,t));
 end);
 
 
@@ -86,7 +76,7 @@ end);
 InstallGlobalFunction(PbagInvariantWithInvariantPartition,
 function(obj)
    local tinv, TestIsomorphism, TestAutomorphism, HashFunction, Invariant;
-   tinv:=PbagInvariant(obj);
+   tinv:=PbagInvariant(obj,obj);
 
    TestIsomorphism:=function(TRec1, TRec2, perm)
        return tinv.test(TRec1,TRec2) and OnSetsSets(TRec1.part,perm)=TRec2.part;
@@ -125,21 +115,22 @@ InstallMethod(IsomorphismCocoObjects,
 	IsIdenticalObj,
 	[IsCocoObject, IsCocoObject],
 function(o1,o2)
-    local   iso,  kaut1,  kaut2;
-    
-    iso:=IsomorphismPbagObjects(NewPbagObject(o1), NewPbagObject(o2), PbagInvariant(o1));
+    local   iso,  kaut1,  kaut2, pbagobjs;
+
+    pbagobjs:=NewPbagObjects(o1,o2);
+    iso:=IsomorphismPbagObjects(pbagobjs[1], pbagobjs[2], PbagInvariant(o1,o2));
     if iso=false then
         iso:=fail;
     else
         kaut1:=KnownGroupOfAutomorphisms(o1);
         kaut2:=KnownGroupOfAutomorphisms(o2);
-    
+
         SetKnownGroupOfAutomorphismsNC(o1, ClosureGroup(kaut1,
                 List(GeneratorsOfGroup(kaut2), h->h^(iso^-1))));
         SetKnownGroupOfAutomorphismsNC(o2, ClosureGroup(kaut2,
                 List(GeneratorsOfGroup(kaut1), h->h^iso)));
     fi;
-    
+
    return iso;
 end);
 
@@ -148,20 +139,21 @@ InstallMethod(IsomorphismCocoObjectsInGroup,
         function(f1,f2,f3) return IsIdenticalObj(f2,f3);end,
 	[IsPermGroup, IsCocoObject, IsCocoObject],
 function(G,o1,o2)
-    local   iso,  kaut1,  kaut2;
+    local   iso,  kaut1,  kaut2, pbagobjs;
 
-    iso:=IsomorphismPbagObjectsInGroup(NewPbagObject(o1), NewPbagObject(o2), G, PbagInvariant(o1));
+    pbagobjs:=NewPbagObjects(o1,o2);
+    iso:=IsomorphismPbagObjectsInGroup(pbagobjs[1], pbagobjs[2], G, PbagInvariant(o1,o2));
     if iso=false then
         iso:=fail;
     fi;
     kaut1:=KnownGroupOfAutomorphisms(o1);
     kaut2:=KnownGroupOfAutomorphisms(o2);
-    
+
     SetKnownGroupOfAutomorphismsNC(o1, ClosureGroup(kaut1,
             List(GeneratorsOfGroup(kaut2), h->h^(iso^-1))));
     SetKnownGroupOfAutomorphismsNC(o2, ClosureGroup(kaut2,
             List(GeneratorsOfGroup(kaut1), h->h^iso)));
-    
+
     return iso;
 end);
 
@@ -170,18 +162,18 @@ InstallMethod(IsAutomorphismOfObject,
         [IsCocoObject, IsPerm],
 function(obj,g)
     local   kaut,  inv;
-    
+
     kaut:=KnownGroupOfAutomorphisms(obj);
-    if g in kaut then 
+    if g in kaut then
         return true;
     fi;
-    
-    inv:=PbagInvariant(obj);
-        
+
+    inv:=PbagInvariant(obj,obj);
+
     if not inv.autTest(NewPbagObject(obj),g) then
         return false;
     fi;
-    
+
     SetKnownGroupOfAutomorphismsNC(obj, ClosureGroupCompare(kaut,g));
     return true;
 end);
@@ -191,17 +183,18 @@ InstallMethod(IsIsomorphismOfObjects,
         function(a,b,c) return IsIdenticalObj(a,b);end,
         [IsCocoObject, IsCocoObject, IsPerm],
 function(obj1,obj2,g)
-    local   inv,  kaut1,  kaut2;
-    
-    inv:=PbagInvariant(obj1);
-        
-    if not inv.test(NewPbagObject(obj1),NewPbagObject(obj2), g) then
+    local   inv,  kaut1,  kaut2,pbagobjs;
+
+    inv:=PbagInvariant(obj1,obj2);
+
+    pbagobjs:=NewPbagObjects(obj1,obj2);
+    if not inv.test(pbagobjs[1],pbagobjs[2], g) then
         return false;
     fi;
-    
+
     kaut1:=KnownGroupOfAutomorphisms(obj1);
     kaut2:=KnownGroupOfAutomorphisms(obj2);
-    
+
     SetKnownGroupOfAutomorphismsNC(obj1, ClosureGroup(kaut1,
             List(GeneratorsOfGroup(kaut2), h->h^(g^-1))));
     SetKnownGroupOfAutomorphismsNC(obj2, ClosureGroup(kaut2,
@@ -214,24 +207,22 @@ InstallMethod(SetKnownGroupOfAutomorphisms,
         [IsCocoObject, IsPermGroup],
 function(obj,grp)
     local   kaut,  gens,  inv,  pbagobj,  g;
-    
+
     kaut:=KnownGroupOfAutomorphisms(obj);
     gens:=GeneratorsOfGroup(grp);
     gens:=Filtered(gens, g->not(g in kaut));
     if gens=[] then
         return;
     fi;
-    inv:=PbagInvariant(obj);
+    inv:=PbagInvariant(obj,obj);
     pbagobj:=NewPbagObject(obj);
-    
+
     for g in gens do
         if not inv.autTest(pbagobj,g) then
             Error("SetKnownGroupOfAutomorphisms: The given group is not contained in the automorphism group of the CocoObject!");
             return;
         fi;
     od;
-    
+
     SetKnownGroupOfAutomorphismsNC(obj,grp);
 end);
-
-    

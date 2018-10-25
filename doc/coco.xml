@@ -8,9 +8,9 @@
 <Book Name="COCO2P">
   <TitlePage>
     <Title>The  &COCO; Package</Title>
-    <Version>Version 0.1</Version>
+    <Version>Version 0.16</Version>
     <Author>Mikhail Klin
-    <Email>klin@cs.bgu.ac.il
+    <Email>klin@math.bgu.ac.il
     </Email>
     </Author>
     <Author>Christian Pech
@@ -19,7 +19,7 @@
     <Author>Sven Reichard
     <Email>sven.reichard@tu-dresden.de</Email>
     </Author>
-    <Copyright>  &copyright; 2012, 2014 by the authors<P/>
+    <Copyright>  &copyright; 2012, 2014, 2018 by the authors<P/>
     This package may be distributed under the terms and conditions of the
     GNU Public License Version 2 or higher.
     </Copyright>
@@ -235,6 +235,77 @@ gap> cgr:=ColorGraphByMatrix(m);
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Func Name="BIKColorGraph" Arg="m"/>
+	  <Description>
+	    This function generates the color graphs described in the
+	    paper <Cite Key="BroIvaKli89"/>. These color graphs are
+	    interesting because they may be used to construct
+	    <M>3</M>-isoregular strongly
+	    regular graphs with the <M>5</M>-vertex condition.  The
+        vertex set of  <C>BIKColorGraph(m)</C> is <M>V=GF(2)^{2m}</M>. For the
+        description of colors of the arcs consider a quadratic form <M>q</M> of
+        Witt-index <M>m</M> on <M>V</M>. Let <M>Q</M> be the quadric defined by
+        <M>q</M>, and let <M>S</M> be a maximal singular subspace of <M>q</M>.
+        A pair of vectors <M>(v,w)</M> is colored by
+	    <List>
+            <Mark><C>"=":</C></Mark><Item>if <M>v = w</M>,</Item>
+            <Mark><C>"Q+S+":</C></Mark><Item> if <M>v + w \in S</M>,</Item>
+            <Mark><C>"Q+S-":</C></Mark><Item>if <M>v + w \in Q \setminus S</M>,</Item>
+            <Mark><C>"Q-":</C></Mark><Item>if <M>v + w \notin Q</M>.</Item>
+	    </List>
+        The following code constructs the Ivanov-graph on <M>256</M>
+        vertices. This was historically the first strongly regular graph
+        to be found that is non-rank-<M>3</M> and that satisfies the
+        <M>5</M>-vertex condition (cf. <Cite Key="Iva89"/>).
+        <Example>
+            <![CDATA[gap> cgr:=BIKColorGraph(4);
+                <color graph of order 256 and rank 4>
+                gap> ColorNames(cgr);
+                [ "=", "Q+S+", "Q+S-", "Q-" ]
+                gap> gamma:=BaseGraphOfColorGraph(cgr,3);;
+                gap> IsStronglyRegular(gamma);
+                true
+                gap> gamma.srg;
+                rec( k := 120, lambda := 56, mu := 56, r := 8, s := -8, v := 256 )]]>
+        </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="IvanovColorGraph" Arg="m"/>
+      <Description>
+          This function generates a series  of color graphs described in
+          <Cite Key="Iva94"/>. These color graphs may be used to construct
+          <M>3</M>-isoregular strongly
+          regular graphs with the <M>5</M>-vertex condition. These color graphs
+          are interesting because they may be used to construct
+          <M>3</M>-isoregular strongly regular graphs with the <M>5</M>-vertex
+          condition.  The vertex set of  <C>IvanovColorGraph(m)</C> is
+          <M>V=GF(2)^{2m}</M>. For the description of colors of the arcs
+          consider a quadratic form <M>q</M> of Witt-index <M>m-1</M> on
+          <M>V</M>. Let <M>Q</M> be the quadric defined by
+          <M>q</M>, let <M>S</M> be a maximal singular subspace of <M>q</M>,
+          and let <M>O</M> be the orthogonal complement of <M>S</M>.
+          A pair of vectors <M>(v,w)</M> is colored by
+          <List>
+              <Mark><C>"=":</C></Mark><Item>if <M>v = w</M>,</Item>
+              <Mark><C>"Q+S+":</C></Mark><Item> if <M>v + w \in S</M>,</Item>
+              <Mark><C>"Q+S-":</C></Mark><Item>if <M>v + w \in Q \setminus S</M>,</Item>
+              <Mark><C>"Q-O+":</C></Mark><Item>if <M>v + w \in O</M>.</Item>
+              <Mark><C>"Q-O-":</C></Mark><Item>if <M>v + w \notin O \cup Q</M>.</Item>
+          </List>
+          <Example>
+              <![CDATA[gap> cgr:=IvanovColorGraph(5);
+                  <color graph of order 1024 and rank 5>
+                  gap> ColorNames(cgr);
+                  [ "=", "Q+S+", "Q+S-", "Q-O+", "Q-O-" ]
+                  gap> gamma:=BaseGraphOfColorGraph(cgr,[2,5]);;
+                  gap> IsStronglyRegular(gamma);;
+                  gap> gamma.srg;
+                  rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )]]>
+          </Example>
+      </Description>
+	</ManSection>
+	<ManSection>
 	  <Func Name="AllAssociationSchemes" Arg="n"/>
 	  <Description>
 	    This function creates an interface to the database of
@@ -249,6 +320,22 @@ gap> cgr:=ColorGraphByMatrix(m);
 	    list. Every color graph has a name of the shape
 	    <C>AS(n,k)</C> where <C>k</C> is the index of the scheme
 	    in the list of schemes of order <A>n</A> in the Japanese
+	    catalogue.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="AllCoherentConfigurations" Arg="n"/>
+	  <Description>
+	    This function creates an interface to the database of
+	    small coherent configurations on at most 15 vertices by Matan Ziv-Av
+	    
+	    This function downloads the list of small coherent
+	    configurations of order
+	    <A>n</A>. Then it converts them to the
+	    internal format of &COCO; and returns the resulting
+	    list. Every color graph has a name of the shape
+	    <C>CC(n,k)</C> where <C>k</C> is the index of the scheme
+	    in the list of schemes of order <A>n</A> in Matan's
 	    catalogue.
 	  </Description>
 	</ManSection>
@@ -305,8 +392,8 @@ gap> ColorNames(cgr);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Meth Name="ArcColorOfColorGraph" Arg="cgr, u,v"/>
-	  <Meth Name="ArcColorOfColorGraph" Arg="cgr, arc"/>
+	  <Meth Name="ArcColorOfColorGraph" Arg="cgr, u,v" Label="first variant"/>
+	  <Meth Name="ArcColorOfColorGraph" Arg="cgr, arc" Label="second variant"/>
 	  <Description>
 	    Returns the color of the arc <M>(u,v)</M>. In the second
 	    form, the arc is <A>arc</A> is given as an ordered pair
@@ -332,10 +419,10 @@ gap> ArcColorOfColorGraph(cgr,[2,9]);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Meth Name="Neighbors" Arg="cgr,vertices,colors"/>
-	  <Meth Name="Neighbors" Arg="cgr,v,colors"/>
-      <Meth Name="Neighbors" Arg="cgr,vertices,color"/>
-      <Meth Name="Neighbors" Arg="cgr,v,color"/>
+	  <Meth Name="Neighbors" Arg="cgr,vertices,colors" Label="first variant"/>
+	  <Meth Name="Neighbors" Arg="cgr,v,colors" Label="second variant"/>
+      <Meth Name="Neighbors" Arg="cgr,vertices,color" Label="third variant"/>
+      <Meth Name="Neighbors" Arg="cgr,v,color" Label="fourth variant"/>
 	  <Description>
 	    The first variant returns the set of all vertices <M>w</M>
 	    of <A>cgr</A> such that the color of the arc <M>(v,w)</M>
@@ -359,8 +446,8 @@ gap> Neighbors(cgr,1,[1,2]);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Meth Name="AdjacencyMatrix" Arg="cgr"/>
-      <Meth Name="AdjacencyMatrix" Arg="cgr,colors"/>
+	  <Meth Name="AdjacencyMatrix" Arg="cgr" Label="first variant"/>
+      <Meth Name="AdjacencyMatrix" Arg="cgr,colors" Label="second variant"/>
 	  <Description>
 	    Returns the adjacency matrix of <A>cgr</A>. If <M>A</M> is
 	    the adjacency matrix of <A>cgr</A>, then <M>A(i,j)</M> is
@@ -398,14 +485,14 @@ gap> ColorNames(cgr)
 	  <Oper Name="RowOfColorGraph" Arg="cgr, i"/>
 	  <Description>
 	    Returns the <M>i</M>-th row of the adjacency matrix of
-	    <A>cgr</A> (<Ref Oper="AdjacencyMatrix"/>).
+	    <A>cgr</A> (<Ref Oper="AdjacencyMatrix" Label="first variant"/>).
 	  </Description>
 	</ManSection>
 	<ManSection>
 	  <Oper Name="ColumnOfColorGraph" Arg="cgr,j"/>
 	  <Description>
 	    Returns the <M>j</M>-th column of the adjacency matrix of
-	    <A>cgr</A> (<Ref Oper="AdjacencyMatrix"/>).
+	    <A>cgr</A> (<Ref Oper="AdjacencyMatrix" Label="first variant"/>).
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -690,8 +777,8 @@ gap> cgr2:=QuotientColorGraph(cgr,part);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Meth Name="BaseGraphOfColorGraph" Arg="cgr,color"/>
-	  <Meth Name="BaseGraphOfColorGraph" Arg="cgr,cset"/>
+	  <Meth Name="BaseGraphOfColorGraph" Arg="cgr,color" Label="first variant"/>
+	  <Meth Name="BaseGraphOfColorGraph" Arg="cgr,cset" Label="second variant"/>
 	  <Description>
 	    This function extracts graphs from a color graph. In the
 	    first variant, the second argument is one color. In this
@@ -801,7 +888,7 @@ gap> lcgr:=Filtered(lcgr, x->not IsSchurian(x));
 	  <Description>
 	    A WL-stable color graph is primitive if all its
 	    loopless base graphs are strongly connected (cf. <Ref
-	    Oper="BaseGraphOfColorGraph"/>).
+	    Oper="BaseGraphOfColorGraph" Label="first variant"/>).
 	    This function tests, whether <A>cgr</A> is primitive or
 	    not. 
 	    <Example>
@@ -1311,14 +1398,14 @@ gap> Fibres(cgr);
 	</ManSection>
 	<ManSection>
 	  <Oper Name="IsIsomorphismOfObjects" Arg="tensor1,tensor2,g" Label="for tensors"/>
-      <Oper Name="IsIsomorphismOfTensors" Arg="tensor1,tensor2,g" Label="for tensors"/>
+      <Oper Name="IsIsomorphismOfTensors" Arg="tensor1,tensor2,g" Label="for tensors"/>
 	  <Description>
 	    Returns <C>true</C> if <A>g</A> is an isomorphism fro
 	    <A>tensor1</A> to <A>tensor2</A>, and <C>false</C> otherwise.
 	  </Description>
 	</ManSection>
-      </Section>
-      <Section>
+  </Section>
+  <Section>
 	<Heading>Character tables of structure constants
 	tensors</Heading>
 	The structure constants tensor of a WL-stable color graph encodes

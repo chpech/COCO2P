@@ -3,7 +3,7 @@
                                [1XThe [5XCOCO2P[105X Package[101X
   
   
-                                  Version 0.1
+                                  Version 0.16
   
   
                                   Mikhail Klin
@@ -15,7 +15,7 @@
   
   
   Mikhail Klin
-      Email:    [7Xmailto:klin@cs.bgu.ac.il[107X
+      Email:    [7Xmailto:klin@math.bgu.ac.il[107X
   Christian Pech
       Email:    [7Xmailto:christian.pech@tu-dresden.de[107X
   Sven Reichard
@@ -23,7 +23,7 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 2012, 2014 by the authors[133X
+  [33X[0;0Y© 2012, 2014, 2018 by the authors[133X
   
   [33X[0;0YThis  package  may  be distributed under the terms and conditions of the GNU
   Public License Version 2 or higher.[133X
@@ -45,7 +45,10 @@
       1.3-5 ClassicalCompleteAffineScheme
       1.3-6 JohnsonScheme
       1.3-7 CyclotomicColorGraph
-      1.3-8 AllAssociationSchemes
+      1.3-8 BIKColorGraph
+      1.3-9 IvanovColorGraph
+      1.3-10 AllAssociationSchemes
+      1.3-11 AllCoherentConfigurations
     1.4 [33X[0;0YFunctions for the inspection of color graphs[133X
       1.4-1 OrderOfColorGraph
       1.4-2 RankOfColorGraph

@@ -1,15 +1,3 @@
-#################################################################
-#W  $Id: fusion.gd,v 1.1 2011/03/13 11:26:01 pech Exp pech $
-##
-##  $Log: fusion.gd,v $
-##  Revision 1.1  2011/03/13 11:26:01  pech
-##  Initial revision
-##
-##
-
-Revision.fusion_gd :=
-  "@(#)$Id: fusion.gd,v 1.1 2011/03/13 11:26:01 pech Exp pech $";
-
 #############################################################################
 ##
 ##  fusion.gd                  COCO package
@@ -29,7 +17,7 @@ DeclareGlobalFunction( "FusionFromPartitionAndBaseNC" );                 # undoc
 DeclareGlobalFunction( "RefineFuseAndFilterGoodSetOrbits" );              # undocumented
 DeclareGlobalFunction( "FusionOrbitsFromGoodSetOrbits" );  # undocumented ?
 
-  
+
 DeclareOperation( "PartitionOfFusion", [IsFusionOfTensor] );              # documented
 DeclareOperation( "TensorOfFusion", [IsFusionOfTensor] );                 # documented
 DeclareOperation( "OnFusions", [IsFusionOfTensor, IsPerm] );              # undocumented

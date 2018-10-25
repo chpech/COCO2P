@@ -42,7 +42,7 @@
   
   [1X1.3-1 ColorGraphByOrbitals[101X
   
-  [29X[2XColorGraphByOrbitals[102X( [3Xgrp[103X[, [3Xdomain[103X[, [3XAction[103X[, [3XcompleteDom[103X]]] ) [32X function
+  [33X[1;0Y[29X[2XColorGraphByOrbitals[102X( [3Xgrp[103X[, [3Xdomain[103X[, [3XAction[103X[, [3XcompleteDom[103X]]] ) [32X function[133X
   
   [33X[0;0YThis  function  constructs  the  color graph of orbitals color graphs from a
   group  action  by mapping each arc to a representative of its orbital of the
@@ -86,7 +86,7 @@
   
   [1X1.3-2 ColorGraph[101X
   
-  [29X[2XColorGraph[102X( [3Xgrp[103X[, [3Xdomain[103X[, [3Xaction[103X[, [3XcompleteDom[103X[, [3Xcoloring[103X]]]] ) [32X function
+  [33X[1;0Y[29X[2XColorGraph[102X( [3Xgrp[103X[, [3Xdomain[103X[, [3Xaction[103X[, [3XcompleteDom[103X[, [3Xcoloring[103X]]]] ) [32X function[133X
   
   [33X[0;0YThis is the most general function for the construction of color graphs. When
   called  with  less  than  [22X5[122X  arguments,  it  is  identical with the function
@@ -112,7 +112,7 @@
   
   [1X1.3-3 ColorGraphByMatrix[101X
   
-  [29X[2XColorGraphByMatrix[102X( [3Xmat[103X ) [32X function
+  [33X[1;0Y[29X[2XColorGraphByMatrix[102X( [3Xmat[103X ) [32X function[133X
   
   [33X[0;0YThis  function  constructs  a  color  graph  from  its adjacency matrix. The
   argument  [3Xmat[103X  is  a  list  of  [22Xn[122X  lists  of length [22Xn[122X. The vertex-set of the
@@ -133,7 +133,7 @@
   
   [1X1.3-4 ColorGraphByWLStabilization[101X
   
-  [29X[2XColorGraphByWLStabilization[102X( [3Xcgr[103X ) [32X function
+  [33X[1;0Y[29X[2XColorGraphByWLStabilization[102X( [3Xcgr[103X ) [32X function[133X
   
   [33X[0;0YIf   [3Xcgr[103X  is  WL-stable  then  the  function  returns  [3Xcgr[103X.  Otherwise,  the
   WL-stabilization  of  [3Xcgr[103X  is returned. The colors of the stabilization have
@@ -147,7 +147,7 @@
   
   [1X1.3-5 ClassicalCompleteAffineScheme[101X
   
-  [29X[2XClassicalCompleteAffineScheme[102X( [3Xq[103X ) [32X function
+  [33X[1;0Y[29X[2XClassicalCompleteAffineScheme[102X( [3Xq[103X ) [32X function[133X
   
   [33X[0;0YThe  classical  complete  affine  scheme  is a WL-stable, Schurian, amorphic
   color graph defined on the set of points of the affine plane over [22XGF(q)[122X. The
@@ -159,7 +159,7 @@
   
   [1X1.3-6 JohnsonScheme[101X
   
-  [29X[2XJohnsonScheme[102X( [3Xn[103X, [3Xk[103X ) [32X function
+  [33X[1;0Y[29X[2XJohnsonScheme[102X( [3Xn[103X, [3Xk[103X ) [32X function[133X
   
   [33X[0;0YThe Johnson scheme [22XJ(n,k)[122X is a WL-stable, Schurian color graph. Its vertices
   are  the  [3Xk[103X-element  subsets  of  [22X{1,dots,n}[122X.  The  colors  are  elements of
@@ -170,7 +170,7 @@
   
   [1X1.3-7 CyclotomicColorGraph[101X
   
-  [29X[2XCyclotomicColorGraph[102X( [3Xp[103X, [3Xn[103X, [3Xd[103X ) [32X function
+  [33X[1;0Y[29X[2XCyclotomicColorGraph[102X( [3Xp[103X, [3Xn[103X, [3Xd[103X ) [32X function[133X
   
   [33X[0;0YLet  [22Xp[122X  be  a prime, [22Xn[122X, [22Xd[122X be positive integers, such that [22Xd[122X divides [22X(p^n-1)[122X.
   Let  [22Xq:=p^n[122X,  and let [22Xr[122X be a primitive element of [22XGF(q)[122X. Let [22XC[122X be the set of
@@ -181,9 +181,91 @@
   
   [33X[0;0YThis function returns the Cyclotomic scheme [22XCyc(p,n,d)[122X.[133X
   
-  [1X1.3-8 AllAssociationSchemes[101X
+  [1X1.3-8 BIKColorGraph[101X
   
-  [29X[2XAllAssociationSchemes[102X( [3Xn[103X ) [32X function
+  [33X[1;0Y[29X[2XBIKColorGraph[102X( [3Xm[103X ) [32X function[133X
+  
+  [33X[0;0YThis  function  generates  the  color graphs described in the paper [BIK89].
+  These  color  graphs  are  interesting because they may be used to construct
+  [22X3[122X-isoregular strongly regular graphs with the [22X5[122X-vertex condition. The vertex
+  set  of [10XBIKColorGraph(m)[110X is [22XV=GF(2)^2m[122X. For the description of colors of the
+  arcs  consider a quadratic form [22Xq[122X of Witt-index [22Xm[122X on [22XV[122X. Let [22XQ[122X be the quadric
+  defined  by  [22Xq[122X,  and  let  [22XS[122X  be a maximal singular subspace of [22Xq[122X. A pair of
+  vectors [22X(v,w)[122X is colored by[133X
+  
+  [8X[10X"=":[110X[8X[108X
+        [33X[0;6Yif [22Xv = w[122X,[133X
+  
+  [8X[10X"Q+S+":[110X[8X[108X
+        [33X[0;6Yif [22Xv + w ∈ S[122X,[133X
+  
+  [8X[10X"Q+S-":[110X[8X[108X
+        [33X[0;6Yif [22Xv + w ∈ Q ∖ S[122X,[133X
+  
+  [8X[10X"Q-":[110X[8X[108X
+        [33X[0;6Yif [22Xv + w ∉ Q[122X.[133X
+  
+  [33X[0;0YThe  following  code  constructs  the Ivanov-graph on [22X256[122X vertices. This was
+  historically the first strongly regular graph to be found that is non-rank-[22X3[122X
+  and that satisfies the [22X5[122X-vertex condition (cf. [Iva89]).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X            gap> cgr:=BIKColorGraph(4);[128X[104X
+    [4X[28X                <color graph of order 256 and rank 4>[128X[104X
+    [4X[28X                gap> ColorNames(cgr);[128X[104X
+    [4X[28X                [ "=", "Q+S+", "Q+S-", "Q-" ][128X[104X
+    [4X[28X                gap> gamma:=BaseGraphOfColorGraph(cgr,3);;[128X[104X
+    [4X[28X                gap> IsStronglyRegular(gamma);[128X[104X
+    [4X[28X                true[128X[104X
+    [4X[28X                gap> gamma.srg;[128X[104X
+    [4X[28X                rec( k := 120, lambda := 56, mu := 56, r := 8, s := -8, v := 256 )[128X[104X
+    [4X[28X        [128X[104X
+  [4X[32X[104X
+  
+  [1X1.3-9 IvanovColorGraph[101X
+  
+  [33X[1;0Y[29X[2XIvanovColorGraph[102X( [3Xm[103X ) [32X function[133X
+  
+  [33X[0;0YThis function generates a series of color graphs described in [Iva94]. These
+  color  graphs  may be used to construct [22X3[122X-isoregular strongly regular graphs
+  with the [22X5[122X-vertex condition. These color graphs are interesting because they
+  may  be  used  to  construct  [22X3[122X-isoregular  strongly regular graphs with the
+  [22X5[122X-vertex condition. The vertex set of [10XIvanovColorGraph(m)[110X is [22XV=GF(2)^2m[122X. For
+  the  description  of  colors  of  the  arcs  consider  a quadratic form [22Xq[122X of
+  Witt-index  [22Xm-1[122X  on [22XV[122X. Let [22XQ[122X be the quadric defined by [22Xq[122X, let [22XS[122X be a maximal
+  singular  subspace of [22Xq[122X, and let [22XO[122X be the orthogonal complement of [22XS[122X. A pair
+  of vectors [22X(v,w)[122X is colored by[133X
+  
+  [8X[10X"=":[110X[8X[108X
+        [33X[0;6Yif [22Xv = w[122X,[133X
+  
+  [8X[10X"Q+S+":[110X[8X[108X
+        [33X[0;6Yif [22Xv + w ∈ S[122X,[133X
+  
+  [8X[10X"Q+S-":[110X[8X[108X
+        [33X[0;6Yif [22Xv + w ∈ Q ∖ S[122X,[133X
+  
+  [8X[10X"Q-O+":[110X[8X[108X
+        [33X[0;6Yif [22Xv + w ∈ O[122X.[133X
+  
+  [8X[10X"Q-O-":[110X[8X[108X
+        [33X[0;6Yif [22Xv + w ∉ O ∪ Q[122X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X              gap> cgr:=IvanovColorGraph(5);[128X[104X
+    [4X[28X                  <color graph of order 1024 and rank 5>[128X[104X
+    [4X[28X                  gap> ColorNames(cgr);[128X[104X
+    [4X[28X                  [ "=", "Q+S+", "Q+S-", "Q-O+", "Q-O-" ][128X[104X
+    [4X[28X                  gap> gamma:=BaseGraphOfColorGraph(cgr,[2,5]);;[128X[104X
+    [4X[28X                  gap> IsStronglyRegular(gamma);;[128X[104X
+    [4X[28X                  gap> gamma.srg;[128X[104X
+    [4X[28X                  rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )[128X[104X
+    [4X[28X          [128X[104X
+  [4X[32X[104X
+  
+  [1X1.3-10 AllAssociationSchemes[101X
+  
+  [33X[1;0Y[29X[2XAllAssociationSchemes[102X( [3Xn[103X ) [32X function[133X
   
   [33X[0;0YThis  function  creates  an  interface  to the database of small association
   schemes     by     Akihide     Hanaki     and     Izumi     Miyamoto    from
@@ -196,28 +278,39 @@
   the  index  of  the scheme in the list of schemes of order [3Xn[103X in the Japanese
   catalogue.[133X
   
+  [1X1.3-11 AllCoherentConfigurations[101X
+  
+  [33X[1;0Y[29X[2XAllCoherentConfigurations[102X( [3Xn[103X ) [32X function[133X
+  
+  [33X[0;0YThis  function  creates  an  interface  to  the  database  of small coherent
+  configurations  on  at  most  15  vertices  by  Matan  Ziv-Av  This function
+  downloads  the  list  of  small  coherent configurations of order [3Xn[103X. Then it
+  converts  them  to  the  internal format of [5XCOCO2P[105X and returns the resulting
+  list. Every color graph has a name of the shape [10XCC(n,k)[110X where [10Xk[110X is the index
+  of the scheme in the list of schemes of order [3Xn[103X in Matan's catalogue.[133X
+  
   
   [1X1.4 [33X[0;0YFunctions for the inspection of color graphs[133X[101X
   
   [1X1.4-1 OrderOfColorGraph[101X
   
-  [29X[2XOrderOfColorGraph[102X( [3Xcgr[103X ) [32X attribute
-  [29X[2XOrderOfCocoObject[102X( [3Xcgr[103X ) [32X attribute
-  [29X[2XOrder[102X( [3Xcgr[103X ) [32X attribute
+  [33X[1;0Y[29X[2XOrderOfColorGraph[102X( [3Xcgr[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XOrderOfCocoObject[102X( [3Xcgr[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XOrder[102X( [3Xcgr[103X ) [32X attribute[133X
   
   [33X[0;0YReturns the number of vertices of [3Xcgr[103X.[133X
   
   [1X1.4-2 RankOfColorGraph[101X
   
-  [29X[2XRankOfColorGraph[102X( [3Xcgr[103X ) [32X attribute
-  [29X[2XRank[102X( [3Xcgr[103X ) [32X method
+  [33X[1;0Y[29X[2XRankOfColorGraph[102X( [3Xcgr[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XRank[102X( [3Xcgr[103X ) [32X method[133X
   
   [33X[0;0YReturns the number of colors of [3Xcgr[103X.[133X
   
   [1X1.4-3 VertexNamesOfCocoObject[101X
   
-  [29X[2XVertexNamesOfCocoObject[102X( [3Xcgr[103X ) [32X operation
-  [29X[2XVertexNamesOfColorGraph[102X( [3Xcgr[103X ) [32X operation
+  [33X[1;0Y[29X[2XVertexNamesOfCocoObject[102X( [3Xcgr[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XVertexNamesOfColorGraph[102X( [3Xcgr[103X ) [32X operation[133X
   
   [33X[0;0YReturns  the  list  of names of the vertices of [3Xcgr[103X. Unfortunately, the more
   elegant  name  [10XVertexNames[110X is used in [5XGrape[105X as the name of a global function
@@ -233,7 +326,7 @@
   
   [1X1.4-4 ColorNames[101X
   
-  [29X[2XColorNames[102X( [3Xcgr[103X ) [32X operation
+  [33X[1;0Y[29X[2XColorNames[102X( [3Xcgr[103X ) [32X operation[133X
   
   [33X[0;0YReturns  the  list  of names of the colors of [3Xcgr[103X. In the following example,
   the  color names of the Johnson scheme are the possible cardinalities of the
@@ -250,8 +343,8 @@
   
   [1X1.4-5 ArcColorOfColorGraph[101X
   
-  [29X[2XArcColorOfColorGraph[102X( [3Xcgr[103X, [3Xu[103X, [3Xv[103X ) [32X method
-  [29X[2XArcColorOfColorGraph[102X( [3Xcgr[103X, [3Xarc[103X ) [32X method
+  [33X[1;0Y[29X[2XArcColorOfColorGraph[102X( [3Xcgr[103X, [3Xu[103X, [3Xv[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XArcColorOfColorGraph[102X( [3Xcgr[103X, [3Xarc[103X ) [32X method[133X
   
   [33X[0;0YReturns  the  color  of the arc [22X(u,v)[122X. In the second form, the arc is [3Xarc[103X is
   given as an ordered pair [10X[u,v][110X.[133X
@@ -272,19 +365,24 @@
   
   [1X1.4-6 ColorRepresentative[101X
   
-  [29X[2XColorRepresentative[102X( [3Xcgr[103X, [3Xi[103X ) [32X operation
+  [33X[1;0Y[29X[2XColorRepresentative[102X( [3Xcgr[103X, [3Xi[103X ) [32X operation[133X
   
   [33X[0;0YReturns any arc of color [3Xi[103X of [3Xcgr[103X.[133X
   
   [1X1.4-7 Neighbors[101X
   
-  [29X[2XNeighbors[102X( [3Xcgr[103X, [3Xv[103X, [3Xcolors[103X ) [32X method
-  [29X[2XNeighbors[102X( [3Xcgr[103X, [3Xv[103X, [3Xcolor[103X ) [32X method
+  [33X[1;0Y[29X[2XNeighbors[102X( [3Xcgr[103X, [3Xvertices[103X, [3Xcolors[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XNeighbors[102X( [3Xcgr[103X, [3Xv[103X, [3Xcolors[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XNeighbors[102X( [3Xcgr[103X, [3Xvertices[103X, [3Xcolor[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XNeighbors[102X( [3Xcgr[103X, [3Xv[103X, [3Xcolor[103X ) [32X method[133X
   
   [33X[0;0YThe  first  variant  returns  the set of all vertices [22Xw[122X of [3Xcgr[103X such that the
-  color of the arc [22X(v,w)[122X is an element of the set [3Xcolors[103X.[133X
+  color  of  the  arc  [22X(v,w)[122X  is  an  element  of the set [3Xcolors[103X, for all [22Xv[122X in
+  [3Xvertices[103X.[133X
   
-  [33X[0;0YThe second variant gets as third argument a single color of [3Xcgr[103X.[133X
+  [33X[0;0YThe  second  variant gets as the second argument a single vertex of [3Xcgr[103X, the
+  third  gets a single color and the fourth variant gets both, a single vertex
+  and a single color..[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xcgr:=JohnsonScheme(5,2);;[127X[104X
@@ -302,8 +400,8 @@
   
   [1X1.4-8 AdjacencyMatrix[101X
   
-  [29X[2XAdjacencyMatrix[102X( [3Xcgr[103X ) [32X method
-  [29X[2XAdjacencyMatrix[102X( [3Xcgr[103X, [3Xcolors[103X ) [32X method
+  [33X[1;0Y[29X[2XAdjacencyMatrix[102X( [3Xcgr[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XAdjacencyMatrix[102X( [3Xcgr[103X, [3Xcolors[103X ) [32X method[133X
   
   [33X[0;0YReturns  the  adjacency  matrix of [3Xcgr[103X. If [22XA[122X is the adjacency matrix of [3Xcgr[103X,
   then [22XA(i,j)[122X is equal to the color (not to the color name!) of the arc [22X(i,j)[122X.[133X
@@ -343,21 +441,21 @@
   
   [1X1.4-9 RowOfColorGraph[101X
   
-  [29X[2XRowOfColorGraph[102X( [3Xcgr[103X, [3Xi[103X ) [32X operation
+  [33X[1;0Y[29X[2XRowOfColorGraph[102X( [3Xcgr[103X, [3Xi[103X ) [32X operation[133X
   
   [33X[0;0YReturns  the  [22Xi[122X-th  row  of  the  adjacency  matrix  of [3Xcgr[103X ([2XAdjacencyMatrix[102X
   ([14X1.4-8[114X)).[133X
   
   [1X1.4-10 ColumnOfColorGraph[101X
   
-  [29X[2XColumnOfColorGraph[102X( [3Xcgr[103X, [3Xj[103X ) [32X operation
+  [33X[1;0Y[29X[2XColumnOfColorGraph[102X( [3Xcgr[103X, [3Xj[103X ) [32X operation[133X
   
   [33X[0;0YReturns  the  [22Xj[122X-th  column  of  the adjacency matrix of [3Xcgr[103X ([2XAdjacencyMatrix[102X
   ([14X1.4-8[114X)).[133X
   
   [1X1.4-11 Fibres[101X
   
-  [29X[2XFibres[102X( [3Xcgr[103X ) [32X operation
+  [33X[1;0Y[29X[2XFibres[102X( [3Xcgr[103X ) [32X operation[133X
   
   [33X[0;0YThe  [13XFibres[113X  of  a  color  graph  are  the  maximal  sets  of vertices whose
   corresponding loops all have the same color.[133X
@@ -377,15 +475,15 @@
   
   [1X1.4-12 NumberOfFibres[101X
   
-  [29X[2XNumberOfFibres[102X( [3Xcgr[103X ) [32X attribute
+  [33X[1;0Y[29X[2XNumberOfFibres[102X( [3Xcgr[103X ) [32X attribute[133X
   
   [33X[0;0YReturns  the  number  of  different  colors  of  loops  of  [3Xcgr[103X  (cf. [2XFibres[102X
   ([14X1.4-11[114X)).[133X
   
   [1X1.4-13 LocalIntersectionArray[101X
   
-  [29X[2XLocalIntersectionArray[102X( [3Xcgr[103X, [3Xv[103X, [3Xw[103X ) [32X method
-  [29X[2XLocalIntersectionArray[102X( [3Xcgr[103X, [3Xarc[103X ) [32X method
+  [33X[1;0Y[29X[2XLocalIntersectionArray[102X( [3Xcgr[103X, [3Xv[103X, [3Xw[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XLocalIntersectionArray[102X( [3Xcgr[103X, [3Xarc[103X ) [32X method[133X
   
   [33X[0;0YThe  input  to  this operation is a color graph [3Xcgr[103X and an arc. In the first
   version this arc is given as two parameters [3Xv[103X, and [3Xw[103X. In the second form the
@@ -421,7 +519,7 @@
   
   [1X1.4-14 ColorMates[101X
   
-  [29X[2XColorMates[102X( [3Xcgr[103X ) [32X attribute
+  [33X[1;0Y[29X[2XColorMates[102X( [3Xcgr[103X ) [32X attribute[133X
   
   [33X[0;0YIn  a  WL-stable  color graph for every color [22Xi[122X there exists a color [22Xi'[122X such
   that  whenever  an  arc  [22X(u,v)[122X  has color [22Xi[122X, then the opposite arc [22X(v,u)[122X has
@@ -443,7 +541,7 @@
   
   [1X1.4-15 OutValencies[101X
   
-  [29X[2XOutValencies[102X( [3Xcgr[103X ) [32X method
+  [33X[1;0Y[29X[2XOutValencies[102X( [3Xcgr[103X ) [32X method[133X
   
   [33X[0;0YLet  [22Xi[122X  and  a color of [3Xcgr[103X. Then there is a number [22Xd(i)[122X such that for every
   vertex  [22Xv[122X  of  [3Xcgr[103X  there  is  either no arc, or there are exactly [22Xd(i)[122X arcs
@@ -454,7 +552,7 @@
   
   [1X1.4-16 ReflexiveColors[101X
   
-  [29X[2XReflexiveColors[102X( [3Xcgr[103X ) [32X method
+  [33X[1;0Y[29X[2XReflexiveColors[102X( [3Xcgr[103X ) [32X method[133X
   
   [33X[0;0YThis  function  returns  the  list  of all reflexive colors of the WL-stable
   color graph [3Xcgr[103X.[133X
@@ -464,7 +562,7 @@
   
   [1X1.5-1 ColorGraphByFusion[101X
   
-  [29X[2XColorGraphByFusion[102X( [3Xcgr[103X, [3Xfusion[103X ) [32X operation
+  [33X[1;0Y[29X[2XColorGraphByFusion[102X( [3Xcgr[103X, [3Xfusion[103X ) [32X operation[133X
   
   [33X[0;0YThe  function  takes as arguments a color graph [3Xcgr[103X and a fusion. The fusion
   can  be  either  a  list  of  sets  of colors, or it belongs to the category
@@ -505,7 +603,7 @@
   
   [1X1.5-2 QuotientColorGraph[101X
   
-  [29X[2XQuotientColorGraph[102X( [3Xcgr[103X, [3Xpart[103X ) [32X operation
+  [33X[1;0Y[29X[2XQuotientColorGraph[102X( [3Xcgr[103X, [3Xpart[103X ) [32X operation[133X
   
   [33X[0;0Y[3Xpart[103X is a partition of the vertex set of the color graph [3Xcgr[103X (it has to be a
   set of sets of vertices). The quotient graph of [3Xcgr[103X with respect to [3Xpart[103X has
@@ -537,7 +635,7 @@
   
   [1X1.5-3 InducedSubColorGraph[101X
   
-  [29X[2XInducedSubColorGraph[102X( [3Xcgr[103X, [3Xset[103X ) [32X operation
+  [33X[1;0Y[29X[2XInducedSubColorGraph[102X( [3Xcgr[103X, [3Xset[103X ) [32X operation[133X
   
   [33X[0;0YThis  function  returns  a  color  graph that is isomorphic to the sub color
   graph  induced by [3Xset[103X. The function that maps [22Xi[122X to [10Xset[i][110X is an embedding of
@@ -558,7 +656,7 @@
   
   [1X1.5-4 DirectProductColorGraphs[101X
   
-  [29X[2XDirectProductColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
+  [33X[1;0Y[29X[2XDirectProductColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation[133X
   
   [33X[0;0YSuppose,  [3Xcgr1[103X is the color graph [22X(V_1,C_1,f_1)[122X, and [3Xcgr2[103X is the color graph
   [22X(V_2,C_2,f_2)[122X.  Then the direct product of [3Xcgr1[103X with [3Xcgr2[103X has vertex set [22XV_1
@@ -570,7 +668,7 @@
   
   [1X1.5-5 WreathProductColorGraphs[101X
   
-  [29X[2XWreathProductColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
+  [33X[1;0Y[29X[2XWreathProductColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation[133X
   
   [33X[0;0YSuppose,  [3Xcgr1[103X is the color graph [22X(V_1,C_1,f_1)[122X, and [3Xcgr2[103X is the color graph
   [22X(V_2,C_2,f_2)[122X.  Suppose,  [22XD_1[122X  is  the set of all those colors of [3Xcgr1[103X whose
@@ -585,7 +683,7 @@
   
   [1X1.5-6 ClosedSets[101X
   
-  [29X[2XClosedSets[102X( [3Xcgr[103X ) [32X attribute
+  [33X[1;0Y[29X[2XClosedSets[102X( [3Xcgr[103X ) [32X attribute[133X
   
   [33X[0;0YA  set  [10Xcset[110X of colors of [3Xcgr[103X is closed if the collections of all arcs whose
   color  is  from  [10Xcset[110X forms an equivalence relation. This function returns a
@@ -593,7 +691,7 @@
   
   [1X1.5-7 PartitionClosedSet[101X
   
-  [29X[2XPartitionClosedSet[102X( [3Xcgr[103X, [3Xcset[103X ) [32X operation
+  [33X[1;0Y[29X[2XPartitionClosedSet[102X( [3Xcgr[103X, [3Xcset[103X ) [32X operation[133X
   
   [33X[0;0YA  set  [3Xcset[103X of colors of [3Xcgr[103X is closed if the collections of all arcs whose
   color  is from [3Xcset[103X forms an equivalence relation. This function returns the
@@ -620,8 +718,8 @@
   
   [1X1.5-8 BaseGraphOfColorGraph[101X
   
-  [29X[2XBaseGraphOfColorGraph[102X( [3Xcgr[103X, [3Xcolor[103X ) [32X method
-  [29X[2XBaseGraphOfColorGraph[102X( [3Xcgr[103X, [3Xcset[103X ) [32X method
+  [33X[1;0Y[29X[2XBaseGraphOfColorGraph[102X( [3Xcgr[103X, [3Xcolor[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XBaseGraphOfColorGraph[102X( [3Xcgr[103X, [3Xcset[103X ) [32X method[133X
   
   [33X[0;0YThis  function extracts graphs from a color graph. In the first variant, the
   second  argument  is  one  color.  In  this case the digraph with vertex set
@@ -650,7 +748,7 @@
   
   [1X1.6-1 IsUndirectedColorGraph[101X
   
-  [29X[2XIsUndirectedColorGraph[102X( [3Xcgr[103X ) [32X property
+  [33X[1;0Y[29X[2XIsUndirectedColorGraph[102X( [3Xcgr[103X ) [32X property[133X
   
   [33X[0;0YA color graph is called [13Xundirected[113X if for all vertices [22Xu[122X and [22Xv[122X the arc [22X(u,v)[122X
   has  the  same  color as the arc [22X(v,u)[122X. The function tests this property for
@@ -674,7 +772,7 @@
   
   [1X1.6-2 IsHomogeneous[101X
   
-  [29X[2XIsHomogeneous[102X( [3Xcgr[103X ) [32X property
+  [33X[1;0Y[29X[2XIsHomogeneous[102X( [3Xcgr[103X ) [32X property[133X
   
   [33X[0;0YA color graph is homogeneous if it has just one fibre. For a WL-stable color
   graph this means that it has just one reflexive color. For a WL-stable color
@@ -694,7 +792,7 @@
   
   [1X1.6-3 IsWLStableColorGraph[101X
   
-  [29X[2XIsWLStableColorGraph[102X( [3Xcgr[103X ) [32X property
+  [33X[1;0Y[29X[2XIsWLStableColorGraph[102X( [3Xcgr[103X ) [32X property[133X
   
   [33X[0;0YThis  function  returns  true  if  [3Xcgr[103X  is stable under the Weisfeiler-Leman
   algorithm,   that   is,  whether  it  is  the  color  graph  of  a  coherent
@@ -711,7 +809,7 @@
   
   [1X1.6-4 IsSchurian[101X
   
-  [29X[2XIsSchurian[102X( [3Xcgr[103X ) [32X property
+  [33X[1;0Y[29X[2XIsSchurian[102X( [3Xcgr[103X ) [32X property[133X
   
   [33X[0;0YA  color  graph  is  called  [13XSchurian[113X if it is color isomorphic to the color
   graph of orbitals of its automorphism group.[133X
@@ -725,7 +823,7 @@
   
   [1X1.6-5 IsPrimitive[101X
   
-  [29X[2XIsPrimitive[102X( [3Xcgr[103X ) [32X property
+  [33X[1;0Y[29X[2XIsPrimitive[102X( [3Xcgr[103X ) [32X property[133X
   
   [33X[0;0YA  WL-stable  color  graph  is primitive if all its loopless base graphs are
   strongly connected (cf. [2XBaseGraphOfColorGraph[102X ([14X1.5-8[114X)). This function tests,
@@ -752,31 +850,31 @@
   
   [1X1.7-1 KnownGroupOfAutomorphisms[101X
   
-  [29X[2XKnownGroupOfAutomorphisms[102X( [3Xcgr[103X ) [32X operation
+  [33X[1;0Y[29X[2XKnownGroupOfAutomorphisms[102X( [3Xcgr[103X ) [32X operation[133X
   
   [33X[0;0YThis  function  returns  the  group  of all automorphisms of [3Xcgr[103X that [5XCOCO2P[105X
   knows at the given moment.[133X
   
   [1X1.7-2 AutGroupOfCocoObject[101X
   
-  [29X[2XAutGroupOfCocoObject[102X( [3Xcgr[103X ) [32X attribute
-  [29X[2XAutomorphismGroup[102X( [3Xcgr[103X ) [32X method
+  [33X[1;0Y[29X[2XAutGroupOfCocoObject[102X( [3Xcgr[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XAutomorphismGroup[102X( [3Xcgr[103X ) [32X method[133X
   
   [33X[0;0YReturns  the  group of all permutations of the vertices of [3Xcgr[103X that preserve
   the color of all arcs.[133X
   
   [1X1.7-3 IsAutomorphismOfObject[101X
   
-  [29X[2XIsAutomorphismOfObject[102X( [3Xcgr[103X, [3Xperm[103X ) [32X operation
-  [29X[2XIsAutomorphismOfColorGraph[102X( [3Xcgr[103X, [3Xperm[103X ) [32X operation
+  [33X[1;0Y[29X[2XIsAutomorphismOfObject[102X( [3Xcgr[103X, [3Xperm[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsAutomorphismOfColorGraph[102X( [3Xcgr[103X, [3Xperm[103X ) [32X operation[133X
   
   [33X[0;0YReturns  [10Xtrue[110X,  if  [3Xperm[103X is an automorphism of [3Xcgr[103X. In that case [5XCOCO2P[105X adds
   [3Xperm[103X to the known automorphisms of [3Xcgr[103X.[133X
   
   [1X1.7-4 IsomorphismCocoObjects[101X
   
-  [29X[2XIsomorphismCocoObjects[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
-  [29X[2XIsomorphismColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
+  [33X[1;0Y[29X[2XIsomorphismCocoObjects[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsomorphismColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation[133X
   
   [33X[0;0YAn isomorphism from [3Xcgr1[103X to [3Xcgr2[103X is a bijection between the vertex sets that
   preserves the color of arcs (including the names of colors).[133X
@@ -786,30 +884,30 @@
   
   [1X1.7-5 IsIsomorphicCocoObject[101X
   
-  [29X[2XIsIsomorphicCocoObject[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
-  [29X[2XIsIsomorphicColorGraph[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
+  [33X[1;0Y[29X[2XIsIsomorphicCocoObject[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsIsomorphicColorGraph[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation[133X
   
   [33X[0;0YReturns  [10Xtrue[110X  if  [3Xcgr1[103X  and  [3Xcgr2[103X  are isomorphic, and [10Xfalse[110X otherwise (cf.
   [2XIsomorphismCocoObjects[102X ([14X1.7-4[114X))[133X
   
   [1X1.7-6 IsIsomorphismOfObjects[101X
   
-  [29X[2XIsIsomorphismOfObjects[102X( [3Xcgr1[103X, [3Xcgr2[103X, [3Xg[103X ) [32X operation
-  [29X[2XIsIsomorphismOfColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X, [3Xg[103X ) [32X operation
+  [33X[1;0Y[29X[2XIsIsomorphismOfObjects[102X( [3Xcgr1[103X, [3Xcgr2[103X, [3Xg[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsIsomorphismOfColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X, [3Xg[103X ) [32X operation[133X
   
   [33X[0;0YReturns  [10Xtrue[110X  if  [3Xg[103X is an isomorphism fro [3Xcgr1[103X to [3Xcgr2[103X, and [10Xfalse[110X otherwise
   (cf. [2XIsomorphismCocoObjects[102X ([14X1.7-4[114X)).[133X
   
   [1X1.7-7 KnownGroupOfColorAutomorphisms[101X
   
-  [29X[2XKnownGroupOfColorAutomorphisms[102X( [3Xcgr[103X ) [32X operation
+  [33X[1;0Y[29X[2XKnownGroupOfColorAutomorphisms[102X( [3Xcgr[103X ) [32X operation[133X
   
   [33X[0;0YThis  function  returns  the  group  of  all color automorphisms of [3Xcgr[103X that
   [5XCOCO2P[105X knows at the given moment.[133X
   
   [1X1.7-8 LiftToColorAutomorphism[101X
   
-  [29X[2XLiftToColorAutomorphism[102X( [3Xcgr[103X, [3Xperm[103X ) [32X operation
+  [33X[1;0Y[29X[2XLiftToColorAutomorphism[102X( [3Xcgr[103X, [3Xperm[103X ) [32X operation[133X
   
   [33X[0;0Y[3Xcgr[103X  is  a color graph and [3Xperm[103X is a permutation of its colors. The function
   constructs a color automorphism of [3Xcgr[103X that acts like [3Xperm[103X on the colors. If
@@ -820,7 +918,7 @@
   
   [1X1.7-9 LiftToColorIsomorphism[101X
   
-  [29X[2XLiftToColorIsomorphism[102X( [3Xcgr1[103X, [3Xcgr2[103X, [3Xciso[103X ) [32X operation
+  [33X[1;0Y[29X[2XLiftToColorIsomorphism[102X( [3Xcgr1[103X, [3Xcgr2[103X, [3Xciso[103X ) [32X operation[133X
   
   [33X[0;0Y[3Xcgr1[103X  and  [3Xcgr2[103X  are  color graphs of the same rank, and [3Xciso[103X is a bijection
   from  the  colors  of  [3Xcgr1[103X to the colors of [3Xcgr2[103X. The function constructs a
@@ -829,7 +927,7 @@
   
   [1X1.7-10 ColorIsomorphismColorGraphs[101X
   
-  [29X[2XColorIsomorphismColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
+  [33X[1;0Y[29X[2XColorIsomorphismColorGraphs[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation[133X
   
   [33X[0;0YThis  operation  returns  a  color  isomorphism  from [3Xcgr1[103X to [3Xcgr2[103X, and [10Xfail[110X
   otherwise.[133X
@@ -839,7 +937,7 @@
   
   [1X1.7-11 IsColorIsomorphicColorGraph[101X
   
-  [29X[2XIsColorIsomorphicColorGraph[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation
+  [33X[1;0Y[29X[2XIsColorIsomorphicColorGraph[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X operation[133X
   
   [33X[0;0YThis operation returns [10Xtrue[110X if [3Xcgr1[103X and [3Xcgr2[103X are color isomorphic, and [10Xfalse[110X
   otherwise.[133X
@@ -849,7 +947,7 @@
   
   [1X1.7-12 ColorAutomorphismGroup[101X
   
-  [29X[2XColorAutomorphismGroup[102X( [3Xcgr[103X ) [32X attribute
+  [33X[1;0Y[29X[2XColorAutomorphismGroup[102X( [3Xcgr[103X ) [32X attribute[133X
   
   [33X[0;0YThis function computes and returns the color automorphism group of [3Xcgr[103X. This
   group  consists of all permutations of the vertices of the color graph, that
@@ -865,7 +963,7 @@
   
   [1X1.7-13 ColorAutomorphismGroupOnColors[101X
   
-  [29X[2XColorAutomorphismGroupOnColors[102X( [3Xcgr[103X ) [32X attribute
+  [33X[1;0Y[29X[2XColorAutomorphismGroupOnColors[102X( [3Xcgr[103X ) [32X attribute[133X
   
   [33X[0;0YThe  color  automorphism  of  [3Xcgr[103X  acts  on  the  colors  of  [3Xcgr[103X  with  the
   automorphism group of [3Xcgr[103X as kernel. This function computes and returns this
@@ -875,14 +973,14 @@
   
   [1X1.7-14 KnownGroupOfAlgebraicAutomorphisms[101X
   
-  [29X[2XKnownGroupOfAlgebraicAutomorphisms[102X( [3Xcgr[103X ) [32X operation
+  [33X[1;0Y[29X[2XKnownGroupOfAlgebraicAutomorphisms[102X( [3Xcgr[103X ) [32X operation[133X
   
   [33X[0;0YThis  function  returns the group of all algebraic automorphisms of [3Xcgr[103X that
   [5XCOCO2P[105X knows at the given moment.[133X
   
   [1X1.7-15 AlgebraicAutomorphismGroup[101X
   
-  [29X[2XAlgebraicAutomorphismGroup[102X( [3Xcgr[103X ) [32X attribute
+  [33X[1;0Y[29X[2XAlgebraicAutomorphismGroup[102X( [3Xcgr[103X ) [32X attribute[133X
   
   [33X[0;0YThe  algebraic  automorphism group of a WL-stable color graph is nothing but
   the  automorphism  group  of  its  tensor  of structure constants. The color

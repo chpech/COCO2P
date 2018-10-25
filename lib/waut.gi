@@ -1,16 +1,3 @@
-############################################
-##  $Id: waut.gi,v 1.1 2008-12-06 11:03:46+01 zeka Exp zeka $
-##
-##  $Log: waut.gi,v $
-##  Revision 1.1  2008-12-06 11:03:46+01  zeka
-##  put standard header of coco-files
-##
-##
-############################################
-
-Revision.waut_gi :=
-  "@(#)$Id: waut.gi,v 1.1 2008-12-06 11:03:46+01 zeka Exp zeka $";
-
 #############################################################################
 ##
 ##  waut.gi                  COCO package
@@ -54,7 +41,7 @@ function(H, xcgr1, xcgr2, h, res)
 
     InfoW1("Entering FindCosRep.\n");
     if StbcIsTrivialStabChainNode(H) then
-        
+
         x:=CheckElm(h,xcgr1,xcgr2);
         if x <> false then
             Add(res, x);
@@ -66,7 +53,7 @@ function(H, xcgr1, xcgr2, h, res)
     m1:=H.part.map;
     m2:=Permuted(m1,h);
     InfoW1(h,"\n",m1,"\n",m2,"\n");
-    
+
     ChangeColoringOfXCgr(xcgr1,m1);
     ChangeColoringOfXCgr(xcgr2,m2);
     o1:=BuildXCgrObject(xcgr1);
@@ -126,4 +113,3 @@ function(xcgr1, xcgr2, S, part, result)
    od;
    return resH;
 end);
-

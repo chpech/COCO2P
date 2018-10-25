@@ -1,20 +1,3 @@
-############################################
-##  $Id: goodsets.gi,v 1.1 2009-01-05 22:43:41+01 zeka Exp zeka $
-##
-##  $Log: goodsets.gi,v $
-##  Revision 1.1  2009-01-05 22:43:41+01  zeka
-##  a first complete version of the good-sets algorithm
-##
-##  Revision 1.0  2008-12-23 18:32:18+01  zeka
-##  Initial revision
-##
-##
-############################################
-
-Revision.goosets_gi :=
-  "@(#)$Id: goodsets.gi,v 1.1 2009-01-05 22:43:41+01 zeka Exp zeka $";
-
-
 #############################################################################
 ##
 ##  goodsets.gi                  COCO package
@@ -109,22 +92,22 @@ DeclareRepresentation("IsSymGoodSetCandRep",
 # A structure constants tensor whose colors are sorted in this way, is called "normalized"
 InstallGlobalFunction(GetNormalizingPermutationForAsymCandidate,
 function(tensor)
-    local   rcol,  col,  nof,  map,  blkmat,  i,  a,  ir,  r,  blk,  
+    local   rcol,  col,  nof,  map,  blkmat,  i,  a,  ir,  r,  blk,
             b;
-    
-    
+
+
     rcol:=ReflexiveColors(tensor);
     col:=Difference([1..OrderOfTensor(tensor)], rcol);
     nof:=Length(rcol);
     map:=ShallowCopy(rcol);
-    
+
     blkmat:=List([1..nof], x->List([1..nof], x->[]));
     for i in col do
         Add(blkmat[StartBlock(tensor, i)][FinishBlock(tensor,i)], i);
     od;
-    
-    
-    
+
+
+
    for a in [1..nof] do
      for b in [1..nof] do
         Append(map, blkmat[a][b]);
@@ -136,24 +119,24 @@ end);
 InstallGlobalFunction(GetNormalizingPermutationForSymCandidate,
 function(tensor)
     local   rcol,  col,  nof,  map,  blkmat,  i,  a,  sclr,  aclr,  b;
-    
-    
+
+
     rcol:=ReflexiveColors(tensor);
     col:=Difference([1..OrderOfTensor(tensor)], rcol);
     nof:=Length(rcol);
     map:=ShallowCopy(rcol);
-    
+
     blkmat:=List([1..nof], x->List([1..nof], x->[]));
     for i in col do
         Add(blkmat[StartBlock(tensor, i)][FinishBlock(tensor,i)], i);
     od;
-    
+
     for a in [1..nof] do
         sclr:=Filtered(blkmat[a][a], x->x^Mates(tensor)=x);
         aclr:=Filtered(blkmat[a][a], x->x<x^Mates(tensor));
         blkmat[a][a]:=Concatenation(sclr, Concatenation(List(aclr, x->[x,x^Mates(tensor)])));
     od;
-    
+
     for a in [1..nof] do
         Append(map, blkmat[a][a]);
         for b in [a+1..nof] do
@@ -288,11 +271,11 @@ function(cand,i)
    ci:=((i/h)^Mates(t))^h;
    mates:=[i,ci];
    Sort(mates);
-   
+
 
    nd:=Filtered(cand!.ndomain, k->mates[1]<k and k<>mates[2]);
    mates:=Set(mates);
-   
+
    obj:=rec(tensor:=cand!.tensor,
             set:=Union(cand!.set, OnSets(mates, h^-1)),
             nperm:=h,
@@ -906,13 +889,13 @@ function(S,SM, cand)
         SC:=CocoSetReducibilityTest(S,SM,M,i);
         if not IsPerm(SC) then
             ncand:=ExtendedCandidate(cand,i);
-            
+
             part:=TestCandidate(ncand);
             if part<>[] then
                 Add(res, [SC,part[1],part[2].classes]);
                 COCOPrint(",\c");
             fi;
-            
+
             if IsExtendibleCandidate(ncand) then
                 Append(res, ExtendAsymGSCand(S, SC, ncand));
             fi;
@@ -942,7 +925,7 @@ function(S,SM, cand)
 
     orbits:=Filtered(orbits, x->((x/h)^Mates(T))^h >= x);
     M:=NormalizedSetOfCandidate(cand);
-    
+
     for i in orbits do
         mates:=Set([i,((i/h)^Mates(T))^h]);
         SC:=CocoSetReducibilityTest(S,SM,M,mates[1]);
@@ -976,28 +959,28 @@ function(GT,T)
     else
         cand:=EmptyAsymGoodSetCandidate(T,[1..NumberOfFibres(T)], [1..NumberOfFibres(T)]);
     fi;
-    
+
     h:=NormalizingPermutationOfCandidate(cand);
     G:=GT^h;
     S:=Stbc(G);
-    
+
     dom:=NormalizedDomainOfCandidate(cand);
     firsts:=StbcMinimalOrbitReps(S,dom);
     firsts:=Filtered(firsts, x->x<((x/h)^Mates(T))^h);
  #   Error("test1");
-    
+
     result:=[];
     for i in firsts do
         ncand:=ExtendedCandidate(cand,i);
         Si:=StbcStabilizer(S,i);
-        
+
         part:=TestCandidate(ncand);
-        
+
         if part<>[] then
             COCOPrint(",\c");
             Add(result, [StbcGroup(Si)^(h^-1),part[1],part[2].classes]);
         fi;
-        
+
         Append(result, List(ExtendAsymGSCand(S,Si,ncand), x->[StbcGroup(x[1])^(h^-1), x[2], x[3]]));
     od;
     return result;
@@ -1018,8 +1001,8 @@ function(GT,T)
     S:=Stbc(G);
 
     reps:=ExtendSymGSCand(S, StbcCopy(S), cand);
-    reps:=List(reps, x->[StbcGroup(x[1])^(h^-1), x[2], x[3]]); 
-    
+    reps:=List(reps, x->[StbcGroup(x[1])^(h^-1), x[2], x[3]]);
+
     return reps;
 end);
 
@@ -1036,7 +1019,7 @@ DeclareRepresentation("IsGoodSetRep",
 InstallGlobalFunction(BuildGoodSet,
 function(arg)
    local tensor,set,part,res;
-   
+
    tensor:=arg[1];
    set:=arg[2];
    if Length(arg)=3 then
@@ -1049,7 +1032,7 @@ function(arg)
        fi;
        part:=part.classes;
    fi;
-   
+
 
    res:=rec(
             tensor:=tensor,
@@ -1099,7 +1082,7 @@ function(gs1,gs2)
     return AsSet(gs1)=AsSet(gs2);
 end);
 
-    
+
 # <g> must be from Aut(<gs!.tensor>)
 InstallMethod(OnGoodSets,
         "for good sets in GoodSetRep",
@@ -1130,10 +1113,10 @@ InstallMethod(ViewObj,
         "for good set orbits",
         [IsGoodSet],
         function(x) local s,t;
-    
+
     t:=TensorOfGoodSet(x);
     s:=AsSet(x);
-    
+
     Print("<");
     if IsMutable(x) then
         Print("mutable ");
@@ -1143,7 +1126,7 @@ InstallMethod(ViewObj,
     else
         Print("symmetric ");
     fi;
-    
+
     Print("GoodSet ", s, ">");
 end);
 
@@ -1152,7 +1135,7 @@ end);
 
 
 
-    
+
 
 
 # GoodSetOrbit(<group>, <gs> [,<stab>])
@@ -1160,7 +1143,7 @@ end);
 InstallGlobalFunction(GoodSetOrbit,
 function(arg)
     local group,gs,stab, can,xstab,nstab;
-    
+
     group:=arg[1];
     gs:=arg[2];
     if Length(arg)=2 then
@@ -1168,11 +1151,11 @@ function(arg)
     else
         stab:=arg[3];
     fi;
-    
+
     can:=SetCanonifiers(Stbc(group), Stbc(stab), AsSet(gs));
     nstab:=ClosureGroup(stab, List(can, x->can[1]*x^(-1)));
-    
-    
+
+
     return GoodSetOrbitNC(group, OnGoodSets(gs,can[1]), nstab^can[1]);
 end);
 
@@ -1182,11 +1165,11 @@ end);
 # GoodSetOrbitNC(<group>, <gs> [,<stab>])
 # <gs> is a good set that is assumed to be minimal (lexicographically) in its orbit
 # the minimality property is not checked
-# <stab> is supposed to be the full (good-set-wise) stabilizer of <gs> in <group> 
+# <stab> is supposed to be the full (good-set-wise) stabilizer of <gs> in <group>
 InstallGlobalFunction(GoodSetOrbitNC,
 function(arg)
     local group,gs,stab,res;
-    
+
     group:=arg[1];
     gs:=arg[2];
     if Length(arg)=2 then
@@ -1194,7 +1177,7 @@ function(arg)
     else
         stab:=arg[3];
     fi;
-    
+
     res:=rec(
             group:=group,
             rep:=gs,
@@ -1209,28 +1192,28 @@ InstallMethod(OnCocoOrbits,
         [IsGoodSetOrbit, IsPerm],
 function(gsorb,perm)
     local   grp,  gs,  stab,  ngs,  ngrp,  nstab;
-    
+
     grp:=UnderlyingGroupOfCocoOrbit(gsorb);
     gs:=CanonicalRepresentativeOfCocoOrbit(gsorb);
     stab:=StabilizerOfCanonicalRepresentative(gsorb);
-    
+
     ngs:=OnGoodSets(gs,perm);
 #    ngrp:=grp^perm;
 #    nstab:=stab^perm;
     return GoodSetOrbit(grp,ngs,Stabilizer(grp,AsSet(ngs),OnTuples),FamilyObj(gsorb));
 end);
 
-    
-    
+
+
 InstallMethod(SubOrbitsOfCocoOrbit,
         "for all set orbits",
         [IsPermGroup, IsGoodSetOrbit],
 function(grp,gsorb)
     local   ug,  cosreps,  stab,  gs,  ngs;
 
-    
+
     ug:=UnderlyingGroupOfCocoOrbit(gsorb);
-    
+
     if not IsSubgroup(ug,grp) then
         Error("SubOrbitsOfGoodSetOrbit: The given group is not a subgroup of the underlying group of the good set orbit!");
     fi;
@@ -1238,7 +1221,7 @@ function(grp,gsorb)
     stab:=StabilizerOfCanonicalRepresentative(gsorb);
     gs:=CanonicalRepresentativeOfCocoOrbit(gsorb);
     ngs:=GoodSetOrbitNC(grp,gs, Intersection(stab,grp));
-    
+
     return List(cosreps, x->OnCocoOrbits(ngs,x));
 end);
 
@@ -1250,14 +1233,14 @@ function(grp,gsorb,func)
     #,testgsorb,testorbreps;
 
     ug:=UnderlyingGroupOfCocoOrbit(gsorb);
-    
+
     if not IsSubgroup(ug,grp) then
         Error("SubOrbitsOfGoodSetOrbit: The given group is not a subgroup of the underlying group of the good set orbit!");
     fi;
     # testgsorb:=AsSet(gsorb);
     # testorbreps:=Set(Orbits(grp,testgsorb,OnGoodSets),Minimum);
     # testorbreps:=Filtered(testorbreps,func);
-        
+
     cosreps:=List(RightCosetsNC(ug,grp), x->Representative(x)^(-1)); # get left-coset representatives
     stab:=StabilizerOfCanonicalRepresentative(gsorb);
     gs:=CanonicalRepresentativeOfCocoOrbit(gsorb);
@@ -1265,14 +1248,14 @@ function(grp,gsorb,func)
 #    cosreps:=Filtered(cosreps, r->func(OnGoodSets(CanonicalRepresentativeOfCocoOrbit(ngs),r)));
     res:=List(cosreps, x->OnCocoOrbits(ngs,x));
     res:=Filtered(res, x->func(CanonicalRepresentativeOfCocoOrbit(x)));
-    
+
     # if Length(Set(res))<>Length(testorbreps) then
     #     Error("Error in SubOrbitsOfGoodSetOrbit!");
     # fi;
-    
+
     return Set(res);
 end);
-   
+
 
 
 # InstallMethod(CocoOrbitFamily,
@@ -1297,7 +1280,7 @@ InstallOtherMethod(HomogeneousGoodSetOrbits,
         [IsPermGroup, IsTensor and IsTensorOfCC],
 function(G,T)
     local   ags,  sgs,  lgs;
-    
+
     if not ForAll(GeneratorsOfGroup(G), g->IsAutomorphismOfObject(T,g)) then
         Error("AllGoodSetOrbitsOfTensor: Given group mut preserve the tensor of structure-constants!");
         return fail;
@@ -1316,13 +1299,13 @@ InstallOtherMethod(HomogeneousGoodSetOrbits,
         [IsPermGroup, IsTensor and IsTensorOfCC, IsString],
 function(G,T,mode)
     local   ags,  sgs,  lgs;
-    
+
     if not ForAll(GeneratorsOfGroup(G), g->IsAutomorphismOfObject(T,g)) then
         Error("AllGoodSetOrbitsOfTensor: Given group must preserve the tensor of structure-constants!");
         return fail;
     fi;
     lgs:=[];
-    
+
     if 'a' in mode then
         ags:=SUBHomAsymGSReps(G,T);
         lgs:=Union(List([1,2], i->  List(ags, gs->GoodSetOrbit(G,BuildGoodSet(T,gs[2][i],gs[3]),gs[1]))));
@@ -1331,10 +1314,10 @@ function(G,T,mode)
         sgs:=SUBHomSymGSReps(G,T);
         lgs:=Union(lgs,Set(sgs, gs->GoodSetOrbit(G, BuildGoodSet(T,gs[2][1],gs[3]), gs[1])));
     fi;
-    
+
     return lgs;
 end);
-         
+
 InstallMethod(ActionOfCocoOrbit,
         "for all fusion orbits",
         [IsGoodSetOrbit],
@@ -1356,4 +1339,3 @@ InstallMethod(ViewObj,
     fi;
     Print("GoodSetOrbit of length ", Size(x), ">");
 end);
-

@@ -1,20 +1,3 @@
-#################################################################
-#W  $Id: pbag.gi,v 1.1 2009-01-06 16:02:13+01 zeka Exp zeka $
-##
-##  $Log: pbag.gi,v $
-##  Revision 1.1  2009-01-06 16:02:13+01  zeka
-##  integrated PBAG to GAP4's Object-system
-##  changed the names of functions to make it more systematic
-##
-##  Revision 1.0  2008-12-11 11:16:29+01  zeka
-##  Initial revision
-##
-##
-##
-
-Revision.pbag_gi :=
-  "@(#)$Id: pbag.gi,v 1.1 2009-01-06 16:02:13+01 zeka Exp zeka $";
-
 #############################################################################
 ##
 ##  pbag.gi                  COCO package
@@ -158,7 +141,7 @@ Revision.pbag_gi :=
 #
 # The hashtable code changed in GAP 4.5.
 # the old hashtable code from GAP 4.5 was canibalized and put into the
-#           COCO2p-namespace 
+#           COCO2p-namespace
 #
 
 # At the end of the file a new type for partitions is implemented. It should make

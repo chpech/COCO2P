@@ -95,7 +95,7 @@
 
 \hypersetup{pdftitle=The \textsf{COCO2P} Package}
 \markright{\scriptsize \mbox{}\hfill The \textsf{COCO2P} Package \hfill\mbox{}}
-{\Huge Version 0.1\mbox{}}\\[1cm]
+{\Huge Version 0.16\mbox{}}\\[1cm]
 \mbox{}\\[2cm]
 {\Large \textbf{Mikhail Klin  \mbox{}}}\\
 {\Large \textbf{Christian Pech  \mbox{}}}\\
@@ -105,7 +105,7 @@
 
 \mbox{}\\
 {\mbox{}\\
-\small \noindent \textbf{Mikhail Klin  }  Email: \href{mailto://klin@cs.bgu.ac.il } {\texttt{klin@cs.bgu.ac.il }}}\\
+\small \noindent \textbf{Mikhail Klin  }  Email: \href{mailto://klin@math.bgu.ac.il } {\texttt{klin@math.bgu.ac.il }}}\\
 {\mbox{}\\
 \small \noindent \textbf{Christian Pech  }  Email: \href{mailto://christian.pech@tu-dresden.de} {\texttt{christian.pech@tu-dresden.de}}}\\
 {\mbox{}\\
@@ -116,7 +116,7 @@
 {\small 
 \section*{Copyright}
 \logpage{[ 0, 0, 1 ]}
- {\copyright} 2012, 2014 by the authors
+ {\copyright} 2012, 2014, 2018 by the authors
 
  This package may be distributed under the terms and conditions of the GNU
 Public License Version 2 or higher. \mbox{}}\\[1cm]
@@ -331,8 +331,74 @@ Moreover, to every parallel class there corresponds a color class.
 
  
 
-\subsection{\textcolor{Chapter }{AllAssociationSchemes}}
+\subsection{\textcolor{Chapter }{BIKColorGraph}}
 \logpage{[ 1, 3, 8 ]}\nobreak
+\hyperdef{L}{X7EAC537482E4A685}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{BIKColorGraph({\mdseries\slshape m})\index{BIKColorGraph@\texttt{BIKColorGraph}}
+\label{BIKColorGraph}
+}\hfill{\scriptsize (function)}}\\
+
+
+ This function generates the color graphs described in the paper \cite{BroIvaKli89}. These color graphs are interesting because they may be used to construct $3$-isoregular strongly regular graphs with the $5$-vertex condition. The vertex set of \texttt{BIKColorGraph(m)} is $V=GF(2)^{2m}$. For the description of colors of the arcs consider a quadratic form $q$ of Witt-index $m$ on $V$. Let $Q$ be the quadric defined by $q$, and let $S$ be a maximal singular subspace of $q$. A pair of vectors $(v,w)$ is colored by 
+\begin{description}
+\item[{\texttt{"=":}}] if $v = w$,
+\item[{\texttt{"Q+S+":}}]  if $v + w \in S$,
+\item[{\texttt{"Q+S-":}}] if $v + w \in Q \setminus S$,
+\item[{\texttt{"Q-":}}] if $v + w \notin Q$.
+\end{description}
+ The following code constructs the Ivanov-graph on $256$ vertices. This was historically the first strongly regular graph to be found
+that is non-rank-$3$ and that satisfies the $5$-vertex condition (cf. \cite{Iva89}). 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+              gap> cgr:=BIKColorGraph(4);
+                  <color graph of order 256 and rank 4>
+                  gap> ColorNames(cgr);
+                  [ "=", "Q+S+", "Q+S-", "Q-" ]
+                  gap> gamma:=BaseGraphOfColorGraph(cgr,3);;
+                  gap> IsStronglyRegular(gamma);
+                  true
+                  gap> gamma.srg;
+                  rec( k := 120, lambda := 56, mu := 56, r := 8, s := -8, v := 256 )
+          
+\end{Verbatim}
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{IvanovColorGraph}}
+\logpage{[ 1, 3, 9 ]}\nobreak
+\hyperdef{L}{X7C500BC282B17242}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IvanovColorGraph({\mdseries\slshape m})\index{IvanovColorGraph@\texttt{IvanovColorGraph}}
+\label{IvanovColorGraph}
+}\hfill{\scriptsize (function)}}\\
+
+
+ This function generates a series of color graphs described in \cite{Iva94}. These color graphs may be used to construct $3$-isoregular strongly regular graphs with the $5$-vertex condition. These color graphs are interesting because they may be used
+to construct $3$-isoregular strongly regular graphs with the $5$-vertex condition. The vertex set of \texttt{IvanovColorGraph(m)} is $V=GF(2)^{2m}$. For the description of colors of the arcs consider a quadratic form $q$ of Witt-index $m-1$ on $V$. Let $Q$ be the quadric defined by $q$, let $S$ be a maximal singular subspace of $q$, and let $O$ be the orthogonal complement of $S$. A pair of vectors $(v,w)$ is colored by 
+\begin{description}
+\item[{\texttt{"=":}}] if $v = w$,
+\item[{\texttt{"Q+S+":}}]  if $v + w \in S$,
+\item[{\texttt{"Q+S-":}}] if $v + w \in Q \setminus S$,
+\item[{\texttt{"Q-O+":}}] if $v + w \in O$.
+\item[{\texttt{"Q-O-":}}] if $v + w \notin O \cup Q$.
+\end{description}
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+                gap> cgr:=IvanovColorGraph(5);
+                    <color graph of order 1024 and rank 5>
+                    gap> ColorNames(cgr);
+                    [ "=", "Q+S+", "Q+S-", "Q-O+", "Q-O-" ]
+                    gap> gamma:=BaseGraphOfColorGraph(cgr,[2,5]);;
+                    gap> IsStronglyRegular(gamma);;
+                    gap> gamma.srg;
+                    rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )
+            
+\end{Verbatim}
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{AllAssociationSchemes}}
+\logpage{[ 1, 3, 10 ]}\nobreak
 \hyperdef{L}{X8779C97084BB92B6}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AllAssociationSchemes({\mdseries\slshape n})\index{AllAssociationSchemes@\texttt{AllAssociationSchemes}}
 \label{AllAssociationSchemes}
@@ -343,6 +409,20 @@ Moreover, to every parallel class there corresponds a color class.
 schemes by Akihide Hanaki and Izumi Miyamoto from \href{http://math.shinshu-u.ac.jp/~hanaki/as/} {\texttt{http://math.shinshu-u.ac.jp/\texttt{\symbol{126}}hanaki/as/}} (further refered to as the Japanese catalogue) 
 
  This function downloads the list of small association schemes of order \mbox{\texttt{\mdseries\slshape n}}. Then it converts them to the internal format of \textsf{COCO2P} and returns the resulting list. Every color graph has a name of the shape \texttt{AS(n,k)} where \texttt{k} is the index of the scheme in the list of schemes of order \mbox{\texttt{\mdseries\slshape n}} in the Japanese catalogue. }
+
+ 
+
+\subsection{\textcolor{Chapter }{AllCoherentConfigurations}}
+\logpage{[ 1, 3, 11 ]}\nobreak
+\hyperdef{L}{X867455368202CEE9}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AllCoherentConfigurations({\mdseries\slshape n})\index{AllCoherentConfigurations@\texttt{AllCoherentConfigurations}}
+\label{AllCoherentConfigurations}
+}\hfill{\scriptsize (function)}}\\
+
+
+ This function creates an interface to the database of small coherent
+configurations on at most 15 vertices by Matan Ziv-Av This function downloads
+the list of small coherent configurations of order \mbox{\texttt{\mdseries\slshape n}}. Then it converts them to the internal format of \textsf{COCO2P} and returns the resulting list. Every color graph has a name of the shape \texttt{CC(n,k)} where \texttt{k} is the index of the scheme in the list of schemes of order \mbox{\texttt{\mdseries\slshape n}} in Matan's catalogue. }
 
  }
 
@@ -429,14 +509,14 @@ possible cardinalities of the intersection of two $2$-element subsets of $\{1,2,
 
  
 
-\subsection{\textcolor{Chapter }{ArcColorOfColorGraph}}
+\subsection{\textcolor{Chapter }{ArcColorOfColorGraph (first variant)}}
 \logpage{[ 1, 4, 5 ]}\nobreak
-\hyperdef{L}{X7D99F6358037F517}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ArcColorOfColorGraph({\mdseries\slshape cgr, u, v})\index{ArcColorOfColorGraph@\texttt{ArcColorOfColorGraph}}
-\label{ArcColorOfColorGraph}
+\hyperdef{L}{X8530693D7D02D175}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ArcColorOfColorGraph({\mdseries\slshape cgr, u, v})\index{ArcColorOfColorGraph@\texttt{ArcColorOfColorGraph}!first variant}
+\label{ArcColorOfColorGraph:first variant}
 }\hfill{\scriptsize (method)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ArcColorOfColorGraph({\mdseries\slshape cgr, arc})\index{ArcColorOfColorGraph@\texttt{ArcColorOfColorGraph}}
-\label{ArcColorOfColorGraph}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ArcColorOfColorGraph({\mdseries\slshape cgr, arc})\index{ArcColorOfColorGraph@\texttt{ArcColorOfColorGraph}!second variant}
+\label{ArcColorOfColorGraph:second variant}
 }\hfill{\scriptsize (method)}}\\
 
 
@@ -470,20 +550,27 @@ possible cardinalities of the intersection of two $2$-element subsets of $\{1,2,
 
  
 
-\subsection{\textcolor{Chapter }{Neighbors}}
+\subsection{\textcolor{Chapter }{Neighbors (first variant)}}
 \logpage{[ 1, 4, 7 ]}\nobreak
-\hyperdef{L}{X86296CF882FAC92D}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Neighbors({\mdseries\slshape cgr, v, colors})\index{Neighbors@\texttt{Neighbors}}
-\label{Neighbors}
+\hyperdef{L}{X82829D3B7E0E91D1}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Neighbors({\mdseries\slshape cgr, vertices, colors})\index{Neighbors@\texttt{Neighbors}!first variant}
+\label{Neighbors:first variant}
 }\hfill{\scriptsize (method)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Neighbors({\mdseries\slshape cgr, v, color})\index{Neighbors@\texttt{Neighbors}}
-\label{Neighbors}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Neighbors({\mdseries\slshape cgr, v, colors})\index{Neighbors@\texttt{Neighbors}!second variant}
+\label{Neighbors:second variant}
+}\hfill{\scriptsize (method)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Neighbors({\mdseries\slshape cgr, vertices, color})\index{Neighbors@\texttt{Neighbors}!third variant}
+\label{Neighbors:third variant}
+}\hfill{\scriptsize (method)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Neighbors({\mdseries\slshape cgr, v, color})\index{Neighbors@\texttt{Neighbors}!fourth variant}
+\label{Neighbors:fourth variant}
 }\hfill{\scriptsize (method)}}\\
 
 
- The first variant returns the set of all vertices $w$ of \mbox{\texttt{\mdseries\slshape cgr}} such that the color of the arc $(v,w)$ is an element of the set \mbox{\texttt{\mdseries\slshape colors}}. 
+ The first variant returns the set of all vertices $w$ of \mbox{\texttt{\mdseries\slshape cgr}} such that the color of the arc $(v,w)$ is an element of the set \mbox{\texttt{\mdseries\slshape colors}}, for all $v$ in \mbox{\texttt{\mdseries\slshape vertices}}. 
 
- The second variant gets as third argument a single color of \mbox{\texttt{\mdseries\slshape cgr}}. 
+ The second variant gets as the second argument a single vertex of \mbox{\texttt{\mdseries\slshape cgr}}, the third gets a single color and the fourth variant gets both, a single
+vertex and a single color.. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=JohnsonScheme(5,2);;|
   !gapprompt@gap>| !gapinput@ColorNames(cgr);|
@@ -501,14 +588,14 @@ possible cardinalities of the intersection of two $2$-element subsets of $\{1,2,
 
  
 
-\subsection{\textcolor{Chapter }{AdjacencyMatrix}}
+\subsection{\textcolor{Chapter }{AdjacencyMatrix (first variant)}}
 \logpage{[ 1, 4, 8 ]}\nobreak
-\hyperdef{L}{X7DC2CD70830BEE60}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AdjacencyMatrix({\mdseries\slshape cgr})\index{AdjacencyMatrix@\texttt{AdjacencyMatrix}}
-\label{AdjacencyMatrix}
+\hyperdef{L}{X7D67AADE81ED3C7F}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AdjacencyMatrix({\mdseries\slshape cgr})\index{AdjacencyMatrix@\texttt{AdjacencyMatrix}!first variant}
+\label{AdjacencyMatrix:first variant}
 }\hfill{\scriptsize (method)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AdjacencyMatrix({\mdseries\slshape cgr, colors})\index{AdjacencyMatrix@\texttt{AdjacencyMatrix}}
-\label{AdjacencyMatrix}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AdjacencyMatrix({\mdseries\slshape cgr, colors})\index{AdjacencyMatrix@\texttt{AdjacencyMatrix}!second variant}
+\label{AdjacencyMatrix:second variant}
 }\hfill{\scriptsize (method)}}\\
 
 
@@ -553,7 +640,7 @@ possible cardinalities of the intersection of two $2$-element subsets of $\{1,2,
 }\hfill{\scriptsize (operation)}}\\
 
 
- Returns the $i$-th row of the adjacency matrix of \mbox{\texttt{\mdseries\slshape cgr}} (\texttt{AdjacencyMatrix} (\ref{AdjacencyMatrix})). }
+ Returns the $i$-th row of the adjacency matrix of \mbox{\texttt{\mdseries\slshape cgr}} (\texttt{AdjacencyMatrix} (\ref{AdjacencyMatrix:first variant})). }
 
  
 
@@ -565,7 +652,7 @@ possible cardinalities of the intersection of two $2$-element subsets of $\{1,2,
 }\hfill{\scriptsize (operation)}}\\
 
 
- Returns the $j$-th column of the adjacency matrix of \mbox{\texttt{\mdseries\slshape cgr}} (\texttt{AdjacencyMatrix} (\ref{AdjacencyMatrix})). }
+ Returns the $j$-th column of the adjacency matrix of \mbox{\texttt{\mdseries\slshape cgr}} (\texttt{AdjacencyMatrix} (\ref{AdjacencyMatrix:first variant})). }
 
  
 
@@ -873,14 +960,14 @@ corresponding to this equivalence relation. It is not tested, whether \mbox{\tex
 
  
 
-\subsection{\textcolor{Chapter }{BaseGraphOfColorGraph}}
+\subsection{\textcolor{Chapter }{BaseGraphOfColorGraph (first variant)}}
 \logpage{[ 1, 5, 8 ]}\nobreak
-\hyperdef{L}{X7D8ADAEA7891AA3E}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{BaseGraphOfColorGraph({\mdseries\slshape cgr, color})\index{BaseGraphOfColorGraph@\texttt{BaseGraphOfColorGraph}}
-\label{BaseGraphOfColorGraph}
+\hyperdef{L}{X7A18F2757CB7B69C}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{BaseGraphOfColorGraph({\mdseries\slshape cgr, color})\index{BaseGraphOfColorGraph@\texttt{BaseGraphOfColorGraph}!first variant}
+\label{BaseGraphOfColorGraph:first variant}
 }\hfill{\scriptsize (method)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{BaseGraphOfColorGraph({\mdseries\slshape cgr, cset})\index{BaseGraphOfColorGraph@\texttt{BaseGraphOfColorGraph}}
-\label{BaseGraphOfColorGraph}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{BaseGraphOfColorGraph({\mdseries\slshape cgr, cset})\index{BaseGraphOfColorGraph@\texttt{BaseGraphOfColorGraph}!second variant}
+\label{BaseGraphOfColorGraph:second variant}
 }\hfill{\scriptsize (method)}}\\
 
 
@@ -1019,7 +1106,7 @@ group.
 
 
  A WL-stable color graph is primitive if all its loopless base graphs are
-strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGraph})). This function tests, whether \mbox{\texttt{\mdseries\slshape cgr}} is primitive or not. 
+strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGraph:first variant})). This function tests, whether \mbox{\texttt{\mdseries\slshape cgr}} is primitive or not. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=ColorGraph(Group((1,2,3,4)));|
   <color graph of order 4 and rank 4>
@@ -1672,8 +1759,8 @@ singleton of the unique reflexive color and the set of all colors).
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphismOfObjects({\mdseries\slshape tensor1, tensor2, g})\index{IsIsomorphismOfObjects@\texttt{IsIsomorphismOfObjects}!for tensors}
 \label{IsIsomorphismOfObjects:for tensors}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphismOfTensors({\mdseries\slshape tensor1, tensor2, g})\index{IsIsomorphismOfTensors@\texttt{IsIsomorphismOfTensors}!for tensors}
-\label{IsIsomorphismOfTensors:for tensors}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphismOfTensors({\mdseries\slshape tensor1, tensor2, g})\index{IsIsomorphismOfTensors@\texttt{IsIsomorphismOfTensors}!for tensors}
+\label{IsIsomorphismOfTensors:for tensors}
 }\hfill{\scriptsize (operation)}}\\
 
 

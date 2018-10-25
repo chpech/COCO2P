@@ -1,12 +1,29 @@
-\begin{thebibliography}{Wik11}
+\begin{thebibliography}{BIK89}
+
+\bibitem[BIK89]{BroIvaKli89}
+A.~E. Brouwer, A.~V. Ivanov, and M.~H. Klin.
+\newblock Some new strongly regular graphs.
+\newblock {\em Combinatorica}, 9(4):339--344, 1989.
 
 \bibitem[Gol99]{Gol99}
 Jonathan~S. Golan.
 \newblock {\em {Semirings and their applications.}}
 \newblock Kluwer Academic Publishers, Dordrecht, 1999.
 
+\bibitem[Iva89]{Iva89}
+A.~V. Ivanov.
+\newblock Non-rank-{$3$} strongly regular graphs with the {$5$}-vertex
+  condition.
+\newblock {\em Combinatorica}, 9(3):255--260, 1989.
+
+\bibitem[Iva94]{Iva94}
+A.~V. Ivanov.
+\newblock Two families of strongly regular graphs with the {$4$}-vertex
+  condition.
+\newblock {\em Discrete Math.}, 127(1-3):221--242, 1994.
+
 \bibitem[Wei76]{Wei76}
-B.~Weisfeiler, editor.
+B.~Weisfeiler.
 \newblock {\em On construction and identification of graphs}, volume 558 of
   {\em Lecture Notes in Math.}
 \newblock Springer, Berlin, 1976.
