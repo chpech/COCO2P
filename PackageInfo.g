@@ -3,7 +3,7 @@
 ##  PackageInfo.g for the package `COCO2P'                       Mikhail Klin
 ##                                                             Christian Pech
 ##                                                              Sven Reichard
-##  (created from Frank L�beck's PackageInfo.g template file)
+##  (created from Frank Lübeck's PackageInfo.g template file)
 ##
 ##  This is a GAP readable file. Of course you can change and remove all
 ##  comments as you like.
