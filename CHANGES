@@ -1,16 +1,16 @@
 Changes from version 0.16 to version 0.17
-wlstabil.g*		- WLRepartition instead of false returns now fail when
-				  unsuccessful
-				- implemented WLStableColorGraphByMatrix
-coco.xml 		- documented WLStableColorGraphByMatrix
+wlstabil.g*     - WLRepartition instead of false returns now fail when
+                  unsuccessful
+                - implemented WLStableColorGraphByMatrix
+coco.xml        - documented WLStableColorGraphByMatrix
 
 
 Changes from version 0.15 to version 0.16
-coco.xml     	- added documentation for additional methods of Neighbors
-	     		- added documentation for BIKColorGraph
-	     		- added documentation for IvanovColorGraph
-	     		- added documentation for AllCoherentConfigurations
-cobject.gd   	- made an attribute from VertexNamesOfCocoObject
+coco.xml        - added documentation for additional methods of Neighbors
+                - added documentation for BIKColorGraph
+                - added documentation for IvanovColorGraph
+                - added documentation for AllCoherentConfigurations
+cobject.gd      - made an attribute from VertexNamesOfCocoObject
 colgraph.gi  	- added new constructor IvanovColorGraph
 	       		  added new Methods for Neighbors
 	       		  corrected IsSchurian
@@ -23,71 +23,64 @@ various files	- fixed a bug with isomorphism test of coco objects
 				  different invariants for the objects leading to a wrong result.
 
 Changes from version 0.14 to version 0.15
-colgraph.gi  	- added new method for Adjacency matrix
-	     				- Corrected DirectProductColorGraph
-	     				- added new constructor BIKColorGraph
-colgraph.gd  	- added Synonyms IsIsomorphicColorGraph, IsomorphismColorGraphs,
-                              IsIsomorphismOfColorGraphs, IsAutomorphismOfColorGraph,
-			      									VertexNamesOfColorGraph
-tensor.gi    	- added Method for \[\] to support the syntax T[i,j,k]
-tensor.gd    	- added Synonyms IsIsomorphicTensor, IsomorphismTensors,
-                              IsIsomorphismOfTensors, IsAutomorphismOfTensor,
-			      									VertexNamesOfTensor
-
-Changes from version 0.13 to version 0.14
-tensor.gi    - corrected DenseTensorFromEntries
-             - created PbagBuildObject for general tensors
-coco.xml     - changed name from DenseTensorOfEntries to DenseTensorFromEntries
-
-
+colgraph.gi     - added new method for Adjacency matrix
+                - Corrected DirectProductColorGraph
+                - added new constructor BIKColorGraph
+colgraph.gd     - added Synonyms IsIsomorphicColorGraph, IsomorphismColorGraphs,
+                  IsIsomorphismOfColorGraphs, IsAutomorphismOfColorGraph,
+                  VertexNamesOfColorGraph
+tensor.gi       - added Method for \[\] to support the syntax T[i,j,k]
+tensor.gd       - added Synonyms IsIsomorphicTensor, IsomorphismTensors,
+                  IsIsomorphismOfTensors, IsAutomorphismOfTensor,
+tensor.gi       - corrected DenseTensorFromEntries
+                - created PbagBuildObject for general tensors
+coco.xml        - changed name from DenseTensorOfEntries to DenseTensorFromEntries
 
 Changes from version 0.12 to version 0.13
-schemesdb.gi - Updated the address of the Japanese catalogue
-	     - created new function TensorFromColorReps that creates a blocked tensor
-	       only if the given cgr has more than one fibre; otherwise a more
-               efficient dense tenor is created
-	made coco2p independent from the setorbit package
-
+schemesdb.gi    - Updated the address of the Japanese catalogue
+                - created new function TensorFromColorReps that creates a blocked tensor
+                  only if the given cgr has more than one fibre; otherwise a more
+                  efficient dense tenor is created
+                  made coco2p independent from the setorbit package
 
 Changes from version 0.11 to version 0.12
-
-goodsets.gi  - Added ViewObject method for good sets
-	     - in method SubOrbitsWithInvariantPropertyOfCocoOrbit
-	       the test is applied now only to the canonical representatives
-	       of suborbits; thus, every given test-function gets made artificially
-	       invariant (even if it is not constant on orbits)
-	       This fixes a bug in the algorithm for the computation of homogeneous fusions,
-	       that used a test function that was not invariant (but expected to be used on
-	       canonical representatives
-fusion.gi    - fixed a bug where fusion orbits were created with wrong stabilizers
-	       this resulted in a wrong size-information
+goodsets.gi     - Added ViewObject method for good sets
+                - in method SubOrbitsWithInvariantPropertyOfCocoOrbit
+                  the test is applied now only to the canonical representatives
+                  of suborbits; thus, every given test-function gets made artificially
+                  invariant (even if it is not constant on orbits)
+                  This fixes a bug in the algorithm for the computation of homogeneous fusions,
+                  that used a test function that was not invariant (but expected to be used on
+                  canonical representatives
+fusion.gi       - fixed a bug where fusion orbits were created with wrong stabilizers
+                  this resulted in a wrong size-information
 
 
 
 Changes from version 0.1 to version 0.11
 
-colgraphs.g? - PartitionClosedSet requires a set as input and should require a list
-schemesdb.gi - put the created global variables 'as???' into the
-	       namespace of COCO2P and preserve existing global
-	       variables (done)
-colgraphs.gi - fixed bug in LiftToColorAutomorphism algebraic
-	       automorphisms were added to the color automorphism
-	       group (done)
-fusion.gi    - implement Method Rank for fusions (done)
-character.g? - make use of the package Singular, if loaded (done)
-character.gi - make use of the package alnuth and Pari/Gp for
-	       for computing roots of polynomials (done)
+colgraphs.g?    - PartitionClosedSet requires a set as input and should require a list
+schemesdb.gi    - put the created global variables 'as???' into the
+                  namespace of COCO2P and preserve existing global
+                  variables (done)
+colgraphs.gi    - fixed bug in LiftToColorAutomorphism algebraic
+                  automorphisms were added to the color automorphism
+                  group (done)
+fusion.gi       - implement Method Rank for fusions (done)
+character.g?    - make use of the package Singular, if loaded (done)
+character.gi    - make use of the package alnuth and Pari/Gp for
+                  for computing roots of polynomials (done)
 colorsemiring.g? - ColorSemiringElement required a set as second
-		   argument, but shoud require a list. (done)
-character.gi - MultiplicitiesOfCharacters assumed that the index of
-	       the reflexive color of a scheme is always 1 however,
-	       this is not guaranteed. This assumption lead to wrong
-	       multiplicity vectors (fixed)
-colgraphs.gi - reimplemented and documented the function
-	       CyclotomicColorGraph (done)
-colgraphs.g? - implement and document DirectProductColorGraphs (done)
-colgraphs.g? - implement and document WreathProductColorGraphs (done)
-general      - COCO2P now requires grape (but not nauty) at the
-	       moment, some important functions like PartitionClosedSet depend
-	       on grape. This dependency will be removed in a future
-	       version of COCO2P.
+                  argument, but shoud require a list. (done)
+character.gi    - MultiplicitiesOfCharacters assumed that the index of
+                  the reflexive color of a scheme is always 1 however,
+                  this is not guaranteed. This assumption lead to wrong
+                  multiplicity vectors (fixed)
+colgraphs.gi    - reimplemented and documented the function
+                  CyclotomicColorGraph (done)
+colgraphs.g?    - implement and document DirectProductColorGraphs (done)
+colgraphs.g?    - implement and document WreathProductColorGraphs (done)
+general         - COCO2P now requires grape (but not nauty) at the
+                  moment, some important functions like PartitionClosedSet depend
+                  on grape. This dependency will be removed in a future
+                  version of COCO2P.
