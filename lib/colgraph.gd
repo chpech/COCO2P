@@ -24,6 +24,7 @@ DeclareGlobalFunction("CyclotomicColorGraph");                                  
 DeclareGlobalFunction("ClassicalCompleteAffineScheme");                                                         # documented
 DeclareGlobalFunction("JohnsonScheme");                                                                         # documented
 DeclareGlobalFunction("ColorGraphByWLStabilization" );                                                          # documented
+DeclareGlobalFunction("WLStableColorGraphByMatrix" );                                                          # documented
 DeclareGlobalFunction("BIKColorGraph" );                                                                        # documented
 DeclareGlobalFunction("IvanovColorGraph" );                                                                     # documented
 

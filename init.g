@@ -21,7 +21,16 @@ COCOPrint:=ReturnTrue;
 
 if TestPackageAvailability("xgap","0")=true then
     Print("COCO2P: Using XGAP to display posets...\n");
-    
+
     ReadPackage("coco2p", "lib/xgap.gd"); #documented
 fi;
 
+if IsString(TestPackageAvailability("singular", "12")) then
+  Print("COCO2P: Load package singular before coco2p to speed up\n",
+        "        computations of character tables.\n");
+fi;
+
+if IsString(TestPackageAvailability("xgap","0")) then
+  Print("COCO2P: Load package xgap before coco2p in order to be\n",
+        "        able to display posets.\n");
+fi;

@@ -37,13 +37,14 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7DF2D0B07C280D55">1.3-2 ColorGraph</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X858BF76A7DC9D2E1">1.3-3 ColorGraphByMatrix</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X85EAC9AD7F1758E6">1.3-4 ColorGraphByWLStabilization</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X78E3485F85B414A5">1.3-5 ClassicalCompleteAffineScheme</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D6476BA7C79C9DA">1.3-6 JohnsonScheme</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7F9D294A789CBE87">1.3-7 CyclotomicColorGraph</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7EAC537482E4A685">1.3-8 BIKColorGraph</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7C500BC282B17242">1.3-9 IvanovColorGraph</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8779C97084BB92B6">1.3-10 AllAssociationSchemes</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X867455368202CEE9">1.3-11 AllCoherentConfigurations</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7FDD766E79BFEAF0">1.3-5 WLStableColorGraphByMatrix</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X78E3485F85B414A5">1.3-6 ClassicalCompleteAffineScheme</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D6476BA7C79C9DA">1.3-7 JohnsonScheme</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7F9D294A789CBE87">1.3-8 CyclotomicColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7EAC537482E4A685">1.3-9 BIKColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7C500BC282B17242">1.3-10 IvanovColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8779C97084BB92B6">1.3-11 AllAssociationSchemes</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X867455368202CEE9">1.3-12 AllCoherentConfigurations</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X79B04A5F80234A2D">1.4 <span class="Heading">Functions for the inspection of color
 	graphs</span></a>
@@ -157,7 +158,7 @@
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">d7 := Group( (1,2,3,4,5,6,7), (1,7)(2,6)(3,5));;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr := ColorGraph(d7, [1]);</span>
-&lt;color graph of order 7 and rank 4&gt;      
+&lt;color graph of order 7 and rank 4&gt;
 	    </pre></div>
 
 <p>In the third variant of <code class="code">ColorGraphByOrbitals</code> an action can be given:</p>
@@ -217,9 +218,63 @@
 
 <p>This function does not really implement the Weisfeiler-Leman algorithm. Rather it does a stabilization inside of a Schurian WL-stable fission of <var class="Arg">cgr</var>. The performance depends mainly on the order of the group of known automorphisms of <var class="Arg">cgr</var> (cf <code class="func">KnownGroupOfAutomorphisms</code> (<a href="chap1.html#X7EC9E8857F29742B"><span class="RefLink">1.7-1</span></a>)).</p>
 
+<p><a id="X7FDD766E79BFEAF0" name="X7FDD766E79BFEAF0"></a></p>
+
+<h5>1.3-5 WLStableColorGraphByMatrix</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; WLStableColorGraphByMatrix</code>( <var class="Arg">mat</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>This function gets as input a square matrix <var class="Arg">mat</var> and returns the color graph of the Weisfeiler-Leman- stabilization of <var class="Arg">Mat</var>. The entries of <var class="Arg">mat</var> can be any kind of <strong class="pkg">GAP</strong>-objects that can be compared and that can be organized in a set. The vertex-set of the resulting color graph is <span class="SimpleMath">{1,dots,n}</span>, while the color of the arc <span class="SimpleMath">(i,j)</span> is <code class="code">[mat[i][j],k]</code>, where <code class="code">k</code> is a positive integer.</p>
+
+<p>This constructor works usually much faster then the combination of <code class="func">ColorGraphByMatrix</code> (<a href="chap1.html#X858BF76A7DC9D2E1"><span class="RefLink">1.3-3</span></a>) and <code class="func">ColorGraphByWLStabilization</code> (<a href="chap1.html#X85EAC9AD7F1758E6"><span class="RefLink">1.3-4</span></a>).</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">c:=AllAssociationSchemes(10)[3];</span>
+AS(10,3)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">a:=AdjacencyMatrix(c);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(a);</span>
+[ [  1,  2,  2,  2,  3,  3,  3,  3,  3,  3 ],
+  [  2,  1,  3,  3,  2,  2,  3,  3,  3,  3 ],
+  [  2,  3,  1,  3,  3,  3,  2,  2,  3,  3 ],
+  [  2,  3,  3,  1,  3,  3,  3,  3,  2,  2 ],
+  [  3,  2,  3,  3,  1,  3,  2,  3,  2,  3 ],
+  [  3,  2,  3,  3,  3,  1,  3,  2,  3,  2 ],
+  [  3,  3,  2,  3,  2,  3,  1,  3,  3,  2 ],
+  [  3,  3,  2,  3,  3,  2,  3,  1,  2,  3 ],
+  [  3,  3,  3,  2,  2,  3,  3,  2,  1,  3 ],
+  [  3,  3,  3,  2,  3,  2,  2,  3,  3,  1 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">a[1][1]:=4;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">c1:=ColorGraphByMatrix(a);</span>
+&lt;color graph of order 10 and rank 4&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">c2:=WLStableColorGraphByMatrix(a);</span>
+&lt;color graph of order 10 and rank 15&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(c1);</span>
+[ [  4,  2,  2,  2,  3,  3,  3,  3,  3,  3 ],
+  [  2,  1,  3,  3,  2,  2,  3,  3,  3,  3 ],
+  [  2,  3,  1,  3,  3,  3,  2,  2,  3,  3 ],
+  [  2,  3,  3,  1,  3,  3,  3,  3,  2,  2 ],
+  [  3,  2,  3,  3,  1,  3,  2,  3,  2,  3 ],
+  [  3,  2,  3,  3,  3,  1,  3,  2,  3,  2 ],
+  [  3,  3,  2,  3,  2,  3,  1,  3,  3,  2 ],
+  [  3,  3,  2,  3,  3,  2,  3,  1,  2,  3 ],
+  [  3,  3,  3,  2,  2,  3,  3,  2,  1,  3 ],
+  [  3,  3,  3,  2,  3,  2,  2,  3,  3,  1 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(c2);</span>
+[[[4,1],[2,1],[2,1],[2,1],[3,1],[3,1],[3,1],[3,1],[3,1],[3,1]],
+ [[2,2],[1,2],[3,4],[3,4],[2,5],[2,5],[3,6],[3,6],[3,6],[3,6]],
+ [[2,2],[3,4],[1,2],[3,4],[3,6],[3,6],[2,5],[2,5],[3,6],[3,6]],
+ [[2,2],[3,4],[3,4],[1,2],[3,6],[3,6],[3,6],[3,6],[2,5],[2,5]],
+ [[3,2],[2,4],[3,5],[3,5],[1,1],[3,3],[2,3],[3,7],[2,3],[3,7]],
+ [[3,2],[2,4],[3,5],[3,5],[3,3],[1,1],[3,7],[2,3],[3,7],[2,3]],
+ [[3,2],[3,5],[2,4],[3,5],[2,3],[3,7],[1,1],[3,3],[3,7],[2,3]],
+ [[3,2],[3,5],[2,4],[3,5],[3,7],[2,3],[3,3],[1,1],[2,3],[3,7]],
+ [[3,2],[3,5],[3,5],[2,4],[2,3],[3,7],[3,7],[2,3],[1,1],[3,3]],
+ [[3,2],[3,5],[3,5],[2,4],[3,7],[2,3],[2,3],[3,7],[3,3],[1,1]]]
+	    </pre></div>
+
 <p><a id="X78E3485F85B414A5" name="X78E3485F85B414A5"></a></p>
 
-<h5>1.3-5 ClassicalCompleteAffineScheme</h5>
+<h5>1.3-6 ClassicalCompleteAffineScheme</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ClassicalCompleteAffineScheme</code>( <var class="Arg">q</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>The classical complete affine scheme is a WL-stable, Schurian, amorphic color graph defined on the set of points of the affine plane over <span class="SimpleMath">GF(q)</span>. The reflexive closure of every irreflexive color class is an equivalence relation whose equivalence classes form a complete parallel class of lines. Moreover, to every parallel class there corresponds a color class.</p>
@@ -228,7 +283,7 @@
 
 <p><a id="X7D6476BA7C79C9DA" name="X7D6476BA7C79C9DA"></a></p>
 
-<h5>1.3-6 JohnsonScheme</h5>
+<h5>1.3-7 JohnsonScheme</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JohnsonScheme</code>( <var class="Arg">n</var>, <var class="Arg">k</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>The Johnson scheme <span class="SimpleMath">J(n,k)</span> is a WL-stable, Schurian color graph. Its vertices are the <var class="Arg">k</var>-element subsets of <span class="SimpleMath">{1,dots,n}</span>. The colors are elements of <span class="SimpleMath">{0,dots,k}</span>. The color of an arc <span class="SimpleMath">(M,N)</span> is the cardinality of the intersection of <span class="SimpleMath">M</span> and <span class="SimpleMath">N</span>.</p>
@@ -237,7 +292,7 @@
 
 <p><a id="X7F9D294A789CBE87" name="X7F9D294A789CBE87"></a></p>
 
-<h5>1.3-7 CyclotomicColorGraph</h5>
+<h5>1.3-8 CyclotomicColorGraph</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CyclotomicColorGraph</code>( <var class="Arg">p</var>, <var class="Arg">n</var>, <var class="Arg">d</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Let <span class="SimpleMath">p</span> be a prime, <span class="SimpleMath">n</span>, <span class="SimpleMath">d</span> be positive integers, such that <span class="SimpleMath">d</span> divides <span class="SimpleMath">(p^n-1)</span>. Let <span class="SimpleMath">q:=p^n</span>, and let <span class="SimpleMath">r</span> be a primitive element of <span class="SimpleMath">GF(q)</span>. Let <span class="SimpleMath">C</span> be the set of all powers of <span class="SimpleMath">r^d</span> in <span class="SimpleMath">GF(q)</span> the cyclotomic colored graph <span class="SimpleMath">Cyc(p,n,d)</span> has as vertices the elements of <span class="SimpleMath">GF(q)</span>. The set of colors is given by <span class="SimpleMath">{*,0,1,...,d-1}</span>. A pair <span class="SimpleMath">(x,y)</span> of vertices has color <span class="SimpleMath">*</span> in <span class="SimpleMath">Cyc(p,n,d)</span> if <span class="SimpleMath">x=y</span>. It has color <span class="SimpleMath">i</span> if <span class="SimpleMath">(x-y)</span> is an element of <span class="SimpleMath">C⋅(r^i)</span>.</p>
@@ -246,7 +301,7 @@
 
 <p><a id="X7EAC537482E4A685" name="X7EAC537482E4A685"></a></p>
 
-<h5>1.3-8 BIKColorGraph</h5>
+<h5>1.3-9 BIKColorGraph</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BIKColorGraph</code>( <var class="Arg">m</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>This function generates the color graphs described in the paper <a href="chapBib.html#biBBroIvaKli89">[BIK89]</a>. These color graphs are interesting because they may be used to construct <span class="SimpleMath">3</span>-isoregular strongly regular graphs with the <span class="SimpleMath">5</span>-vertex condition. The vertex set of <code class="code">BIKColorGraph(m)</code> is <span class="SimpleMath">V=GF(2)^2m</span>. For the description of colors of the arcs consider a quadratic form <span class="SimpleMath">q</span> of Witt-index <span class="SimpleMath">m</span> on <span class="SimpleMath">V</span>. Let <span class="SimpleMath">Q</span> be the quadric defined by <span class="SimpleMath">q</span>, and let <span class="SimpleMath">S</span> be a maximal singular subspace of <span class="SimpleMath">q</span>. A pair of vectors <span class="SimpleMath">(v,w)</span> is colored by</p>
@@ -274,20 +329,20 @@
 
 
 <div class="example"><pre>
-            gap&gt; cgr:=BIKColorGraph(4);
-                &lt;color graph of order 256 and rank 4&gt;
-                gap&gt; ColorNames(cgr);
-                [ "=", "Q+S+", "Q+S-", "Q-" ]
-                gap&gt; gamma:=BaseGraphOfColorGraph(cgr,3);;
-                gap&gt; IsStronglyRegular(gamma);
-                true
-                gap&gt; gamma.srg;
-                rec( k := 120, lambda := 56, mu := 56, r := 8, s := -8, v := 256 )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=BIKColorGraph(4);</span>
+&lt;color graph of order 256 and rank 4&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorNames(cgr);</span>
+[ "=", "Q+S+", "Q+S-", "Q-" ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gamma:=BaseGraphOfColorGraph(cgr,3);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsStronglyRegular(gamma);</span>
+true
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gamma.srg;</span>
+rec( k := 120, lambda := 56, mu := 56, r := 8, s := -8, v := 256 )
         </pre></div>
 
 <p><a id="X7C500BC282B17242" name="X7C500BC282B17242"></a></p>
 
-<h5>1.3-9 IvanovColorGraph</h5>
+<h5>1.3-10 IvanovColorGraph</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IvanovColorGraph</code>( <var class="Arg">m</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>This function generates a series of color graphs described in <a href="chapBib.html#biBIva94">[Iva94]</a>. These color graphs may be used to construct <span class="SimpleMath">3</span>-isoregular strongly regular graphs with the <span class="SimpleMath">5</span>-vertex condition. These color graphs are interesting because they may be used to construct <span class="SimpleMath">3</span>-isoregular strongly regular graphs with the <span class="SimpleMath">5</span>-vertex condition. The vertex set of <code class="code">IvanovColorGraph(m)</code> is <span class="SimpleMath">V=GF(2)^2m</span>. For the description of colors of the arcs consider a quadratic form <span class="SimpleMath">q</span> of Witt-index <span class="SimpleMath">m-1</span> on <span class="SimpleMath">V</span>. Let <span class="SimpleMath">Q</span> be the quadric defined by <span class="SimpleMath">q</span>, let <span class="SimpleMath">S</span> be a maximal singular subspace of <span class="SimpleMath">q</span>, and let <span class="SimpleMath">O</span> be the orthogonal complement of <span class="SimpleMath">S</span>. A pair of vectors <span class="SimpleMath">(v,w)</span> is colored by</p>
@@ -317,19 +372,19 @@
 </dl>
 
 <div class="example"><pre>
-              gap&gt; cgr:=IvanovColorGraph(5);
-                  &lt;color graph of order 1024 and rank 5&gt;
-                  gap&gt; ColorNames(cgr);
-                  [ "=", "Q+S+", "Q+S-", "Q-O+", "Q-O-" ]
-                  gap&gt; gamma:=BaseGraphOfColorGraph(cgr,[2,5]);;
-                  gap&gt; IsStronglyRegular(gamma);;
-                  gap&gt; gamma.srg;
-                  rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=IvanovColorGraph(5);</span>
+&lt;color graph of order 1024 and rank 5&gt;
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorNames(cgr);</span>
+[ "=", "Q+S+", "Q+S-", "Q-O+", "Q-O-" ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gamma:=BaseGraphOfColorGraph(cgr,[2,5]);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsStronglyRegular(gamma);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">gamma.srg;</span>
+rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )
           </pre></div>
 
 <p><a id="X8779C97084BB92B6" name="X8779C97084BB92B6"></a></p>
 
-<h5>1.3-10 AllAssociationSchemes</h5>
+<h5>1.3-11 AllAssociationSchemes</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllAssociationSchemes</code>( <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>This function creates an interface to the database of small association schemes by Akihide Hanaki and Izumi Miyamoto from <span class="URL"><a href="http://math.shinshu-u.ac.jp/~hanaki/as/">http://math.shinshu-u.ac.jp/~hanaki/as/</a></span> (further refered to as the Japanese catalogue)</p>
@@ -338,7 +393,7 @@
 
 <p><a id="X867455368202CEE9" name="X867455368202CEE9"></a></p>
 
-<h5>1.3-11 AllCoherentConfigurations</h5>
+<h5>1.3-12 AllCoherentConfigurations</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllCoherentConfigurations</code>( <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>This function creates an interface to the database of small coherent configurations on at most 15 vertices by Matan Ziv-Av This function downloads the list of small coherent configurations of order <var class="Arg">n</var>. Then it converts them to the internal format of <strong class="pkg">COCO2P</strong> and returns the resulting list. Every color graph has a name of the shape <code class="code">CC(n,k)</code> where <code class="code">k</code> is the index of the scheme in the list of schemes of order <var class="Arg">n</var> in Matan's catalogue.</p>
@@ -377,7 +432,7 @@
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=JohnsonScheme(5,2);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VertexNamesOfCocoObject(cgr);</span>
-[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ],
 [ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]
 	    </pre></div>
 
@@ -409,7 +464,7 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorNames(cgr);</span>
 [ 2, 1, 0 ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VertexNamesOfCocoObject(cgr);</span>
-[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ],
 [ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ArcColorOfColorGraph(cgr,1,10);</span>
 3
@@ -442,7 +497,7 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorNames(cgr);</span>
 [ 2, 1, 0 ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VertexNamesOfCocoObject(cgr);</span>
-[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ],
 [ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Neighbors(cgr,1,3);</span>
 [ 8, 9, 10 ]
@@ -466,7 +521,7 @@
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">       ["blue" ,"blue", "blue" ,"black","red"  ],</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">       ["red"  ,"blue", "blue" ,"blue" ,"black"]];;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraphByMatrix(m);</span>
-&lt;color graph of order 5 and rank 3&gt; 
+&lt;color graph of order 5 and rank 3&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(AdjacencyMatrix(cgr));</span>
 [ [  1,  3,  2,  2,  2 ],
   [  2,  1,  3,  2,  2 ],
@@ -518,8 +573,8 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Fibres(cgr);</span>
 [ [ 1 ], [ 2, 10, 14, 16 ], [ 3, 7, 9, 11, 13, 15 ], [ 4, 6, 8, 12 ], [ 5 ] ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VertexNamesOfCocoObject(cgr);</span>
-[ [  ], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 2, 3, 4 ], [ 1, 2, 4 ], 
-[ 1, 3 ], [ 1, 3, 4 ], [ 1, 4 ], [ 2 ], [ 2, 3 ], [ 2, 3, 4 ], 
+[ [  ], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 2, 3, 4 ], [ 1, 2, 4 ],
+[ 1, 3 ], [ 1, 3, 4 ], [ 1, 4 ], [ 2 ], [ 2, 3 ], [ 2, 3, 4 ],
 [ 2, 4 ], [ 3 ], [ 3, 4 ], [ 4 ] ]
 	    </pre></div>
 
@@ -548,7 +603,7 @@
 [ 1, 2 ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorRepresentative(cgr,3);</span>
 [ 1, 8 ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(LocalIntersectionArray(cgr,1,1)); </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(LocalIntersectionArray(cgr,1,1));</span>
 [ [  1,  0,  0 ],
   [  0,  6,  0 ],
   [  0,  0,  3 ] ]
@@ -556,7 +611,7 @@
 [ [  0,  1,  0 ],
   [  1,  3,  2 ],
   [  0,  2,  1 ] ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(LocalIntersectionArray(cgr,1,8)); </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(LocalIntersectionArray(cgr,1,8));</span>
 [ [  0,  0,  1 ],
   [  0,  4,  2 ],
   [  1,  2,  0 ] ]
@@ -618,7 +673,7 @@
 &lt;color graph of order 5 and rank 5&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr2:=ColorGraphByFusion(cgr,[[1],[2,3],[4],[5]]);</span>
 &lt;color graph of order 5 and rank 4&gt;
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(AdjacencyMatrix(cgr)); </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Display(AdjacencyMatrix(cgr));</span>
 [ [  1,  2,  3,  4,  5 ],
   [  5,  1,  2,  3,  4 ],
   [  4,  5,  1,  2,  3 ],
@@ -650,14 +705,14 @@
 &lt;color graph of order 20 and rank 7&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">part:=Set(Orbit(s5, [[1,2],[2,1]], OnSetsTuples));;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">part:=Set(part, x-&gt;Set(x, y-&gt;Position(VertexNamesOfCocoObject(cgr),y)));</span>
-[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ], 
+[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ],
 [ 8, 18 ], [ 11, 15 ], [ 12, 19 ], [ 16, 20 ] ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr2:=QuotientColorGraph(cgr,part);</span>
 &lt;color graph of order 10 and rank 3&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ColorNames(cgr2);</span>
 [ [ 1, 3 ], [ 2, 4, 5, 6 ], [ 7 ] ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">VertexNamesOfCocoObject(cgr2);</span>
-[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ], 
+[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ],
 [ 8, 18 ], [ 11, 15 ], [ 12, 19 ], [ 16, 20 ] ]
 	    </pre></div>
 
@@ -721,9 +776,9 @@
 &lt;color graph of order 120 and rank 120&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cset:=Set(d6, x-&gt;Position(ColorNames(cgr),x));</span>
 [ 1, 8, 13, 24, 29, 31, 61, 68, 73, 84, 89, 91 ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsWLStableColorGraph(cgr);         </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsWLStableColorGraph(cgr);</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsHomogeneous(cgr);                </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsHomogeneous(cgr);</span>
 true
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">part:=PartitionClosedSet(cgr,cset);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr2:=QuotientColorGraph(cgr,part);</span>
@@ -793,11 +848,11 @@ true
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">e8:=ElementaryAbelianGroup(8);    </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">e8:=ElementaryAbelianGroup(8);</span>
 &lt;pc group of size 8 with 3 generators&gt;
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">e8:=Action(e8,AsList(e8), OnRight); </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">e8:=Action(e8,AsList(e8), OnRight);</span>
 Group([ (1,2)(3,5)(4,6)(7,8), (1,3)(2,5)(4,7)(6,8), (1,4)(2,6)(3,7)(5,8) ])
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(e8,Combinations([1..DegreeAction(g)],2), OnSets); </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(e8,Combinations([1..DegreeAction(g)],2), OnSets);</span>
 &lt;color graph of order 28 and rank 112&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsHomogeneous(cgr);</span>
 false
@@ -812,8 +867,8 @@ false
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(Center(GL(2,7)), GF(7)^2, OnRight, true, </span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">function(a,b) return NormedRowVector(a-b);end); </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(Center(GL(2,7)), GF(7)^2, OnRight, true,</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">function(a,b) return NormedRowVector(a-b);end);</span>
 &lt;color graph of order 49 and rank 9&gt;
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsWLStableColorGraph(cgr);</span>
 true
@@ -850,9 +905,9 @@ false
 [ 1 ]
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedGraph(BaseGraphOfColorGraph(cgr,2));</span>
 true
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedGraph(BaseGraphOfColorGraph(cgr,3)); </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedGraph(BaseGraphOfColorGraph(cgr,3));</span>
 false
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedGraph(BaseGraphOfColorGraph(cgr,4)); </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsConnectedGraph(BaseGraphOfColorGraph(cgr,4));</span>
 true
 	    </pre></div>
 

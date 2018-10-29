@@ -1,6 +1,6 @@
 This is makeindex, version 2.15 [TeX Live 2018] (kpathsea + Thai support).
-Scanning input file /Users/pech/Library/Preferences/GAP/pkg/coco2p/doc/coco.idx....done (158 entries accepted, 0 rejected).
-Sorting entries....done (1249 comparisons).
-Generating output file /Users/pech/Library/Preferences/GAP/pkg/coco2p/doc/coco.ind....done (278 lines written, 0 warnings).
-Output written in /Users/pech/Library/Preferences/GAP/pkg/coco2p/doc/coco.ind.
-Transcript written in /Users/pech/Library/Preferences/GAP/pkg/coco2p/doc/coco.ilg.
+Scanning input file coco.idx....done (159 entries accepted, 0 rejected).
+Sorting entries....done (1244 comparisons).
+Generating output file coco.ind....done (279 lines written, 0 warnings).
+Output written in coco.ind.
+Transcript written in coco.ilg.

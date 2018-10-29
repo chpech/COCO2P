@@ -10,14 +10,14 @@ function(cand)
         if ncand=fail then
             continue;
         fi;
-        
-            
+
+
         orbit:=TestSetOrbitRepCand(ncand);
         if part<>fail then
             Add(res,  orbit);
             Print(",\c");
         fi;
-            
+
         if IsExtendibleSetOrbitRepCand(ncand) then
             Append(res, ExtendSetOrbitRepCand(ncand));
         fi;
@@ -119,8 +119,8 @@ function(cand,i)
    if nstabS=fail then
        return fail;
    fi;
-   
-           
+
+
    sd:=OutValencies(t);
    rd:=ShallowCopy(cand!.rowdegs);
    cd:=ShallowCopy(cand!.coldegs);
@@ -242,7 +242,7 @@ function(cand)
       return false;
    fi;
 
-   if Length(cand!.set)>=cand!.maxlength then 
+   if Length(cand!.set)>=cand!.maxlength then
       return false;
    fi;
 
@@ -318,7 +318,7 @@ function(cand)
     if cand!.fullrows=[] then
         dom:=cand!.domain;
     else
-        
+
         h:=cand!.nperm;
         nd:=cand!.domain;
         rb:=First(cand!.brows, x->not (x in cand!.fullrows));
@@ -352,7 +352,7 @@ function(cand)
     gs:=[cand!.cset, OnSets(cand!.cset, Mates(T))];
     part:=WLBuildAsymGoodSetPartition(T,gs);
     part:=WLStabil(T,part);
-    if part <>false then
+    if part <>fail then
         h:=cand!.nperm;
         stab:=StbcGroup(cand!.stabS)^(h^-1)
         return GoodSetOrbit(cand!.grp,BuildGoodSet(T, cand!.cset,part.classes),stab);

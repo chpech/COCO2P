@@ -363,17 +363,17 @@ end);
 # i.e., it forgets the multiplicities on the outer level of multisets
 # the result is a list of sets of types of mergings.
 # note that every type of merging is infact a degree-multiset
-# e.g. from the merging: 
-# [ 
-#   [ [ [ [ [ 1, "symmetric" ], 1 ] ], 1 ] ], 
-#   [ [ [ [ [ 2, "symmetric" ], 1 ] ], 1 ] ], 
-#   [ [ [ [ [ 2, "asymmetric" ], 1 ] ], 2 ], [ [ [ [ 1, "symmetric" ], 2 ], [ [ 2, "symmetric" ], 1 ] ], 1 ] ] 
+# e.g. from the merging:
+# [
+#   [ [ [ [ [ 1, "symmetric" ], 1 ] ], 1 ] ],
+#   [ [ [ [ [ 2, "symmetric" ], 1 ] ], 1 ] ],
+#   [ [ [ [ [ 2, "asymmetric" ], 1 ] ], 2 ], [ [ [ [ 1, "symmetric" ], 2 ], [ [ 2, "symmetric" ], 1 ] ], 1 ] ]
 # ]
-# the function creates 
-# [ 
-#   [ [ [ [ 1, "symmetric" ], 1 ] ] ], 
-#   [ [ [ [ 2, "symmetric" ], 1 ] ] ], 
-#   [ [ [ [ 1, "symmetric" ], 2 ], [ [ 2, "symmetric" ], 1 ] ], [ [ [ 2, "asymmetric" ], 1 ] ] ] 
+# the function creates
+# [
+#   [ [ [ [ 1, "symmetric" ], 1 ] ] ],
+#   [ [ [ [ 2, "symmetric" ], 1 ] ] ],
+#   [ [ [ [ 1, "symmetric" ], 2 ], [ [ 2, "symmetric" ], 1 ] ], [ [ [ 2, "asymmetric" ], 1 ] ] ]
 # ]
 # these types will be needed when searching for all candidates of
 # mergings of colors one scheme to obtain a given color of the other scheme
@@ -392,11 +392,11 @@ end);
 
 # STCTest:=function(T1,T2)
 #     local cl1,cl2;
-    
+
 #     cl1:=DegreeInformationOfTensor(T1);
-#     cl1:=List([1..Length(cl1[1])], x->[cl1[1][x],cl1[2][x]]);    
+#     cl1:=List([1..Length(cl1[1])], x->[cl1[1][x],cl1[2][x]]);
 #     cl2:=DegreeInformationOfTensor(T2);
-#     cl2:=List([1..Length(cl2[1])], x->[cl2[1][x],cl2[2][x]]);    
+#     cl2:=List([1..Length(cl2[1])], x->[cl2[1][x],cl2[2][x]]);
 #     Print(cl1,"\n",cl2,"\n");
 #     return STCMergingsMultiset(cl1,cl2);
 # end;
@@ -424,10 +424,10 @@ end);
 InstallGlobalFunction(STCAugmentedSymType,
 function(T,type)
     local elm,newType, flag,flags,newelm,pos,positions,dms;
-    
+
     dms:=DegreeInformationOfTensor(T);
     newType:=[];flags:=[];positions:=[];
-    for elm in type do 
+    for elm in type do
         pos:=Position(dms[1],elm[1]);
         if 2*elm[2]>dms[2][pos] then
             newelm:=[elm[1],dms[2][pos]-elm[2]];
@@ -447,16 +447,16 @@ InstallGlobalFunction(STCEmptySymGoodSetCand,
 function(T,augType)
     local   dms,  supply,  dom,  np,  clr,  obj,  ci;
     dms:=DegreeInformationOfTensor(T);
-    
+
     supply:=List(dms[3]{augType[3]},Set);
     dom:=List(supply, x->Filtered(x,x->x^Mates(T)>=x));
     np:=List(dom, x->Filtered(x,x->x^Mates(T)>=x));
     clr:=Difference([1..OrderOfTensor(T)], ReflexiveColors(T));
-    
+
     np:=Concatenation(List(np, x->Concatenation(List(x,y->Set([y,y^Mates(T)])))));
     Append(np, Difference(clr,Set(np)));
     np:=Concatenation(ReflexiveColors(T),np);
-    
+
     np:=PermList(np)^-1;
     obj:=rec(
              tensor:=T,
@@ -473,10 +473,10 @@ function(T,augType)
     if ci=fail then
         ci:=Length(obj.task)+1;
     fi;
-    
+
     obj.currIdx:=ci;
-    
-        
+
+
     return Objectify(NewType(GoodSetsFamily(T), IsSymGoodSetCandidate and IsSTCSymGoodSetCandRep), obj);
 end);
 
@@ -484,8 +484,8 @@ InstallMethod(ExtendedCandidate,
         "for symmetric candidates in STCSymGoodSetCandRep",
         [IsSymGoodSetCandidate and IsSTCSymGoodSetCandRep, IsPosInt],
 function(cand,i)
-    local   ci,  mates,  newndom,  newIdx,  newdone,  newnset,  obj,  
-            nperm,  nsupply,  ndomain,  nset,  task,  done,  currIdx,  
+    local   ci,  mates,  newndom,  newIdx,  newdone,  newnset,  obj,
+            nperm,  nsupply,  ndomain,  nset,  task,  done,  currIdx,
             cmplFlags;
 
     if i in cand!.nset[cand!.currIdx] then
@@ -497,7 +497,7 @@ function(cand,i)
 
     ci:=((i/cand!.nperm)^Mates(cand!.tensor))^cand!.nperm;
     mates:=Set([i,ci]);
-   
+
     newndom:=ShallowCopy(cand!.ndomain);
     if cand!.done[cand!.currIdx]+1=cand!.task[cand!.currIdx] then
         newndom[cand!.currIdx]:=[];
@@ -510,8 +510,8 @@ function(cand,i)
     newdone[cand!.currIdx]:=newdone[cand!.currIdx]+1;
     newnset:=ShallowCopy(cand!.nset);
     newnset[cand!.currIdx]:=Union(newnset[cand!.currIdx],mates);
-    
-    
+
+
     obj:=rec(tensor:=cand!.tensor,
              nperm:=cand!.nperm,
              nsupply:=cand!.nsupply,
@@ -521,7 +521,7 @@ function(cand,i)
              done:=newdone,
              currIdx:=newIdx,
              cmplFlags:=cand!.cmplFlags);
-    
+
     return Objectify(NewType(GoodSetsFamily(cand!.tensor), IsSymGoodSetCandidate and IsSTCSymGoodSetCandRep), obj);
 end);
 
@@ -531,12 +531,12 @@ InstallMethod(TestCandidate,
     [IsSymGoodSetCandidate and IsSTCSymGoodSetCandRep],
 function(cand)
     local   nset,  i,  set,  res,  part;
-    
-    if cand!.currIdx<=Length(cand!.nsupply) then 
+
+    if cand!.currIdx<=Length(cand!.nsupply) then
         return [];
     fi;
-    
-    
+
+
     nset:=ShallowCopy(cand!.nset);
     for i in [1..Length(nset)] do
         if cand!.cmplFlags[i] then
@@ -545,11 +545,11 @@ function(cand)
     od;
     nset:=Union(nset);
     set:=OnSets(nset,cand!.nperm^-1);
-    
+
     res:=[];
     part:=WLBuildSymGoodSetPartition(cand!.tensor,set);
     part:=WLStabil(cand!.tensor,part);
-    if part<> false then
+    if part<> fail then
         res:=[[set],part];
     fi;
 
@@ -574,25 +574,25 @@ end);
 InstallGlobalFunction(STCEmptyAsymGoodSetCand,
 function(T,type)
     local   dms,  supply,  elm,  pos,  dom,  np,  clr,  obj;
-    
+
     dms:=DegreeInformationOfTensor(T);
-    
-    
+
+
     supply:=[];
-    for elm in type do 
+    for elm in type do
         pos:=Position(dms[1],elm[1]);
         Add(supply, Set(dms[3][pos]));
     od;
 
-    
+
     dom:=supply;
     np:=List(dom, x->Filtered(x,x->x^Mates(T)>x));
     clr:=Difference([1..OrderOfTensor(T)], ReflexiveColors(T));
-    
+
     np:=Concatenation(List(np, x->Concatenation(List(x,y->[y,y^Mates(T)]))));
     Append(np, Difference(clr,Set(np)));
     np:=Concatenation(ReflexiveColors(T),np);
-    
+
     np:=PermList(np)^-1;
     obj:=rec(
              tensor:=T,
@@ -612,23 +612,23 @@ InstallMethod(ExtendedCandidate,
         [IsAsymGoodSetCandidate and IsSTCAsymGoodSetCandRep, IsPosInt],
 function(cand,i)
     local   ci,  mates,  newndom,  newIdx,  newdone,  newnset,  obj;
-    
+
 
    if i in cand!.nset[cand!.currIdx] then
        return cand;
    fi;
-   
+
    if ((i/cand!.nperm)^Mates(cand!.tensor))^cand!.nperm in cand!.nset[cand!.currIdx] then
        return fail;
    fi;
-   
+
    if not i in cand!.ndomain[cand!.currIdx] then
       return fail;
    fi;
 
    ci:=((i/cand!.nperm)^Mates(cand!.tensor))^cand!.nperm;
    mates:=Set([i,ci]);
-   
+
    newndom:=ShallowCopy(cand!.ndomain);
    if cand!.done[cand!.currIdx]+1=cand!.task[cand!.currIdx] then
        newndom[cand!.currIdx]:=[];
@@ -641,8 +641,8 @@ function(cand,i)
    newdone[cand!.currIdx]:=newdone[cand!.currIdx]+1;
    newnset:=ShallowCopy(cand!.nset);
    newnset[cand!.currIdx]:=Union(newnset[cand!.currIdx],[i]);
-   
-   
+
+
    obj:=rec(tensor:=cand!.tensor,
             nperm:=cand!.nperm,
             nsupply:=cand!.nsupply,
@@ -660,19 +660,19 @@ InstallMethod(TestCandidate,
     [IsAsymGoodSetCandidate and IsSTCAsymGoodSetCandRep],
 function(cand)
     local   nset,  set,  res,  part;
-    
-    if cand!.currIdx<=Length(cand!.nsupply) then 
+
+    if cand!.currIdx<=Length(cand!.nsupply) then
         return [];
     fi;
-    
-    
+
+
     nset:=Union(cand!.nset);
     set:=OnSets(nset,cand!.nperm^-1);
     set:=[set, OnSets(set, Mates(cand!.tensor))];
     res:=[];
     part:=WLBuildAsymGoodSetPartition(cand!.tensor,set);
     part:=WLStabil(cand!.tensor,part);
-    if part<> false then
+    if part<> fail then
         res:=[set,part];
     fi;
 
@@ -697,11 +697,11 @@ function(GT,T,type)
     local h,G,S,cand,dom,firsts,result,i,Si,part,ncand;
 
     cand:=STCEmptyAsymGoodSetCand(T,type);
-    
+
     h:=NormalizingPermutationOfCandidate(cand);
     G:=GT^h;
     S:=Stbc(G);
-    
+
     dom:=NormalizedDomainOfCandidate(cand);
     firsts:=StbcMinimalOrbitReps(S,dom);
     firsts:=Filtered(firsts, x->x<((x/h)^Mates(T))^h);
@@ -709,18 +709,18 @@ function(GT,T,type)
     for i in firsts do
         ncand:=ExtendedCandidate(cand,i);
         Si:=StbcStabilizer(S,i);
-        
+
         part:=TestCandidate(ncand);
-        
+
         if part<>[] then
 #            Print(",\c");
             Add(result, [StbcGroup(Si)^(h^-1),part[1],part[2].classes]);
         fi;
-        
+
         if IsExtendibleCandidate(ncand) then
             Append(result, List(ExtendAsymGSCand(S,Si,ncand), x->[StbcGroup(x[1])^(h^-1), x[2], x[3]]));
         fi;
-        
+
     od;
     return result;
 end);
@@ -730,13 +730,13 @@ function(GT,T,type)
     local   cand,  h,  G,  S,  part,  reps;
 
     cand:=STCEmptySymGoodSetCand(T, STCAugmentedSymType(T,type));
-    
+
     h:=NormalizingPermutationOfCandidate(cand);
     G:=GT^h;
     S:=Stbc(G);
     part:=TestCandidate(cand);
     reps:=[];
-    
+
     if part<>[] then
         Add(reps,[S,part[1],part[2].classes]);
 #        Print(".\c");
@@ -745,30 +745,30 @@ function(GT,T,type)
         Append(reps, ExtendSymGSCand(S, StbcCopy(S), cand));
     fi;
 
-    reps:=List(reps, x->[StbcGroup(x[1])^(h^-1), x[2], x[3]]); 
-    
+    reps:=List(reps, x->[StbcGroup(x[1])^(h^-1), x[2], x[3]]);
+
     return reps;
 end);
 
 InstallGlobalFunction(STCGoodSetReps,
 function(G,T,symTypes,asymTypes)
     local  ags, i, sgs, lgs;
-    
+
     if not ForAll(GeneratorsOfGroup(G), g->IsAutomorphismOfObject(T,g)) then
         Error("AllGoodSetOrbitsOfTensor: Given group mut preserve the tensor of structure-constants!");
         return fail;
     fi;
     ags:=[];
-    
+
     for i in asymTypes do
 #        Union(List([1,2], i->  List(ags, gs->GoodSetOrbit(G,BuildGoodSet(T,gs[2][i],gs[3]),gs[1]))));
-        
+
         Append(ags, Union(List([1,2], j->List(STCAsymGSReps(G,T,i), gs->GoodSetOrbit(G,BuildGoodSet(T,gs[2][j],gs[3]),gs[1])))));
 #        Print(".\c");
     od;
-    
+
     sgs:=[];
-    
+
     for i in symTypes do
         Append(sgs, List(STCSymGSReps(G,T,i),gs->GoodSetOrbit(G, BuildGoodSet(T,gs[2][1],gs[3]), gs[1])));
 #        Print(".\c");
@@ -781,8 +781,8 @@ end);
 InstallGlobalFunction(STCSub,
 function(G,T,symTypes,asymTypes)
     local   gss,  i,  gsa,  gs,  res,spart;
-    
-    
+
+
 #    Print(Length(symTypes)," type(s) of symmetric good sets.\n");
 #    Print(Length(asymTypes)," type(s) of antisymmetric good sets.\n");
 #    Print("Computing good sets...\n");
@@ -796,36 +796,36 @@ function(G,T,symTypes,asymTypes)
 #        Print("\nComputing subalgebras...\n");
         res:=Concatenation(FusionOrbitsFromGoodSetOrbits(gs)); # this can be optimized by developing a new
                                                                # STCIsoSub taking into account the known
-                                                               # merging type 
+                                                               # merging type
 #        Print("finished.\n");
     fi;
-    
+
     return res;
 end);
 
-# returns the list of all fusion orbits (under the known color 
+# returns the list of all fusion orbits (under the known color
 # automorphism group of cgr1) that are color isomorphic to cgr2
 InstallGlobalFunction(ColorIsomorphicFusions,
 function(cgr1,cgr2)
-    local   T1,  T2,  cl1,  cl2,  mergings,  symTypes,  asymTypes,  
+    local   T1,  T2,  cl1,  cl2,  mergings,  symTypes,  asymTypes,
             sol,  types,  i,  sub;
-    
+
     T1:=StructureConstantsOfColorGraph(cgr1);
     T2:=StructureConstantsOfColorGraph(cgr2);
-    
+
     cl1:=DegreeInformationOfTensor(T1);
     cl1:=TransposedMatMutable(cl1{[1,2]});
-    
+
     cl2:=DegreeInformationOfTensor(T2);
     cl2:=TransposedMatMutable(cl2{[1,2]});
-    
-    
+
+
     mergings:=STCMergingsMultiset(cl2,cl1);
-    
+
     if mergings=[] then
         return [];
     fi;
-    
+
     symTypes:=[]; asymTypes:=[];
     for sol in mergings do
         types:=STCSolution2Types(sol);
@@ -837,16 +837,16 @@ function(cgr1,cgr2)
             fi;
         od;
     od;
-    
+
     sub:=STCSub(ColorAutomorphismGroupOnColors(cgr1), T1,Set(symTypes),Set(asymTypes));
 #    sub:=Filtered(sub, x->RankOfFusion(Representative(x))=Rank(cgr2));
     if sub=[] then
         return [];
-    fi;    
-    
+    fi;
+
     # has to be filtered for color isomorphism
     sub:=Filtered(sub, x->IsColorIsomorphicColorGraph(cgr2, ColorGraphByFusion(cgr1,Representative(x))));
-    
+
     return sub;
 end);
 
@@ -906,11 +906,11 @@ function(cand)
   return Concatenation(cand!.nset);
 end);
 
-DeclareRepresentation( "IsSubIsoLatticeRep", 
+DeclareRepresentation( "IsSubIsoLatticeRep",
         IsCocoOrbitRep,
         ["elements",     # list of all elements of the poset. The list must be
                          # ordered in a way that is compatible with the partial
-                         # order relation (no element is preceeded by a greater element). 
+                         # order relation (no element is preceeded by a greater element).
          "successors",   # on index i the list of all indices of successors of the
                          # element #i is stored
          "predecessors", # the same as successors for predecessors
@@ -923,37 +923,35 @@ DeclareRepresentation( "IsSubIsoLatticeRep",
 InstallGlobalFunction(SubColorIsomorphismPoset,
 function(lW)
     local mergings,order,linorder,lattice;
-    
+
     order:=function(y,x)
         local info;
-        
+
         info:=ColorIsomorphicFusions(lW[x],lW[y]);
         if info<>[] then
             if not IsBound(mergings[x]) then
                 mergings[x]:=[];
             fi;
-            
+
             mergings[x][y]:=info;
             return true;
         else
             return false;
         fi;
     end;
-    
+
     linorder:=function(x,y)
         return Rank(lW[x])<Rank(lW[y]);
     end;
-    
+
     mergings:=[];
-    
+
     lattice:=CocoPosetByFunctions([1..Length(lW)],order,linorder);
-    
+
     lattice!.mergings:=Immutable(mergings);
     lattice!.elements:=Immutable(List(lattice!.elements, i->lW[i]));
     SetFilterObj(lattice,IsSubIsoLattice);
     SetFilterObj(lattice,IsSubIsoLatticeRep);
-    
+
     return lattice;
 end);
-
-

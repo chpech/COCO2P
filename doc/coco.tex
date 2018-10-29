@@ -202,7 +202,7 @@ permutation group \mbox{\texttt{\mdseries\slshape grp}} in its natural action (i
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@d7 := Group( (1,2,3,4,5,6,7), (1,7)(2,6)(3,5));;|
   !gapprompt@gap>| !gapinput@cgr := ColorGraph(d7, [1]);|
-  <color graph of order 7 and rank 4>      
+  <color graph of order 7 and rank 4>
   	    
 \end{Verbatim}
  
@@ -286,8 +286,68 @@ automorphisms of \mbox{\texttt{\mdseries\slshape cgr}} (cf \texttt{KnownGroupOfA
 
  
 
-\subsection{\textcolor{Chapter }{ClassicalCompleteAffineScheme}}
+\subsection{\textcolor{Chapter }{WLStableColorGraphByMatrix}}
 \logpage{[ 1, 3, 5 ]}\nobreak
+\hyperdef{L}{X7FDD766E79BFEAF0}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{WLStableColorGraphByMatrix({\mdseries\slshape mat})\index{WLStableColorGraphByMatrix@\texttt{WLStableColorGraphByMatrix}}
+\label{WLStableColorGraphByMatrix}
+}\hfill{\scriptsize (function)}}\\
+
+
+ This function gets as input a square matrix \mbox{\texttt{\mdseries\slshape mat}} and returns the color graph of the Weisfeiler-Leman- stabilization of \mbox{\texttt{\mdseries\slshape Mat}}. The entries of \mbox{\texttt{\mdseries\slshape mat}} can be any kind of \textsf{GAP}-objects that can be compared and that can be organized in a set. The
+vertex-set of the resulting color graph is $\{1,\dots,n\}$, while the color of the arc $(i,j)$ is \texttt{[mat[i][j],k]}, where \texttt{k} is a positive integer. 
+
+ This constructor works usually much faster then the combination of \texttt{ColorGraphByMatrix} (\ref{ColorGraphByMatrix}) and \texttt{ColorGraphByWLStabilization} (\ref{ColorGraphByWLStabilization}). 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@c:=AllAssociationSchemes(10)[3];|
+  AS(10,3)
+  !gapprompt@gap>| !gapinput@a:=AdjacencyMatrix(c);;|
+  !gapprompt@gap>| !gapinput@Display(a);|
+  [ [  1,  2,  2,  2,  3,  3,  3,  3,  3,  3 ],
+    [  2,  1,  3,  3,  2,  2,  3,  3,  3,  3 ],
+    [  2,  3,  1,  3,  3,  3,  2,  2,  3,  3 ],
+    [  2,  3,  3,  1,  3,  3,  3,  3,  2,  2 ],
+    [  3,  2,  3,  3,  1,  3,  2,  3,  2,  3 ],
+    [  3,  2,  3,  3,  3,  1,  3,  2,  3,  2 ],
+    [  3,  3,  2,  3,  2,  3,  1,  3,  3,  2 ],
+    [  3,  3,  2,  3,  3,  2,  3,  1,  2,  3 ],
+    [  3,  3,  3,  2,  2,  3,  3,  2,  1,  3 ],
+    [  3,  3,  3,  2,  3,  2,  2,  3,  3,  1 ] ]
+  !gapprompt@gap>| !gapinput@a[1][1]:=4;;|
+  !gapprompt@gap>| !gapinput@c1:=ColorGraphByMatrix(a);|
+  <color graph of order 10 and rank 4>
+  !gapprompt@gap>| !gapinput@c2:=WLStableColorGraphByMatrix(a);|
+  <color graph of order 10 and rank 15>
+  !gapprompt@gap>| !gapinput@Display(c1);|
+  [ [  4,  2,  2,  2,  3,  3,  3,  3,  3,  3 ],
+    [  2,  1,  3,  3,  2,  2,  3,  3,  3,  3 ],
+    [  2,  3,  1,  3,  3,  3,  2,  2,  3,  3 ],
+    [  2,  3,  3,  1,  3,  3,  3,  3,  2,  2 ],
+    [  3,  2,  3,  3,  1,  3,  2,  3,  2,  3 ],
+    [  3,  2,  3,  3,  3,  1,  3,  2,  3,  2 ],
+    [  3,  3,  2,  3,  2,  3,  1,  3,  3,  2 ],
+    [  3,  3,  2,  3,  3,  2,  3,  1,  2,  3 ],
+    [  3,  3,  3,  2,  2,  3,  3,  2,  1,  3 ],
+    [  3,  3,  3,  2,  3,  2,  2,  3,  3,  1 ] ]
+  !gapprompt@gap>| !gapinput@Display(c2);|
+  [[[4,1],[2,1],[2,1],[2,1],[3,1],[3,1],[3,1],[3,1],[3,1],[3,1]],
+   [[2,2],[1,2],[3,4],[3,4],[2,5],[2,5],[3,6],[3,6],[3,6],[3,6]],
+   [[2,2],[3,4],[1,2],[3,4],[3,6],[3,6],[2,5],[2,5],[3,6],[3,6]],
+   [[2,2],[3,4],[3,4],[1,2],[3,6],[3,6],[3,6],[3,6],[2,5],[2,5]],
+   [[3,2],[2,4],[3,5],[3,5],[1,1],[3,3],[2,3],[3,7],[2,3],[3,7]],
+   [[3,2],[2,4],[3,5],[3,5],[3,3],[1,1],[3,7],[2,3],[3,7],[2,3]],
+   [[3,2],[3,5],[2,4],[3,5],[2,3],[3,7],[1,1],[3,3],[3,7],[2,3]],
+   [[3,2],[3,5],[2,4],[3,5],[3,7],[2,3],[3,3],[1,1],[2,3],[3,7]],
+   [[3,2],[3,5],[3,5],[2,4],[2,3],[3,7],[3,7],[2,3],[1,1],[3,3]],
+   [[3,2],[3,5],[3,5],[2,4],[3,7],[2,3],[2,3],[3,7],[3,3],[1,1]]]
+  	    
+\end{Verbatim}
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{ClassicalCompleteAffineScheme}}
+\logpage{[ 1, 3, 6 ]}\nobreak
 \hyperdef{L}{X78E3485F85B414A5}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ClassicalCompleteAffineScheme({\mdseries\slshape q})\index{ClassicalCompleteAffineScheme@\texttt{ClassicalCompleteAffineScheme}}
 \label{ClassicalCompleteAffineScheme}
@@ -304,7 +364,7 @@ Moreover, to every parallel class there corresponds a color class.
  
 
 \subsection{\textcolor{Chapter }{JohnsonScheme}}
-\logpage{[ 1, 3, 6 ]}\nobreak
+\logpage{[ 1, 3, 7 ]}\nobreak
 \hyperdef{L}{X7D6476BA7C79C9DA}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{JohnsonScheme({\mdseries\slshape n, k})\index{JohnsonScheme@\texttt{JohnsonScheme}}
 \label{JohnsonScheme}
@@ -318,7 +378,7 @@ Moreover, to every parallel class there corresponds a color class.
  
 
 \subsection{\textcolor{Chapter }{CyclotomicColorGraph}}
-\logpage{[ 1, 3, 7 ]}\nobreak
+\logpage{[ 1, 3, 8 ]}\nobreak
 \hyperdef{L}{X7F9D294A789CBE87}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CyclotomicColorGraph({\mdseries\slshape p, n, d})\index{CyclotomicColorGraph@\texttt{CyclotomicColorGraph}}
 \label{CyclotomicColorGraph}
@@ -332,7 +392,7 @@ Moreover, to every parallel class there corresponds a color class.
  
 
 \subsection{\textcolor{Chapter }{BIKColorGraph}}
-\logpage{[ 1, 3, 8 ]}\nobreak
+\logpage{[ 1, 3, 9 ]}\nobreak
 \hyperdef{L}{X7EAC537482E4A685}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{BIKColorGraph({\mdseries\slshape m})\index{BIKColorGraph@\texttt{BIKColorGraph}}
 \label{BIKColorGraph}
@@ -349,15 +409,15 @@ Moreover, to every parallel class there corresponds a color class.
  The following code constructs the Ivanov-graph on $256$ vertices. This was historically the first strongly regular graph to be found
 that is non-rank-$3$ and that satisfies the $5$-vertex condition (cf. \cite{Iva89}). 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-              gap> cgr:=BIKColorGraph(4);
-                  <color graph of order 256 and rank 4>
-                  gap> ColorNames(cgr);
-                  [ "=", "Q+S+", "Q+S-", "Q-" ]
-                  gap> gamma:=BaseGraphOfColorGraph(cgr,3);;
-                  gap> IsStronglyRegular(gamma);
-                  true
-                  gap> gamma.srg;
-                  rec( k := 120, lambda := 56, mu := 56, r := 8, s := -8, v := 256 )
+  !gapprompt@gap>| !gapinput@cgr:=BIKColorGraph(4);|
+  <color graph of order 256 and rank 4>
+  !gapprompt@gap>| !gapinput@ColorNames(cgr);|
+  [ "=", "Q+S+", "Q+S-", "Q-" ]
+  !gapprompt@gap>| !gapinput@gamma:=BaseGraphOfColorGraph(cgr,3);;|
+  !gapprompt@gap>| !gapinput@IsStronglyRegular(gamma);|
+  true
+  !gapprompt@gap>| !gapinput@gamma.srg;|
+  rec( k := 120, lambda := 56, mu := 56, r := 8, s := -8, v := 256 )
           
 \end{Verbatim}
  }
@@ -365,7 +425,7 @@ that is non-rank-$3$ and that satisfies the $5$-vertex condition (cf. \cite{Iva8
  
 
 \subsection{\textcolor{Chapter }{IvanovColorGraph}}
-\logpage{[ 1, 3, 9 ]}\nobreak
+\logpage{[ 1, 3, 10 ]}\nobreak
 \hyperdef{L}{X7C500BC282B17242}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IvanovColorGraph({\mdseries\slshape m})\index{IvanovColorGraph@\texttt{IvanovColorGraph}}
 \label{IvanovColorGraph}
@@ -383,14 +443,14 @@ to construct $3$-isoregular strongly regular graphs with the $5$-vertex conditio
 \end{description}
  
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-                gap> cgr:=IvanovColorGraph(5);
-                    <color graph of order 1024 and rank 5>
-                    gap> ColorNames(cgr);
-                    [ "=", "Q+S+", "Q+S-", "Q-O+", "Q-O-" ]
-                    gap> gamma:=BaseGraphOfColorGraph(cgr,[2,5]);;
-                    gap> IsStronglyRegular(gamma);;
-                    gap> gamma.srg;
-                    rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )
+  !gapprompt@gap>| !gapinput@cgr:=IvanovColorGraph(5);|
+  <color graph of order 1024 and rank 5>
+  !gapprompt@gap>| !gapinput@ColorNames(cgr);|
+  [ "=", "Q+S+", "Q+S-", "Q-O+", "Q-O-" ]
+  !gapprompt@gap>| !gapinput@gamma:=BaseGraphOfColorGraph(cgr,[2,5]);;|
+  !gapprompt@gap>| !gapinput@IsStronglyRegular(gamma);;|
+  !gapprompt@gap>| !gapinput@gamma.srg;|
+  rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )
             
 \end{Verbatim}
  }
@@ -398,7 +458,7 @@ to construct $3$-isoregular strongly regular graphs with the $5$-vertex conditio
  
 
 \subsection{\textcolor{Chapter }{AllAssociationSchemes}}
-\logpage{[ 1, 3, 10 ]}\nobreak
+\logpage{[ 1, 3, 11 ]}\nobreak
 \hyperdef{L}{X8779C97084BB92B6}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AllAssociationSchemes({\mdseries\slshape n})\index{AllAssociationSchemes@\texttt{AllAssociationSchemes}}
 \label{AllAssociationSchemes}
@@ -413,7 +473,7 @@ schemes by Akihide Hanaki and Izumi Miyamoto from \href{http://math.shinshu-u.ac
  
 
 \subsection{\textcolor{Chapter }{AllCoherentConfigurations}}
-\logpage{[ 1, 3, 11 ]}\nobreak
+\logpage{[ 1, 3, 12 ]}\nobreak
 \hyperdef{L}{X867455368202CEE9}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AllCoherentConfigurations({\mdseries\slshape n})\index{AllCoherentConfigurations@\texttt{AllCoherentConfigurations}}
 \label{AllCoherentConfigurations}
@@ -481,7 +541,7 @@ the list of small coherent configurations of order \mbox{\texttt{\mdseries\slsha
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=JohnsonScheme(5,2);;|
   !gapprompt@gap>| !gapinput@VertexNamesOfCocoObject(cgr);|
-  [ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+  [ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ],
   [ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]
   	    
 \end{Verbatim}
@@ -526,7 +586,7 @@ possible cardinalities of the intersection of two $2$-element subsets of $\{1,2,
   !gapprompt@gap>| !gapinput@ColorNames(cgr);|
   [ 2, 1, 0 ]
   !gapprompt@gap>| !gapinput@VertexNamesOfCocoObject(cgr);|
-  [ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+  [ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ],
   [ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]
   !gapprompt@gap>| !gapinput@ArcColorOfColorGraph(cgr,1,10);|
   3
@@ -576,7 +636,7 @@ vertex and a single color..
   !gapprompt@gap>| !gapinput@ColorNames(cgr);|
   [ 2, 1, 0 ]
   !gapprompt@gap>| !gapinput@VertexNamesOfCocoObject(cgr);|
-  [ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], 
+  [ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ],
   [ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ]
   !gapprompt@gap>| !gapinput@Neighbors(cgr,1,3);|
   [ 8, 9, 10 ]
@@ -607,7 +667,7 @@ vertex and a single color..
   !gapprompt@>| !gapinput@       ["blue" ,"blue", "blue" ,"black","red"  ],|
   !gapprompt@>| !gapinput@       ["red"  ,"blue", "blue" ,"blue" ,"black"]];;|
   !gapprompt@gap>| !gapinput@cgr:=ColorGraphByMatrix(m);|
-  <color graph of order 5 and rank 3> 
+  <color graph of order 5 and rank 3>
   !gapprompt@gap>| !gapinput@Display(AdjacencyMatrix(cgr));|
   [ [  1,  3,  2,  2,  2 ],
     [  2,  1,  3,  2,  2 ],
@@ -673,8 +733,8 @@ all have the same color.
   !gapprompt@gap>| !gapinput@Fibres(cgr);|
   [ [ 1 ], [ 2, 10, 14, 16 ], [ 3, 7, 9, 11, 13, 15 ], [ 4, 6, 8, 12 ], [ 5 ] ]
   !gapprompt@gap>| !gapinput@VertexNamesOfCocoObject(cgr);|
-  [ [  ], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 2, 3, 4 ], [ 1, 2, 4 ], 
-  [ 1, 3 ], [ 1, 3, 4 ], [ 1, 4 ], [ 2 ], [ 2, 3 ], [ 2, 3, 4 ], 
+  [ [  ], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 2, 3, 4 ], [ 1, 2, 4 ],
+  [ 1, 3 ], [ 1, 3, 4 ], [ 1, 4 ], [ 2 ], [ 2, 3 ], [ 2, 3, 4 ],
   [ 2, 4 ], [ 3 ], [ 3, 4 ], [ 4 ] ]
   	    
 \end{Verbatim}
@@ -715,7 +775,7 @@ all have the same color.
   [ 1, 2 ]
   !gapprompt@gap>| !gapinput@ColorRepresentative(cgr,3);|
   [ 1, 8 ]
-  !gapprompt@gap>| !gapinput@Display(LocalIntersectionArray(cgr,1,1)); |
+  !gapprompt@gap>| !gapinput@Display(LocalIntersectionArray(cgr,1,1));|
   [ [  1,  0,  0 ],
     [  0,  6,  0 ],
     [  0,  0,  3 ] ]
@@ -723,7 +783,7 @@ all have the same color.
   [ [  0,  1,  0 ],
     [  1,  3,  2 ],
     [  0,  2,  1 ] ]
-  !gapprompt@gap>| !gapinput@Display(LocalIntersectionArray(cgr,1,8)); |
+  !gapprompt@gap>| !gapinput@Display(LocalIntersectionArray(cgr,1,8));|
   [ [  0,  0,  1 ],
     [  0,  4,  2 ],
     [  1,  2,  0 ] ]
@@ -811,7 +871,7 @@ the fusion color graph of \mbox{\texttt{\mdseries\slshape cgr}} with respect to 
   <color graph of order 5 and rank 5>
   !gapprompt@gap>| !gapinput@cgr2:=ColorGraphByFusion(cgr,[[1],[2,3],[4],[5]]);|
   <color graph of order 5 and rank 4>
-  !gapprompt@gap>| !gapinput@Display(AdjacencyMatrix(cgr)); |
+  !gapprompt@gap>| !gapinput@Display(AdjacencyMatrix(cgr));|
   [ [  1,  2,  3,  4,  5 ],
     [  5,  1,  2,  3,  4 ],
     [  4,  5,  1,  2,  3 ],
@@ -848,14 +908,14 @@ the fusion color graph of \mbox{\texttt{\mdseries\slshape cgr}} with respect to 
   <color graph of order 20 and rank 7>
   !gapprompt@gap>| !gapinput@part:=Set(Orbit(s5, [[1,2],[2,1]], OnSetsTuples));;|
   !gapprompt@gap>| !gapinput@part:=Set(part, x->Set(x, y->Position(VertexNamesOfCocoObject(cgr),y)));|
-  [ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ], 
+  [ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ],
   [ 8, 18 ], [ 11, 15 ], [ 12, 19 ], [ 16, 20 ] ]
   !gapprompt@gap>| !gapinput@cgr2:=QuotientColorGraph(cgr,part);|
   <color graph of order 10 and rank 3>
   !gapprompt@gap>| !gapinput@ColorNames(cgr2);|
   [ [ 1, 3 ], [ 2, 4, 5, 6 ], [ 7 ] ]
   !gapprompt@gap>| !gapinput@VertexNamesOfCocoObject(cgr2);|
-  [ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ], 
+  [ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ],
   [ 8, 18 ], [ 11, 15 ], [ 12, 19 ], [ 16, 20 ] ]
   	    
 \end{Verbatim}
@@ -947,9 +1007,9 @@ corresponding to this equivalence relation. It is not tested, whether \mbox{\tex
   <color graph of order 120 and rank 120>
   !gapprompt@gap>| !gapinput@cset:=Set(d6, x->Position(ColorNames(cgr),x));|
   [ 1, 8, 13, 24, 29, 31, 61, 68, 73, 84, 89, 91 ]
-  !gapprompt@gap>| !gapinput@IsWLStableColorGraph(cgr);         |
+  !gapprompt@gap>| !gapinput@IsWLStableColorGraph(cgr);|
   true
-  !gapprompt@gap>| !gapinput@IsHomogeneous(cgr);                |
+  !gapprompt@gap>| !gapinput@IsHomogeneous(cgr);|
   true
   !gapprompt@gap>| !gapinput@part:=PartitionClosedSet(cgr,cset);;|
   !gapprompt@gap>| !gapinput@cgr2:=QuotientColorGraph(cgr,part);|
@@ -1041,11 +1101,11 @@ from \mbox{\texttt{\mdseries\slshape cset}} of \mbox{\texttt{\mdseries\slshape c
 graph this means that it has just one reflexive color. For a WL-stable color
 graph this means that it correspond to an association scheme. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@e8:=ElementaryAbelianGroup(8);    |
+  !gapprompt@gap>| !gapinput@e8:=ElementaryAbelianGroup(8);|
   <pc group of size 8 with 3 generators>
-  !gapprompt@gap>| !gapinput@e8:=Action(e8,AsList(e8), OnRight); |
+  !gapprompt@gap>| !gapinput@e8:=Action(e8,AsList(e8), OnRight);|
   Group([ (1,2)(3,5)(4,6)(7,8), (1,3)(2,5)(4,7)(6,8), (1,4)(2,6)(3,7)(5,8) ])
-  !gapprompt@gap>| !gapinput@cgr:=ColorGraph(e8,Combinations([1..DegreeAction(g)],2), OnSets); |
+  !gapprompt@gap>| !gapinput@cgr:=ColorGraph(e8,Combinations([1..DegreeAction(g)],2), OnSets);|
   <color graph of order 28 and rank 112>
   !gapprompt@gap>| !gapinput@IsHomogeneous(cgr);|
   false
@@ -1066,8 +1126,8 @@ graph this means that it correspond to an association scheme.
  This function returns true if \mbox{\texttt{\mdseries\slshape cgr}} is stable under the Weisfeiler-Leman algorithm, that is, whether it is the
 color graph of a coherent configuration. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@cgr:=ColorGraph(Center(GL(2,7)), GF(7)^2, OnRight, true, |
-  !gapprompt@>| !gapinput@function(a,b) return NormedRowVector(a-b);end); |
+  !gapprompt@gap>| !gapinput@cgr:=ColorGraph(Center(GL(2,7)), GF(7)^2, OnRight, true,|
+  !gapprompt@>| !gapinput@function(a,b) return NormedRowVector(a-b);end);|
   <color graph of order 49 and rank 9>
   !gapprompt@gap>| !gapinput@IsWLStableColorGraph(cgr);|
   true
@@ -1116,9 +1176,9 @@ strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGra
   [ 1 ]
   !gapprompt@gap>| !gapinput@IsConnectedGraph(BaseGraphOfColorGraph(cgr,2));|
   true
-  !gapprompt@gap>| !gapinput@IsConnectedGraph(BaseGraphOfColorGraph(cgr,3)); |
+  !gapprompt@gap>| !gapinput@IsConnectedGraph(BaseGraphOfColorGraph(cgr,3));|
   false
-  !gapprompt@gap>| !gapinput@IsConnectedGraph(BaseGraphOfColorGraph(cgr,4)); |
+  !gapprompt@gap>| !gapinput@IsConnectedGraph(BaseGraphOfColorGraph(cgr,4));|
   true
   	    
 \end{Verbatim}
@@ -1465,7 +1525,7 @@ automorphism groups. }
 
  If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL-stable color graph \texttt{cgr}, then \texttt{ReflexiveColors(tensor)} return the list of all reflexive colors of \texttt{cgr}. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@e8:=Action(e8,AsList(e8), OnRight); |
+  !gapprompt@gap>| !gapinput@e8:=Action(e8,AsList(e8), OnRight);|
   Group([ (1,2)(3,5)(4,6)(7,8), (1,3)(2,5)(4,7)(6,8), (1,4)(2,6)(3,7)(5,8) ])
   !gapprompt@gap>| !gapinput@cgr:=ColorGraph(e8,Combinations([1..DegreeAction(g)],2), OnSets);|
   <color graph of order 28 and rank 112>
@@ -1511,7 +1571,7 @@ automorphism groups. }
   <color graph of order 10 and rank 19>
   !gapprompt@gap>| !gapinput@T:=StructureConstantsOfColorGraph(cgr);|
   <Tensor of order 19>
-  !gapprompt@gap>| !gapinput@ReflexiveColors(T);  |
+  !gapprompt@gap>| !gapinput@ReflexiveColors(T);|
   [ 1, 5, 18 ]
   !gapprompt@gap>| !gapinput@FibreLengths(T);|
   [ 1, 6, 3 ]
@@ -1796,7 +1856,7 @@ the algorithm for the computation of character tables.
   !gapprompt@gap>| !gapinput@IsCommutativeTensor(T);|
   true
   !gapprompt@gap>| !gapinput@CharacterTable(T);|
-  rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ], 
+  rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
         [ 1, 3, -3, -1 ] ], multiplicities := [ 1, 9, 5, 5 ] )
   	    
 \end{Verbatim}
@@ -2540,9 +2600,9 @@ non-Schurian nodes are represented by diamonds.
  This function is available only from \textsf{XGAP}. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@lcgr:=AllAssociationSchemes(15);|
-  [ AS(15,1), AS(15,2), AS(15,3), AS(15,4), AS(15,5), AS(15,6), AS(15,7), 
-    AS(15,8), AS(15,9), AS(15,10), AS(15,11), AS(15,12), AS(15,13), AS(15,14), 
-    AS(15,15), AS(15,16), AS(15,17), AS(15,18), AS(15,19), AS(15,20), AS(15,21), 
+  [ AS(15,1), AS(15,2), AS(15,3), AS(15,4), AS(15,5), AS(15,6), AS(15,7),
+    AS(15,8), AS(15,9), AS(15,10), AS(15,11), AS(15,12), AS(15,13), AS(15,14),
+    AS(15,15), AS(15,16), AS(15,17), AS(15,18), AS(15,19), AS(15,20), AS(15,21),
     AS(15,22), AS(15,23), AS(15,24) ]
   !gapprompt@gap>| !gapinput@Apply(lcgr, IsSchurian);|
   !gapprompt@gap>| !gapinput@pos:=SubColorIsomorphismPoset(lcgr);;|
@@ -2589,7 +2649,7 @@ special category is created for them). In the \textsf{GAP}-output, complexes are
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=JohnsonScheme(6,3);|
   <color graph of order 20 and rank 4>
-  !gapprompt@gap>| !gapinput@T:=StructureConstantsOfColorGraph(cgr);                       |
+  !gapprompt@gap>| !gapinput@T:=StructureConstantsOfColorGraph(cgr);|
   <Tensor of order 4>
   !gapprompt@gap>| !gapinput@sr:=ColorSemiring(cgr);|
   <ColorSemiring>
@@ -2623,9 +2683,9 @@ special category is created for them). In the \textsf{GAP}-output, complexes are
   <ColorSemiring>
   !gapprompt@gap>| !gapinput@s2:=AsElementOfColorSemiring(csr,[2]);|
   <[ 2 ]>
-  !gapprompt@gap>| !gapinput@s3:=AsElementOfColorSemiring(csr,[3]); |
+  !gapprompt@gap>| !gapinput@s3:=AsElementOfColorSemiring(csr,[3]);|
   <[ 3 ]>
-  !gapprompt@gap>| !gapinput@1*(s2+s3);                            |
+  !gapprompt@gap>| !gapinput@1*(s2+s3);|
   [ 2, 3, 6, 7 ]
   !gapprompt@gap>| !gapinput@Neighbors(cgr,1,[2,3]);|
   [ 2, 3, 6, 7 ]
@@ -2655,13 +2715,13 @@ color semiring of \mbox{\texttt{\mdseries\slshape cgr}}
   <color graph of order 20 and rank 4>
   !gapprompt@gap>| !gapinput@sr:=ColorSemiring(cgr);|
   <ColorSemiring>
-  !gapprompt@gap>| !gapinput@Elements(sr);           |
-  [ <[  ]>, <[ 1 ]>, <[ 1, 2 ]>, <[ 1, 2, 3 ]>, <[ 1, 2, 3, 4 ]>, 
-    <[ 1, 2, 4 ]>, <[ 1, 3 ]>, <[ 1, 3, 4 ]>, <[ 1, 4 ]>, <[ 2 ]>, <[ 2, 3 ]>, 
+  !gapprompt@gap>| !gapinput@Elements(sr);|
+  [ <[  ]>, <[ 1 ]>, <[ 1, 2 ]>, <[ 1, 2, 3 ]>, <[ 1, 2, 3, 4 ]>,
+    <[ 1, 2, 4 ]>, <[ 1, 3 ]>, <[ 1, 3, 4 ]>, <[ 1, 4 ]>, <[ 2 ]>, <[ 2, 3 ]>,
     <[ 2, 3, 4 ]>, <[ 2, 4 ]>, <[ 3 ]>, <[ 3, 4 ]>, <[ 4 ]> ]
-  !gapprompt@gap>| !gapinput@List(last,AsSet);          |
-  [ [  ], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 2, 3, 4 ], [ 1, 2, 4 ], [ 1, 3 ], 
-    [ 1, 3, 4 ], [ 1, 4 ], [ 2 ], [ 2, 3 ], [ 2, 3, 4 ], [ 2, 4 ], [ 3 ], 
+  !gapprompt@gap>| !gapinput@List(last,AsSet);|
+  [ [  ], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 2, 3, 4 ], [ 1, 2, 4 ], [ 1, 3 ],
+    [ 1, 3, 4 ], [ 1, 4 ], [ 2 ], [ 2, 3 ], [ 2, 3, 4 ], [ 2, 4 ], [ 3 ],
     [ 3, 4 ], [ 4 ] ]
   	    
 \end{Verbatim}

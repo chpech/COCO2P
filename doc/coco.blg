@@ -1,11 +1,11 @@
 This is BibTeX, Version 0.99d (TeX Live 2018)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
-The top-level auxiliary file: /Users/pech/Library/Preferences/GAP/pkg/coco2p/doc/coco.aux
+The top-level auxiliary file: coco.aux
 The style file: alpha.bst
 Database file #1: coco.bib
 You've used 9 entries,
             2543 wiz_defined-function locations,
-            621 strings with 5568 characters,
+            620 strings with 5462 characters,
 and the built_in function-call counts, 3008 in all, are:
 = -- 294
 > -- 100

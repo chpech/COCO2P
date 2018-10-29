@@ -66,7 +66,7 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xd7 := Group( (1,2,3,4,5,6,7), (1,7)(2,6)(3,5));;[127X[104X
     [4X[25Xgap>[125X [27Xcgr := ColorGraph(d7, [1]);[127X[104X
-    [4X[28X<color graph of order 7 and rank 4>      [128X[104X
+    [4X[28X<color graph of order 7 and rank 4>[128X[104X
     [4X[28X	    [128X[104X
   [4X[32X[104X
   
@@ -145,7 +145,65 @@
   [3Xcgr[103X.  The  performance  depends  mainly  on  the order of the group of known
   automorphisms of [3Xcgr[103X (cf [2XKnownGroupOfAutomorphisms[102X ([14X1.7-1[114X)).[133X
   
-  [1X1.3-5 ClassicalCompleteAffineScheme[101X
+  [1X1.3-5 WLStableColorGraphByMatrix[101X
+  
+  [33X[1;0Y[29X[2XWLStableColorGraphByMatrix[102X( [3Xmat[103X ) [32X function[133X
+  
+  [33X[0;0YThis  function gets as input a square matrix [3Xmat[103X and returns the color graph
+  of the Weisfeiler-Leman- stabilization of [3XMat[103X. The entries of [3Xmat[103X can be any
+  kind of [5XGAP[105X-objects that can be compared and that can be organized in a set.
+  The  vertex-set  of the resulting color graph is [22X{1,dots,n}[122X, while the color
+  of the arc [22X(i,j)[122X is [10X[mat[i][j],k][110X, where [10Xk[110X is a positive integer.[133X
+  
+  [33X[0;0YThis   constructor  works  usually  much  faster  then  the  combination  of
+  [2XColorGraphByMatrix[102X ([14X1.3-3[114X) and [2XColorGraphByWLStabilization[102X ([14X1.3-4[114X).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xc:=AllAssociationSchemes(10)[3];[127X[104X
+    [4X[28XAS(10,3)[128X[104X
+    [4X[25Xgap>[125X [27Xa:=AdjacencyMatrix(c);;[127X[104X
+    [4X[25Xgap>[125X [27XDisplay(a);[127X[104X
+    [4X[28X[ [  1,  2,  2,  2,  3,  3,  3,  3,  3,  3 ],[128X[104X
+    [4X[28X  [  2,  1,  3,  3,  2,  2,  3,  3,  3,  3 ],[128X[104X
+    [4X[28X  [  2,  3,  1,  3,  3,  3,  2,  2,  3,  3 ],[128X[104X
+    [4X[28X  [  2,  3,  3,  1,  3,  3,  3,  3,  2,  2 ],[128X[104X
+    [4X[28X  [  3,  2,  3,  3,  1,  3,  2,  3,  2,  3 ],[128X[104X
+    [4X[28X  [  3,  2,  3,  3,  3,  1,  3,  2,  3,  2 ],[128X[104X
+    [4X[28X  [  3,  3,  2,  3,  2,  3,  1,  3,  3,  2 ],[128X[104X
+    [4X[28X  [  3,  3,  2,  3,  3,  2,  3,  1,  2,  3 ],[128X[104X
+    [4X[28X  [  3,  3,  3,  2,  2,  3,  3,  2,  1,  3 ],[128X[104X
+    [4X[28X  [  3,  3,  3,  2,  3,  2,  2,  3,  3,  1 ] ][128X[104X
+    [4X[25Xgap>[125X [27Xa[1][1]:=4;;[127X[104X
+    [4X[25Xgap>[125X [27Xc1:=ColorGraphByMatrix(a);[127X[104X
+    [4X[28X<color graph of order 10 and rank 4>[128X[104X
+    [4X[25Xgap>[125X [27Xc2:=WLStableColorGraphByMatrix(a);[127X[104X
+    [4X[28X<color graph of order 10 and rank 15>[128X[104X
+    [4X[25Xgap>[125X [27XDisplay(c1);[127X[104X
+    [4X[28X[ [  4,  2,  2,  2,  3,  3,  3,  3,  3,  3 ],[128X[104X
+    [4X[28X  [  2,  1,  3,  3,  2,  2,  3,  3,  3,  3 ],[128X[104X
+    [4X[28X  [  2,  3,  1,  3,  3,  3,  2,  2,  3,  3 ],[128X[104X
+    [4X[28X  [  2,  3,  3,  1,  3,  3,  3,  3,  2,  2 ],[128X[104X
+    [4X[28X  [  3,  2,  3,  3,  1,  3,  2,  3,  2,  3 ],[128X[104X
+    [4X[28X  [  3,  2,  3,  3,  3,  1,  3,  2,  3,  2 ],[128X[104X
+    [4X[28X  [  3,  3,  2,  3,  2,  3,  1,  3,  3,  2 ],[128X[104X
+    [4X[28X  [  3,  3,  2,  3,  3,  2,  3,  1,  2,  3 ],[128X[104X
+    [4X[28X  [  3,  3,  3,  2,  2,  3,  3,  2,  1,  3 ],[128X[104X
+    [4X[28X  [  3,  3,  3,  2,  3,  2,  2,  3,  3,  1 ] ][128X[104X
+    [4X[25Xgap>[125X [27XDisplay(c2);[127X[104X
+    [4X[28X[[[4,1],[2,1],[2,1],[2,1],[3,1],[3,1],[3,1],[3,1],[3,1],[3,1]],[128X[104X
+    [4X[28X [[2,2],[1,2],[3,4],[3,4],[2,5],[2,5],[3,6],[3,6],[3,6],[3,6]],[128X[104X
+    [4X[28X [[2,2],[3,4],[1,2],[3,4],[3,6],[3,6],[2,5],[2,5],[3,6],[3,6]],[128X[104X
+    [4X[28X [[2,2],[3,4],[3,4],[1,2],[3,6],[3,6],[3,6],[3,6],[2,5],[2,5]],[128X[104X
+    [4X[28X [[3,2],[2,4],[3,5],[3,5],[1,1],[3,3],[2,3],[3,7],[2,3],[3,7]],[128X[104X
+    [4X[28X [[3,2],[2,4],[3,5],[3,5],[3,3],[1,1],[3,7],[2,3],[3,7],[2,3]],[128X[104X
+    [4X[28X [[3,2],[3,5],[2,4],[3,5],[2,3],[3,7],[1,1],[3,3],[3,7],[2,3]],[128X[104X
+    [4X[28X [[3,2],[3,5],[2,4],[3,5],[3,7],[2,3],[3,3],[1,1],[2,3],[3,7]],[128X[104X
+    [4X[28X [[3,2],[3,5],[3,5],[2,4],[2,3],[3,7],[3,7],[2,3],[1,1],[3,3]],[128X[104X
+    [4X[28X [[3,2],[3,5],[3,5],[2,4],[3,7],[2,3],[2,3],[3,7],[3,3],[1,1]]][128X[104X
+    [4X[28X	    [128X[104X
+  [4X[32X[104X
+  
+  [1X1.3-6 ClassicalCompleteAffineScheme[101X
   
   [33X[1;0Y[29X[2XClassicalCompleteAffineScheme[102X( [3Xq[103X ) [32X function[133X
   
@@ -157,7 +215,7 @@
   
   [33X[0;0YThis function returns the classical complete affine scheme over [22XGF(q)[122X.[133X
   
-  [1X1.3-6 JohnsonScheme[101X
+  [1X1.3-7 JohnsonScheme[101X
   
   [33X[1;0Y[29X[2XJohnsonScheme[102X( [3Xn[103X, [3Xk[103X ) [32X function[133X
   
@@ -168,7 +226,7 @@
   
   [33X[0;0YThis function returns the Johnson scheme [22XJ(n,k)[122X.[133X
   
-  [1X1.3-7 CyclotomicColorGraph[101X
+  [1X1.3-8 CyclotomicColorGraph[101X
   
   [33X[1;0Y[29X[2XCyclotomicColorGraph[102X( [3Xp[103X, [3Xn[103X, [3Xd[103X ) [32X function[133X
   
@@ -181,7 +239,7 @@
   
   [33X[0;0YThis function returns the Cyclotomic scheme [22XCyc(p,n,d)[122X.[133X
   
-  [1X1.3-8 BIKColorGraph[101X
+  [1X1.3-9 BIKColorGraph[101X
   
   [33X[1;0Y[29X[2XBIKColorGraph[102X( [3Xm[103X ) [32X function[133X
   
@@ -210,19 +268,19 @@
   and that satisfies the [22X5[122X-vertex condition (cf. [Iva89]).[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28X            gap> cgr:=BIKColorGraph(4);[128X[104X
-    [4X[28X                <color graph of order 256 and rank 4>[128X[104X
-    [4X[28X                gap> ColorNames(cgr);[128X[104X
-    [4X[28X                [ "=", "Q+S+", "Q+S-", "Q-" ][128X[104X
-    [4X[28X                gap> gamma:=BaseGraphOfColorGraph(cgr,3);;[128X[104X
-    [4X[28X                gap> IsStronglyRegular(gamma);[128X[104X
-    [4X[28X                true[128X[104X
-    [4X[28X                gap> gamma.srg;[128X[104X
-    [4X[28X                rec( k := 120, lambda := 56, mu := 56, r := 8, s := -8, v := 256 )[128X[104X
+    [4X[25Xgap>[125X [27Xcgr:=BIKColorGraph(4);[127X[104X
+    [4X[28X<color graph of order 256 and rank 4>[128X[104X
+    [4X[25Xgap>[125X [27XColorNames(cgr);[127X[104X
+    [4X[28X[ "=", "Q+S+", "Q+S-", "Q-" ][128X[104X
+    [4X[25Xgap>[125X [27Xgamma:=BaseGraphOfColorGraph(cgr,3);;[127X[104X
+    [4X[25Xgap>[125X [27XIsStronglyRegular(gamma);[127X[104X
+    [4X[28Xtrue[128X[104X
+    [4X[25Xgap>[125X [27Xgamma.srg;[127X[104X
+    [4X[28Xrec( k := 120, lambda := 56, mu := 56, r := 8, s := -8, v := 256 )[128X[104X
     [4X[28X        [128X[104X
   [4X[32X[104X
   
-  [1X1.3-9 IvanovColorGraph[101X
+  [1X1.3-10 IvanovColorGraph[101X
   
   [33X[1;0Y[29X[2XIvanovColorGraph[102X( [3Xm[103X ) [32X function[133X
   
@@ -252,18 +310,18 @@
         [33X[0;6Yif [22Xv + w ∉ O ∪ Q[122X.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28X              gap> cgr:=IvanovColorGraph(5);[128X[104X
-    [4X[28X                  <color graph of order 1024 and rank 5>[128X[104X
-    [4X[28X                  gap> ColorNames(cgr);[128X[104X
-    [4X[28X                  [ "=", "Q+S+", "Q+S-", "Q-O+", "Q-O-" ][128X[104X
-    [4X[28X                  gap> gamma:=BaseGraphOfColorGraph(cgr,[2,5]);;[128X[104X
-    [4X[28X                  gap> IsStronglyRegular(gamma);;[128X[104X
-    [4X[28X                  gap> gamma.srg;[128X[104X
-    [4X[28X                  rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )[128X[104X
+    [4X[25Xgap>[125X [27Xcgr:=IvanovColorGraph(5);[127X[104X
+    [4X[28X<color graph of order 1024 and rank 5>[128X[104X
+    [4X[25Xgap>[125X [27XColorNames(cgr);[127X[104X
+    [4X[28X[ "=", "Q+S+", "Q+S-", "Q-O+", "Q-O-" ][128X[104X
+    [4X[25Xgap>[125X [27Xgamma:=BaseGraphOfColorGraph(cgr,[2,5]);;[127X[104X
+    [4X[25Xgap>[125X [27XIsStronglyRegular(gamma);;[127X[104X
+    [4X[25Xgap>[125X [27Xgamma.srg;[127X[104X
+    [4X[28Xrec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )[128X[104X
     [4X[28X          [128X[104X
   [4X[32X[104X
   
-  [1X1.3-10 AllAssociationSchemes[101X
+  [1X1.3-11 AllAssociationSchemes[101X
   
   [33X[1;0Y[29X[2XAllAssociationSchemes[102X( [3Xn[103X ) [32X function[133X
   
@@ -278,7 +336,7 @@
   the  index  of  the scheme in the list of schemes of order [3Xn[103X in the Japanese
   catalogue.[133X
   
-  [1X1.3-11 AllCoherentConfigurations[101X
+  [1X1.3-12 AllCoherentConfigurations[101X
   
   [33X[1;0Y[29X[2XAllCoherentConfigurations[102X( [3Xn[103X ) [32X function[133X
   
@@ -319,7 +377,7 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xcgr:=JohnsonScheme(5,2);;[127X[104X
     [4X[25Xgap>[125X [27XVertexNamesOfCocoObject(cgr);[127X[104X
-    [4X[28X[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], [128X[104X
+    [4X[28X[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ],[128X[104X
     [4X[28X[ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ][128X[104X
     [4X[28X	    [128X[104X
   [4X[32X[104X
@@ -354,7 +412,7 @@
     [4X[25Xgap>[125X [27XColorNames(cgr);[127X[104X
     [4X[28X[ 2, 1, 0 ][128X[104X
     [4X[25Xgap>[125X [27XVertexNamesOfCocoObject(cgr);[127X[104X
-    [4X[28X[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], [128X[104X
+    [4X[28X[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ],[128X[104X
     [4X[28X[ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ][128X[104X
     [4X[25Xgap>[125X [27XArcColorOfColorGraph(cgr,1,10);[127X[104X
     [4X[28X3[128X[104X
@@ -389,7 +447,7 @@
     [4X[25Xgap>[125X [27XColorNames(cgr);[127X[104X
     [4X[28X[ 2, 1, 0 ][128X[104X
     [4X[25Xgap>[125X [27XVertexNamesOfCocoObject(cgr);[127X[104X
-    [4X[28X[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ], [128X[104X
+    [4X[28X[ [ 1, 2 ], [ 1, 3 ], [ 1, 4 ], [ 1, 5 ], [ 2, 3 ], [ 2, 4 ], [ 2, 5 ],[128X[104X
     [4X[28X[ 3, 4 ], [ 3, 5 ], [ 4, 5 ] ][128X[104X
     [4X[25Xgap>[125X [27XNeighbors(cgr,1,3);[127X[104X
     [4X[28X[ 8, 9, 10 ][128X[104X
@@ -413,7 +471,7 @@
     [4X[25X>[125X [27X       ["blue" ,"blue", "blue" ,"black","red"  ],[127X[104X
     [4X[25X>[125X [27X       ["red"  ,"blue", "blue" ,"blue" ,"black"]];;[127X[104X
     [4X[25Xgap>[125X [27Xcgr:=ColorGraphByMatrix(m);[127X[104X
-    [4X[28X<color graph of order 5 and rank 3> [128X[104X
+    [4X[28X<color graph of order 5 and rank 3>[128X[104X
     [4X[25Xgap>[125X [27XDisplay(AdjacencyMatrix(cgr));[127X[104X
     [4X[28X[ [  1,  3,  2,  2,  2 ],[128X[104X
     [4X[28X  [  2,  1,  3,  2,  2 ],[128X[104X
@@ -467,8 +525,8 @@
     [4X[25Xgap>[125X [27XFibres(cgr);[127X[104X
     [4X[28X[ [ 1 ], [ 2, 10, 14, 16 ], [ 3, 7, 9, 11, 13, 15 ], [ 4, 6, 8, 12 ], [ 5 ] ][128X[104X
     [4X[25Xgap>[125X [27XVertexNamesOfCocoObject(cgr);[127X[104X
-    [4X[28X[ [  ], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 2, 3, 4 ], [ 1, 2, 4 ], [128X[104X
-    [4X[28X[ 1, 3 ], [ 1, 3, 4 ], [ 1, 4 ], [ 2 ], [ 2, 3 ], [ 2, 3, 4 ], [128X[104X
+    [4X[28X[ [  ], [ 1 ], [ 1, 2 ], [ 1, 2, 3 ], [ 1, 2, 3, 4 ], [ 1, 2, 4 ],[128X[104X
+    [4X[28X[ 1, 3 ], [ 1, 3, 4 ], [ 1, 4 ], [ 2 ], [ 2, 3 ], [ 2, 3, 4 ],[128X[104X
     [4X[28X[ 2, 4 ], [ 3 ], [ 3, 4 ], [ 4 ] ][128X[104X
     [4X[28X	    [128X[104X
   [4X[32X[104X
@@ -502,7 +560,7 @@
     [4X[28X[ 1, 2 ][128X[104X
     [4X[25Xgap>[125X [27XColorRepresentative(cgr,3);[127X[104X
     [4X[28X[ 1, 8 ][128X[104X
-    [4X[25Xgap>[125X [27XDisplay(LocalIntersectionArray(cgr,1,1)); [127X[104X
+    [4X[25Xgap>[125X [27XDisplay(LocalIntersectionArray(cgr,1,1));[127X[104X
     [4X[28X[ [  1,  0,  0 ],[128X[104X
     [4X[28X  [  0,  6,  0 ],[128X[104X
     [4X[28X  [  0,  0,  3 ] ][128X[104X
@@ -510,7 +568,7 @@
     [4X[28X[ [  0,  1,  0 ],[128X[104X
     [4X[28X  [  1,  3,  2 ],[128X[104X
     [4X[28X  [  0,  2,  1 ] ][128X[104X
-    [4X[25Xgap>[125X [27XDisplay(LocalIntersectionArray(cgr,1,8)); [127X[104X
+    [4X[25Xgap>[125X [27XDisplay(LocalIntersectionArray(cgr,1,8));[127X[104X
     [4X[28X[ [  0,  0,  1 ],[128X[104X
     [4X[28X  [  0,  4,  2 ],[128X[104X
     [4X[28X  [  1,  2,  0 ] ][128X[104X
@@ -584,7 +642,7 @@
     [4X[28X<color graph of order 5 and rank 5>[128X[104X
     [4X[25Xgap>[125X [27Xcgr2:=ColorGraphByFusion(cgr,[[1],[2,3],[4],[5]]);[127X[104X
     [4X[28X<color graph of order 5 and rank 4>[128X[104X
-    [4X[25Xgap>[125X [27XDisplay(AdjacencyMatrix(cgr)); [127X[104X
+    [4X[25Xgap>[125X [27XDisplay(AdjacencyMatrix(cgr));[127X[104X
     [4X[28X[ [  1,  2,  3,  4,  5 ],[128X[104X
     [4X[28X  [  5,  1,  2,  3,  4 ],[128X[104X
     [4X[28X  [  4,  5,  1,  2,  3 ],[128X[104X
@@ -621,14 +679,14 @@
     [4X[28X<color graph of order 20 and rank 7>[128X[104X
     [4X[25Xgap>[125X [27Xpart:=Set(Orbit(s5, [[1,2],[2,1]], OnSetsTuples));;[127X[104X
     [4X[25Xgap>[125X [27Xpart:=Set(part, x->Set(x, y->Position(VertexNamesOfCocoObject(cgr),y)));[127X[104X
-    [4X[28X[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ], [128X[104X
+    [4X[28X[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ],[128X[104X
     [4X[28X[ 8, 18 ], [ 11, 15 ], [ 12, 19 ], [ 16, 20 ] ][128X[104X
     [4X[25Xgap>[125X [27Xcgr2:=QuotientColorGraph(cgr,part);[127X[104X
     [4X[28X<color graph of order 10 and rank 3>[128X[104X
     [4X[25Xgap>[125X [27XColorNames(cgr2);[127X[104X
     [4X[28X[ [ 1, 3 ], [ 2, 4, 5, 6 ], [ 7 ] ][128X[104X
     [4X[25Xgap>[125X [27XVertexNamesOfCocoObject(cgr2);[127X[104X
-    [4X[28X[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ], [128X[104X
+    [4X[28X[ [ 1, 5 ], [ 2, 9 ], [ 3, 13 ], [ 4, 17 ], [ 6, 10 ], [ 7, 14 ],[128X[104X
     [4X[28X[ 8, 18 ], [ 11, 15 ], [ 12, 19 ], [ 16, 20 ] ][128X[104X
     [4X[28X	    [128X[104X
   [4X[32X[104X
@@ -706,9 +764,9 @@
     [4X[28X<color graph of order 120 and rank 120>[128X[104X
     [4X[25Xgap>[125X [27Xcset:=Set(d6, x->Position(ColorNames(cgr),x));[127X[104X
     [4X[28X[ 1, 8, 13, 24, 29, 31, 61, 68, 73, 84, 89, 91 ][128X[104X
-    [4X[25Xgap>[125X [27XIsWLStableColorGraph(cgr);         [127X[104X
+    [4X[25Xgap>[125X [27XIsWLStableColorGraph(cgr);[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XIsHomogeneous(cgr);                [127X[104X
+    [4X[25Xgap>[125X [27XIsHomogeneous(cgr);[127X[104X
     [4X[28Xtrue[128X[104X
     [4X[25Xgap>[125X [27Xpart:=PartitionClosedSet(cgr,cset);;[127X[104X
     [4X[25Xgap>[125X [27Xcgr2:=QuotientColorGraph(cgr,part);[127X[104X
@@ -779,11 +837,11 @@
   graph this means that it correspond to an association scheme.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27Xe8:=ElementaryAbelianGroup(8);    [127X[104X
+    [4X[25Xgap>[125X [27Xe8:=ElementaryAbelianGroup(8);[127X[104X
     [4X[28X<pc group of size 8 with 3 generators>[128X[104X
-    [4X[25Xgap>[125X [27Xe8:=Action(e8,AsList(e8), OnRight); [127X[104X
+    [4X[25Xgap>[125X [27Xe8:=Action(e8,AsList(e8), OnRight);[127X[104X
     [4X[28XGroup([ (1,2)(3,5)(4,6)(7,8), (1,3)(2,5)(4,7)(6,8), (1,4)(2,6)(3,7)(5,8) ])[128X[104X
-    [4X[25Xgap>[125X [27Xcgr:=ColorGraph(e8,Combinations([1..DegreeAction(g)],2), OnSets); [127X[104X
+    [4X[25Xgap>[125X [27Xcgr:=ColorGraph(e8,Combinations([1..DegreeAction(g)],2), OnSets);[127X[104X
     [4X[28X<color graph of order 28 and rank 112>[128X[104X
     [4X[25Xgap>[125X [27XIsHomogeneous(cgr);[127X[104X
     [4X[28Xfalse[128X[104X
@@ -799,8 +857,8 @@
   configuration.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27Xcgr:=ColorGraph(Center(GL(2,7)), GF(7)^2, OnRight, true, [127X[104X
-    [4X[25X>[125X [27Xfunction(a,b) return NormedRowVector(a-b);end); [127X[104X
+    [4X[25Xgap>[125X [27Xcgr:=ColorGraph(Center(GL(2,7)), GF(7)^2, OnRight, true,[127X[104X
+    [4X[25X>[125X [27Xfunction(a,b) return NormedRowVector(a-b);end);[127X[104X
     [4X[28X<color graph of order 49 and rank 9>[128X[104X
     [4X[25Xgap>[125X [27XIsWLStableColorGraph(cgr);[127X[104X
     [4X[28Xtrue[128X[104X
@@ -838,9 +896,9 @@
     [4X[28X[ 1 ][128X[104X
     [4X[25Xgap>[125X [27XIsConnectedGraph(BaseGraphOfColorGraph(cgr,2));[127X[104X
     [4X[28Xtrue[128X[104X
-    [4X[25Xgap>[125X [27XIsConnectedGraph(BaseGraphOfColorGraph(cgr,3)); [127X[104X
+    [4X[25Xgap>[125X [27XIsConnectedGraph(BaseGraphOfColorGraph(cgr,3));[127X[104X
     [4X[28Xfalse[128X[104X
-    [4X[25Xgap>[125X [27XIsConnectedGraph(BaseGraphOfColorGraph(cgr,4)); [127X[104X
+    [4X[25Xgap>[125X [27XIsConnectedGraph(BaseGraphOfColorGraph(cgr,4));[127X[104X
     [4X[28Xtrue[128X[104X
     [4X[28X	    [128X[104X
   [4X[32X[104X

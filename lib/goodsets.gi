@@ -796,7 +796,7 @@ function(cand)
     gs:=[set, OnSets(set, Mates(T))];
     part:=WLBuildAsymGoodSetPartition(T,gs);
     part:=WLStabil(T,part);
-    if part <>false then
+    if part <>fail then
         res:=[gs,part];
     fi;
 
@@ -814,7 +814,7 @@ function(cand)
     gs:=SetOfCandidate(cand);
     part:=WLBuildSymGoodSetPartition(T,gs);
     part:=WLStabil(T,part);
-    if part<> false then
+    if part<> fail then
         res:=[[gs],part];
     fi;
 
@@ -844,7 +844,7 @@ function(cand)
     gs:=[cand!.set, OnSets(cand!.set, Mates(T))];
     part:=WLBuildAsymGoodSetPartition(T,gs);
     part:=WLStabil(T,part);
-    if part <>false then
+    if part <>fail then
         res:=[gs,part];
     fi;
 
@@ -866,7 +866,7 @@ function(cand)
     gs:=cand!.set;
     part:=WLBuildSymGoodSetPartition(T,gs);
     part:=WLStabil(T,part);
-    if part<> false then
+    if part<> fail then
         res:=[[gs],part];
     fi;
 
@@ -1027,7 +1027,7 @@ function(arg)
    else
        part:=WLBuildSymGoodSetPartition(tensor,set);
        part:=WLStabil(tensor,part);
-       if part=false then
+       if part=fail then
            return fail;
        fi;
        part:=part.classes;

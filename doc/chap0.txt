@@ -42,13 +42,14 @@
       1.3-2 ColorGraph
       1.3-3 ColorGraphByMatrix
       1.3-4 ColorGraphByWLStabilization
-      1.3-5 ClassicalCompleteAffineScheme
-      1.3-6 JohnsonScheme
-      1.3-7 CyclotomicColorGraph
-      1.3-8 BIKColorGraph
-      1.3-9 IvanovColorGraph
-      1.3-10 AllAssociationSchemes
-      1.3-11 AllCoherentConfigurations
+      1.3-5 WLStableColorGraphByMatrix
+      1.3-6 ClassicalCompleteAffineScheme
+      1.3-7 JohnsonScheme
+      1.3-8 CyclotomicColorGraph
+      1.3-9 BIKColorGraph
+      1.3-10 IvanovColorGraph
+      1.3-11 AllAssociationSchemes
+      1.3-12 AllCoherentConfigurations
     1.4 [33X[0;0YFunctions for the inspection of color graphs[133X
       1.4-1 OrderOfColorGraph
       1.4-2 RankOfColorGraph

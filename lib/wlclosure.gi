@@ -35,13 +35,16 @@
 
 # a partition is a record:
 #rec(
-#    fixed=[],
-#    variable=[],
-#    classes=[],
+#    fixed=[],              # list of colors not allowed to split during stabilization
+#    variable=[],           # list of colors allowd to split during stabilization
+#    classes=[],            # ordered partition of colors of the underlying CC
+#                           # numbers in fixed and variable refer to indices into this list
 #    instabil=FiFoNew(),
 #    instabilFlags=[],
 #    totest==FiFoNew(),
-#    totestFlags=[]
+#    totestFlags=[],
+#    colorNames,
+#    numberClasses
 #    );
 
 InstallGlobalFunction(WLBuildAsymGoodSetPartition,
@@ -67,6 +70,8 @@ function(T, A)
        Add(part.totestFlags,false);
        Add(part.instabilFlags,true);
     fi;
+    part.colorNames:=List([1..Length(part.classes)], x->[x,1]);
+    part.numberClasses:=ListWithIdenticalEntries(Length(part.classes), 1);
     return part;
 end);
 
@@ -92,6 +97,8 @@ function(T, A)
        Add(part.instabilFlags,true);
        Add(part.totestFlags,false);
     fi;
+    part.colorNames:=List([1..Length(part.classes)], x->[x,1]);
+    part.numberClasses:=ListWithIdenticalEntries(Length(part.classes), 1);
     return part;
 end);
 
@@ -108,6 +115,8 @@ function(T)
     part.instabil:=FiFoNew();
     part.totest:=FiFoNew();
     part.totestFlags:=[false,false];
+    part.colorNames:=List([1..Length(part.classes)], x->[x,1]);
+    part.numberClasses:=ListWithIdenticalEntries(Length(part.classes), 1);
     return part;
 end);
 
@@ -128,6 +137,8 @@ function(p)
     od;
     part.totest:=FiFoNew();
     part.totestFlags:=List([1..l], x->false);
+    part.colorNames:=List([1..Length(part.classes)], x->[x,1]);
+    part.numberClasses:=ListWithIdenticalEntries(Length(part.classes), 1);
     return part;
 end);
 
@@ -143,7 +154,8 @@ function(part)
     newPart.instabilFlags:=ShallowCopy(part.instabilFlags);
     newPart.totest:=FiFoNew();
     newPart.totestFlags:=ShallowCopy(part.totestFlags);
-
+    newPart.colorNames:=StructuralCopy(part.colorNames);
+    newPart.numberClasses:=ShallowCopy(part.numberClasses);
     return newPart;
 end);
 
@@ -234,7 +246,7 @@ function(T, part, u,v,min)
         colour:=vec[x[1]];
         for j in [2..Length(x)] do
             if vec[x[j]]<>colour then
-                return false;
+                return fail;
             fi;
         od;
     od;
@@ -245,7 +257,7 @@ function(T, part, u,v,min)
         if Length(colour)>1 then
             classes:=List(colour, y->Filtered(x, z->vec[z]=y));
             if ForAny(classes, x->Length(x)< Length(min) or (Length(x)=Length(min) and x< min)) then
-               return false;
+               return fail;
             fi;
             part.classes[ii]:=classes[1];
             if not WLIsInstabil(part,ii) then
@@ -261,11 +273,13 @@ function(T, part, u,v,min)
             for j in [2..Length(classes)] do
                 jj:=ix+j-1;
                 Add(part.classes, classes[j]); Add(part.variable, jj);
+                part.colorNames[jj]:=[part.colorNames[ii][1], part.numberClasses[part.colorNames[ii][1]]+j-1];
                 WLSetInstabilFlag(part,jj);
                 FiFoAdd(part.instabil,jj);
                 WLSetToTestFlag(part,jj);
                 FiFoAdd(part.totest,jj);
             od;
+            part.numberClasses[part.colorNames[ii][1]]:=part.numberClasses[part.colorNames[ii][1]]+Length(classes)-1;
         fi;
     od;
     return part;
@@ -280,7 +294,7 @@ end);
 
 InstallGlobalFunction(WLStabil,
 function(arg)
-    local u,v, f,i,T,part,min;
+    local u,v, i,T,part,min;
 
     min:=[];
     if Length(arg)<2 or Length(arg)>3 then
@@ -299,18 +313,15 @@ function(arg)
         od;
         v:=WLToTestQueueRemove(part);
         while v<>false do
-
-            f:=WLRepartition(T, part, u, v,min);
-            if f=false then
-                return false;
+            if WLRepartition(T, part, u, v,min)=fail then
+                return fail;
             fi;
             if u<>v and
                not IsCommutativeTensor(T) and
                (WLIsAntiSymmetricSet(T,part,v) or
                 WLIsAntiSymmetricSet(T,part,u)) then
-                f:=WLRepartition(T, part, v, u,min);
-                if f=false then
-                    return false;
+                if WLRepartition(T, part, v, u,min)=fail then
+                    return fail;
                 fi;
             fi;
             v:=WLToTestQueueRemove(part);
@@ -337,6 +348,8 @@ function(p)
     od;
     part.totest:=FiFoNew();
     part.totestFlags:=List([1..l], x->false);
+    part.colorNames:=List([1..Length(part.classes)], x->[x,1]);
+    part.numberClasses:=ListWithIdenticalEntries(Length(part.classes), 1);
     return part;
 end);
 
@@ -345,9 +358,121 @@ function(T,p)
     local part;
 
     part:=WLBuildFixedPartition(p);
-    if WLStabil(T,part)<>false then
+    if WLStabil(T,part)<>fail then
         return true;
     else
         return false;
     fi;
+end);
+
+InstallGlobalFunction(WLRelToMat,
+function(rel,n)
+    local row,arc,mat;
+
+    row:=ListWithIdenticalEntries(n,0);
+    mat:=List([1..n-1], i->ShallowCopy(row));
+    Add(mat,row);
+    for arc in rel do
+        mat[arc[1]][arc[2]]:=1;
+    od;
+    MakeImmutable(mat);
+    return mat;
+end);
+
+InstallGlobalFunction(WLMatRepartition,
+function(part, mat) #,min)
+    local ix,x,i,j,ii,jj,colour, classes,n;
+
+    n:=Length(part.classes[1][1]);
+    for ii in part.variable do
+        x:=part.classes[ii][2];
+        colour:=Set(x, y->mat[y[1]][y[2]]);
+        if Length(colour)>1 then
+            classes:=List(colour, y->Filtered(x, z->mat[z[1]][z[2]]=y));
+            MakeImmutable(classes);
+            part.classes[ii]:=[WLRelToMat(classes[1],n),classes[1]];
+            if not WLIsInstabil(part,ii) then
+                WLSetInstabilFlag(part,ii);
+                FiFoAdd(part.instabil, ii);
+            fi;
+            if not WLIsToTest(part,ii) then
+                WLSetToTestFlag(part,ii);
+                FiFoAdd(part.totest,ii);
+            fi;
+
+            ix:=Length(part.classes);
+            for j in [2..Length(classes)] do
+                jj:=ix+j-1;
+                Add(part.classes, [WLRelToMat(classes[j],n),classes[j]]);
+                part.colorNames[jj]:=[part.colorNames[ii][1], part.numberClasses[part.colorNames[ii][1]]+j-1];
+                Add(part.variable, jj);
+                WLSetInstabilFlag(part,jj);
+                FiFoAdd(part.instabil,jj);
+                WLSetToTestFlag(part,jj);
+                FiFoAdd(part.totest,jj);
+            od;
+            part.numberClasses[part.colorNames[ii][1]]:=part.numberClasses[part.colorNames[ii][1]]+Length(classes)-1;
+        fi;
+    od;
+end);
+
+InstallGlobalFunction(WLMatStabil,
+function(part)
+    local u,v, i,n,mat;
+
+    u:=WLInstabilQueueRemove(part);
+    while u<>false do
+        for i in [1..Length(part.classes)] do
+            WLToTestQueueAdd(part, i);
+        od;
+        v:=WLToTestQueueRemove(part);
+        while v<>false do
+            mat:=part.classes[u][1] * part.classes[v][1];
+            WLMatRepartition(part, mat);
+            if u<>v then
+                mat:=part.classes[v][1] * part.classes[u][1];
+                WLMatRepartition(part, mat);
+            fi;
+            v:=WLToTestQueueRemove(part);
+        od;
+        u:=WLInstabilQueueRemove(part);
+    od;
+    return part;
+end);
+
+InstallGlobalFunction(WLMatBuildPartition,
+function(M)
+    local part,l,i,colors,rels,mat,j;
+
+    colors:=Union(M);
+    rels:=List(colors, c->Filtered(Tuples([1..Length(M)],2),a->M[a[1]][a[2]]=c));
+    rels:=List(rels, r->[WLRelToMat(r,Length(M)),r]);
+    part:=rec();
+    part.classes:=rels;
+    l:=Length(part.classes);
+
+    part.variable:=[1..Length(part.classes)];
+    part.instabil:=FiFoNew();
+    part.instabilFlags:=List([1..l], x->true);
+    for i in [1..l] do
+        FiFoAdd(part.instabil,i);
+    od;
+    part.totest:=FiFoNew();
+    part.totestFlags:=List([1..l], x->false);
+    part.colorNames:=List([1..l], x->[colors[x],1]);
+    part.numberClasses:=ListWithIdenticalEntries(l, 1);
+
+    mat:=NullMat(Length(M),Length(M));
+    for i in [1..Length(M)] do
+        for j in [1..Length(M)] do
+            if i=j then
+                mat[i][j]:=[M[i][j],[M[i][j]]];
+            else
+                mat[i][j]:=[M[i][j],M[j][i]];
+            fi;
+        od;
+    od;
+    WLMatRepartition(part,mat);
+
+    return part;
 end);

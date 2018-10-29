@@ -1409,29 +1409,43 @@ function(cgr)
     od;
     part:=WLBuildPartition(npart);
     part:=WLStabil(StructureConstantsOfColorGraph(scgr),part);
-    if part=false then
+    if part=fail then
         Error("This is not supposed to hapen!");
     fi;
-    part:=part.classes;
-    ccounter:=List([1..RankOfColorGraph(cgr)], x->1);
-    colors:=[];
-
-    for i in [1..Length(part)] do
-        c:=ArcColorOfColorGraph(cgr,tor[part[i][1]]);
-        Add(colors,[c,ccounter[c]]);
-        ccounter[c]:=ccounter[c]+1;
-    od;
+    # ccounter:=List([1..RankOfColorGraph(cgr)], x->1);
+    # colors:=[];
+    #
+    # for i in [1..Length(part.classes)] do
+    #     c:=ArcColorOfColorGraph(cgr,tor[part.classes[i][1]]);
+    #     Add(colors,[c,ccounter[c]]);
+    #     ccounter[c]:=ccounter[c]+1;
+    # od;
 
     rcgr:=ColorGraph(aut,[1..OrderOfColorGraph(cgr)], OnPoints,true,
     function(u,v)
         local col,cidx;
         col:=ArcColorOfColorGraph(scgr,u,v);
-        cidx:=First([1..Length(part)],i->col in part[i]);
-        return colors[cidx];
+        cidx:=First([1..Length(part.classes)],i->col in part.classes[i]);
+        return part.colorNames[cidx];
+#        return colors[cidx];
     end);
     SetIsWLStableColorGraph(rcgr,true);
     return rcgr;
 end);
+
+InstallGlobalFunction(WLStableColorGraphByMatrix,
+function(M)
+    local p,res,cgr;
+
+    p:=WLMatBuildPartition(M);
+    WLMatStabil(p);
+    res:=Sum([1..Length(p.classes)],i->i*p.classes[i][1]);#return p;
+    cgr:=ColorGraph(Group(()), [1..Length(M)], OnPoints,true, function(u,v) return p.colorNames[res[u][v]];end);
+    SetIsWLStableColorGraph(cgr,true);
+    return cgr;
+end);
+
+
 
 
 ####################

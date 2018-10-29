@@ -5,8 +5,8 @@
   [2XAdjacencyMatrix[102X, first variant 1.4-8 
       second variant 1.4-8 
   [2XAlgebraicAutomorphismGroup[102X 1.7-15 
-  [2XAllAssociationSchemes[102X 1.3-10 
-  [2XAllCoherentConfigurations[102X 1.3-11 
+  [2XAllAssociationSchemes[102X 1.3-11 
+  [2XAllCoherentConfigurations[102X 1.3-12 
   [2XArcColorOfColorGraph[102X, first variant 1.4-5 
       second variant 1.4-5 
   [2XAsElementOfColorSemiring[102X 5.1-3 
@@ -23,12 +23,12 @@
   [2XBaseGraphOfColorGraph[102X, first variant 1.5-8 
       second variant 1.5-8 
   [2XBaseOfFusion[102X 3.4-5 
-  [2XBIKColorGraph[102X 1.3-8 
+  [2XBIKColorGraph[102X 1.3-9 
   [2XBuildGoodSet[102X 3.2-1 
   [2XCanonicalRepresentativeOfCocoOrbit[102X, for orbits of fusions 3.5-3 
       for orbits of good sets 3.3-3 
   [2XCharacterTableOfTensor[102X, for commutative structure constants tensors 2.6-1 
-  [2XClassicalCompleteAffineScheme[102X 1.3-5 
+  [2XClassicalCompleteAffineScheme[102X 1.3-6 
   [2XClosedSets[102X 2.3-11 
       for homogeneous WL-stable color graphs 1.5-6 
   [2XClosureSet[102X 2.3-13 
@@ -48,7 +48,7 @@
   [2XColorSemiring[102X 5.1-1 
   [2XColumnOfColorGraph[102X 1.4-10 
   [2XComplexProduct[102X, for structure constants tensors 2.3-12 
-  [2XCyclotomicColorGraph[102X 1.3-7 
+  [2XCyclotomicColorGraph[102X 1.3-8 
   [2XDenseTensorFromEntries[102X 2.2-2 
   [2XDirectProductColorGraphs[102X 1.5-4 
   [2XElementsOfCocoPoset[102X 4.2-2 
@@ -98,8 +98,8 @@
   [2XIsTensorOfCC[102X 2.4-1 
   [2XIsUndirectedColorGraph[102X 1.6-1 
   [2XIsWLStableColorGraph[102X 1.6-3 
-  [2XIvanovColorGraph[102X 1.3-9 
-  [2XJohnsonScheme[102X 1.3-6 
+  [2XIvanovColorGraph[102X 1.3-10 
+  [2XJohnsonScheme[102X 1.3-7 
   [2XKnownGroupOfAlgebraicAutomorphisms[102X 1.7-14 
   [2XKnownGroupOfAutomorphisms[102X, for color graphs 1.7-1 
       for tensors 2.5-1 
@@ -159,6 +159,7 @@
       for tensors 2.3-2 
   [2XVertexNamesOfColorGraph[102X, for color graphs 1.4-3 
   [2XVertexNamesOfTensor[102X, for tensors 2.3-2 
+  [2XWLStableColorGraphByMatrix[102X 1.3-5 
   [2XWreathProductColorGraphs[102X 1.5-5 
   
   

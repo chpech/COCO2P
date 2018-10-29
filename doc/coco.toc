@@ -6,154 +6,155 @@
 \contentsline {subsection}{\numberline {1.3.2}\leavevmode {\color {Chapter }ColorGraph}}{5}{subsection.1.3.2}
 \contentsline {subsection}{\numberline {1.3.3}\leavevmode {\color {Chapter }ColorGraphByMatrix}}{6}{subsection.1.3.3}
 \contentsline {subsection}{\numberline {1.3.4}\leavevmode {\color {Chapter }ColorGraphByWLStabilization}}{6}{subsection.1.3.4}
-\contentsline {subsection}{\numberline {1.3.5}\leavevmode {\color {Chapter }ClassicalCompleteAffineScheme}}{6}{subsection.1.3.5}
-\contentsline {subsection}{\numberline {1.3.6}\leavevmode {\color {Chapter }JohnsonScheme}}{6}{subsection.1.3.6}
-\contentsline {subsection}{\numberline {1.3.7}\leavevmode {\color {Chapter }CyclotomicColorGraph}}{7}{subsection.1.3.7}
-\contentsline {subsection}{\numberline {1.3.8}\leavevmode {\color {Chapter }BIKColorGraph}}{7}{subsection.1.3.8}
-\contentsline {subsection}{\numberline {1.3.9}\leavevmode {\color {Chapter }IvanovColorGraph}}{7}{subsection.1.3.9}
-\contentsline {subsection}{\numberline {1.3.10}\leavevmode {\color {Chapter }AllAssociationSchemes}}{8}{subsection.1.3.10}
-\contentsline {subsection}{\numberline {1.3.11}\leavevmode {\color {Chapter }AllCoherentConfigurations}}{8}{subsection.1.3.11}
-\contentsline {section}{\numberline {1.4}\leavevmode {\color {Chapter }Functions for the inspection of color graphs}}{9}{section.1.4}
-\contentsline {subsection}{\numberline {1.4.1}\leavevmode {\color {Chapter }OrderOfColorGraph}}{9}{subsection.1.4.1}
-\contentsline {subsection}{\numberline {1.4.2}\leavevmode {\color {Chapter }RankOfColorGraph}}{9}{subsection.1.4.2}
-\contentsline {subsection}{\numberline {1.4.3}\leavevmode {\color {Chapter }VertexNamesOfCocoObject (for color graphs)}}{9}{subsection.1.4.3}
-\contentsline {subsection}{\numberline {1.4.4}\leavevmode {\color {Chapter }ColorNames}}{9}{subsection.1.4.4}
-\contentsline {subsection}{\numberline {1.4.5}\leavevmode {\color {Chapter }ArcColorOfColorGraph (first variant)}}{10}{subsection.1.4.5}
-\contentsline {subsection}{\numberline {1.4.6}\leavevmode {\color {Chapter }ColorRepresentative}}{10}{subsection.1.4.6}
-\contentsline {subsection}{\numberline {1.4.7}\leavevmode {\color {Chapter }Neighbors (first variant)}}{10}{subsection.1.4.7}
-\contentsline {subsection}{\numberline {1.4.8}\leavevmode {\color {Chapter }AdjacencyMatrix (first variant)}}{11}{subsection.1.4.8}
-\contentsline {subsection}{\numberline {1.4.9}\leavevmode {\color {Chapter }RowOfColorGraph}}{11}{subsection.1.4.9}
-\contentsline {subsection}{\numberline {1.4.10}\leavevmode {\color {Chapter }ColumnOfColorGraph}}{11}{subsection.1.4.10}
-\contentsline {subsection}{\numberline {1.4.11}\leavevmode {\color {Chapter }Fibres}}{12}{subsection.1.4.11}
-\contentsline {subsection}{\numberline {1.4.12}\leavevmode {\color {Chapter }NumberOfFibres}}{12}{subsection.1.4.12}
-\contentsline {subsection}{\numberline {1.4.13}\leavevmode {\color {Chapter }LocalIntersectionArray}}{12}{subsection.1.4.13}
-\contentsline {subsection}{\numberline {1.4.14}\leavevmode {\color {Chapter }ColorMates}}{13}{subsection.1.4.14}
-\contentsline {subsection}{\numberline {1.4.15}\leavevmode {\color {Chapter }OutValencies (for WL-stable color graphs)}}{13}{subsection.1.4.15}
-\contentsline {subsection}{\numberline {1.4.16}\leavevmode {\color {Chapter }ReflexiveColors (for WL-stable color graphs)}}{13}{subsection.1.4.16}
-\contentsline {section}{\numberline {1.5}\leavevmode {\color {Chapter } Creating new (color) graphs from given color graphs}}{13}{section.1.5}
-\contentsline {subsection}{\numberline {1.5.1}\leavevmode {\color {Chapter }ColorGraphByFusion}}{13}{subsection.1.5.1}
-\contentsline {subsection}{\numberline {1.5.2}\leavevmode {\color {Chapter }QuotientColorGraph}}{14}{subsection.1.5.2}
-\contentsline {subsection}{\numberline {1.5.3}\leavevmode {\color {Chapter }InducedSubColorGraph}}{15}{subsection.1.5.3}
-\contentsline {subsection}{\numberline {1.5.4}\leavevmode {\color {Chapter }DirectProductColorGraphs}}{15}{subsection.1.5.4}
-\contentsline {subsection}{\numberline {1.5.5}\leavevmode {\color {Chapter }WreathProductColorGraphs}}{15}{subsection.1.5.5}
-\contentsline {subsection}{\numberline {1.5.6}\leavevmode {\color {Chapter }ClosedSets (for homogeneous WL-stable color graphs)}}{16}{subsection.1.5.6}
-\contentsline {subsection}{\numberline {1.5.7}\leavevmode {\color {Chapter }PartitionClosedSet (for homogeneous WL-stable color graphs)}}{16}{subsection.1.5.7}
-\contentsline {subsection}{\numberline {1.5.8}\leavevmode {\color {Chapter }BaseGraphOfColorGraph (first variant)}}{16}{subsection.1.5.8}
-\contentsline {section}{\numberline {1.6}\leavevmode {\color {Chapter } Testing properties of color graphs }}{17}{section.1.6}
-\contentsline {subsection}{\numberline {1.6.1}\leavevmode {\color {Chapter }IsUndirectedColorGraph}}{17}{subsection.1.6.1}
-\contentsline {subsection}{\numberline {1.6.2}\leavevmode {\color {Chapter }IsHomogeneous}}{17}{subsection.1.6.2}
-\contentsline {subsection}{\numberline {1.6.3}\leavevmode {\color {Chapter }IsWLStableColorGraph}}{17}{subsection.1.6.3}
-\contentsline {subsection}{\numberline {1.6.4}\leavevmode {\color {Chapter }IsSchurian}}{18}{subsection.1.6.4}
-\contentsline {subsection}{\numberline {1.6.5}\leavevmode {\color {Chapter }IsPrimitive (for WL-stable color graphs)}}{18}{subsection.1.6.5}
-\contentsline {section}{\numberline {1.7}\leavevmode {\color {Chapter }Symmetries of color graphs}}{18}{section.1.7}
-\contentsline {subsection}{\numberline {1.7.1}\leavevmode {\color {Chapter }KnownGroupOfAutomorphisms (for color graphs)}}{18}{subsection.1.7.1}
-\contentsline {subsection}{\numberline {1.7.2}\leavevmode {\color {Chapter }AutGroupOfCocoObject (for color graphs)}}{19}{subsection.1.7.2}
-\contentsline {subsection}{\numberline {1.7.3}\leavevmode {\color {Chapter }IsAutomorphismOfObject (for color graphs)}}{19}{subsection.1.7.3}
-\contentsline {subsection}{\numberline {1.7.4}\leavevmode {\color {Chapter }IsomorphismCocoObjects (for color graphs)}}{19}{subsection.1.7.4}
-\contentsline {subsection}{\numberline {1.7.5}\leavevmode {\color {Chapter }IsIsomorphicCocoObject (for color graphs)}}{19}{subsection.1.7.5}
-\contentsline {subsection}{\numberline {1.7.6}\leavevmode {\color {Chapter }IsIsomorphismOfObjects (for color graphs)}}{19}{subsection.1.7.6}
-\contentsline {subsection}{\numberline {1.7.7}\leavevmode {\color {Chapter }KnownGroupOfColorAutomorphisms}}{19}{subsection.1.7.7}
-\contentsline {subsection}{\numberline {1.7.8}\leavevmode {\color {Chapter }LiftToColorAutomorphism}}{20}{subsection.1.7.8}
-\contentsline {subsection}{\numberline {1.7.9}\leavevmode {\color {Chapter }LiftToColorIsomorphism}}{20}{subsection.1.7.9}
-\contentsline {subsection}{\numberline {1.7.10}\leavevmode {\color {Chapter }ColorIsomorphismColorGraphs}}{20}{subsection.1.7.10}
-\contentsline {subsection}{\numberline {1.7.11}\leavevmode {\color {Chapter }IsColorIsomorphicColorGraph}}{20}{subsection.1.7.11}
-\contentsline {subsection}{\numberline {1.7.12}\leavevmode {\color {Chapter }ColorAutomorphismGroup}}{20}{subsection.1.7.12}
-\contentsline {subsection}{\numberline {1.7.13}\leavevmode {\color {Chapter }ColorAutomorphismGroupOnColors}}{21}{subsection.1.7.13}
-\contentsline {subsection}{\numberline {1.7.14}\leavevmode {\color {Chapter }KnownGroupOfAlgebraicAutomorphisms}}{21}{subsection.1.7.14}
-\contentsline {subsection}{\numberline {1.7.15}\leavevmode {\color {Chapter }AlgebraicAutomorphismGroup}}{21}{subsection.1.7.15}
-\contentsline {chapter}{\numberline {2}\leavevmode {\color {Chapter }Structure Constants Tensors}}{22}{chapter.2}
-\contentsline {section}{\numberline {2.1}\leavevmode {\color {Chapter }Introduction}}{22}{section.2.1}
-\contentsline {section}{\numberline {2.2}\leavevmode {\color {Chapter } Functions for the construction of tensors }}{22}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}\leavevmode {\color {Chapter }StructureConstantsOfColorGraph}}{22}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}\leavevmode {\color {Chapter }DenseTensorFromEntries}}{22}{subsection.2.2.2}
-\contentsline {section}{\numberline {2.3}\leavevmode {\color {Chapter }Functions for the inspection of tensors}}{23}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}\leavevmode {\color {Chapter }OrderOfTensor}}{23}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}\leavevmode {\color {Chapter }VertexNamesOfCocoObject (for tensors)}}{23}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}\leavevmode {\color {Chapter }EntryOfTensor}}{23}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}\leavevmode {\color {Chapter }ReflexiveColors (for structure constants tensors)}}{23}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}\leavevmode {\color {Chapter }NumberOfFibres (for structure constants tensors)}}{23}{subsection.2.3.5}
-\contentsline {subsection}{\numberline {2.3.6}\leavevmode {\color {Chapter }FibreLengths (for structure constants tensors)}}{24}{subsection.2.3.6}
-\contentsline {subsection}{\numberline {2.3.7}\leavevmode {\color {Chapter }OutValencies (for structure constants tensors)}}{24}{subsection.2.3.7}
-\contentsline {subsection}{\numberline {2.3.8}\leavevmode {\color {Chapter }Mates (for structure constants tensors)}}{24}{subsection.2.3.8}
-\contentsline {subsection}{\numberline {2.3.9}\leavevmode {\color {Chapter }StartBlock (for structure constants tensors)}}{24}{subsection.2.3.9}
-\contentsline {subsection}{\numberline {2.3.10}\leavevmode {\color {Chapter }FinishBlock (for structure constants tensors)}}{25}{subsection.2.3.10}
-\contentsline {subsection}{\numberline {2.3.11}\leavevmode {\color {Chapter }ClosedSets}}{25}{subsection.2.3.11}
-\contentsline {subsection}{\numberline {2.3.12}\leavevmode {\color {Chapter }ComplexProduct (for structure constants tensors)}}{25}{subsection.2.3.12}
-\contentsline {subsection}{\numberline {2.3.13}\leavevmode {\color {Chapter }ClosureSet}}{25}{subsection.2.3.13}
-\contentsline {section}{\numberline {2.4}\leavevmode {\color {Chapter } Testing properties of tensors }}{25}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}\leavevmode {\color {Chapter }IsTensorOfCC}}{25}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}\leavevmode {\color {Chapter }IsCommutativeTensor}}{26}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}\leavevmode {\color {Chapter }IsHomogeneous (for structure constants tensors)}}{26}{subsection.2.4.3}
-\contentsline {subsection}{\numberline {2.4.4}\leavevmode {\color {Chapter }IsPrimitive (for structure constants tensors)}}{26}{subsection.2.4.4}
-\contentsline {section}{\numberline {2.5}\leavevmode {\color {Chapter }Symmetries of tensors}}{26}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}\leavevmode {\color {Chapter }KnownGroupOfAutomorphisms (for tensors)}}{26}{subsection.2.5.1}
-\contentsline {subsection}{\numberline {2.5.2}\leavevmode {\color {Chapter }AutGroupOfCocoObject (for tensors)}}{26}{subsection.2.5.2}
-\contentsline {subsection}{\numberline {2.5.3}\leavevmode {\color {Chapter }IsAutomorphismOfObject (for tensors)}}{26}{subsection.2.5.3}
-\contentsline {subsection}{\numberline {2.5.4}\leavevmode {\color {Chapter }IsomorphismCocoObjects (for tensors)}}{27}{subsection.2.5.4}
-\contentsline {subsection}{\numberline {2.5.5}\leavevmode {\color {Chapter }IsIsomorphicCocoObject (for tensors)}}{27}{subsection.2.5.5}
-\contentsline {subsection}{\numberline {2.5.6}\leavevmode {\color {Chapter }IsIsomorphismOfObjects (for tensors)}}{27}{subsection.2.5.6}
-\contentsline {section}{\numberline {2.6}\leavevmode {\color {Chapter }Character tables of structure constants tensors}}{27}{section.2.6}
-\contentsline {subsection}{\numberline {2.6.1}\leavevmode {\color {Chapter }CharacterTableOfTensor (for commutative structure constants tensors)}}{27}{subsection.2.6.1}
-\contentsline {chapter}{\numberline {3}\leavevmode {\color {Chapter }WL-Stable Fusions Color Graphs}}{28}{chapter.3}
-\contentsline {section}{\numberline {3.1}\leavevmode {\color {Chapter }Introduction}}{28}{section.3.1}
-\contentsline {section}{\numberline {3.2}\leavevmode {\color {Chapter }Good sets}}{28}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}\leavevmode {\color {Chapter }BuildGoodSet}}{28}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}\leavevmode {\color {Chapter }AsSet (for good sets)}}{29}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}\leavevmode {\color {Chapter }TensorOfGoodSet}}{29}{subsection.3.2.3}
-\contentsline {subsection}{\numberline {3.2.4}\leavevmode {\color {Chapter }PartitionOfGoodSet}}{29}{subsection.3.2.4}
-\contentsline {section}{\numberline {3.3}\leavevmode {\color {Chapter }Orbits of good sets}}{29}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}\leavevmode {\color {Chapter }HomogeneousGoodSetOrbits (for structure constants tensors)}}{29}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}\leavevmode {\color {Chapter }GoodSetOrbit}}{29}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}\leavevmode {\color {Chapter }CanonicalRepresentativeOfCocoOrbit (for orbits of good sets)}}{30}{subsection.3.3.3}
-\contentsline {subsection}{\numberline {3.3.4}\leavevmode {\color {Chapter }Representative (for orbits of good sets)}}{30}{subsection.3.3.4}
-\contentsline {subsection}{\numberline {3.3.5}\leavevmode {\color {Chapter }UnderlyingGroupOfCocoOrbit (for orbits of good sets)}}{30}{subsection.3.3.5}
-\contentsline {subsection}{\numberline {3.3.6}\leavevmode {\color {Chapter }StabilizerOfCanonicalRepresentative (for orbits of good sets)}}{30}{subsection.3.3.6}
-\contentsline {subsection}{\numberline {3.3.7}\leavevmode {\color {Chapter }Size (for orbits of good sets)}}{30}{subsection.3.3.7}
-\contentsline {subsection}{\numberline {3.3.8}\leavevmode {\color {Chapter }AsList (for orbits of good sets)}}{30}{subsection.3.3.8}
-\contentsline {subsection}{\numberline {3.3.9}\leavevmode {\color {Chapter }AsSet (for orbits of good sets)}}{30}{subsection.3.3.9}
-\contentsline {subsection}{\numberline {3.3.10}\leavevmode {\color {Chapter }SubOrbitsOfCocoOrbit (for orbits of good sets)}}{31}{subsection.3.3.10}
-\contentsline {subsection}{\numberline {3.3.11}\leavevmode {\color {Chapter }SubOrbitsWithInvariantPropertyOfCocoOrbit (for orbits of good sets)}}{31}{subsection.3.3.11}
-\contentsline {section}{\numberline {3.4}\leavevmode {\color {Chapter }Fusions}}{31}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}\leavevmode {\color {Chapter }FusionFromPartition (for structure constant tensors)}}{31}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}\leavevmode {\color {Chapter }AsPartition}}{31}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}\leavevmode {\color {Chapter }PartitionOfFusion}}{31}{subsection.3.4.3}
-\contentsline {subsection}{\numberline {3.4.4}\leavevmode {\color {Chapter }TensorOfFusion}}{32}{subsection.3.4.4}
-\contentsline {subsection}{\numberline {3.4.5}\leavevmode {\color {Chapter }BaseOfFusion}}{32}{subsection.3.4.5}
-\contentsline {subsection}{\numberline {3.4.6}\leavevmode {\color {Chapter }RankOfFusion}}{32}{subsection.3.4.6}
-\contentsline {section}{\numberline {3.5}\leavevmode {\color {Chapter } Orbits of fusions}}{32}{section.3.5}
-\contentsline {subsection}{\numberline {3.5.1}\leavevmode {\color {Chapter }HomogeneousFusionOrbits (for structure constants tensors)}}{32}{subsection.3.5.1}
-\contentsline {subsection}{\numberline {3.5.2}\leavevmode {\color {Chapter }FusionOrbit}}{32}{subsection.3.5.2}
-\contentsline {subsection}{\numberline {3.5.3}\leavevmode {\color {Chapter }CanonicalRepresentativeOfCocoOrbit (for orbits of fusions)}}{33}{subsection.3.5.3}
-\contentsline {subsection}{\numberline {3.5.4}\leavevmode {\color {Chapter }Representative (for orbits of fusions)}}{33}{subsection.3.5.4}
-\contentsline {subsection}{\numberline {3.5.5}\leavevmode {\color {Chapter }UnderlyingGroupOfCocoOrbit (for orbits of fusions)}}{33}{subsection.3.5.5}
-\contentsline {subsection}{\numberline {3.5.6}\leavevmode {\color {Chapter }StabilizerOfCanonicalRepresentative (for orbits of fusions)}}{33}{subsection.3.5.6}
-\contentsline {subsection}{\numberline {3.5.7}\leavevmode {\color {Chapter }Size (for orbits of fusions)}}{33}{subsection.3.5.7}
-\contentsline {subsection}{\numberline {3.5.8}\leavevmode {\color {Chapter }AsList (for orbits of fusions)}}{33}{subsection.3.5.8}
-\contentsline {subsection}{\numberline {3.5.9}\leavevmode {\color {Chapter }AsSet (for orbits of fusions)}}{33}{subsection.3.5.9}
-\contentsline {subsection}{\numberline {3.5.10}\leavevmode {\color {Chapter }SubOrbitsOfCocoOrbit (for orbits of fusions)}}{34}{subsection.3.5.10}
-\contentsline {subsection}{\numberline {3.5.11}\leavevmode {\color {Chapter }SubOrbitsWithInvariantPropertyOfCocoOrbit (for orbits of fusions)}}{34}{subsection.3.5.11}
-\contentsline {chapter}{\numberline {4}\leavevmode {\color {Chapter }Partially ordered sets}}{35}{chapter.4}
-\contentsline {section}{\numberline {4.1}\leavevmode {\color {Chapter }Introduction}}{35}{section.4.1}
-\contentsline {section}{\numberline {4.2}\leavevmode {\color {Chapter }General functions for \textsf {COCO2P}-posets}}{35}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}\leavevmode {\color {Chapter }CocoPosetByFunctions}}{35}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}\leavevmode {\color {Chapter }ElementsOfCocoPoset}}{36}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}\leavevmode {\color {Chapter }Size (for COCO-posets)}}{36}{subsection.4.2.3}
-\contentsline {subsection}{\numberline {4.2.4}\leavevmode {\color {Chapter }SuccessorsInCocoPoset}}{36}{subsection.4.2.4}
-\contentsline {subsection}{\numberline {4.2.5}\leavevmode {\color {Chapter }PredecessorsInCocoPoset}}{36}{subsection.4.2.5}
-\contentsline {subsection}{\numberline {4.2.6}\leavevmode {\color {Chapter }IdealInCocoPoset}}{36}{subsection.4.2.6}
-\contentsline {subsection}{\numberline {4.2.7}\leavevmode {\color {Chapter }FilterInCocoPoset}}{36}{subsection.4.2.7}
-\contentsline {subsection}{\numberline {4.2.8}\leavevmode {\color {Chapter }MinimalElementsInCocoPoset}}{36}{subsection.4.2.8}
-\contentsline {subsection}{\numberline {4.2.9}\leavevmode {\color {Chapter }MaximalElementsInCocoPoset}}{37}{subsection.4.2.9}
-\contentsline {subsection}{\numberline {4.2.10}\leavevmode {\color {Chapter }InducedCocoPoset}}{37}{subsection.4.2.10}
-\contentsline {subsection}{\numberline {4.2.11}\leavevmode {\color {Chapter }GraphicCocoPoset}}{37}{subsection.4.2.11}
-\contentsline {section}{\numberline {4.3}\leavevmode {\color {Chapter }Posets of color graphs}}{37}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}\leavevmode {\color {Chapter }ColorIsomorphicFusions}}{37}{subsection.4.3.1}
-\contentsline {subsection}{\numberline {4.3.2}\leavevmode {\color {Chapter }SubColorIsomorphismPoset}}{37}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}\leavevmode {\color {Chapter }GraphicCocoPoset (for posets of color graphs)}}{37}{subsection.4.3.3}
-\contentsline {chapter}{\numberline {5}\leavevmode {\color {Chapter }Color Semirings}}{39}{chapter.5}
-\contentsline {section}{\numberline {5.1}\leavevmode {\color {Chapter }Introduction}}{39}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}\leavevmode {\color {Chapter }ColorSemiring}}{40}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}\leavevmode {\color {Chapter }GeneratorsOfColorSemiring}}{41}{subsection.5.1.2}
-\contentsline {subsection}{\numberline {5.1.3}\leavevmode {\color {Chapter }AsElementOfColorSemiring}}{41}{subsection.5.1.3}
-\contentsline {chapter}{References}{42}{chapter*.3}
-\contentsline {chapter}{Index}{43}{section*.4}
+\contentsline {subsection}{\numberline {1.3.5}\leavevmode {\color {Chapter }WLStableColorGraphByMatrix}}{6}{subsection.1.3.5}
+\contentsline {subsection}{\numberline {1.3.6}\leavevmode {\color {Chapter }ClassicalCompleteAffineScheme}}{7}{subsection.1.3.6}
+\contentsline {subsection}{\numberline {1.3.7}\leavevmode {\color {Chapter }JohnsonScheme}}{7}{subsection.1.3.7}
+\contentsline {subsection}{\numberline {1.3.8}\leavevmode {\color {Chapter }CyclotomicColorGraph}}{8}{subsection.1.3.8}
+\contentsline {subsection}{\numberline {1.3.9}\leavevmode {\color {Chapter }BIKColorGraph}}{8}{subsection.1.3.9}
+\contentsline {subsection}{\numberline {1.3.10}\leavevmode {\color {Chapter }IvanovColorGraph}}{9}{subsection.1.3.10}
+\contentsline {subsection}{\numberline {1.3.11}\leavevmode {\color {Chapter }AllAssociationSchemes}}{9}{subsection.1.3.11}
+\contentsline {subsection}{\numberline {1.3.12}\leavevmode {\color {Chapter }AllCoherentConfigurations}}{10}{subsection.1.3.12}
+\contentsline {section}{\numberline {1.4}\leavevmode {\color {Chapter }Functions for the inspection of color graphs}}{10}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}\leavevmode {\color {Chapter }OrderOfColorGraph}}{10}{subsection.1.4.1}
+\contentsline {subsection}{\numberline {1.4.2}\leavevmode {\color {Chapter }RankOfColorGraph}}{10}{subsection.1.4.2}
+\contentsline {subsection}{\numberline {1.4.3}\leavevmode {\color {Chapter }VertexNamesOfCocoObject (for color graphs)}}{10}{subsection.1.4.3}
+\contentsline {subsection}{\numberline {1.4.4}\leavevmode {\color {Chapter }ColorNames}}{10}{subsection.1.4.4}
+\contentsline {subsection}{\numberline {1.4.5}\leavevmode {\color {Chapter }ArcColorOfColorGraph (first variant)}}{11}{subsection.1.4.5}
+\contentsline {subsection}{\numberline {1.4.6}\leavevmode {\color {Chapter }ColorRepresentative}}{11}{subsection.1.4.6}
+\contentsline {subsection}{\numberline {1.4.7}\leavevmode {\color {Chapter }Neighbors (first variant)}}{11}{subsection.1.4.7}
+\contentsline {subsection}{\numberline {1.4.8}\leavevmode {\color {Chapter }AdjacencyMatrix (first variant)}}{12}{subsection.1.4.8}
+\contentsline {subsection}{\numberline {1.4.9}\leavevmode {\color {Chapter }RowOfColorGraph}}{12}{subsection.1.4.9}
+\contentsline {subsection}{\numberline {1.4.10}\leavevmode {\color {Chapter }ColumnOfColorGraph}}{13}{subsection.1.4.10}
+\contentsline {subsection}{\numberline {1.4.11}\leavevmode {\color {Chapter }Fibres}}{13}{subsection.1.4.11}
+\contentsline {subsection}{\numberline {1.4.12}\leavevmode {\color {Chapter }NumberOfFibres}}{13}{subsection.1.4.12}
+\contentsline {subsection}{\numberline {1.4.13}\leavevmode {\color {Chapter }LocalIntersectionArray}}{13}{subsection.1.4.13}
+\contentsline {subsection}{\numberline {1.4.14}\leavevmode {\color {Chapter }ColorMates}}{14}{subsection.1.4.14}
+\contentsline {subsection}{\numberline {1.4.15}\leavevmode {\color {Chapter }OutValencies (for WL-stable color graphs)}}{14}{subsection.1.4.15}
+\contentsline {subsection}{\numberline {1.4.16}\leavevmode {\color {Chapter }ReflexiveColors (for WL-stable color graphs)}}{14}{subsection.1.4.16}
+\contentsline {section}{\numberline {1.5}\leavevmode {\color {Chapter } Creating new (color) graphs from given color graphs}}{15}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}\leavevmode {\color {Chapter }ColorGraphByFusion}}{15}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}\leavevmode {\color {Chapter }QuotientColorGraph}}{15}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.3}\leavevmode {\color {Chapter }InducedSubColorGraph}}{16}{subsection.1.5.3}
+\contentsline {subsection}{\numberline {1.5.4}\leavevmode {\color {Chapter }DirectProductColorGraphs}}{16}{subsection.1.5.4}
+\contentsline {subsection}{\numberline {1.5.5}\leavevmode {\color {Chapter }WreathProductColorGraphs}}{16}{subsection.1.5.5}
+\contentsline {subsection}{\numberline {1.5.6}\leavevmode {\color {Chapter }ClosedSets (for homogeneous WL-stable color graphs)}}{17}{subsection.1.5.6}
+\contentsline {subsection}{\numberline {1.5.7}\leavevmode {\color {Chapter }PartitionClosedSet (for homogeneous WL-stable color graphs)}}{17}{subsection.1.5.7}
+\contentsline {subsection}{\numberline {1.5.8}\leavevmode {\color {Chapter }BaseGraphOfColorGraph (first variant)}}{17}{subsection.1.5.8}
+\contentsline {section}{\numberline {1.6}\leavevmode {\color {Chapter } Testing properties of color graphs }}{18}{section.1.6}
+\contentsline {subsection}{\numberline {1.6.1}\leavevmode {\color {Chapter }IsUndirectedColorGraph}}{18}{subsection.1.6.1}
+\contentsline {subsection}{\numberline {1.6.2}\leavevmode {\color {Chapter }IsHomogeneous}}{18}{subsection.1.6.2}
+\contentsline {subsection}{\numberline {1.6.3}\leavevmode {\color {Chapter }IsWLStableColorGraph}}{19}{subsection.1.6.3}
+\contentsline {subsection}{\numberline {1.6.4}\leavevmode {\color {Chapter }IsSchurian}}{19}{subsection.1.6.4}
+\contentsline {subsection}{\numberline {1.6.5}\leavevmode {\color {Chapter }IsPrimitive (for WL-stable color graphs)}}{19}{subsection.1.6.5}
+\contentsline {section}{\numberline {1.7}\leavevmode {\color {Chapter }Symmetries of color graphs}}{20}{section.1.7}
+\contentsline {subsection}{\numberline {1.7.1}\leavevmode {\color {Chapter }KnownGroupOfAutomorphisms (for color graphs)}}{20}{subsection.1.7.1}
+\contentsline {subsection}{\numberline {1.7.2}\leavevmode {\color {Chapter }AutGroupOfCocoObject (for color graphs)}}{20}{subsection.1.7.2}
+\contentsline {subsection}{\numberline {1.7.3}\leavevmode {\color {Chapter }IsAutomorphismOfObject (for color graphs)}}{20}{subsection.1.7.3}
+\contentsline {subsection}{\numberline {1.7.4}\leavevmode {\color {Chapter }IsomorphismCocoObjects (for color graphs)}}{20}{subsection.1.7.4}
+\contentsline {subsection}{\numberline {1.7.5}\leavevmode {\color {Chapter }IsIsomorphicCocoObject (for color graphs)}}{20}{subsection.1.7.5}
+\contentsline {subsection}{\numberline {1.7.6}\leavevmode {\color {Chapter }IsIsomorphismOfObjects (for color graphs)}}{20}{subsection.1.7.6}
+\contentsline {subsection}{\numberline {1.7.7}\leavevmode {\color {Chapter }KnownGroupOfColorAutomorphisms}}{21}{subsection.1.7.7}
+\contentsline {subsection}{\numberline {1.7.8}\leavevmode {\color {Chapter }LiftToColorAutomorphism}}{21}{subsection.1.7.8}
+\contentsline {subsection}{\numberline {1.7.9}\leavevmode {\color {Chapter }LiftToColorIsomorphism}}{21}{subsection.1.7.9}
+\contentsline {subsection}{\numberline {1.7.10}\leavevmode {\color {Chapter }ColorIsomorphismColorGraphs}}{21}{subsection.1.7.10}
+\contentsline {subsection}{\numberline {1.7.11}\leavevmode {\color {Chapter }IsColorIsomorphicColorGraph}}{21}{subsection.1.7.11}
+\contentsline {subsection}{\numberline {1.7.12}\leavevmode {\color {Chapter }ColorAutomorphismGroup}}{21}{subsection.1.7.12}
+\contentsline {subsection}{\numberline {1.7.13}\leavevmode {\color {Chapter }ColorAutomorphismGroupOnColors}}{22}{subsection.1.7.13}
+\contentsline {subsection}{\numberline {1.7.14}\leavevmode {\color {Chapter }KnownGroupOfAlgebraicAutomorphisms}}{22}{subsection.1.7.14}
+\contentsline {subsection}{\numberline {1.7.15}\leavevmode {\color {Chapter }AlgebraicAutomorphismGroup}}{22}{subsection.1.7.15}
+\contentsline {chapter}{\numberline {2}\leavevmode {\color {Chapter }Structure Constants Tensors}}{23}{chapter.2}
+\contentsline {section}{\numberline {2.1}\leavevmode {\color {Chapter }Introduction}}{23}{section.2.1}
+\contentsline {section}{\numberline {2.2}\leavevmode {\color {Chapter } Functions for the construction of tensors }}{23}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}\leavevmode {\color {Chapter }StructureConstantsOfColorGraph}}{23}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}\leavevmode {\color {Chapter }DenseTensorFromEntries}}{23}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}\leavevmode {\color {Chapter }Functions for the inspection of tensors}}{24}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}\leavevmode {\color {Chapter }OrderOfTensor}}{24}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}\leavevmode {\color {Chapter }VertexNamesOfCocoObject (for tensors)}}{24}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}\leavevmode {\color {Chapter }EntryOfTensor}}{24}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}\leavevmode {\color {Chapter }ReflexiveColors (for structure constants tensors)}}{24}{subsection.2.3.4}
+\contentsline {subsection}{\numberline {2.3.5}\leavevmode {\color {Chapter }NumberOfFibres (for structure constants tensors)}}{24}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.6}\leavevmode {\color {Chapter }FibreLengths (for structure constants tensors)}}{25}{subsection.2.3.6}
+\contentsline {subsection}{\numberline {2.3.7}\leavevmode {\color {Chapter }OutValencies (for structure constants tensors)}}{25}{subsection.2.3.7}
+\contentsline {subsection}{\numberline {2.3.8}\leavevmode {\color {Chapter }Mates (for structure constants tensors)}}{25}{subsection.2.3.8}
+\contentsline {subsection}{\numberline {2.3.9}\leavevmode {\color {Chapter }StartBlock (for structure constants tensors)}}{25}{subsection.2.3.9}
+\contentsline {subsection}{\numberline {2.3.10}\leavevmode {\color {Chapter }FinishBlock (for structure constants tensors)}}{26}{subsection.2.3.10}
+\contentsline {subsection}{\numberline {2.3.11}\leavevmode {\color {Chapter }ClosedSets}}{26}{subsection.2.3.11}
+\contentsline {subsection}{\numberline {2.3.12}\leavevmode {\color {Chapter }ComplexProduct (for structure constants tensors)}}{26}{subsection.2.3.12}
+\contentsline {subsection}{\numberline {2.3.13}\leavevmode {\color {Chapter }ClosureSet}}{26}{subsection.2.3.13}
+\contentsline {section}{\numberline {2.4}\leavevmode {\color {Chapter } Testing properties of tensors }}{26}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}\leavevmode {\color {Chapter }IsTensorOfCC}}{26}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}\leavevmode {\color {Chapter }IsCommutativeTensor}}{27}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}\leavevmode {\color {Chapter }IsHomogeneous (for structure constants tensors)}}{27}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.4}\leavevmode {\color {Chapter }IsPrimitive (for structure constants tensors)}}{27}{subsection.2.4.4}
+\contentsline {section}{\numberline {2.5}\leavevmode {\color {Chapter }Symmetries of tensors}}{27}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}\leavevmode {\color {Chapter }KnownGroupOfAutomorphisms (for tensors)}}{27}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}\leavevmode {\color {Chapter }AutGroupOfCocoObject (for tensors)}}{27}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.3}\leavevmode {\color {Chapter }IsAutomorphismOfObject (for tensors)}}{27}{subsection.2.5.3}
+\contentsline {subsection}{\numberline {2.5.4}\leavevmode {\color {Chapter }IsomorphismCocoObjects (for tensors)}}{28}{subsection.2.5.4}
+\contentsline {subsection}{\numberline {2.5.5}\leavevmode {\color {Chapter }IsIsomorphicCocoObject (for tensors)}}{28}{subsection.2.5.5}
+\contentsline {subsection}{\numberline {2.5.6}\leavevmode {\color {Chapter }IsIsomorphismOfObjects (for tensors)}}{28}{subsection.2.5.6}
+\contentsline {section}{\numberline {2.6}\leavevmode {\color {Chapter }Character tables of structure constants tensors}}{28}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}\leavevmode {\color {Chapter }CharacterTableOfTensor (for commutative structure constants tensors)}}{28}{subsection.2.6.1}
+\contentsline {chapter}{\numberline {3}\leavevmode {\color {Chapter }WL-Stable Fusions Color Graphs}}{29}{chapter.3}
+\contentsline {section}{\numberline {3.1}\leavevmode {\color {Chapter }Introduction}}{29}{section.3.1}
+\contentsline {section}{\numberline {3.2}\leavevmode {\color {Chapter }Good sets}}{29}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}\leavevmode {\color {Chapter }BuildGoodSet}}{29}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}\leavevmode {\color {Chapter }AsSet (for good sets)}}{30}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}\leavevmode {\color {Chapter }TensorOfGoodSet}}{30}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}\leavevmode {\color {Chapter }PartitionOfGoodSet}}{30}{subsection.3.2.4}
+\contentsline {section}{\numberline {3.3}\leavevmode {\color {Chapter }Orbits of good sets}}{30}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}\leavevmode {\color {Chapter }HomogeneousGoodSetOrbits (for structure constants tensors)}}{30}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}\leavevmode {\color {Chapter }GoodSetOrbit}}{30}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}\leavevmode {\color {Chapter }CanonicalRepresentativeOfCocoOrbit (for orbits of good sets)}}{31}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}\leavevmode {\color {Chapter }Representative (for orbits of good sets)}}{31}{subsection.3.3.4}
+\contentsline {subsection}{\numberline {3.3.5}\leavevmode {\color {Chapter }UnderlyingGroupOfCocoOrbit (for orbits of good sets)}}{31}{subsection.3.3.5}
+\contentsline {subsection}{\numberline {3.3.6}\leavevmode {\color {Chapter }StabilizerOfCanonicalRepresentative (for orbits of good sets)}}{31}{subsection.3.3.6}
+\contentsline {subsection}{\numberline {3.3.7}\leavevmode {\color {Chapter }Size (for orbits of good sets)}}{31}{subsection.3.3.7}
+\contentsline {subsection}{\numberline {3.3.8}\leavevmode {\color {Chapter }AsList (for orbits of good sets)}}{31}{subsection.3.3.8}
+\contentsline {subsection}{\numberline {3.3.9}\leavevmode {\color {Chapter }AsSet (for orbits of good sets)}}{31}{subsection.3.3.9}
+\contentsline {subsection}{\numberline {3.3.10}\leavevmode {\color {Chapter }SubOrbitsOfCocoOrbit (for orbits of good sets)}}{32}{subsection.3.3.10}
+\contentsline {subsection}{\numberline {3.3.11}\leavevmode {\color {Chapter }SubOrbitsWithInvariantPropertyOfCocoOrbit (for orbits of good sets)}}{32}{subsection.3.3.11}
+\contentsline {section}{\numberline {3.4}\leavevmode {\color {Chapter }Fusions}}{32}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}\leavevmode {\color {Chapter }FusionFromPartition (for structure constant tensors)}}{32}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}\leavevmode {\color {Chapter }AsPartition}}{32}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}\leavevmode {\color {Chapter }PartitionOfFusion}}{32}{subsection.3.4.3}
+\contentsline {subsection}{\numberline {3.4.4}\leavevmode {\color {Chapter }TensorOfFusion}}{33}{subsection.3.4.4}
+\contentsline {subsection}{\numberline {3.4.5}\leavevmode {\color {Chapter }BaseOfFusion}}{33}{subsection.3.4.5}
+\contentsline {subsection}{\numberline {3.4.6}\leavevmode {\color {Chapter }RankOfFusion}}{33}{subsection.3.4.6}
+\contentsline {section}{\numberline {3.5}\leavevmode {\color {Chapter } Orbits of fusions}}{33}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}\leavevmode {\color {Chapter }HomogeneousFusionOrbits (for structure constants tensors)}}{33}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}\leavevmode {\color {Chapter }FusionOrbit}}{33}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}\leavevmode {\color {Chapter }CanonicalRepresentativeOfCocoOrbit (for orbits of fusions)}}{34}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {3.5.4}\leavevmode {\color {Chapter }Representative (for orbits of fusions)}}{34}{subsection.3.5.4}
+\contentsline {subsection}{\numberline {3.5.5}\leavevmode {\color {Chapter }UnderlyingGroupOfCocoOrbit (for orbits of fusions)}}{34}{subsection.3.5.5}
+\contentsline {subsection}{\numberline {3.5.6}\leavevmode {\color {Chapter }StabilizerOfCanonicalRepresentative (for orbits of fusions)}}{34}{subsection.3.5.6}
+\contentsline {subsection}{\numberline {3.5.7}\leavevmode {\color {Chapter }Size (for orbits of fusions)}}{34}{subsection.3.5.7}
+\contentsline {subsection}{\numberline {3.5.8}\leavevmode {\color {Chapter }AsList (for orbits of fusions)}}{34}{subsection.3.5.8}
+\contentsline {subsection}{\numberline {3.5.9}\leavevmode {\color {Chapter }AsSet (for orbits of fusions)}}{34}{subsection.3.5.9}
+\contentsline {subsection}{\numberline {3.5.10}\leavevmode {\color {Chapter }SubOrbitsOfCocoOrbit (for orbits of fusions)}}{35}{subsection.3.5.10}
+\contentsline {subsection}{\numberline {3.5.11}\leavevmode {\color {Chapter }SubOrbitsWithInvariantPropertyOfCocoOrbit (for orbits of fusions)}}{35}{subsection.3.5.11}
+\contentsline {chapter}{\numberline {4}\leavevmode {\color {Chapter }Partially ordered sets}}{36}{chapter.4}
+\contentsline {section}{\numberline {4.1}\leavevmode {\color {Chapter }Introduction}}{36}{section.4.1}
+\contentsline {section}{\numberline {4.2}\leavevmode {\color {Chapter }General functions for \textsf {COCO2P}-posets}}{36}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}\leavevmode {\color {Chapter }CocoPosetByFunctions}}{36}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}\leavevmode {\color {Chapter }ElementsOfCocoPoset}}{37}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}\leavevmode {\color {Chapter }Size (for COCO-posets)}}{37}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}\leavevmode {\color {Chapter }SuccessorsInCocoPoset}}{37}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.5}\leavevmode {\color {Chapter }PredecessorsInCocoPoset}}{37}{subsection.4.2.5}
+\contentsline {subsection}{\numberline {4.2.6}\leavevmode {\color {Chapter }IdealInCocoPoset}}{37}{subsection.4.2.6}
+\contentsline {subsection}{\numberline {4.2.7}\leavevmode {\color {Chapter }FilterInCocoPoset}}{37}{subsection.4.2.7}
+\contentsline {subsection}{\numberline {4.2.8}\leavevmode {\color {Chapter }MinimalElementsInCocoPoset}}{37}{subsection.4.2.8}
+\contentsline {subsection}{\numberline {4.2.9}\leavevmode {\color {Chapter }MaximalElementsInCocoPoset}}{38}{subsection.4.2.9}
+\contentsline {subsection}{\numberline {4.2.10}\leavevmode {\color {Chapter }InducedCocoPoset}}{38}{subsection.4.2.10}
+\contentsline {subsection}{\numberline {4.2.11}\leavevmode {\color {Chapter }GraphicCocoPoset}}{38}{subsection.4.2.11}
+\contentsline {section}{\numberline {4.3}\leavevmode {\color {Chapter }Posets of color graphs}}{38}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}\leavevmode {\color {Chapter }ColorIsomorphicFusions}}{38}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}\leavevmode {\color {Chapter }SubColorIsomorphismPoset}}{38}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}\leavevmode {\color {Chapter }GraphicCocoPoset (for posets of color graphs)}}{38}{subsection.4.3.3}
+\contentsline {chapter}{\numberline {5}\leavevmode {\color {Chapter }Color Semirings}}{40}{chapter.5}
+\contentsline {section}{\numberline {5.1}\leavevmode {\color {Chapter }Introduction}}{40}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}\leavevmode {\color {Chapter }ColorSemiring}}{41}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}\leavevmode {\color {Chapter }GeneratorsOfColorSemiring}}{42}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.3}\leavevmode {\color {Chapter }AsElementOfColorSemiring}}{42}{subsection.5.1.3}
+\contentsline {chapter}{References}{43}{chapter*.3}
+\contentsline {chapter}{Index}{44}{section*.4}

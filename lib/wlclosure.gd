@@ -10,7 +10,6 @@
 ##
 #############################################################################
 
-#constructors
 DeclareGlobalFunction("WLBuildAsymGoodSetPartition");
 DeclareGlobalFunction("WLBuildSymGoodSetPartition");
 DeclareGlobalFunction("WLBuildTrivialPartition");
@@ -35,3 +34,9 @@ DeclareGlobalFunction("WLRepartition");
 DeclareGlobalFunction("WLIsAntiSymmetricSet");
 DeclareGlobalFunction("WLStabil");
 DeclareGlobalFunction("WLIsReflexiveSet");
+
+
+DeclareGlobalFunction("WLRelToMat");
+DeclareGlobalFunction("WLMatRepartition");
+DeclareGlobalFunction("WLMatStabil");
+DeclareGlobalFunction("WLMatBuildPartition");

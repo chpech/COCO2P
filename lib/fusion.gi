@@ -473,7 +473,7 @@ function(gsorbits)
             if Length(newpart.classes)>Length(part.classes) then
                 newpart:=WLStabil(TensorOfGoodSet(gs), newpart,m);
 
-                if newpart=false then
+                if newpart=fail then
 #                    Print("4\c");
                     continue;
                 fi;
