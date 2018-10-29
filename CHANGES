@@ -1,19 +1,26 @@
+Changes from version 0.16 to version 0.17
+wlstabil.g*		- WLRepartition instead of false returns now fail when
+				  unsuccessful
+				- implemented WLStableColorGraphByMatrix
+coco.xml 		- documented WLStableColorGraphByMatrix
+
+
 Changes from version 0.15 to version 0.16
 coco.xml     	- added documentation for additional methods of Neighbors
-	     				- added documentation for BIKColorGraph
-	     				- added documentation for IvanovColorGraph
-	     				- added documentation for AllCoherentConfigurations
+	     		- added documentation for BIKColorGraph
+	     		- added documentation for IvanovColorGraph
+	     		- added documentation for AllCoherentConfigurations
 cobject.gd   	- made an attribute from VertexNamesOfCocoObject
 colgraph.gi  	- added new constructor IvanovColorGraph
-	       				added new Methods for Neighbors
-	       				corrected IsSchurian
+	       		  added new Methods for Neighbors
+	       		  corrected IsSchurian
 fusion.gi    	- corrected Rank
 schemesdb.gi 	- added new global function AllCoherentConfigurations (interface to
-								the database by Matan Ziv-Av)
+				  the database by Matan Ziv-Av)
 tensor.gd    	- Added synonym attribute VertexNamesOfTensor
 various files	- fixed a bug with isomorphism test of coco objects
-								it could happen that an isomorphism test between two coco objects would use
-								different invariants for the objects leading to a wrong result.
+				  it could happen that an isomorphism test between two coco objects would use
+				  different invariants for the objects leading to a wrong result.
 
 Changes from version 0.14 to version 0.15
 colgraph.gi  	- added new method for Adjacency matrix
