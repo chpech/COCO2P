@@ -36,8 +36,8 @@ end);
 InfoW1:=Ignore;
 
 InstallGlobalFunction(FindCosRep,
-function(H, xcgr1, xcgr2, h, res)
-    local x,m1,m2,o1,o2,y,nh,pt,xi,i,crep;
+function(H, resH, xcgr1, xcgr2, h, res)
+    local x,m1,m2,o1,o2,y,nh,pt,i,crep;
 
     InfoW1("Entering FindCosRep.\n");
     if StbcIsTrivialStabChainNode(H) then
@@ -60,16 +60,21 @@ function(H, xcgr1, xcgr2, h, res)
     o2:=BuildXCgrObject(xcgr2);
     y:=IsomorphismPbagObjects(o1,o2,XCgrInvariant);
     if y=false then
+        InfoW1("/\c");
        return false;
     fi;
 
     pt:=H.orbit[1];
 
-    for xi in [1..Length(H.orbit)] do
-        i:=H.orbit[xi];
+    for i in H.orbit do
+        # check if i is the first element of its orbit in reH.stabilizer
+        if resH.stabilizer.part.orbits[resH.stabilizer.part.map[i]][1]<>i then
+            COCOPrint("%\c");
+            continue;
+        fi;
         crep:=StbcInvCosRep(H, i)^-1;
         nh:=crep*h;
-        x:=FindCosRep(H.stabilizer, xcgr1,xcgr2,nh,res);
+        x:=FindCosRep(H.stabilizer, resH.stabilizer, xcgr1,xcgr2,nh,res);
         if x <> false then
             return x;
         fi;
@@ -95,21 +100,25 @@ function(xcgr1, xcgr2, S, part, result)
    resH:=EmptyStabChain([], (), pt);
    resH.stabilizer:=CheckGroup(xcgr1,xcgr2,S.stabilizer, newpart,result);
 
-   for i in resH.stabilizer.generators do
-       Add(resH.generators,i);
-   od;
+   Append(resH.generators,resH.stabilizer.generators);
 
    for xi in [2..Length(S.orbit)] do
        i:=S.orbit[xi];
-       if not IsBound(resH.transversal[i]) then
-           crep:=StbcInvCosRep(S, i);
-           y:=FindCosRep(S.stabilizer, xcgr1, xcgr2, crep^-1, result);
+       if IsBound(resH.transversal[i]) then
+           continue;
+       fi;
+       if resH.stabilizer.part.orbits[resH.stabilizer.part.map[i]][1]<>i then
+           COCOPrint("#\c");
+           continue;
+       fi;
+       crep:=StbcInvCosRep(S, i)^-1;
+       y:=FindCosRep(S.stabilizer, resH.stabilizer, xcgr1, xcgr2, crep, result);
 
-           if y <> false then
-               COCOPrint(".\c");
-               StbcAddGensExtOrb(resH, [y]);
-           fi;
+       if y <> false then
+           COCOPrint(".\c");
+           StbcAddGensExtOrb(resH, [y]);
        fi;
    od;
+   resH.part:=StbcRefineOrbits(resH, S.part,RankOfColorGraph(xcgr1.T));
    return resH;
 end);

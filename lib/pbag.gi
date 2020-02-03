@@ -201,7 +201,7 @@ function(object,c, invariant)
 
     cls:=object.fcv[c];
 
-    orbscls:=Set(List(StbcOrbits(object.stabChain,cls),Set));
+    orbscls:=Set(StbcOrbits(object.stabChain,cls),Set);
     for i in [1..Length(orbscls)] do
         inv:=invariant.finv(object, orbscls[i][1]);
         newcolor:=AddHashEntry@(hashtbl,inv,Length(ptarray)+1);
@@ -227,7 +227,7 @@ function(object,c,invariant,hashtbl)
 
     cls:=object.fcv[c];
 
-    orbscls:=Set(List(StbcOrbits(object.stabChain,cls),Set));
+    orbscls:=Set(StbcOrbits(object.stabChain,cls),Set);
     for i in [1..Length(orbscls)] do
         inv:=invariant.finv(object, orbscls[i][1]);
         newcolor:=GetHashEntry@(hashtbl, inv);

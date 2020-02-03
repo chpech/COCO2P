@@ -1035,6 +1035,14 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Oper Name="KnownGroupOfColorAutomorphismsOnColors" Arg="cgr"/>
+	  <Description>
+	    This function returns the group of all color automorphisms of
+	    <A>cgr</A> that &COCO; knows at the given moment, acting
+	    on the colors of <A>cgr</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
 	  <Oper Name="LiftToColorAutomorphism" Arg="cgr,perm"/>
 	  <Description>
 	    <A>cgr</A> is a color graph and <A>perm</A> is a
@@ -1063,9 +1071,19 @@ true]]>
 	  <Oper Name="ColorIsomorphismColorGraphs" Arg="cgr1,cgr2"/>
 	  <Description>
 	    This operation returns  a color isomorphism from
-	    <A>cgr1</A> to <A>cgr2</A>, and <C>fail</C> otherwise.
+	    <A>cgr1</A> to <A>cgr2</A> if it exists, and <C>fail</C>
+	    otherwise. 
 	    <P/>
-	    At the moment, this operation is implemented only from
+	    Here a color isomorphism is an ordered pair <C>[f,g]</C>,
+	    where <C>f</C> is a bijection from <C>[1..Order(cgr1)]</C>
+	    to <C>[1..Order(cgr2)]</C> and where <C>g</C> is a
+	    bijection from <C>[1..Rank(cgr1)]</C> 
+	    to <C>[1..Rank(cgr2)]</C>, such that
+	    <C>ArcColorOfColorGraph(cgr1,u,v)^g =
+	    ArcColorOfColorGraph(cgr2,u^f,v^v)</C>, for all <C>u</C>
+	    and <C>v</C> from <C>[1..Order(cgr1)]</C>.
+	    <P/>
+	    At the moment, this operation is implemented only for
 	    WL-stable color graphs.
 	  </Description>
 	</ManSection>
@@ -1077,6 +1095,18 @@ true]]>
 	    <P/>
 	    At the moment, this operation is implemented only from
 	    WL-stable color graphs.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IsColorIsomorphismOfColorGraphs"
+		Arg="cgr1,cgr2,g,h" Label="for color graphs"/>
+	  <Oper Name="IsColorIsomorphismOfColorGraphs"
+		Arg="cgr1,cgr2,[g,h]"/>
+	  <Description>
+	    This operation returns <C>true</C> if <A>[g,h]</A> is a
+	    colorisomorphism from <A>cgr1</A> to <A>cgr2</A> (see <Ref
+	    Oper="ColorIsomorphismColorGraphs"/> for a definition of
+	    color isomorphisms). 
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -2128,7 +2158,7 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
   AS(15,8), AS(15,9), AS(15,10), AS(15,11), AS(15,12), AS(15,13), AS(15,14),
   AS(15,15), AS(15,16), AS(15,17), AS(15,18), AS(15,19), AS(15,20), AS(15,21),
   AS(15,22), AS(15,23), AS(15,24) ]
-gap> Apply(lcgr, IsSchurian);
+gap> Perform(lcgr, IsSchurian);
 gap> pos:=SubColorIsomorphismPoset(lcgr);;
 gap> GraphicCocoPoset(pos);
 <graphic poset "Iso-poset of color graphs">

@@ -1,3 +1,35 @@
+Changes from version 0.17 to version 0.18
+coco.xml        - added documentation for KnownGroupOfColorAutomorphismsOnColors
+                - added documentation for IsColorIsomorphismOfColorGraphs
+		- amended documentation of ColorIsomorphismColorGraphs
+		- amended documentation of GraphicCocoPoset
+colgraph.gd	- added declarations of
+		  	1) KnownGroupOfColorAutomorphismsOnColors
+			2) SetKnownGroupOfColorAutomorphismsOnColorsNC
+			3) IsColorIsomorphismOfColorGraphs
+colgraph.gi	- added implementation of
+		  	1) KnownGroupOfColorAutomorphismsOnColors
+			2) SetKnownGroupOfColorAutomorphismsOnColorsNC
+			3) IsColorIsomorphismOfColorGraphs
+		- cleaned up the code for ColorAutomorphismGroup
+		- simplified the code of ColorAutomorphismGroupOnColors
+		- fixed the code of ColorIsomorphismColorGraphs
+		  that stoped working due to a regression cause by the changes
+		  in waut.gi (described below)
+		- made the operation ClosedSets available also for inhomogeneous
+		  color graphs
+fusion.gi	- changed some error-messages
+goodsets.gi	- changed some error-messages
+		- added some status messages
+pbag.gi		- some minor clean up
+redtest.gi	- corrected a bug in SetsSetsCanonifiers. In some cases it could
+		  return the empty list. This could lead to errors during the computation
+		  of orbits of homogeneous fusions
+waut.gi		- improved the implementations of CheckGroup and FindCosRep
+		  they take into account now already computed color automorphisms
+		  This should lead to a speedup when computing the color automorphism
+		  group of a WL-stable color graph 
+
 Changes from version 0.16 to version 0.17
 wlstabil.g*     - WLRepartition instead of false returns now fail when
                   unsuccessful

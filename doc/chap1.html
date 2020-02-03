@@ -101,14 +101,16 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X848658A983BFE358">1.7-5 IsIsomorphicCocoObject</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X821668C487B0EC6B">1.7-6 IsIsomorphismOfObjects</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82ACB834799F31B4">1.7-7 KnownGroupOfColorAutomorphisms</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X85B8184C834A3863">1.7-8 LiftToColorAutomorphism</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8081D1EF7A47A665">1.7-9 LiftToColorIsomorphism</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D5857C385A376FE">1.7-10 ColorIsomorphismColorGraphs</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7FAD8F0F79023E02">1.7-11 IsColorIsomorphicColorGraph</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82A68C3F81741249">1.7-12 ColorAutomorphismGroup</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D339D77856CE298">1.7-13 ColorAutomorphismGroupOnColors</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7FD158627A750218">1.7-14 KnownGroupOfAlgebraicAutomorphisms</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7C10A5D37F3DDAD5">1.7-15 AlgebraicAutomorphismGroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X850C31007C88595D">1.7-8 KnownGroupOfColorAutomorphismsOnColors</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X85B8184C834A3863">1.7-9 LiftToColorAutomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8081D1EF7A47A665">1.7-10 LiftToColorIsomorphism</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D5857C385A376FE">1.7-11 ColorIsomorphismColorGraphs</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7FAD8F0F79023E02">1.7-12 IsColorIsomorphicColorGraph</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X878BF5EA8388B9D9">1.7-13 IsColorIsomorphismOfColorGraphs</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82A68C3F81741249">1.7-14 ColorAutomorphismGroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D339D77856CE298">1.7-15 ColorAutomorphismGroupOnColors</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7FD158627A750218">1.7-16 KnownGroupOfAlgebraicAutomorphisms</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7C10A5D37F3DDAD5">1.7-17 AlgebraicAutomorphismGroup</a></span>
 </div></div>
 </div>
 
@@ -971,9 +973,16 @@ true
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfColorAutomorphisms</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns the group of all color automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">COCO2P</strong> knows at the given moment.</p>
 
+<p><a id="X850C31007C88595D" name="X850C31007C88595D"></a></p>
+
+<h5>1.7-8 KnownGroupOfColorAutomorphismsOnColors</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfColorAutomorphismsOnColors</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>This function returns the group of all color automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">COCO2P</strong> knows at the given moment, acting on the colors of <var class="Arg">cgr</var>.</p>
+
 <p><a id="X85B8184C834A3863" name="X85B8184C834A3863"></a></p>
 
-<h5>1.7-8 LiftToColorAutomorphism</h5>
+<h5>1.7-9 LiftToColorAutomorphism</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LiftToColorAutomorphism</code>( <var class="Arg">cgr</var>, <var class="Arg">perm</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p><var class="Arg">cgr</var> is a color graph and <var class="Arg">perm</var> is a permutation of its colors. The function constructs a color automorphism of <var class="Arg">cgr</var> that acts like <var class="Arg">perm</var> on the colors. If such a color automorphism does not exist, then <code class="code">fail</code> is returned.</p>
@@ -982,32 +991,42 @@ true
 
 <p><a id="X8081D1EF7A47A665" name="X8081D1EF7A47A665"></a></p>
 
-<h5>1.7-9 LiftToColorIsomorphism</h5>
+<h5>1.7-10 LiftToColorIsomorphism</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LiftToColorIsomorphism</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var>, <var class="Arg">ciso</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p><var class="Arg">cgr1</var> and <var class="Arg">cgr2</var> are color graphs of the same rank, and <var class="Arg">ciso</var> is a bijection from the colors of <var class="Arg">cgr1</var> to the colors of <var class="Arg">cgr2</var>. The function constructs a color isomorphism from <var class="Arg">cgr1</var> to <var class="Arg">cgr2</var> that acts like <var class="Arg">ciso</var> on the colors. If such a color isomorphism does not exist, then <code class="code">fail</code> is returned.</p>
 
 <p><a id="X7D5857C385A376FE" name="X7D5857C385A376FE"></a></p>
 
-<h5>1.7-10 ColorIsomorphismColorGraphs</h5>
+<h5>1.7-11 ColorIsomorphismColorGraphs</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorIsomorphismColorGraphs</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>This operation returns a color isomorphism from <var class="Arg">cgr1</var> to <var class="Arg">cgr2</var>, and <code class="code">fail</code> otherwise.</p>
+<p>This operation returns a color isomorphism from <var class="Arg">cgr1</var> to <var class="Arg">cgr2</var> if it exists, and <code class="code">fail</code> otherwise.</p>
 
-<p>At the moment, this operation is implemented only from WL-stable color graphs.</p>
+<p>Here a color isomorphism is an ordered pair <code class="code">[f,g]</code>, where <code class="code">f</code> is a bijection from <code class="code">[1..Order(cgr1)]</code> to <code class="code">[1..Order(cgr2)]</code> and where <code class="code">g</code> is a bijection from <code class="code">[1..Rank(cgr1)]</code> to <code class="code">[1..Rank(cgr2)]</code>, such that <code class="code">ArcColorOfColorGraph(cgr1,u,v)^g = ArcColorOfColorGraph(cgr2,u^f,v^v)</code>, for all <code class="code">u</code> and <code class="code">v</code> from <code class="code">[1..Order(cgr1)]</code>.</p>
+
+<p>At the moment, this operation is implemented only for WL-stable color graphs.</p>
 
 <p><a id="X7FAD8F0F79023E02" name="X7FAD8F0F79023E02"></a></p>
 
-<h5>1.7-11 IsColorIsomorphicColorGraph</h5>
+<h5>1.7-12 IsColorIsomorphicColorGraph</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsColorIsomorphicColorGraph</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This operation returns <code class="code">true</code> if <var class="Arg">cgr1</var> and <var class="Arg">cgr2</var> are color isomorphic, and <code class="code">false</code> otherwise.</p>
 
 <p>At the moment, this operation is implemented only from WL-stable color graphs.</p>
 
+<p><a id="X878BF5EA8388B9D9" name="X878BF5EA8388B9D9"></a></p>
+
+<h5>1.7-13 IsColorIsomorphismOfColorGraphs</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsColorIsomorphismOfColorGraphs</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var>, <var class="Arg">g</var>, <var class="Arg">h</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsColorIsomorphismOfColorGraphs</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var>[, <var class="Arg">g</var>, <var class="Arg">h</var>] )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
+<p>This operation returns <code class="code">true</code> if <var class="Arg">[g,h]</var> is a colorisomorphism from <var class="Arg">cgr1</var> to <var class="Arg">cgr2</var> (see <code class="func">ColorIsomorphismColorGraphs</code> (<a href="chap1.html#X7D5857C385A376FE"><span class="RefLink">1.7-11</span></a>) for a definition of color isomorphisms).</p>
+
 <p><a id="X82A68C3F81741249" name="X82A68C3F81741249"></a></p>
 
-<h5>1.7-12 ColorAutomorphismGroup</h5>
+<h5>1.7-14 ColorAutomorphismGroup</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorAutomorphismGroup</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>This function computes and returns the color automorphism group of <var class="Arg">cgr</var>. This group consists of all permutations of the vertices of the color graph, that map arcs of the same color to arcs of the same color. In particular, it may act non-trivially on the colors of <var class="Arg">cgr</var>.</p>
@@ -1018,7 +1037,7 @@ true
 
 <p><a id="X7D339D77856CE298" name="X7D339D77856CE298"></a></p>
 
-<h5>1.7-13 ColorAutomorphismGroupOnColors</h5>
+<h5>1.7-15 ColorAutomorphismGroupOnColors</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorAutomorphismGroupOnColors</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>The color automorphism of <var class="Arg">cgr</var> acts on the colors of <var class="Arg">cgr</var> with the automorphism group of <var class="Arg">cgr</var> as kernel. This function computes and returns this action.</p>
@@ -1027,14 +1046,14 @@ true
 
 <p><a id="X7FD158627A750218" name="X7FD158627A750218"></a></p>
 
-<h5>1.7-14 KnownGroupOfAlgebraicAutomorphisms</h5>
+<h5>1.7-16 KnownGroupOfAlgebraicAutomorphisms</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfAlgebraicAutomorphisms</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>This function returns the group of all algebraic automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">COCO2P</strong> knows at the given moment.</p>
 
 <p><a id="X7C10A5D37F3DDAD5" name="X7C10A5D37F3DDAD5"></a></p>
 
-<h5>1.7-15 AlgebraicAutomorphismGroup</h5>
+<h5>1.7-17 AlgebraicAutomorphismGroup</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AlgebraicAutomorphismGroup</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;attribute&nbsp;)</td></tr></table></div>
 <p>The algebraic automorphism group of a WL-stable color graph is nothing but the automorphism group of its tensor of structure constants. The color automorphism group in its action on colors embeds naturally into the algebraic automorphism group.</p>

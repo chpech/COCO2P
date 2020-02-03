@@ -62,11 +62,14 @@
 \indexentry{IsIsomorphismOfObjects@\texttt  {IsIsomorphismOfObjects}!for color graphs|hyperpage}{20}
 \indexentry{IsIsomorphismOfColorGraphs@\texttt  {IsIsomorphismOfColorGraphs}!for color graphs|hyperpage}{20}
 \indexentry{KnownGroupOfColorAutomorphisms@\texttt  {KnownGroupOfColorAutomorphisms}|hyperpage}{21}
+\indexentry{KnownGroupOfColorAutomorphismsOnColors@\texttt  {Known}\-\texttt  {Group}\-\texttt  {Of}\-\texttt  {Color}\-\texttt  {Automorphisms}\-\texttt  {On}\-\texttt  {Colors}|hyperpage}{21}
 \indexentry{LiftToColorAutomorphism@\texttt  {LiftToColorAutomorphism}|hyperpage}{21}
 \indexentry{LiftToColorIsomorphism@\texttt  {LiftToColorIsomorphism}|hyperpage}{21}
 \indexentry{ColorIsomorphismColorGraphs@\texttt  {ColorIsomorphismColorGraphs}|hyperpage}{21}
 \indexentry{IsColorIsomorphicColorGraph@\texttt  {IsColorIsomorphicColorGraph}|hyperpage}{21}
-\indexentry{ColorAutomorphismGroup@\texttt  {ColorAutomorphismGroup}|hyperpage}{21}
+\indexentry{IsColorIsomorphismOfColorGraphs@\texttt  {IsColorIsomorphismOfColorGraphs}!for color graphs|hyperpage}{22}
+\indexentry{IsColorIsomorphismOfColorGraphs@\texttt  {IsColorIsomorphismOfColorGraphs}|hyperpage}{22}
+\indexentry{ColorAutomorphismGroup@\texttt  {ColorAutomorphismGroup}|hyperpage}{22}
 \indexentry{ColorAutomorphismGroupOnColors@\texttt  {ColorAutomorphismGroupOnColors}|hyperpage}{22}
 \indexentry{KnownGroupOfAlgebraicAutomorphisms@\texttt  {KnownGroupOfAlgebraicAutomorphisms}|hyperpage}{22}
 \indexentry{AlgebraicAutomorphismGroup@\texttt  {AlgebraicAutomorphismGroup}|hyperpage}{22}

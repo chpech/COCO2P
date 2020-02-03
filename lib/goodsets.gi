@@ -873,6 +873,7 @@ function(cand)
     return res;
 end);
 
+COCOInfoGSSize:=30;
 
 
 InstallGlobalFunction(ExtendAsymGSCand,
@@ -884,6 +885,9 @@ function(S,SM, cand)
     orbits:=StbcOrbits(SM, dom);
     orbits:=Intersection(dom,Set(orbits,Minimum));
     M:=NormalizedSetOfCandidate(cand);
+    if Length(M)<=COCOInfoGSSize then
+        COCOPrint(M,"\n");
+    fi;
 
     for i in orbits do
         SC:=CocoSetReducibilityTest(S,SM,M,i);
@@ -911,7 +915,6 @@ function(cand)
     return cand!.nperm;
 end);
 
-
 InstallGlobalFunction(ExtendSymGSCand,
 function(S,SM, cand)
     local dom,res,orbits,M,i,mates,ncand,part,SC,h,T;
@@ -925,6 +928,9 @@ function(S,SM, cand)
 
     orbits:=Filtered(orbits, x->((x/h)^Mates(T))^h >= x);
     M:=NormalizedSetOfCandidate(cand);
+    if Length(M)<=COCOInfoGSSize then
+        COCOPrint(M,"\n");
+    fi;
 
     for i in orbits do
         mates:=Set([i,((i/h)^Mates(T))^h]);
@@ -1215,7 +1221,7 @@ function(grp,gsorb)
     ug:=UnderlyingGroupOfCocoOrbit(gsorb);
 
     if not IsSubgroup(ug,grp) then
-        Error("SubOrbitsOfGoodSetOrbit: The given group is not a subgroup of the underlying group of the good set orbit!");
+        Error("SubOrbitsOfCocoOrbit: The given group is not a subgroup of the underlying group of the orbit!");
     fi;
     cosreps:=List(RightCosetsNC(ug,grp), x->Representative(x)^(-1)); # get left-coset representatives
     stab:=StabilizerOfCanonicalRepresentative(gsorb);
@@ -1235,7 +1241,7 @@ function(grp,gsorb,func)
     ug:=UnderlyingGroupOfCocoOrbit(gsorb);
 
     if not IsSubgroup(ug,grp) then
-        Error("SubOrbitsOfGoodSetOrbit: The given group is not a subgroup of the underlying group of the good set orbit!");
+        Error("SubOrbitsWithInvariantPropertyOfCocoOrbit: The given group is not a subgroup of the underlying group of the orbit!");
     fi;
     # testgsorb:=AsSet(gsorb);
     # testorbreps:=Set(Orbits(grp,testgsorb,OnGoodSets),Minimum);
@@ -1282,7 +1288,7 @@ function(G,T)
     local   ags,  sgs,  lgs;
 
     if not ForAll(GeneratorsOfGroup(G), g->IsAutomorphismOfObject(T,g)) then
-        Error("AllGoodSetOrbitsOfTensor: Given group mut preserve the tensor of structure-constants!");
+        Error("HomogeneousGoodSetOrbits: Given group mut preserve the tensor of structure-constants!");
         return fail;
     fi;
     ags:=SUBHomAsymGSReps(G,T);
@@ -1301,7 +1307,7 @@ function(G,T,mode)
     local   ags,  sgs,  lgs;
 
     if not ForAll(GeneratorsOfGroup(G), g->IsAutomorphismOfObject(T,g)) then
-        Error("AllGoodSetOrbitsOfTensor: Given group must preserve the tensor of structure-constants!");
+        Error("HomogeneousGoodSetOrbits: Given group must preserve the tensor of structure-constants!");
         return fail;
     fi;
     lgs:=[];

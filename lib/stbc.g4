@@ -280,14 +280,3 @@ end;
 StbcIntersection:=function(S1,S2)
    return StabChainMutable(Intersection(StbcGroup(S1),StbcGroup(S2)));
 end;
-
-
-
-
-MySymmetricGroup:=function(n)
-   return Action(SymmetricGroup(n),Combinations([1..n],2),OnSets);
-end;
-
-SymmetricGroupAction:=function(n,m)
-   return Action(SymmetricGroup(n), Combinations([1..n],m), OnSets);
-end;

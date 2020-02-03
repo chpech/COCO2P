@@ -90,14 +90,16 @@
       1.7-5 IsIsomorphicCocoObject
       1.7-6 IsIsomorphismOfObjects
       1.7-7 KnownGroupOfColorAutomorphisms
-      1.7-8 LiftToColorAutomorphism
-      1.7-9 LiftToColorIsomorphism
-      1.7-10 ColorIsomorphismColorGraphs
-      1.7-11 IsColorIsomorphicColorGraph
-      1.7-12 ColorAutomorphismGroup
-      1.7-13 ColorAutomorphismGroupOnColors
-      1.7-14 KnownGroupOfAlgebraicAutomorphisms
-      1.7-15 AlgebraicAutomorphismGroup
+      1.7-8 KnownGroupOfColorAutomorphismsOnColors
+      1.7-9 LiftToColorAutomorphism
+      1.7-10 LiftToColorIsomorphism
+      1.7-11 ColorIsomorphismColorGraphs
+      1.7-12 IsColorIsomorphicColorGraph
+      1.7-13 IsColorIsomorphismOfColorGraphs
+      1.7-14 ColorAutomorphismGroup
+      1.7-15 ColorAutomorphismGroupOnColors
+      1.7-16 KnownGroupOfAlgebraicAutomorphisms
+      1.7-17 AlgebraicAutomorphismGroup
   2 [33X[0;0YStructure Constants Tensors[133X
     2.1 [33X[0;0YIntroduction[133X
     2.2 [33X[0;0YFunctions for the construction of tensors[133X

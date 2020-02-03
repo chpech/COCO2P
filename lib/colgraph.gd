@@ -54,24 +54,27 @@ DeclareOperation( "LocalIntersectionArray",                  [IsColorGraph, IsPo
 DeclareOperation( "QuotientColorGraph",                      [IsColorGraph, IsSet] );                                # documented
 DeclareOperation( "ColorNames",                              [IsColorGraph] );                                       # documented
 DeclareOperation( "InducedSubColorGraph",                    [IsColorGraph, IsList] );                               # documented
-DeclareOperation( "DirectProductColorGraphs",                 [IsColorGraph, IsColorGraph] );                         # documented
-DeclareOperation( "WreathProductColorGraphs",                 [IsColorGraph, IsColorGraph] );                         # documented
+DeclareOperation( "DirectProductColorGraphs",                [IsColorGraph, IsColorGraph] );                         # documented
+DeclareOperation( "WreathProductColorGraphs",                [IsColorGraph, IsColorGraph] );                         # documented
 
 
 DeclareOperation( "PartitionClosedSet",                      [IsColorGraph and IsWLStableColorGraph and IsHomogeneous, IsList] ); # documented
 
 DeclareOperation( "KnownGroupOfAlgebraicAutomorphisms",      [IsColorGraph and IsWLStableColorGraph] );              # documented
 DeclareOperation( "KnownGroupOfColorAutomorphisms",          [IsColorGraph] );                                       # documented
+DeclareOperation( "KnownGroupOfColorAutomorphismsOnColors",  [IsColorGraph] );                                       # documented
 DeclareOperation( "SetKnownGroupOfColorAutomorphismsNC",     [IsColorGraph, IsPermGroup] );                          # undocumented
+DeclareOperation( "SetKnownGroupOfColorAutomorphismsOnColorsNC", [IsColorGraph, IsPermGroup] );                      # undocumented
 DeclareOperation( "SetKnownGroupOfAlgebraicAutomorphismsNC", [IsColorGraph and IsWLStableColorGraph, IsPermGroup] ); # undocumented
 DeclareOperation( "LiftToColorAutomorphism",                 [IsColorGraph, IsPerm] );                               # documented
 DeclareOperation( "LiftToColorIsomorphism",                  [IsColorGraph, IsColorGraph, IsPerm] );                 # documented
 DeclareOperation( "ColorIsomorphismColorGraphs",             [IsColorGraph, IsColorGraph] );                         # for WL-stable; documented
 DeclareOperation( "IsColorIsomorphicColorGraph",             [IsColorGraph, IsColorGraph] );                         # for WL-stable; documented
+DeclareOperation( "IsColorIsomorphismOfColorGraphs",         [IsColorGraph, IsColorGraph, IsPerm, IsPerm] );         # documented
 DeclareSynonym( "IsIsomorphicColorGraph", IsIsomorphicCocoObject);                                                   # documented
 DeclareSynonym( "IsomorphismColorGraphs", IsomorphismCocoObjects);                                                   # documented
 DeclareSynonym( "IsIsomorphismOfColorGraphs", IsIsomorphismOfObjects);                                               # documented
-DeclareSynonymAttr( "VertexNamesOfColorGraph", VertexNamesOfCocoObject);                                                 # documented
+DeclareSynonymAttr( "VertexNamesOfColorGraph", VertexNamesOfCocoObject);                                             # documented
 DeclareSynonym( "IsAutomorphismOfColorGraph", IsAutomorphismOfObject);                                               # documented
 
 

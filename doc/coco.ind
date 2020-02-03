@@ -47,7 +47,7 @@
     \subitem for homogeneous WL-stable color graphs, \hyperpage{17}
   \item \texttt  {ClosureSet}, \hyperpage{26}
   \item \texttt  {CocoPosetByFunctions}, \hyperpage{36}
-  \item \texttt  {ColorAutomorphismGroup}, \hyperpage{21}
+  \item \texttt  {ColorAutomorphismGroup}, \hyperpage{22}
   \item \texttt  {ColorAutomorphismGroupOnColors}, \hyperpage{22}
   \item \texttt  {ColorGraph}, \hyperpage{5}
   \item \texttt  {ColorGraphByFusion}, \hyperpage{15}
@@ -120,6 +120,8 @@
   \item \texttt  {IsAutomorphismOfTensor}
     \subitem for tensors, \hyperpage{27}
   \item \texttt  {IsColorIsomorphicColorGraph}, \hyperpage{21}
+  \item \texttt  {IsColorIsomorphismOfColorGraphs}, \hyperpage{22}
+    \subitem for color graphs, \hyperpage{22}
   \item \texttt  {IsCommutativeTensor}, \hyperpage{27}
   \item \texttt  {IsHomogeneous}, \hyperpage{18}
     \subitem for structure constants tensors, \hyperpage{27}
@@ -164,6 +166,8 @@
     \subitem for color graphs, \hyperpage{20}
     \subitem for tensors, \hyperpage{27}
   \item \texttt  {KnownGroupOfColorAutomorphisms}, \hyperpage{21}
+  \item \texttt  {Known}\-\texttt  {Group}\-\texttt  {Of}\-\texttt  {Color}\-\texttt  {Automorphisms}\-\texttt  {On}\-\texttt  {Colors}, 
+		\hyperpage{21}
 
   \indexspace
 

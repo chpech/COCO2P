@@ -173,7 +173,7 @@
     [4X[28X  AS(15,8), AS(15,9), AS(15,10), AS(15,11), AS(15,12), AS(15,13), AS(15,14),[128X[104X
     [4X[28X  AS(15,15), AS(15,16), AS(15,17), AS(15,18), AS(15,19), AS(15,20), AS(15,21),[128X[104X
     [4X[28X  AS(15,22), AS(15,23), AS(15,24) ][128X[104X
-    [4X[25Xgap>[125X [27XApply(lcgr, IsSchurian);[127X[104X
+    [4X[25Xgap>[125X [27XPerform(lcgr, IsSchurian);[127X[104X
     [4X[25Xgap>[125X [27Xpos:=SubColorIsomorphismPoset(lcgr);;[127X[104X
     [4X[25Xgap>[125X [27XGraphicCocoPoset(pos);[127X[104X
     [4X[28X<graphic poset "Iso-poset of color graphs">[128X[104X

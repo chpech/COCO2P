@@ -382,7 +382,7 @@ end;
 
 SetsSetsCanonifiers:=function(G,GM,M)
     local   lens,  slices,  cands,  MM,  len,  cMM,  lev,  newcands,
-            minSet,  cosReps,  c,  cosreps,  orNN,  y,  minreps,
+            minSet,  cosReps,  c,   orNN,  y,  minreps,
             minoy,  h,  newcandGroup,  newN;
 
     if IsTrivial(G) then
@@ -402,12 +402,12 @@ SetsSetsCanonifiers:=function(G,GM,M)
         for lev in [1..len] do
             newcands:=[];
             if IsTrivial(G) then
-                minSet:=MM;
+                minSet:=cands[1][2];
                 cosReps:=[];
                 for c in cands do
                     if c[2]<minSet then
                         minSet:=c[2];
-                        cosreps:=[c[3]];
+                        cosReps:=[c[3]];
                     elif c[2]=minSet then
                         AddSet(cosReps, c[3]);
                     fi;
@@ -456,6 +456,5 @@ SetsSetsCanonifiers:=function(G,GM,M)
 
 
     cosReps:=List(cands, x->x[3]);
-
     return cosReps;
 end;
