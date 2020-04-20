@@ -39,10 +39,10 @@ Subtitle := "Computations in Coherent Configurations",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers. For an automatic package distribution update
 ##  you must provide a new version number even after small changes.
-Version := "0.18",
+Version := "0.19",
 ##  Release date of the current version in dd/mm/yyyy format.
 ##
-Date := "03/02/2020",
+Date := "20/05/2020",
 ##  Optional: if the package manual uses GAPDoc, you may duplicate the
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
@@ -276,7 +276,7 @@ PackageDoc := rec(
 Dependencies := rec(
   # GAP version, use the version string for specifying a least version,
   # prepend a '=' for specifying an exact version.
-  GAP := "4.5.0",
+  GAP := "4.10.0",
 
   # list of pairs [package name, version], package name is case
   # insensitive, exact version denoted with '=' prepended to version string.
