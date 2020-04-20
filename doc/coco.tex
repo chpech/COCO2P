@@ -90,11 +90,11 @@
 \begin{titlepage}
 \mbox{}\vfill
 
-\begin{center}{\maintitlesize \textbf{The \textsf{COCO2P} Package\mbox{}}}\\
+\begin{center}{\maintitlesize \textbf{The \textsf{coco2p} Package\mbox{}}}\\
 \vfill
 
-\hypersetup{pdftitle=The \textsf{COCO2P} Package}
-\markright{\scriptsize \mbox{}\hfill The \textsf{COCO2P} Package \hfill\mbox{}}
+\hypersetup{pdftitle=The \textsf{coco2p} Package}
+\markright{\scriptsize \mbox{}\hfill The \textsf{coco2p} Package \hfill\mbox{}}
 {\Huge Version 0.17\mbox{}}\\[1cm]
 \mbox{}\\[2cm]
 {\Large \textbf{Mikhail Klin  \mbox{}}}\\
@@ -116,10 +116,10 @@
 {\small 
 \section*{Copyright}
 \logpage{[ 0, 0, 1 ]}
- {\copyright} 2012, 2014, 2018 by the authors
+ {\copyright} 2012, 2014, 2018, 2019, 2020 by the authors
 
  This package may be distributed under the terms and conditions of the GNU
-Public License Version 2 or higher. \mbox{}}\\[1cm]
+Public License Version v3.0 or higher. \mbox{}}\\[1cm]
 \newpage
 
 \def\contentsname{Contents\logpage{[ 0, 0, 2 ]}}
@@ -136,17 +136,17 @@ Public License Version 2 or higher. \mbox{}}\\[1cm]
 \logpage{[ 1, 1, 0 ]}
 \hyperdef{L}{X8729B87B848E3F89}{}
 {
-  A color graph (cgr) in \textsf{COCO2P} is a triple $(V,C,f)$, where $V$ is a set of vertices, $C$ is set of colors, and $f : V \times V \to C$ assigns to every arc its color. \textsf{COCO2P} does not know the concept of non-arcs. However, this is not an essential
+  A color graph (cgr) in \textsf{coco2p} is a triple $(V,C,f)$, where $V$ is a set of vertices, $C$ is set of colors, and $f : V \times V \to C$ assigns to every arc its color. \textsf{coco2p} does not know the concept of non-arcs. However, this is not an essential
 restriction, since non-arcs may be simulated by introducing a special
 distinguished color. 
 
- Of special interrest in \textsf{COCO2P} are WL-stable color graphs (that is cgrs that are stable under the
-Weisfeiler-Leman algorithm \cite{WeiL68}, \cite{Wei76}). In the frames of \textsf{COCO2P} the maximal monochromatic sets of arcs of a WL-stable color graph will always
+ Of special interrest in \textsf{coco2p} are WL-stable color graphs (that is cgrs that are stable under the
+Weisfeiler-Leman algorithm \cite{WeiL68}, \cite{Wei76}). In the frames of \textsf{coco2p} the maximal monochromatic sets of arcs of a WL-stable color graph will always
 form a \emph{coherent configuration}. On the other hand, from every coherent configuration we can obtain a
 WL-stable cgr (every pair of vertices is colored by the relation it belongs
 to). 
 
- For historical reasons, \textsf{COCO2P} uses the nomenclature of color graphs. However, this is only of importance for
+ For historical reasons, \textsf{coco2p} uses the nomenclature of color graphs. However, this is only of importance for
 concepts like automorphisms and isomorphisms. While both, automorphisms and
 isomorphisms have to preserve colors (as it is expected for color graphs),
 color-automorphisms, and color-isomorphisms only have to respect color
@@ -155,15 +155,15 @@ classes, that is, they may map arcs of one color to arcs of another color.
  }
 
  
-\section{\textcolor{Chapter }{ On the representation of color graphs in \textsf{COCO2P} }}\label{sec:cgr-representation}
+\section{\textcolor{Chapter }{ On the representation of color graphs in \textsf{coco2p} }}\label{sec:cgr-representation}
 \logpage{[ 1, 2, 0 ]}
 \hyperdef{L}{X8376827B806E61A4}{}
 {
   For a color graph, the set of vertices as well as the set of colors may be any
-finite set representable in \textsf{GAP}. For performance reasons, \textsf{COCO2P} does not use these sets inside its algorithms (except when constructing color
-graphs). Instead, \textsf{COCO2P} refers to vertices and colors by their position in the vertex-set and
+finite set representable in \textsf{GAP}. For performance reasons, \textsf{coco2p} does not use these sets inside its algorithms (except when constructing color
+graphs). Instead, \textsf{coco2p} refers to vertices and colors by their position in the vertex-set and
 color-set, respectively. In fact vertices and colors are identified with these
-indices. In order not to loose information, every color graph in \textsf{COCO2P} keeps a list of names of vertices and a list of names of colors. The set of
+indices. In order not to loose information, every color graph in \textsf{coco2p} keeps a list of names of vertices and a list of names of colors. The set of
 vertex-names is equal to the original set of vertices, and the set of color
 names is equal to the original set of colors. }
 
@@ -468,7 +468,7 @@ to construct $3$-isoregular strongly regular graphs with the $5$-vertex conditio
  This function creates an interface to the database of small association
 schemes by Akihide Hanaki and Izumi Miyamoto from \href{http://math.shinshu-u.ac.jp/~hanaki/as/} {\texttt{http://math.shinshu-u.ac.jp/\texttt{\symbol{126}}hanaki/as/}} (further refered to as the Japanese catalogue) 
 
- This function downloads the list of small association schemes of order \mbox{\texttt{\mdseries\slshape n}}. Then it converts them to the internal format of \textsf{COCO2P} and returns the resulting list. Every color graph has a name of the shape \texttt{AS(n,k)} where \texttt{k} is the index of the scheme in the list of schemes of order \mbox{\texttt{\mdseries\slshape n}} in the Japanese catalogue. }
+ This function downloads the list of small association schemes of order \mbox{\texttt{\mdseries\slshape n}}. Then it converts them to the internal format of \textsf{coco2p} and returns the resulting list. Every color graph has a name of the shape \texttt{AS(n,k)} where \texttt{k} is the index of the scheme in the list of schemes of order \mbox{\texttt{\mdseries\slshape n}} in the Japanese catalogue. }
 
  
 
@@ -482,7 +482,7 @@ schemes by Akihide Hanaki and Izumi Miyamoto from \href{http://math.shinshu-u.ac
 
  This function creates an interface to the database of small coherent
 configurations on at most 15 vertices by Matan Ziv-Av This function downloads
-the list of small coherent configurations of order \mbox{\texttt{\mdseries\slshape n}}. Then it converts them to the internal format of \textsf{COCO2P} and returns the resulting list. Every color graph has a name of the shape \texttt{CC(n,k)} where \texttt{k} is the index of the scheme in the list of schemes of order \mbox{\texttt{\mdseries\slshape n}} in Matan's catalogue. }
+the list of small coherent configurations of order \mbox{\texttt{\mdseries\slshape n}}. Then it converts them to the internal format of \textsf{coco2p} and returns the resulting list. Every color graph has a name of the shape \texttt{CC(n,k)} where \texttt{k} is the index of the scheme in the list of schemes of order \mbox{\texttt{\mdseries\slshape n}} in Matan's catalogue. }
 
  }
 
@@ -1067,6 +1067,9 @@ from \mbox{\texttt{\mdseries\slshape cset}} of \mbox{\texttt{\mdseries\slshape c
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsUndirectedColorGraph({\mdseries\slshape cgr})\index{IsUndirectedColorGraph@\texttt{IsUndirectedColorGraph}}
 \label{IsUndirectedColorGraph}
 }\hfill{\scriptsize (property)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsSymmetricColorGraph({\mdseries\slshape cgr})\index{IsSymmetricColorGraph@\texttt{IsSymmetricColorGraph}}
+\label{IsSymmetricColorGraph}
+}\hfill{\scriptsize (method)}}\\
 
 
  A color graph is called \emph{undirected} if for all vertices $u$ and $v$ the arc $(u,v)$ has the same color as the arc $(v,u)$. The function tests this property for \mbox{\texttt{\mdseries\slshape cgr}}. 
@@ -1157,12 +1160,15 @@ group.
 
  
 
-\subsection{\textcolor{Chapter }{IsPrimitive (for WL-stable color graphs)}}
+\subsection{\textcolor{Chapter }{IsPrimitiveColorGraph (for WL-stable color graphs)}}
 \logpage{[ 1, 6, 5 ]}\nobreak
-\hyperdef{L}{X7DEB50307A5353B5}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsPrimitive({\mdseries\slshape cgr})\index{IsPrimitive@\texttt{IsPrimitive}!for WL-stable color graphs}
-\label{IsPrimitive:for WL-stable color graphs}
+\hyperdef{L}{X7D0C85B4786C9CEA}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsPrimitiveColorGraph({\mdseries\slshape cgr})\index{IsPrimitiveColorGraph@\texttt{IsPrimitiveColorGraph}!for WL-stable color graphs}
+\label{IsPrimitiveColorGraph:for WL-stable color graphs}
 }\hfill{\scriptsize (property)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsPrimitive({\mdseries\slshape cgr})\index{IsPrimitive@\texttt{IsPrimitive}!for WL-stable color graphs}
+\label{IsPrimitive:for WL-stable color graphs}
+}\hfill{\scriptsize (method)}}\\
 
 
  A WL-stable color graph is primitive if all its loopless base graphs are
@@ -1170,7 +1176,7 @@ strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGra
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=ColorGraph(Group((1,2,3,4)));|
   <color graph of order 4 and rank 4>
-  !gapprompt@gap>| !gapinput@IsPrimitive(cgr);|
+  !gapprompt@gap>| !gapinput@IsPrimitiveColorGraph(cgr);|
   false
   !gapprompt@gap>| !gapinput@ReflexiveColors(cgr);|
   [ 1 ]
@@ -1200,7 +1206,7 @@ strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGra
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function returns the group of all automorphisms of \mbox{\texttt{\mdseries\slshape cgr}} that \textsf{COCO2P} knows at the given moment. }
+ This function returns the group of all automorphisms of \mbox{\texttt{\mdseries\slshape cgr}} that \textsf{coco2p} knows at the given moment. }
 
  
 
@@ -1230,7 +1236,7 @@ strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGra
 }\hfill{\scriptsize (operation)}}\\
 
 
- Returns \texttt{true}, if \mbox{\texttt{\mdseries\slshape perm}} is an automorphism of \mbox{\texttt{\mdseries\slshape cgr}}. In that case \textsf{COCO2P} adds \mbox{\texttt{\mdseries\slshape perm}} to the known automorphisms of \mbox{\texttt{\mdseries\slshape cgr}}. }
+ Returns \texttt{true}, if \mbox{\texttt{\mdseries\slshape perm}} is an automorphism of \mbox{\texttt{\mdseries\slshape cgr}}. In that case \textsf{coco2p} adds \mbox{\texttt{\mdseries\slshape perm}} to the known automorphisms of \mbox{\texttt{\mdseries\slshape cgr}}. }
 
  
 
@@ -1290,7 +1296,7 @@ strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGra
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function returns the group of all color automorphisms of \mbox{\texttt{\mdseries\slshape cgr}} that \textsf{COCO2P} knows at the given moment. }
+ This function returns the group of all color automorphisms of \mbox{\texttt{\mdseries\slshape cgr}} that \textsf{coco2p} knows at the given moment. }
 
  
 
@@ -1302,7 +1308,7 @@ strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGra
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function returns the group of all color automorphisms of \mbox{\texttt{\mdseries\slshape cgr}} that \textsf{COCO2P} knows at the given moment, acting on the colors of \mbox{\texttt{\mdseries\slshape cgr}}. }
+ This function returns the group of all color automorphisms of \mbox{\texttt{\mdseries\slshape cgr}} that \textsf{coco2p} knows at the given moment, acting on the colors of \mbox{\texttt{\mdseries\slshape cgr}}. }
 
  
 
@@ -1423,7 +1429,7 @@ the built-in gap-functions.
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function returns the group of all algebraic automorphisms of \mbox{\texttt{\mdseries\slshape cgr}} that \textsf{COCO2P} knows at the given moment. }
+ This function returns the group of all algebraic automorphisms of \mbox{\texttt{\mdseries\slshape cgr}} that \textsf{coco2p} knows at the given moment. }
 
  
 
@@ -1452,8 +1458,8 @@ automorphism group. }
 \section{\textcolor{Chapter }{Introduction}}\logpage{[ 2, 1, 0 ]}
 \hyperdef{L}{X7DFB63A97E67C0A1}{}
 {
-  \textsf{COCO2P} introduces its own data-type for structure constants tensors of coherent
-algebras. The methods provided by \textsf{COCO2P} are tailored for this use. The emphasis lies on symmetries, quotients (by
+  \textsf{coco2p} introduces its own data-type for structure constants tensors of coherent
+algebras. The methods provided by \textsf{coco2p} are tailored for this use. The emphasis lies on symmetries, quotients (by
 closed sets) and mergings (fusions). }
 
  
@@ -1489,7 +1495,7 @@ constants tensor $T$ of \mbox{\texttt{\mdseries\slshape cgr}}. This object encod
 
  Note that this function does not check, whether the entries are integers or
 even numbers. One can also view the datatype of tensors as a type that encodes
-complete colored hyper-graphs with hyper-arcs of length $3$. Even though there is not much infrastructure implemented in \textsf{COCO2P} for such objects, at least it is possible to check isomorphism and to compute
+complete colored hyper-graphs with hyper-arcs of length $3$. Even though there is not much infrastructure implemented in \textsf{coco2p} for such objects, at least it is possible to check isomorphism and to compute
 automorphism groups. }
 
  }
@@ -1719,7 +1725,7 @@ automorphism groups. }
 }\hfill{\scriptsize (property)}}\\
 
 
- If \mbox{\texttt{\mdseries\slshape tensor}} has this property, then this means that \textsf{COCO2P} knows, that it is the structure constants tensor of a WL-stable color graph.
+ If \mbox{\texttt{\mdseries\slshape tensor}} has this property, then this means that \textsf{coco2p} knows, that it is the structure constants tensor of a WL-stable color graph.
 There is no method installed for this property, as it is in general hard to
 prove that a given tensor belongs to a WL-stable color graph. The property is
 set by the constructor that created \mbox{\texttt{\mdseries\slshape tensor}}. }
@@ -1779,7 +1785,7 @@ singleton of the unique reflexive color and the set of all colors).
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function returns the group of all automorphisms of \mbox{\texttt{\mdseries\slshape tensor}} that \textsf{COCO2P} knows at the given moment. }
+ This function returns the group of all automorphisms of \mbox{\texttt{\mdseries\slshape tensor}} that \textsf{coco2p} knows at the given moment. }
 
  
 
@@ -1809,7 +1815,7 @@ singleton of the unique reflexive color and the set of all colors).
 }\hfill{\scriptsize (operation)}}\\
 
 
- Returns \texttt{true}, if \mbox{\texttt{\mdseries\slshape perm}} is an automorphism of \mbox{\texttt{\mdseries\slshape tensor}}. In that case \textsf{COCO2P} adds \mbox{\texttt{\mdseries\slshape perm}} to the known automorphisms of \mbox{\texttt{\mdseries\slshape tensor}}. }
+ Returns \texttt{true}, if \mbox{\texttt{\mdseries\slshape perm}} is an automorphism of \mbox{\texttt{\mdseries\slshape tensor}}. In that case \textsf{coco2p} adds \mbox{\texttt{\mdseries\slshape perm}} to the known automorphisms of \mbox{\texttt{\mdseries\slshape tensor}}. }
 
  
 
@@ -1864,7 +1870,7 @@ singleton of the unique reflexive color and the set of all colors).
 {
   The structure constants tensor of a WL-stable color graph encodes the
 structure of the associated coherent algebra. If this algebra is commutative,
-then \textsf{COCO2P} is able to compute its character table provided, the irrationalities occuring
+then \textsf{coco2p} is able to compute its character table provided, the irrationalities occuring
 are representable in \textsf{GAP}. The algorithm that computes the character tables involves Gr{\"o}bner-bases.
 The computation of the Gr{\"o}bner bases defines the overall performance of
 the algorithm for the computation of character tables. 
@@ -1897,8 +1903,8 @@ the algorithm for the computation of character tables.
  }
 
  
-\chapter{\textcolor{Chapter }{WL-Stable Fusions Color Graphs}}\logpage{[ 3, 0, 0 ]}
-\hyperdef{L}{X81EC7ADC7F919C22}{}
+\chapter{\textcolor{Chapter }{WL-Stable Fusions of Color Graphs}}\logpage{[ 3, 0, 0 ]}
+\hyperdef{L}{X80CC7E628273B08B}{}
 {
   
 \section{\textcolor{Chapter }{Introduction}}\logpage{[ 3, 1, 0 ]}
@@ -1909,11 +1915,11 @@ graph $\Gamma$, is to \emph{fuse} (i.e identify) colors. Color graphs that are d
 
  One of the fundamental algorithmical problems in algebraic combinatorics is to
 enumerate all WL-stable fusion color graphs of a given color graph. At the
-moment \textsf{COCO2P} can solve a part of this problem {\textendash} namely starting from any
+moment \textsf{coco2p} can solve a part of this problem {\textendash} namely starting from any
 WL-stable color graph $\Gamma$ it can enumerate (orbits of) stable fusions that lead to homogeneous WL-stable
 fusion color graphs. Such fusions we will call \emph{homogeneous}. 
 
- Computing stable fusions, in \textsf{COCO2P} is a two-stages process: 
+ Computing stable fusions, in \textsf{coco2p} is a two-stages process: 
 \begin{enumerate}
 \item Computation of good sets of colors,
 \item Fitting together good sets to stable fusions.
@@ -1986,7 +1992,7 @@ of sets of colors), that contains \mbox{\texttt{\mdseries\slshape gs}} as a clas
 \section{\textcolor{Chapter }{Orbits of good sets}}\logpage{[ 3, 3, 0 ]}
 \hyperdef{L}{X7C8FC58D8552CAB2}{}
 {
-  \textsf{COCO2P} implements a datatype for orbits of combinatorial objects. This section
+  \textsf{coco2p} implements a datatype for orbits of combinatorial objects. This section
 describes the functions that deal with orbits of good sets. For every orbit of
 good sets, only the lexicographically smallest representative and its set-wise
 stabilizer is saved. This allows to deal with good sets of color graphs of
@@ -2003,7 +2009,7 @@ comparatively high rank, provided they have many algebraic automorphisms.
 }\hfill{\scriptsize (method)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape group}} is supposed to consist only of automorphisms of \mbox{\texttt{\mdseries\slshape tensor}}. \textsf{COCO2P} learns new automorphisms by checking this property. If group is not given,
+ \mbox{\texttt{\mdseries\slshape group}} is supposed to consist only of automorphisms of \mbox{\texttt{\mdseries\slshape tensor}}. \textsf{coco2p} learns new automorphisms by checking this property. If group is not given,
 then the full automorphism group of \mbox{\texttt{\mdseries\slshape tensor}} is taken for \mbox{\texttt{\mdseries\slshape group}}. 
 
  This function returns all \mbox{\texttt{\mdseries\slshape group}}-orbits of homogeneous good sets. 
@@ -2022,7 +2028,7 @@ then the full automorphism group of \mbox{\texttt{\mdseries\slshape tensor}} is 
 
  \mbox{\texttt{\mdseries\slshape gs}} is a good set. \mbox{\texttt{\mdseries\slshape group}} has to be a subgroup of the automorphism group of \texttt{TensorOfGoodSet(gs)}. \mbox{\texttt{\mdseries\slshape stab}} (if given) has to be the full set-wise stabilizer of \mbox{\texttt{\mdseries\slshape gs}} in \mbox{\texttt{\mdseries\slshape group}}. 
 
- The function constructs a \textsf{COCO2P}-orbit object of the setwise orbit of \mbox{\texttt{\mdseries\slshape gs}} under \mbox{\texttt{\mdseries\slshape group}}. }
+ The function constructs a \textsf{coco2p}-orbit object of the setwise orbit of \mbox{\texttt{\mdseries\slshape gs}} under \mbox{\texttt{\mdseries\slshape group}}. }
 
  
 
@@ -2095,7 +2101,7 @@ good sets \mbox{\texttt{\mdseries\slshape gsorb}}. }
 }\hfill{\scriptsize (method)}}\\
 
 
- expands the \textsf{COCO2P}-orbit object \mbox{\texttt{\mdseries\slshape gsorb}} into a list of good sets. }
+ expands the \textsf{coco2p}-orbit object \mbox{\texttt{\mdseries\slshape gsorb}} into a list of good sets. }
 
  
 
@@ -2107,7 +2113,7 @@ good sets \mbox{\texttt{\mdseries\slshape gsorb}}. }
 }\hfill{\scriptsize (method)}}\\
 
 
- expands the \textsf{COCO2P}-orbit object \mbox{\texttt{\mdseries\slshape gsorb}} into a set of good sets. }
+ expands the \textsf{coco2p}-orbit object \mbox{\texttt{\mdseries\slshape gsorb}} into a set of good sets. }
 
  
 
@@ -2213,7 +2219,7 @@ size are sorted lexicographically. }
  The base of a fusion is the smallest list of classes of \mbox{\texttt{\mdseries\slshape fusion}} (in the short lex order) that generates \mbox{\texttt{\mdseries\slshape fusion}} in the sense that there is no coarser stable fusion that contains the classes
 of the base. 
 
- This function returns the base of \mbox{\texttt{\mdseries\slshape fusion}} if \textsf{COCO2P} knows it. At the moment there is no method for computing the base. }
+ This function returns the base of \mbox{\texttt{\mdseries\slshape fusion}} if \textsf{coco2p} knows it. At the moment there is no method for computing the base. }
 
  
 
@@ -2227,13 +2233,25 @@ of the base.
 
  returns the number of classes of \mbox{\texttt{\mdseries\slshape fusion}}. }
 
+ 
+
+\subsection{\textcolor{Chapter }{OrderOfFusion}}
+\logpage{[ 3, 4, 7 ]}\nobreak
+\hyperdef{L}{X818EC6447AD29D1D}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{OrderOfFusion({\mdseries\slshape fusion})\index{OrderOfFusion@\texttt{OrderOfFusion}}
+\label{OrderOfFusion}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ returns the order of the underlying tensor of \mbox{\texttt{\mdseries\slshape fusion}}. }
+
  }
 
  
 \section{\textcolor{Chapter }{ Orbits of fusions}}\logpage{[ 3, 5, 0 ]}
 \hyperdef{L}{X79E3348682BC2376}{}
 {
-  \textsf{COCO2P} implements a datatype for orbits of combinatorial objects. This section
+  \textsf{coco2p} implements a datatype for orbits of combinatorial objects. This section
 describes the functions that deal with orbits of stable fusion. For every
 orbit of fusions, only the smallest representative in the short-lex order and
 its partition-wise stabilizer is saved. This allows to deal with fusions of
@@ -2250,15 +2268,58 @@ color graphs of comparatively high rank.
 }\hfill{\scriptsize (method)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape group}} is supposed to consist only of automorphisms of \mbox{\texttt{\mdseries\slshape tensor}}. \textsf{COCO2P} learns new automorphisms by checking this property. If group is not given,
+ \mbox{\texttt{\mdseries\slshape group}} is supposed to consist only of automorphisms of \mbox{\texttt{\mdseries\slshape tensor}}. \textsf{coco2p} learns new automorphisms by checking this property. If group is not given,
 then the full automorphism group of \mbox{\texttt{\mdseries\slshape tensor}} is taken for \mbox{\texttt{\mdseries\slshape group}}. 
 
  This function returns all \mbox{\texttt{\mdseries\slshape group}}-orbits of homogeneous stable fusions. }
 
  
 
-\subsection{\textcolor{Chapter }{FusionOrbit}}
+\subsection{\textcolor{Chapter }{PosetOfHomogeneousFusionOrbits (for WL-stable color graphs)}}
 \logpage{[ 3, 5, 2 ]}\nobreak
+\hyperdef{L}{X7D1E940084901F2F}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{PosetOfHomogeneousFusionOrbits({\mdseries\slshape cgr})\index{PosetOfHomogeneousFusionOrbits@\texttt{PosetOfHomogeneousFusionOrbits}!for WL-stable color graphs}
+\label{PosetOfHomogeneousFusionOrbits:for WL-stable color graphs}
+}\hfill{\scriptsize (function)}}\\
+
+
+ \mbox{\texttt{\mdseries\slshape cgr}} is a WL-stable color graph. The function creates a poset of orbits of fusions
+of the tensor of structure constants of \mbox{\texttt{\mdseries\slshape cgr}} under the color automorphism group of \mbox{\texttt{\mdseries\slshape cgr}}. An orbit $o1$ is below an orbit $o2$ if every element of $o1$ is coarser than some element $o2$. }
+
+ 
+
+\subsection{\textcolor{Chapter }{GraphicCocoPoset (for posets of fusion orbits)}}
+\logpage{[ 3, 5, 3 ]}\nobreak
+\hyperdef{L}{X7AC96CCE7E42A480}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{GraphicCocoPoset({\mdseries\slshape poset})\index{GraphicCocoPoset@\texttt{GraphicCocoPoset}!for posets of fusion orbits}
+\label{GraphicCocoPoset:for posets of fusion orbits}
+}\hfill{\scriptsize (method)}}\\
+
+
+ \mbox{\texttt{\mdseries\slshape poset}} is a \textsf{coco2p}-poset of fusion orbits, obtained, e.g., by \texttt{PosetOfHomogeneousFusionOrbits} (\ref{PosetOfHomogeneousFusionOrbits:for WL-stable color graphs}). This function creates a graphical representation of this poset. The labels
+of the nodes of the graphical poset correspond to the indices in the given
+poset.When invoked in \textsf{XGAP}, the context-menu of each node gives additional information about the node.
+If for some node it is known whether the underlying color graph is surian or
+not, then this is made visible in the graphical poset. Nodes for which it is
+not known whether the cgr is Schurian, are represented by squares. Schurian
+nodes are represented by circles, and non-Schurian nodes are represented by
+diamonds. 
+
+ This function is available only from \textsf{XGAP} or within \textsf{Jupyter-GAP} when the package \textsf{Francy} was loaded before \textsf{coco2p}. 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@pos:=PosetOfHomogeneousFusionOrbits(BIKColorGraph(4));|
+  <poset of fusion orbits with with 5 elements>
+  !gapprompt@gap>| !gapinput@GraphicCocoPoset(pos);|
+  <graphic poset "PosetOfFusionOrbits">
+  !gapprompt@gap>| !gapinput@|
+  	    
+\end{Verbatim}
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{FusionOrbit}}
+\logpage{[ 3, 5, 4 ]}\nobreak
 \hyperdef{L}{X82E731437F02346D}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{FusionOrbit({\mdseries\slshape group, fusion[, stab]})\index{FusionOrbit@\texttt{FusionOrbit}}
 \label{FusionOrbit}
@@ -2267,12 +2328,12 @@ then the full automorphism group of \mbox{\texttt{\mdseries\slshape tensor}} is 
 
  \mbox{\texttt{\mdseries\slshape fusion}} is a fusion object. \mbox{\texttt{\mdseries\slshape group}} has to be a subgroup of the automorphism group of \texttt{TensorOfFusion(fusion)}. \mbox{\texttt{\mdseries\slshape stab}} (if given) has to be the full partition-wise stabilizer of \mbox{\texttt{\mdseries\slshape fusion}} in \mbox{\texttt{\mdseries\slshape group}}. 
 
- The function constructs a \textsf{COCO2P}-orbit object of the partition-wise orbit of \mbox{\texttt{\mdseries\slshape fusion}} under \mbox{\texttt{\mdseries\slshape group}}. }
+ The function constructs a \textsf{coco2p}-orbit object of the partition-wise orbit of \mbox{\texttt{\mdseries\slshape fusion}} under \mbox{\texttt{\mdseries\slshape group}}. }
 
  
 
 \subsection{\textcolor{Chapter }{CanonicalRepresentativeOfCocoOrbit (for orbits of fusions)}}
-\logpage{[ 3, 5, 3 ]}\nobreak
+\logpage{[ 3, 5, 5 ]}\nobreak
 \hyperdef{L}{X85B7C08285E5B799}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CanonicalRepresentativeOfCocoOrbit({\mdseries\slshape fusionorb})\index{CanonicalRepresentativeOfCocoOrbit@\texttt{CanonicalRepresentativeOfCocoOrbit}!for orbits of fusions}
 \label{CanonicalRepresentativeOfCocoOrbit:for orbits of fusions}
@@ -2285,7 +2346,7 @@ orbit of fusions \mbox{\texttt{\mdseries\slshape fusionorb}}. }
  
 
 \subsection{\textcolor{Chapter }{Representative (for orbits of fusions)}}
-\logpage{[ 3, 5, 4 ]}\nobreak
+\logpage{[ 3, 5, 6 ]}\nobreak
 \hyperdef{L}{X85BAA5A87BA76215}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Representative({\mdseries\slshape fusionorb})\index{Representative@\texttt{Representative}!for orbits of fusions}
 \label{Representative:for orbits of fusions}
@@ -2297,7 +2358,7 @@ orbit of fusions \mbox{\texttt{\mdseries\slshape fusionorb}}. }
  
 
 \subsection{\textcolor{Chapter }{UnderlyingGroupOfCocoOrbit (for orbits of fusions)}}
-\logpage{[ 3, 5, 5 ]}\nobreak
+\logpage{[ 3, 5, 7 ]}\nobreak
 \hyperdef{L}{X7B4255C57867788C}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{UnderlyingGroupOfCocoOrbit({\mdseries\slshape fusionorb})\index{UnderlyingGroupOfCocoOrbit@\texttt{UnderlyingGroupOfCocoOrbit}!for orbits of fusions}
 \label{UnderlyingGroupOfCocoOrbit:for orbits of fusions}
@@ -2309,7 +2370,7 @@ orbit of fusions \mbox{\texttt{\mdseries\slshape fusionorb}}. }
  
 
 \subsection{\textcolor{Chapter }{StabilizerOfCanonicalRepresentative (for orbits of fusions)}}
-\logpage{[ 3, 5, 6 ]}\nobreak
+\logpage{[ 3, 5, 8 ]}\nobreak
 \hyperdef{L}{X7B8F411C863F4179}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{StabilizerOfCanonicalRepresentative({\mdseries\slshape fusion})\index{StabilizerOfCanonicalRepresentative@\texttt{StabilizerOfCanonicalRepresentative}!for orbits of fusions}
 \label{StabilizerOfCanonicalRepresentative:for orbits of fusions}
@@ -2321,7 +2382,7 @@ orbit of fusions \mbox{\texttt{\mdseries\slshape fusionorb}}. }
  
 
 \subsection{\textcolor{Chapter }{Size (for orbits of fusions)}}
-\logpage{[ 3, 5, 7 ]}\nobreak
+\logpage{[ 3, 5, 9 ]}\nobreak
 \hyperdef{L}{X7C0606D6878E1F35}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Size({\mdseries\slshape fusionorb})\index{Size@\texttt{Size}!for orbits of fusions}
 \label{Size:for orbits of fusions}
@@ -2333,31 +2394,31 @@ orbit of fusions \mbox{\texttt{\mdseries\slshape fusionorb}}. }
  
 
 \subsection{\textcolor{Chapter }{AsList (for orbits of fusions)}}
-\logpage{[ 3, 5, 8 ]}\nobreak
+\logpage{[ 3, 5, 10 ]}\nobreak
 \hyperdef{L}{X87538F0F86B539BA}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AsList({\mdseries\slshape fusionorb})\index{AsList@\texttt{AsList}!for orbits of fusions}
 \label{AsList:for orbits of fusions}
 }\hfill{\scriptsize (method)}}\\
 
 
-s expands the \textsf{COCO2P}-orbit object \mbox{\texttt{\mdseries\slshape fusionorb}} into a list of fusions. }
+s expands the \textsf{coco2p}-orbit object \mbox{\texttt{\mdseries\slshape fusionorb}} into a list of fusions. }
 
  
 
 \subsection{\textcolor{Chapter }{AsSet (for orbits of fusions)}}
-\logpage{[ 3, 5, 9 ]}\nobreak
+\logpage{[ 3, 5, 11 ]}\nobreak
 \hyperdef{L}{X80C57CB5862EA0E0}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AsSet({\mdseries\slshape fusionorb})\index{AsSet@\texttt{AsSet}!for orbits of fusions}
 \label{AsSet:for orbits of fusions}
 }\hfill{\scriptsize (method)}}\\
 
 
- expands the \textsf{COCO2P}-orbit object \mbox{\texttt{\mdseries\slshape fusionorb}} into a set of fusions. }
+ expands the \textsf{coco2p}-orbit object \mbox{\texttt{\mdseries\slshape fusionorb}} into a set of fusions. }
 
  
 
 \subsection{\textcolor{Chapter }{SubOrbitsOfCocoOrbit (for orbits of fusions)}}
-\logpage{[ 3, 5, 10 ]}\nobreak
+\logpage{[ 3, 5, 12 ]}\nobreak
 \hyperdef{L}{X7842968983700F79}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SubOrbitsOfCocoOrbit({\mdseries\slshape group, fusion})\index{SubOrbitsOfCocoOrbit@\texttt{SubOrbitsOfCocoOrbit}!for orbits of fusions}
 \label{SubOrbitsOfCocoOrbit:for orbits of fusions}
@@ -2370,7 +2431,7 @@ a list of these suborbits. }
  
 
 \subsection{\textcolor{Chapter }{SubOrbitsWithInvariantPropertyOfCocoOrbit (for orbits of fusions)}}
-\logpage{[ 3, 5, 11 ]}\nobreak
+\logpage{[ 3, 5, 13 ]}\nobreak
 \hyperdef{L}{X7B053C1D7CD14AD8}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SubOrbitsWithInvariantPropertyOfCocoOrbit({\mdseries\slshape group, fusionorb, prop})\index{SubOrbitsWithInvariantPropertyOfCocoOrbit@\texttt{Sub}\-\texttt{Orbits}\-\texttt{With}\-\texttt{Invariant}\-\texttt{Property}\-\texttt{Of}\-\texttt{Coco}\-\texttt{Orbit}!for orbits of fusions}
 \label{SubOrbitsWithInvariantPropertyOfCocoOrbit:for orbits of fusions}
@@ -2401,18 +2462,18 @@ a list of these suborbits. }
 \section{\textcolor{Chapter }{Introduction}}\logpage{[ 4, 1, 0 ]}
 \hyperdef{L}{X7DFB63A97E67C0A1}{}
 {
-  \textsf{COCO2P} implements a data-type for partially ordered sets. The reason is, that for the
-posets of interest in \textsf{COCO2P} the test whether two elements are in order-relation is rather expensive, and \textsf{COCO2P} takes care to minimize the necessary tests. The other reason is, that this
-approach allows a nice and unified interface to \textsf{XGAP} for all kinds of posets that are introduced in \textsf{COCO2P} (i.e. posets of color graphs, posets of fusion orbits, lattices of fusions,
+  \textsf{coco2p} implements a data-type for partially ordered sets. The reason is, that for the
+posets of interest in \textsf{coco2p} the test whether two elements are in order-relation is rather expensive, and \textsf{coco2p} takes care to minimize the necessary tests. The other reason is, that this
+approach allows a nice and unified interface to \textsf{XGAP} for all kinds of posets that are introduced in \textsf{coco2p} (i.e. posets of color graphs, posets of fusion orbits, lattices of fusions,
 lattices of closed sets, for now). 
 
- Like for combinatorial objects, \textsf{COCO2P} internally does not work directly with the elements of a poset, but instead
+ Like for combinatorial objects, \textsf{coco2p} internally does not work directly with the elements of a poset, but instead
 uses indices into a list of elements (cf. ). Only two functions refer directly
 to the elements: \texttt{CocoPosetByFunctions} (\ref{CocoPosetByFunctions}) and \texttt{ElementsOfCocoPoset} (\ref{ElementsOfCocoPoset}). Therefore, in the following, we will identify the index to an element with
 the element. }
 
  
-\section{\textcolor{Chapter }{General functions for \textsf{COCO2P}-posets}}\logpage{[ 4, 2, 0 ]}
+\section{\textcolor{Chapter }{General functions for \textsf{coco2p}-posets}}\logpage{[ 4, 2, 0 ]}
 \hyperdef{L}{X7A784E58852BAB12}{}
 {
   
@@ -2425,7 +2486,7 @@ the element. }
 }\hfill{\scriptsize (function)}}\\
 
 
- This is the main constructor for posets in \textsf{COCO2P}. All other constructors, behind the scenes, use this function. 
+ This is the main constructor for posets in \textsf{coco2p}. All other constructors, behind the scenes, use this function. 
 
  \mbox{\texttt{\mdseries\slshape elements}} is the underlying set of the poset. 
 
@@ -2437,7 +2498,7 @@ transitive, total relation) on \mbox{\texttt{\mdseries\slshape elements}}, that 
  The function \mbox{\texttt{\mdseries\slshape linpreorder}} is used to speed up the computations of the successor-relation of the goal
 poset. It should be much quicker than \mbox{\texttt{\mdseries\slshape order}} in order to really lead to a speedup. E.g., when computing a poset of sets, \mbox{\texttt{\mdseries\slshape order}} may be the inclusion order, and \mbox{\texttt{\mdseries\slshape linpreorder}} may be the function that compares cardinalities. 
 
- The function returns a \textsf{COCO2P}-poset object that encodes the poset defined by \mbox{\texttt{\mdseries\slshape order}}. }
+ The function returns a \textsf{coco2p}-poset object that encodes the poset defined by \mbox{\texttt{\mdseries\slshape order}}. }
 
  
 
@@ -2568,7 +2629,7 @@ list. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function creates a graphical representation of \mbox{\texttt{\mdseries\slshape poset}} using \textsf{XGAP}. }
+ This function creates a graphical representation of \mbox{\texttt{\mdseries\slshape poset}} using \textsf{XGAP} or \textsf{Francy} under \textsf{Jupyter-GAP}. }
 
  }
 
@@ -2580,13 +2641,13 @@ list. }
 relation): We say that a color graph \texttt{cgr1} is sub color isomorphic to another color graph \texttt{cgr2} if there is a fusion color graph \texttt{cgr3} of \texttt{cgr2} that is color isomorphic to \texttt{cgr1}. 
 
  Restricted to a set of mutually non color isomorphic color graphs, the
-relation of sub color isomorphism induces a partial order. \textsf{COCO2P} is able to compute this induced order for lists of WL-stable color graphs. 
+relation of sub color isomorphism induces a partial order. \textsf{coco2p} is able to compute this induced order for lists of WL-stable color graphs. 
 
-\subsection{\textcolor{Chapter }{ColorIsomorphicFusions}}
+\subsection{\textcolor{Chapter }{OrbitsOfColorIsomorphicFusions}}
 \logpage{[ 4, 3, 1 ]}\nobreak
-\hyperdef{L}{X8047079F7D3BC92E}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ColorIsomorphicFusions({\mdseries\slshape cgr1, cgr2})\index{ColorIsomorphicFusions@\texttt{ColorIsomorphicFusions}}
-\label{ColorIsomorphicFusions}
+\hyperdef{L}{X7B6323BC7EEFDE41}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{OrbitsOfColorIsomorphicFusions({\mdseries\slshape cgr1, cgr2})\index{OrbitsOfColorIsomorphicFusions@\texttt{OrbitsOfColorIsomorphicFusions}}
+\label{OrbitsOfColorIsomorphicFusions}
 }\hfill{\scriptsize (function)}}\\
 
 
@@ -2606,7 +2667,7 @@ group of \mbox{\texttt{\mdseries\slshape cgr1}} whose representatives induce a c
 
 
  \mbox{\texttt{\mdseries\slshape cgrlist}} is a list of WL-stable color graphs all of the same order and no two of them
-color isomorphic. The function returns a \textsf{COCO2P}-poset of \mbox{\texttt{\mdseries\slshape cgrlist}} ordered by sub color isomorphism. }
+color isomorphic. The function returns a \textsf{coco2p}-poset of \mbox{\texttt{\mdseries\slshape cgrlist}} ordered by sub color isomorphism. }
 
  
 
@@ -2618,16 +2679,16 @@ color isomorphic. The function returns a \textsf{COCO2P}-poset of \mbox{\texttt{
 }\hfill{\scriptsize (method)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape poset}} is a \textsf{COCO2P}-poset of colored graphs. This function creates a graphical representation of
+ \mbox{\texttt{\mdseries\slshape poset}} is a \textsf{coco2p}-poset of colored graphs. This function creates a graphical representation of
 this poset. The labels of the nodes of the graphical poset correspond to the
-indices in the given poset. The context-menu of each node gives additional
-information about the node. If for some node it is known whether the
-underlying color graph is surian or not, then this is made visible in the
-graphical poset. Nodes for which it is not known whether the cgr is Schurian,
-are represented by squares. Schurian nodes are represented by circles, and
-non-Schurian nodes are represented by diamonds. 
+indices in the given poset. When invoked from \textsf{XGAP}, the context-menu of each node gives additional information about the node.
+If for some node it is known whether the underlying color graph is surian or
+not, then this is made visible in the graphical poset. Nodes for which it is
+not known whether the cgr is Schurian, are represented by squares. Schurian
+nodes are represented by circles, and non-Schurian nodes are represented by
+diamonds. 
 
- This function is available only from \textsf{XGAP}. 
+ This function is available only from \textsf{XGAP} or within \textsf{Jupyter-GAP} when the package \textsf{Francy} was loaded before \textsf{coco2p}. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@lcgr:=AllAssociationSchemes(15);|
   [ AS(15,1), AS(15,2), AS(15,3), AS(15,4), AS(15,5), AS(15,6), AS(15,7),
@@ -2671,7 +2732,7 @@ is distributive over the operation of union of complexes. Thus $(P(C), \cup, \cd
  \textsf{GAP} has one operation symbold \texttt{+} for addition-like operations and one operation symbol \texttt{*} for multiplication-like operations. Thus in color semirings, the operation of
 union of complexes is denoted by \texttt{+}, and the operation of the product of complexes is denoted by \texttt{*}. 
 
- Since in \textsf{COCO2P} both, colors and vertices of a color graph are represented by positive
+ Since in \textsf{coco2p} both, colors and vertices of a color graph are represented by positive
 integers, in order to distinguish complexes of colors and subsets of vertices,
 one of the two has to get its own type. The elements of color semirings (i.e.,
 complexes of colors) all belong to the category \texttt{IsElementOfColorSemiring}. On the other hand, sets of vertices are simple sets of positive integers (no

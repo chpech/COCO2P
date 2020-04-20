@@ -36,7 +36,7 @@
   semirings,  the  operation  of  union  of complexes is denoted by [10X+[110X, and the
   operation of the product of complexes is denoted by [10X*[110X.[133X
   
-  [33X[0;0YSince  in  [5XCOCO2P[105X both, colors and vertices of a color graph are represented
+  [33X[0;0YSince  in  [5Xcoco2p[105X both, colors and vertices of a color graph are represented
   by  positive  integers,  in  order  to  distinguish  complexes of colors and
   subsets of vertices, one of the two has to get its own type. The elements of
   color  semirings  (i.e.,  complexes  of  colors)  all belong to the category

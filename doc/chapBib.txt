@@ -2,24 +2,33 @@
   
   [1XReferences[101X
   
-  [[20XBIK89[120X] [16XBrouwer, A. E., Ivanov, A. V. and Klin, M. H.[116X, [17XSome new strongly regular graphs[117X, [18XCombinatorica[118X, [19X9[119X, 4 (1989), 339--344.
+  [[20XBIK89[120X]  [16XBrouwer,  A.  E., Ivanov, A. V. and Klin, M. H.[116X, [17XSome new strongly
+  regular graphs[117X, [18XCombinatorica[118X, [19X9[119X, 4 (1989), 339--344.
   
-  [[20XGol99[120X] [16XGolan, J. S.[116X, [17XSemirings and their applications.[117X, Kluwer Academic Publishers, Dordrecht (1999).
+  [[20XGol99[120X]  [16XGolan,  J.  S.[116X, [17XSemirings and their applications.[117X, Kluwer Academic
+  Publishers, Dordrecht (1999).
   
-  [[20XIva89[120X] [16XIvanov, A. V.[116X, [17XNon-rank-3 strongly regular graphs with the 5-vertex condition[117X, [18XCombinatorica[118X, [19X9[119X, 3 (1989), 255--260.
+  [[20XIva89[120X] [16XIvanov, A. V.[116X, [17XNon-rank-3 strongly regular graphs with the 5-vertex
+  condition[117X, [18XCombinatorica[118X, [19X9[119X, 3 (1989), 255--260.
   
-  [[20XIva94[120X] [16XIvanov, A. V.[116X, [17XTwo families of strongly regular graphs with the 4-vertex condition[117X, [18XDiscrete Math.[118X, [19X127[119X, 1-3 (1994), 221--242.
+  [[20XIva94[120X]  [16XIvanov,  A.  V.[116X,  [17XTwo families of strongly regular graphs with the
+  4-vertex condition[117X, [18XDiscrete Math.[118X, [19X127[119X, 1-3 (1994), 221--242.
   
-  [[20XWei76[120X] [16XWeisfeiler, B.[116X, [17XOn construction and identification of graphs[117X, Springer, Lecture Notes in Math., [19X558[119X, Berlin (1976).
+  [[20XWei76[120X]  [16XWeisfeiler,  B.[116X,  [17XOn  construction  and  identification of graphs[117X,
+  Springer, Lecture Notes in Math., [19X558[119X, Berlin (1976).
   
-  [[20XWik11[120X] [16XWikipedia, [116X, [17XSemiring --- Wikipedia, The Free Encyclopedia[117X (2011), (([Online; accessed 5-April-2011])).
+  [[20XWik11[120X]  [16XWikipedia, [116X, [17XSemiring --- Wikipedia, The Free Encyclopedia[117X (2011),
+  (([Online; accessed 5-April-2011])).
   
-  [[20XWL68[120X]  [16XWeisfeiler,  B.  J.  and  Leman,  A.  A.[116X,  [17XA  reduction  of  a  graph to a canonical form and an algebra arising during this reduction[117X, [18XNauchno -
+  [[20XWL68[120X]  [16XWeisfeiler,  B.  J.  and  Leman, A. A.[116X, [17XA reduction of a graph to a
+  canonical  form  and  an  algebra  arising during this reduction[117X, [18XNauchno -
   Technicheskaja Informatsia[118X, [19X9[119X, Seria 2 (1968), 12--16, (((Russian))).
   
-  [[20XZie96[120X] [16XZieschang, P.-H.[116X, [17XAn algebraic approach to association schemes[117X, Springer, Lecture Notes in Mathematics, [19X1628[119X, Berlin (1996).
+  [[20XZie96[120X]  [16XZieschang,  P.-H.[116X,  [17XAn  algebraic approach to association schemes[117X,
+  Springer, Lecture Notes in Mathematics, [19X1628[119X, Berlin (1996).
   
-  [[20XZie05[120X] [16XZieschang, P.-H.[116X, [17XTheory of association schemes[117X, Springer, Monographs in Mathematics, Berlin (2005).
+  [[20XZie05[120X]   [16XZieschang,   P.-H.[116X,  [17XTheory  of  association  schemes[117X,  Springer,
+  Monographs in Mathematics, Berlin (2005).
   
   
   

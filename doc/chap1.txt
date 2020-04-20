@@ -4,20 +4,20 @@
   
   [1X1.1 [33X[0;0YTheory[133X[101X
   
-  [33X[0;0YA  color  graph  (cgr)  in  [5XCOCO2P[105X  is a triple [22X(V,C,f)[122X, where [22XV[122X is a set of
+  [33X[0;0YA  color  graph  (cgr)  in  [5Xcoco2p[105X  is a triple [22X(V,C,f)[122X, where [22XV[122X is a set of
   vertices,  [22XC[122X  is  set of colors, and [22Xf : V × V -> C[122X assigns to every arc its
-  color. [5XCOCO2P[105X does not know the concept of non-arcs. However, this is not an
+  color. [5Xcoco2p[105X does not know the concept of non-arcs. However, this is not an
   essential  restriction,  since  non-arcs  may  be simulated by introducing a
   special distinguished color.[133X
   
-  [33X[0;0YOf special interrest in [5XCOCO2P[105X are WL-stable color graphs (that is cgrs that
+  [33X[0;0YOf special interrest in [5Xcoco2p[105X are WL-stable color graphs (that is cgrs that
   are  stable  under  the  Weisfeiler-Leman algorithm [WL68], [Wei76]). In the
-  frames of [5XCOCO2P[105X the maximal monochromatic sets of arcs of a WL-stable color
+  frames of [5Xcoco2p[105X the maximal monochromatic sets of arcs of a WL-stable color
   graph  will  always  form  a [13Xcoherent configuration[113X. On the other hand, from
   every  coherent  configuration  we can obtain a WL-stable cgr (every pair of
   vertices is colored by the relation it belongs to).[133X
   
-  [33X[0;0YFor  historical  reasons,  [5XCOCO2P[105X  uses  the  nomenclature  of color graphs.
+  [33X[0;0YFor  historical  reasons,  [5Xcoco2p[105X  uses  the  nomenclature  of color graphs.
   However,  this  is  only  of  importance for concepts like automorphisms and
   isomorphisms.  While  both,  automorphisms and isomorphisms have to preserve
   colors  (as  it  is  expected  for  color  graphs), color-automorphisms, and
@@ -25,15 +25,15 @@
   arcs of one color to arcs of another color.[133X
   
   
-  [1X1.2 [33X[0;0YOn the representation of color graphs in [5XCOCO2P[105X[101X[1X[133X[101X
+  [1X1.2 [33X[0;0YOn the representation of color graphs in [5Xcoco2p[105X[101X[1X[133X[101X
   
   [33X[0;0YFor  a  color graph, the set of vertices as well as the set of colors may be
-  any  finite  set  representable in [5XGAP[105X. For performance reasons, [5XCOCO2P[105X does
+  any  finite  set  representable in [5XGAP[105X. For performance reasons, [5Xcoco2p[105X does
   not  use  these  sets  inside its algorithms (except when constructing color
-  graphs).  Instead, [5XCOCO2P[105X refers to vertices and colors by their position in
+  graphs).  Instead, [5Xcoco2p[105X refers to vertices and colors by their position in
   the  vertex-set and color-set, respectively. In fact vertices and colors are
   identified  with  these  indices.  In  order not to loose information, every
-  color  graph in [5XCOCO2P[105X keeps a list of names of vertices and a list of names
+  color  graph in [5Xcoco2p[105X keeps a list of names of vertices and a list of names
   of colors. The set of vertex-names is equal to the original set of vertices,
   and the set of color names is equal to the original set of colors.[133X
   
@@ -331,7 +331,7 @@
   catalogue)[133X
   
   [33X[0;0YThis  function  downloads  the list of small association schemes of order [3Xn[103X.
-  Then  it  converts  them  to  the  internal format of [5XCOCO2P[105X and returns the
+  Then  it  converts  them  to  the  internal format of [5Xcoco2p[105X and returns the
   resulting list. Every color graph has a name of the shape [10XAS(n,k)[110X where [10Xk[110X is
   the  index  of  the scheme in the list of schemes of order [3Xn[103X in the Japanese
   catalogue.[133X
@@ -343,7 +343,7 @@
   [33X[0;0YThis  function  creates  an  interface  to  the  database  of small coherent
   configurations  on  at  most  15  vertices  by  Matan  Ziv-Av  This function
   downloads  the  list  of  small  coherent configurations of order [3Xn[103X. Then it
-  converts  them  to  the  internal format of [5XCOCO2P[105X and returns the resulting
+  converts  them  to  the  internal format of [5Xcoco2p[105X and returns the resulting
   list. Every color graph has a name of the shape [10XCC(n,k)[110X where [10Xk[110X is the index
   of the scheme in the list of schemes of order [3Xn[103X in Matan's catalogue.[133X
   
@@ -807,6 +807,7 @@
   [1X1.6-1 IsUndirectedColorGraph[101X
   
   [33X[1;0Y[29X[2XIsUndirectedColorGraph[102X( [3Xcgr[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XIsSymmetricColorGraph[102X( [3Xcgr[103X ) [32X method[133X
   
   [33X[0;0YA color graph is called [13Xundirected[113X if for all vertices [22Xu[122X and [22Xv[122X the arc [22X(u,v)[122X
   has  the  same  color as the arc [22X(v,u)[122X. The function tests this property for
@@ -879,9 +880,10 @@
     [4X[28X	    [128X[104X
   [4X[32X[104X
   
-  [1X1.6-5 IsPrimitive[101X
+  [1X1.6-5 IsPrimitiveColorGraph[101X
   
-  [33X[1;0Y[29X[2XIsPrimitive[102X( [3Xcgr[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XIsPrimitiveColorGraph[102X( [3Xcgr[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XIsPrimitive[102X( [3Xcgr[103X ) [32X method[133X
   
   [33X[0;0YA  WL-stable  color  graph  is primitive if all its loopless base graphs are
   strongly connected (cf. [2XBaseGraphOfColorGraph[102X ([14X1.5-8[114X)). This function tests,
@@ -890,7 +892,7 @@
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xcgr:=ColorGraph(Group((1,2,3,4)));[127X[104X
     [4X[28X<color graph of order 4 and rank 4>[128X[104X
-    [4X[25Xgap>[125X [27XIsPrimitive(cgr);[127X[104X
+    [4X[25Xgap>[125X [27XIsPrimitiveColorGraph(cgr);[127X[104X
     [4X[28Xfalse[128X[104X
     [4X[25Xgap>[125X [27XReflexiveColors(cgr);[127X[104X
     [4X[28X[ 1 ][128X[104X
@@ -910,7 +912,7 @@
   
   [33X[1;0Y[29X[2XKnownGroupOfAutomorphisms[102X( [3Xcgr[103X ) [32X operation[133X
   
-  [33X[0;0YThis  function  returns  the  group  of all automorphisms of [3Xcgr[103X that [5XCOCO2P[105X
+  [33X[0;0YThis  function  returns  the  group  of all automorphisms of [3Xcgr[103X that [5Xcoco2p[105X
   knows at the given moment.[133X
   
   [1X1.7-2 AutGroupOfCocoObject[101X
@@ -926,7 +928,7 @@
   [33X[1;0Y[29X[2XIsAutomorphismOfObject[102X( [3Xcgr[103X, [3Xperm[103X ) [32X operation[133X
   [33X[1;0Y[29X[2XIsAutomorphismOfColorGraph[102X( [3Xcgr[103X, [3Xperm[103X ) [32X operation[133X
   
-  [33X[0;0YReturns  [10Xtrue[110X,  if  [3Xperm[103X is an automorphism of [3Xcgr[103X. In that case [5XCOCO2P[105X adds
+  [33X[0;0YReturns  [10Xtrue[110X,  if  [3Xperm[103X is an automorphism of [3Xcgr[103X. In that case [5Xcoco2p[105X adds
   [3Xperm[103X to the known automorphisms of [3Xcgr[103X.[133X
   
   [1X1.7-4 IsomorphismCocoObjects[101X
@@ -961,14 +963,14 @@
   [33X[1;0Y[29X[2XKnownGroupOfColorAutomorphisms[102X( [3Xcgr[103X ) [32X operation[133X
   
   [33X[0;0YThis  function  returns  the  group  of  all color automorphisms of [3Xcgr[103X that
-  [5XCOCO2P[105X knows at the given moment.[133X
+  [5Xcoco2p[105X knows at the given moment.[133X
   
   [1X1.7-8 KnownGroupOfColorAutomorphismsOnColors[101X
   
   [33X[1;0Y[29X[2XKnownGroupOfColorAutomorphismsOnColors[102X( [3Xcgr[103X ) [32X operation[133X
   
   [33X[0;0YThis  function  returns  the  group  of  all color automorphisms of [3Xcgr[103X that
-  [5XCOCO2P[105X knows at the given moment, acting on the colors of [3Xcgr[103X.[133X
+  [5Xcoco2p[105X knows at the given moment, acting on the colors of [3Xcgr[103X.[133X
   
   [1X1.7-9 LiftToColorAutomorphism[101X
   
@@ -1056,7 +1058,7 @@
   [33X[1;0Y[29X[2XKnownGroupOfAlgebraicAutomorphisms[102X( [3Xcgr[103X ) [32X operation[133X
   
   [33X[0;0YThis  function  returns the group of all algebraic automorphisms of [3Xcgr[103X that
-  [5XCOCO2P[105X knows at the given moment.[133X
+  [5Xcoco2p[105X knows at the given moment.[133X
   
   [1X1.7-17 AlgebraicAutomorphismGroup[101X
   

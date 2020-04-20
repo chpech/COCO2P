@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<title>GAP (COCO2P) - Chapter 4: Partially ordered sets</title>
+<title>GAP (coco2p) - Chapter 4: Partially ordered sets</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -25,7 +25,7 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7DFB63A97E67C0A1">4.1 <span class="Heading">Introduction</span></a>
 </span>
 </div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7A784E58852BAB12">4.2 <span class="Heading">General functions for <strong class="pkg">COCO2P</strong>-posets</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7A784E58852BAB12">4.2 <span class="Heading">General functions for <strong class="pkg">coco2p</strong>-posets</span></a>
 </span>
 <div class="ContSSBlock">
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F63463D86EF7842">4.2-1 CocoPosetByFunctions</a></span>
@@ -43,7 +43,7 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7DA847F581B12DD9">4.3 <span class="Heading">Posets of color graphs</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8047079F7D3BC92E">4.3-1 ColorIsomorphicFusions</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7B6323BC7EEFDE41">4.3-1 OrbitsOfColorIsomorphicFusions</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X789D5C867BB92EA8">4.3-2 SubColorIsomorphismPoset</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7F8A6835817D9EA1">4.3-3 GraphicCocoPoset</a></span>
 </div></div>
@@ -55,20 +55,20 @@
 
 <h4>4.1 <span class="Heading">Introduction</span></h4>
 
-<p><strong class="pkg">COCO2P</strong> implements a data-type for partially ordered sets. The reason is, that for the posets of interest in <strong class="pkg">COCO2P</strong> the test whether two elements are in order-relation is rather expensive, and <strong class="pkg">COCO2P</strong> takes care to minimize the necessary tests. The other reason is, that this approach allows a nice and unified interface to <strong class="pkg">XGAP</strong> for all kinds of posets that are introduced in <strong class="pkg">COCO2P</strong> (i.e. posets of color graphs, posets of fusion orbits, lattices of fusions, lattices of closed sets, for now).</p>
+<p><strong class="pkg">coco2p</strong> implements a data-type for partially ordered sets. The reason is, that for the posets of interest in <strong class="pkg">coco2p</strong> the test whether two elements are in order-relation is rather expensive, and <strong class="pkg">coco2p</strong> takes care to minimize the necessary tests. The other reason is, that this approach allows a nice and unified interface to <strong class="pkg">XGAP</strong> for all kinds of posets that are introduced in <strong class="pkg">coco2p</strong> (i.e. posets of color graphs, posets of fusion orbits, lattices of fusions, lattices of closed sets, for now).</p>
 
-<p>Like for combinatorial objects, <strong class="pkg">COCO2P</strong> internally does not work directly with the elements of a poset, but instead uses indices into a list of elements (cf. ). Only two functions refer directly to the elements: <code class="func">CocoPosetByFunctions</code> (<a href="chap4.html#X7F63463D86EF7842"><span class="RefLink">4.2-1</span></a>) and <code class="func">ElementsOfCocoPoset</code> (<a href="chap4.html#X8759C04B85BB9CC0"><span class="RefLink">4.2-2</span></a>). Therefore, in the following, we will identify the index to an element with the element.</p>
+<p>Like for combinatorial objects, <strong class="pkg">coco2p</strong> internally does not work directly with the elements of a poset, but instead uses indices into a list of elements (cf. ). Only two functions refer directly to the elements: <code class="func">CocoPosetByFunctions</code> (<a href="chap4.html#X7F63463D86EF7842"><span class="RefLink">4.2-1</span></a>) and <code class="func">ElementsOfCocoPoset</code> (<a href="chap4.html#X8759C04B85BB9CC0"><span class="RefLink">4.2-2</span></a>). Therefore, in the following, we will identify the index to an element with the element.</p>
 
 <p><a id="X7A784E58852BAB12" name="X7A784E58852BAB12"></a></p>
 
-<h4>4.2 <span class="Heading">General functions for <strong class="pkg">COCO2P</strong>-posets</span></h4>
+<h4>4.2 <span class="Heading">General functions for <strong class="pkg">coco2p</strong>-posets</span></h4>
 
 <p><a id="X7F63463D86EF7842" name="X7F63463D86EF7842"></a></p>
 
 <h5>4.2-1 CocoPosetByFunctions</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CocoPosetByFunctions</code>( <var class="Arg">elements</var>, <var class="Arg">order</var>, <var class="Arg">linpreorder</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>This is the main constructor for posets in <strong class="pkg">COCO2P</strong>. All other constructors, behind the scenes, use this function.</p>
+<p>This is the main constructor for posets in <strong class="pkg">coco2p</strong>. All other constructors, behind the scenes, use this function.</p>
 
 <p><var class="Arg">elements</var> is the underlying set of the poset.</p>
 
@@ -78,7 +78,7 @@
 
 <p>The function <var class="Arg">linpreorder</var> is used to speed up the computations of the successor-relation of the goal poset. It should be much quicker than <var class="Arg">order</var> in order to really lead to a speedup. E.g., when computing a poset of sets, <var class="Arg">order</var> may be the inclusion order, and <var class="Arg">linpreorder</var> may be the function that compares cardinalities.</p>
 
-<p>The function returns a <strong class="pkg">COCO2P</strong>-poset object that encodes the poset defined by <var class="Arg">order</var>.</p>
+<p>The function returns a <strong class="pkg">coco2p</strong>-poset object that encodes the poset defined by <var class="Arg">order</var>.</p>
 
 <p><a id="X8759C04B85BB9CC0" name="X8759C04B85BB9CC0"></a></p>
 
@@ -154,7 +154,7 @@
 <h5>4.2-11 GraphicCocoPoset</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GraphicCocoPoset</code>( <var class="Arg">poset</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>This function creates a graphical representation of <var class="Arg">poset</var> using <strong class="pkg">XGAP</strong>.</p>
+<p>This function creates a graphical representation of <var class="Arg">poset</var> using <strong class="pkg">XGAP</strong> or <strong class="pkg">Francy</strong> under <strong class="pkg">Jupyter-GAP</strong>.</p>
 
 <p><a id="X7DA847F581B12DD9" name="X7DA847F581B12DD9"></a></p>
 
@@ -162,13 +162,13 @@
 
 <p>The class of color graphs of order <span class="SimpleMath">n</span> can be endowed with a preorder relation (i.e. a reflexive, transitive relation): We say that a color graph <code class="code">cgr1</code> is sub color isomorphic to another color graph <code class="code">cgr2</code> if there is a fusion color graph <code class="code">cgr3</code> of <code class="code">cgr2</code> that is color isomorphic to <code class="code">cgr1</code>.</p>
 
-<p>Restricted to a set of mutually non color isomorphic color graphs, the relation of sub color isomorphism induces a partial order. <strong class="pkg">COCO2P</strong> is able to compute this induced order for lists of WL-stable color graphs.</p>
+<p>Restricted to a set of mutually non color isomorphic color graphs, the relation of sub color isomorphism induces a partial order. <strong class="pkg">coco2p</strong> is able to compute this induced order for lists of WL-stable color graphs.</p>
 
-<p><a id="X8047079F7D3BC92E" name="X8047079F7D3BC92E"></a></p>
+<p><a id="X7B6323BC7EEFDE41" name="X7B6323BC7EEFDE41"></a></p>
 
-<h5>4.3-1 ColorIsomorphicFusions</h5>
+<h5>4.3-1 OrbitsOfColorIsomorphicFusions</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ColorIsomorphicFusions</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; OrbitsOfColorIsomorphicFusions</code>( <var class="Arg">cgr1</var>, <var class="Arg">cgr2</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>This function returns a list of all fusion orbits under the color automorphism group of <var class="Arg">cgr1</var> whose representatives induce a color graph that is color isomorphic to <var class="Arg">cgr2</var>.</p>
 
 <p>At the moment this function is implemented only for WL-stable color graphs <var class="Arg">cgr1</var> and <var class="Arg">cgr2</var>.</p>
@@ -178,16 +178,16 @@
 <h5>4.3-2 SubColorIsomorphismPoset</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SubColorIsomorphismPoset</code>( <var class="Arg">cgrlist</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p><var class="Arg">cgrlist</var> is a list of WL-stable color graphs all of the same order and no two of them color isomorphic. The function returns a <strong class="pkg">COCO2P</strong>-poset of <var class="Arg">cgrlist</var> ordered by sub color isomorphism.</p>
+<p><var class="Arg">cgrlist</var> is a list of WL-stable color graphs all of the same order and no two of them color isomorphic. The function returns a <strong class="pkg">coco2p</strong>-poset of <var class="Arg">cgrlist</var> ordered by sub color isomorphism.</p>
 
 <p><a id="X7F8A6835817D9EA1" name="X7F8A6835817D9EA1"></a></p>
 
 <h5>4.3-3 GraphicCocoPoset</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; GraphicCocoPoset</code>( <var class="Arg">poset</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
-<p><var class="Arg">poset</var> is a <strong class="pkg">COCO2P</strong>-poset of colored graphs. This function creates a graphical representation of this poset. The labels of the nodes of the graphical poset correspond to the indices in the given poset. The context-menu of each node gives additional information about the node. If for some node it is known whether the underlying color graph is surian or not, then this is made visible in the graphical poset. Nodes for which it is not known whether the cgr is Schurian, are represented by squares. Schurian nodes are represented by circles, and non-Schurian nodes are represented by diamonds.</p>
+<p><var class="Arg">poset</var> is a <strong class="pkg">coco2p</strong>-poset of colored graphs. This function creates a graphical representation of this poset. The labels of the nodes of the graphical poset correspond to the indices in the given poset. When invoked from <strong class="pkg">XGAP</strong>, the context-menu of each node gives additional information about the node. If for some node it is known whether the underlying color graph is surian or not, then this is made visible in the graphical poset. Nodes for which it is not known whether the cgr is Schurian, are represented by squares. Schurian nodes are represented by circles, and non-Schurian nodes are represented by diamonds.</p>
 
-<p>This function is available only from <strong class="pkg">XGAP</strong>.</p>
+<p>This function is available only from <strong class="pkg">XGAP</strong> or within <strong class="pkg">Jupyter-GAP</strong> when the package <strong class="pkg">Francy</strong> was loaded before <strong class="pkg">coco2p</strong>.</p>
 
 
 <div class="example"><pre>

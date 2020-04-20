@@ -4,8 +4,8 @@
   
   [1X2.1 [33X[0;0YIntroduction[133X[101X
   
-  [33X[0;0Y[5XCOCO2P[105X  introduces  its  own  data-type  for  structure constants tensors of
-  coherent algebras. The methods provided by [5XCOCO2P[105X are tailored for this use.
+  [33X[0;0Y[5Xcoco2p[105X  introduces  its  own  data-type  for  structure constants tensors of
+  coherent algebras. The methods provided by [5Xcoco2p[105X are tailored for this use.
   The  emphasis  lies  on  symmetries, quotients (by closed sets) and mergings
   (fusions).[133X
   
@@ -36,7 +36,7 @@
   [33X[0;0YNote  that this function does not check, whether the entries are integers or
   even  numbers.  One  can  also  view  the datatype of tensors as a type that
   encodes  complete  colored  hyper-graphs  with  hyper-arcs of length [22X3[122X. Even
-  though  there  is  not  much  infrastructure  implemented in [5XCOCO2P[105X for such
+  though  there  is  not  much  infrastructure  implemented in [5Xcoco2p[105X for such
   objects,  at  least  it  is  possible  to  check  isomorphism and to compute
   automorphism groups.[133X
   
@@ -199,7 +199,7 @@
   
   [33X[1;0Y[29X[2XIsTensorOfCC[102X( [3Xtensor[103X ) [32X property[133X
   
-  [33X[0;0YIf  [3Xtensor[103X  has this property, then this means that [5XCOCO2P[105X knows, that it is
+  [33X[0;0YIf  [3Xtensor[103X  has this property, then this means that [5Xcoco2p[105X knows, that it is
   the  structure  constants  tensor  of  a  WL-stable color graph. There is no
   method installed for this property, as it is in general hard to prove that a
   given  tensor belongs to a WL-stable color graph. The property is set by the
@@ -237,7 +237,7 @@
   
   [33X[1;0Y[29X[2XKnownGroupOfAutomorphisms[102X( [3Xtensor[103X ) [32X operation[133X
   
-  [33X[0;0YThis  function  returns the group of all automorphisms of [3Xtensor[103X that [5XCOCO2P[105X
+  [33X[0;0YThis  function  returns the group of all automorphisms of [3Xtensor[103X that [5Xcoco2p[105X
   knows at the given moment.[133X
   
   [1X2.5-2 AutGroupOfCocoObject[101X
@@ -252,7 +252,7 @@
   [33X[1;0Y[29X[2XIsAutomorphismOfObject[102X( [3Xtensor[103X, [3Xperm[103X ) [32X operation[133X
   [33X[1;0Y[29X[2XIsAutomorphismOfTensor[102X( [3Xtensor[103X, [3Xperm[103X ) [32X operation[133X
   
-  [33X[0;0YReturns [10Xtrue[110X, if [3Xperm[103X is an automorphism of [3Xtensor[103X. In that case [5XCOCO2P[105X adds
+  [33X[0;0YReturns [10Xtrue[110X, if [3Xperm[103X is an automorphism of [3Xtensor[103X. In that case [5Xcoco2p[105X adds
   [3Xperm[103X to the known automorphisms of [3Xtensor[103X.[133X
   
   [1X2.5-4 IsomorphismCocoObjects[101X
@@ -283,7 +283,7 @@
   
   [33X[0;0YThe  structure  constants  tensor  of  a  WL-stable  color graph encodes the
   structure   of   the   associated  coherent  algebra.  If  this  algebra  is
-  commutative,  then  [5XCOCO2P[105X  is able to compute its character table provided,
+  commutative,  then  [5Xcoco2p[105X  is able to compute its character table provided,
   the  irrationalities  occuring  are representable in [5XGAP[105X. The algorithm that
   computes the character tables involves Gröbner-bases. The computation of the
   Gröbner  bases  defines  the  overall  performance  of the algorithm for the

@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<title>GAP (COCO2P) - Chapter 2: Structure Constants Tensors</title>
+<title>GAP (coco2p) - Chapter 2: Structure Constants Tensors</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -82,7 +82,7 @@
 
 <h4>2.1 <span class="Heading">Introduction</span></h4>
 
-<p><strong class="pkg">COCO2P</strong> introduces its own data-type for structure constants tensors of coherent algebras. The methods provided by <strong class="pkg">COCO2P</strong> are tailored for this use. The emphasis lies on symmetries, quotients (by closed sets) and mergings (fusions).</p>
+<p><strong class="pkg">coco2p</strong> introduces its own data-type for structure constants tensors of coherent algebras. The methods provided by <strong class="pkg">coco2p</strong> are tailored for this use. The emphasis lies on symmetries, quotients (by closed sets) and mergings (fusions).</p>
 
 <p><a id="X862A696D7905A540" name="X862A696D7905A540"></a></p>
 
@@ -104,7 +104,7 @@
 
 <p>The function returns the tensor-object for <var class="Arg">entries</var>.</p>
 
-<p>Note that this function does not check, whether the entries are integers or even numbers. One can also view the datatype of tensors as a type that encodes complete colored hyper-graphs with hyper-arcs of length <span class="SimpleMath">3</span>. Even though there is not much infrastructure implemented in <strong class="pkg">COCO2P</strong> for such objects, at least it is possible to check isomorphism and to compute automorphism groups.</p>
+<p>Note that this function does not check, whether the entries are integers or even numbers. One can also view the datatype of tensors as a type that encodes complete colored hyper-graphs with hyper-arcs of length <span class="SimpleMath">3</span>. Even though there is not much infrastructure implemented in <strong class="pkg">coco2p</strong> for such objects, at least it is possible to check isomorphism and to compute automorphism groups.</p>
 
 <p><a id="X7CFD172A870557C5" name="X7CFD172A870557C5"></a></p>
 
@@ -255,7 +255,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 <h5>2.4-1 IsTensorOfCC</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsTensorOfCC</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
-<p>If <var class="Arg">tensor</var> has this property, then this means that <strong class="pkg">COCO2P</strong> knows, that it is the structure constants tensor of a WL-stable color graph. There is no method installed for this property, as it is in general hard to prove that a given tensor belongs to a WL-stable color graph. The property is set by the constructor that created <var class="Arg">tensor</var>.</p>
+<p>If <var class="Arg">tensor</var> has this property, then this means that <strong class="pkg">coco2p</strong> knows, that it is the structure constants tensor of a WL-stable color graph. There is no method installed for this property, as it is in general hard to prove that a given tensor belongs to a WL-stable color graph. The property is set by the constructor that created <var class="Arg">tensor</var>.</p>
 
 <p><a id="X7F9FD88986CBBA27" name="X7F9FD88986CBBA27"></a></p>
 
@@ -278,7 +278,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPrimitive</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
 <p>A structure constants tensor is <em>primitive</em> if it is homogeneous and if it has only the trivial closed sets (i.e. the singleton of the unique reflexive color and the set of all colors).</p>
 
-<p>If <var class="Arg">tensor</var> is the structure constants tensor of the color graph <code class="code">cgr</code>, then <var class="Arg">tensor</var> is primitive if and only if <code class="code">cgr</code> is primitive (cf. <code class="func">IsPrimitive</code> (<a href="chap1.html#X7DEB50307A5353B5"><span class="RefLink">1.6-5</span></a>)).</p>
+<p>If <var class="Arg">tensor</var> is the structure constants tensor of the color graph <code class="code">cgr</code>, then <var class="Arg">tensor</var> is primitive if and only if <code class="code">cgr</code> is primitive (cf. <code class="func">IsPrimitive</code> (<a href="chap1.html#X7D0C85B4786C9CEA"><span class="RefLink">1.6-5</span></a>)).</p>
 
 <p><a id="X83FB3E5587402E1D" name="X83FB3E5587402E1D"></a></p>
 
@@ -289,7 +289,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 <h5>2.5-1 KnownGroupOfAutomorphisms</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfAutomorphisms</code>( <var class="Arg">tensor</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>This function returns the group of all automorphisms of <var class="Arg">tensor</var> that <strong class="pkg">COCO2P</strong> knows at the given moment.</p>
+<p>This function returns the group of all automorphisms of <var class="Arg">tensor</var> that <strong class="pkg">coco2p</strong> knows at the given moment.</p>
 
 <p><a id="X7A1AAC707A327410" name="X7A1AAC707A327410"></a></p>
 
@@ -305,7 +305,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAutomorphismOfObject</code>( <var class="Arg">tensor</var>, <var class="Arg">perm</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAutomorphismOfTensor</code>( <var class="Arg">tensor</var>, <var class="Arg">perm</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns <code class="code">true</code>, if <var class="Arg">perm</var> is an automorphism of <var class="Arg">tensor</var>. In that case <strong class="pkg">COCO2P</strong> adds <var class="Arg">perm</var> to the known automorphisms of <var class="Arg">tensor</var>.</p>
+<p>Returns <code class="code">true</code>, if <var class="Arg">perm</var> is an automorphism of <var class="Arg">tensor</var>. In that case <strong class="pkg">coco2p</strong> adds <var class="Arg">perm</var> to the known automorphisms of <var class="Arg">tensor</var>.</p>
 
 <p><a id="X7EE1D367802B6726" name="X7EE1D367802B6726"></a></p>
 
@@ -336,7 +336,7 @@ Group([ (2,3,4)(5,6,7)(8,10,9), (2,6)(3,5)(4,7)(9,10) ])
 <h4>2.6 <span class="Heading">Character tables of structure constants
 	tensors</span></h4>
 
-<p>The structure constants tensor of a WL-stable color graph encodes the structure of the associated coherent algebra. If this algebra is commutative, then <strong class="pkg">COCO2P</strong> is able to compute its character table provided, the irrationalities occuring are representable in <strong class="pkg">GAP</strong>. The algorithm that computes the character tables involves Gröbner-bases. The computation of the Gröbner bases defines the overall performance of the algorithm for the computation of character tables.</p>
+<p>The structure constants tensor of a WL-stable color graph encodes the structure of the associated coherent algebra. If this algebra is commutative, then <strong class="pkg">coco2p</strong> is able to compute its character table provided, the irrationalities occuring are representable in <strong class="pkg">GAP</strong>. The algorithm that computes the character tables involves Gröbner-bases. The computation of the Gröbner bases defines the overall performance of the algorithm for the computation of character tables.</p>
 
 <p><a id="X7B8C349685845950" name="X7B8C349685845950"></a></p>
 

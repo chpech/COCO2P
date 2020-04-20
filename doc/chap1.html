@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<title>GAP (COCO2P) - Chapter 1: Color Graphs</title>
+<title>GAP (coco2p) - Chapter 1: Color Graphs</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -25,7 +25,7 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X8729B87B848E3F89">1.1 <span class="Heading">Theory</span></a>
 </span>
 </div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X8376827B806E61A4">1.2 <span class="Heading"> On the representation of color graphs in <strong class="pkg">COCO2P</strong>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X8376827B806E61A4">1.2 <span class="Heading"> On the representation of color graphs in <strong class="pkg">coco2p</strong>
 	</span></a>
 </span>
 </div>
@@ -89,7 +89,7 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D8EA4528082A74D">1.6-2 IsHomogeneous</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82B217447E358C43">1.6-3 IsWLStableColorGraph</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7EC0451D798802B9">1.6-4 IsSchurian</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7DEB50307A5353B5">1.6-5 IsPrimitive</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D0C85B4786C9CEA">1.6-5 IsPrimitiveColorGraph</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X82E1845978248868">1.7 <span class="Heading">Symmetries of color graphs</span></a>
 </span>
@@ -120,18 +120,18 @@
 
 <h4>1.1 <span class="Heading">Theory</span></h4>
 
-<p>A color graph (cgr) in <strong class="pkg">COCO2P</strong> is a triple <span class="SimpleMath">(V,C,f)</span>, where <span class="SimpleMath">V</span> is a set of vertices, <span class="SimpleMath">C</span> is set of colors, and <span class="SimpleMath">f : V × V -&gt; C</span> assigns to every arc its color. <strong class="pkg">COCO2P</strong> does not know the concept of non-arcs. However, this is not an essential restriction, since non-arcs may be simulated by introducing a special distinguished color.</p>
+<p>A color graph (cgr) in <strong class="pkg">coco2p</strong> is a triple <span class="SimpleMath">(V,C,f)</span>, where <span class="SimpleMath">V</span> is a set of vertices, <span class="SimpleMath">C</span> is set of colors, and <span class="SimpleMath">f : V × V -&gt; C</span> assigns to every arc its color. <strong class="pkg">coco2p</strong> does not know the concept of non-arcs. However, this is not an essential restriction, since non-arcs may be simulated by introducing a special distinguished color.</p>
 
-<p>Of special interrest in <strong class="pkg">COCO2P</strong> are WL-stable color graphs (that is cgrs that are stable under the Weisfeiler-Leman algorithm <a href="chapBib.html#biBWeiL68">[WL68]</a>, <a href="chapBib.html#biBWei76">[Wei76]</a>). In the frames of <strong class="pkg">COCO2P</strong> the maximal monochromatic sets of arcs of a WL-stable color graph will always form a <em>coherent configuration</em>. On the other hand, from every coherent configuration we can obtain a WL-stable cgr (every pair of vertices is colored by the relation it belongs to).</p>
+<p>Of special interrest in <strong class="pkg">coco2p</strong> are WL-stable color graphs (that is cgrs that are stable under the Weisfeiler-Leman algorithm <a href="chapBib.html#biBWeiL68">[WL68]</a>, <a href="chapBib.html#biBWei76">[Wei76]</a>). In the frames of <strong class="pkg">coco2p</strong> the maximal monochromatic sets of arcs of a WL-stable color graph will always form a <em>coherent configuration</em>. On the other hand, from every coherent configuration we can obtain a WL-stable cgr (every pair of vertices is colored by the relation it belongs to).</p>
 
-<p>For historical reasons, <strong class="pkg">COCO2P</strong> uses the nomenclature of color graphs. However, this is only of importance for concepts like automorphisms and isomorphisms. While both, automorphisms and isomorphisms have to preserve colors (as it is expected for color graphs), color-automorphisms, and color-isomorphisms only have to respect color classes, that is, they may map arcs of one color to arcs of another color.</p>
+<p>For historical reasons, <strong class="pkg">coco2p</strong> uses the nomenclature of color graphs. However, this is only of importance for concepts like automorphisms and isomorphisms. While both, automorphisms and isomorphisms have to preserve colors (as it is expected for color graphs), color-automorphisms, and color-isomorphisms only have to respect color classes, that is, they may map arcs of one color to arcs of another color.</p>
 
 <p><a id="X8376827B806E61A4" name="X8376827B806E61A4"></a></p>
 
-<h4>1.2 <span class="Heading"> On the representation of color graphs in <strong class="pkg">COCO2P</strong>
+<h4>1.2 <span class="Heading"> On the representation of color graphs in <strong class="pkg">coco2p</strong>
 	</span></h4>
 
-<p>For a color graph, the set of vertices as well as the set of colors may be any finite set representable in <strong class="pkg">GAP</strong>. For performance reasons, <strong class="pkg">COCO2P</strong> does not use these sets inside its algorithms (except when constructing color graphs). Instead, <strong class="pkg">COCO2P</strong> refers to vertices and colors by their position in the vertex-set and color-set, respectively. In fact vertices and colors are identified with these indices. In order not to loose information, every color graph in <strong class="pkg">COCO2P</strong> keeps a list of names of vertices and a list of names of colors. The set of vertex-names is equal to the original set of vertices, and the set of color names is equal to the original set of colors.</p>
+<p>For a color graph, the set of vertices as well as the set of colors may be any finite set representable in <strong class="pkg">GAP</strong>. For performance reasons, <strong class="pkg">coco2p</strong> does not use these sets inside its algorithms (except when constructing color graphs). Instead, <strong class="pkg">coco2p</strong> refers to vertices and colors by their position in the vertex-set and color-set, respectively. In fact vertices and colors are identified with these indices. In order not to loose information, every color graph in <strong class="pkg">coco2p</strong> keeps a list of names of vertices and a list of names of colors. The set of vertex-names is equal to the original set of vertices, and the set of color names is equal to the original set of colors.</p>
 
 <p><a id="X7B42CC2287F1C3FB" name="X7B42CC2287F1C3FB"></a></p>
 
@@ -391,14 +391,14 @@ rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllAssociationSchemes</code>( <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>This function creates an interface to the database of small association schemes by Akihide Hanaki and Izumi Miyamoto from <span class="URL"><a href="http://math.shinshu-u.ac.jp/~hanaki/as/">http://math.shinshu-u.ac.jp/~hanaki/as/</a></span> (further refered to as the Japanese catalogue)</p>
 
-<p>This function downloads the list of small association schemes of order <var class="Arg">n</var>. Then it converts them to the internal format of <strong class="pkg">COCO2P</strong> and returns the resulting list. Every color graph has a name of the shape <code class="code">AS(n,k)</code> where <code class="code">k</code> is the index of the scheme in the list of schemes of order <var class="Arg">n</var> in the Japanese catalogue.</p>
+<p>This function downloads the list of small association schemes of order <var class="Arg">n</var>. Then it converts them to the internal format of <strong class="pkg">coco2p</strong> and returns the resulting list. Every color graph has a name of the shape <code class="code">AS(n,k)</code> where <code class="code">k</code> is the index of the scheme in the list of schemes of order <var class="Arg">n</var> in the Japanese catalogue.</p>
 
 <p><a id="X867455368202CEE9" name="X867455368202CEE9"></a></p>
 
 <h5>1.3-12 AllCoherentConfigurations</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AllCoherentConfigurations</code>( <var class="Arg">n</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>This function creates an interface to the database of small coherent configurations on at most 15 vertices by Matan Ziv-Av This function downloads the list of small coherent configurations of order <var class="Arg">n</var>. Then it converts them to the internal format of <strong class="pkg">COCO2P</strong> and returns the resulting list. Every color graph has a name of the shape <code class="code">CC(n,k)</code> where <code class="code">k</code> is the index of the scheme in the list of schemes of order <var class="Arg">n</var> in Matan's catalogue.</p>
+<p>This function creates an interface to the database of small coherent configurations on at most 15 vertices by Matan Ziv-Av This function downloads the list of small coherent configurations of order <var class="Arg">n</var>. Then it converts them to the internal format of <strong class="pkg">coco2p</strong> and returns the resulting list. Every color graph has a name of the shape <code class="code">CC(n,k)</code> where <code class="code">k</code> is the index of the scheme in the list of schemes of order <var class="Arg">n</var> in Matan's catalogue.</p>
 
 <p><a id="X79B04A5F80234A2D" name="X79B04A5F80234A2D"></a></p>
 
@@ -823,6 +823,7 @@ true
 <h5>1.6-1 IsUndirectedColorGraph</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsUndirectedColorGraph</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsSymmetricColorGraph</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
 <p>A color graph is called <em>undirected</em> if for all vertices <span class="SimpleMath">u</span> and <span class="SimpleMath">v</span> the arc <span class="SimpleMath">(u,v)</span> has the same color as the arc <span class="SimpleMath">(v,u)</span>. The function tests this property for <var class="Arg">cgr</var>.</p>
 
 
@@ -890,18 +891,19 @@ true
 [ AS(15,5) ]
 	    </pre></div>
 
-<p><a id="X7DEB50307A5353B5" name="X7DEB50307A5353B5"></a></p>
+<p><a id="X7D0C85B4786C9CEA" name="X7D0C85B4786C9CEA"></a></p>
 
-<h5>1.6-5 IsPrimitive</h5>
+<h5>1.6-5 IsPrimitiveColorGraph</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPrimitive</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPrimitiveColorGraph</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;property&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsPrimitive</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;method&nbsp;)</td></tr></table></div>
 <p>A WL-stable color graph is primitive if all its loopless base graphs are strongly connected (cf. <code class="func">BaseGraphOfColorGraph</code> (<a href="chap1.html#X7A18F2757CB7B69C"><span class="RefLink">1.5-8</span></a>)). This function tests, whether <var class="Arg">cgr</var> is primitive or not.</p>
 
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">cgr:=ColorGraph(Group((1,2,3,4)));</span>
 &lt;color graph of order 4 and rank 4&gt;
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsPrimitive(cgr);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IsPrimitiveColorGraph(cgr);</span>
 false
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ReflexiveColors(cgr);</span>
 [ 1 ]
@@ -922,7 +924,7 @@ true
 <h5>1.7-1 KnownGroupOfAutomorphisms</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfAutomorphisms</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>This function returns the group of all automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">COCO2P</strong> knows at the given moment.</p>
+<p>This function returns the group of all automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">coco2p</strong> knows at the given moment.</p>
 
 <p><a id="X7ED15B0F7C276AEB" name="X7ED15B0F7C276AEB"></a></p>
 
@@ -938,7 +940,7 @@ true
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAutomorphismOfObject</code>( <var class="Arg">cgr</var>, <var class="Arg">perm</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IsAutomorphismOfColorGraph</code>( <var class="Arg">cgr</var>, <var class="Arg">perm</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>Returns <code class="code">true</code>, if <var class="Arg">perm</var> is an automorphism of <var class="Arg">cgr</var>. In that case <strong class="pkg">COCO2P</strong> adds <var class="Arg">perm</var> to the known automorphisms of <var class="Arg">cgr</var>.</p>
+<p>Returns <code class="code">true</code>, if <var class="Arg">perm</var> is an automorphism of <var class="Arg">cgr</var>. In that case <strong class="pkg">coco2p</strong> adds <var class="Arg">perm</var> to the known automorphisms of <var class="Arg">cgr</var>.</p>
 
 <p><a id="X7E72DC9C81E1FC86" name="X7E72DC9C81E1FC86"></a></p>
 
@@ -971,14 +973,14 @@ true
 <h5>1.7-7 KnownGroupOfColorAutomorphisms</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfColorAutomorphisms</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>This function returns the group of all color automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">COCO2P</strong> knows at the given moment.</p>
+<p>This function returns the group of all color automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">coco2p</strong> knows at the given moment.</p>
 
 <p><a id="X850C31007C88595D" name="X850C31007C88595D"></a></p>
 
 <h5>1.7-8 KnownGroupOfColorAutomorphismsOnColors</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfColorAutomorphismsOnColors</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>This function returns the group of all color automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">COCO2P</strong> knows at the given moment, acting on the colors of <var class="Arg">cgr</var>.</p>
+<p>This function returns the group of all color automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">coco2p</strong> knows at the given moment, acting on the colors of <var class="Arg">cgr</var>.</p>
 
 <p><a id="X85B8184C834A3863" name="X85B8184C834A3863"></a></p>
 
@@ -1049,7 +1051,7 @@ true
 <h5>1.7-16 KnownGroupOfAlgebraicAutomorphisms</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; KnownGroupOfAlgebraicAutomorphisms</code>( <var class="Arg">cgr</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
-<p>This function returns the group of all algebraic automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">COCO2P</strong> knows at the given moment.</p>
+<p>This function returns the group of all algebraic automorphisms of <var class="Arg">cgr</var> that <strong class="pkg">coco2p</strong> knows at the given moment.</p>
 
 <p><a id="X7C10A5D37F3DDAD5" name="X7C10A5D37F3DDAD5"></a></p>
 

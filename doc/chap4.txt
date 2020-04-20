@@ -4,28 +4,28 @@
   
   [1X4.1 [33X[0;0YIntroduction[133X[101X
   
-  [33X[0;0Y[5XCOCO2P[105X  implements  a  data-type  for partially ordered sets. The reason is,
-  that  for the posets of interest in [5XCOCO2P[105X the test whether two elements are
-  in order-relation is rather expensive, and [5XCOCO2P[105X takes care to minimize the
+  [33X[0;0Y[5Xcoco2p[105X  implements  a  data-type  for partially ordered sets. The reason is,
+  that  for the posets of interest in [5Xcoco2p[105X the test whether two elements are
+  in order-relation is rather expensive, and [5Xcoco2p[105X takes care to minimize the
   necessary  tests.  The other reason is, that this approach allows a nice and
   unified  interface  to  [5XXGAP[105X  for all kinds of posets that are introduced in
-  [5XCOCO2P[105X  (i.e.  posets  of color graphs, posets of fusion orbits, lattices of
+  [5Xcoco2p[105X  (i.e.  posets  of color graphs, posets of fusion orbits, lattices of
   fusions, lattices of closed sets, for now).[133X
   
-  [33X[0;0YLike  for  combinatorial  objects,  [5XCOCO2P[105X internally does not work directly
+  [33X[0;0YLike  for  combinatorial  objects,  [5Xcoco2p[105X internally does not work directly
   with  the  elements  of  a  poset,  but  instead uses indices into a list of
   elements  (cf.  ).  Only  two  functions  refer  directly  to  the elements:
   [2XCocoPosetByFunctions[102X  ([14X4.2-1[114X) and [2XElementsOfCocoPoset[102X ([14X4.2-2[114X). Therefore, in
   the following, we will identify the index to an element with the element.[133X
   
   
-  [1X4.2 [33X[0;0YGeneral functions for [5XCOCO2P[105X[101X[1X-posets[133X[101X
+  [1X4.2 [33X[0;0YGeneral functions for [5Xcoco2p[105X[101X[1X-posets[133X[101X
   
   [1X4.2-1 CocoPosetByFunctions[101X
   
   [33X[1;0Y[29X[2XCocoPosetByFunctions[102X( [3Xelements[103X, [3Xorder[103X, [3Xlinpreorder[103X ) [32X function[133X
   
-  [33X[0;0YThis  is  the main constructor for posets in [5XCOCO2P[105X. All other constructors,
+  [33X[0;0YThis  is  the main constructor for posets in [5Xcoco2p[105X. All other constructors,
   behind the scenes, use this function.[133X
   
   [33X[0;0Y[3Xelements[103X is the underlying set of the poset.[133X
@@ -47,7 +47,7 @@
   [3Xorder[103X  may  be the inclusion order, and [3Xlinpreorder[103X may be the function that
   compares cardinalities.[133X
   
-  [33X[0;0YThe function returns a [5XCOCO2P[105X-poset object that encodes the poset defined by
+  [33X[0;0YThe function returns a [5Xcoco2p[105X-poset object that encodes the poset defined by
   [3Xorder[103X.[133X
   
   [1X4.2-2 ElementsOfCocoPoset[101X
@@ -119,7 +119,8 @@
   
   [33X[1;0Y[29X[2XGraphicCocoPoset[102X( [3Xposet[103X ) [32X operation[133X
   
-  [33X[0;0YThis function creates a graphical representation of [3Xposet[103X using [5XXGAP[105X.[133X
+  [33X[0;0YThis  function  creates  a  graphical  representation of [3Xposet[103X using [5XXGAP[105X or
+  [5XFrancy[105X under [5XJupyter-GAP[105X.[133X
   
   
   [1X4.3 [33X[0;0YPosets of color graphs[133X[101X
@@ -130,12 +131,12 @@
   graph [10Xcgr3[110X of [10Xcgr2[110X that is color isomorphic to [10Xcgr1[110X.[133X
   
   [33X[0;0YRestricted  to  a  set  of  mutually  non color isomorphic color graphs, the
-  relation of sub color isomorphism induces a partial order. [5XCOCO2P[105X is able to
+  relation of sub color isomorphism induces a partial order. [5Xcoco2p[105X is able to
   compute this induced order for lists of WL-stable color graphs.[133X
   
-  [1X4.3-1 ColorIsomorphicFusions[101X
+  [1X4.3-1 OrbitsOfColorIsomorphicFusions[101X
   
-  [33X[1;0Y[29X[2XColorIsomorphicFusions[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XOrbitsOfColorIsomorphicFusions[102X( [3Xcgr1[103X, [3Xcgr2[103X ) [32X function[133X
   
   [33X[0;0YThis  function  returns  a  list  of  all  fusion  orbits  under  the  color
   automorphism  group  of [3Xcgr1[103X whose representatives induce a color graph that
@@ -149,23 +150,25 @@
   [33X[1;0Y[29X[2XSubColorIsomorphismPoset[102X( [3Xcgrlist[103X ) [32X function[133X
   
   [33X[0;0Y[3Xcgrlist[103X is a list of WL-stable color graphs all of the same order and no two
-  of  them  color  isomorphic.  The function returns a [5XCOCO2P[105X-poset of [3Xcgrlist[103X
+  of  them  color  isomorphic.  The function returns a [5Xcoco2p[105X-poset of [3Xcgrlist[103X
   ordered by sub color isomorphism.[133X
   
   [1X4.3-3 GraphicCocoPoset[101X
   
   [33X[1;0Y[29X[2XGraphicCocoPoset[102X( [3Xposet[103X ) [32X method[133X
   
-  [33X[0;0Y[3Xposet[103X is a [5XCOCO2P[105X-poset of colored graphs. This function creates a graphical
+  [33X[0;0Y[3Xposet[103X is a [5Xcoco2p[105X-poset of colored graphs. This function creates a graphical
   representation of this poset. The labels of the nodes of the graphical poset
-  correspond  to the indices in the given poset. The context-menu of each node
-  gives  additional  information  about the node. If for some node it is known
-  whether  the  underlying  color  graph  is  surian or not, then this is made
-  visible  in the graphical poset. Nodes for which it is not known whether the
-  cgr  is Schurian, are represented by squares. Schurian nodes are represented
-  by circles, and non-Schurian nodes are represented by diamonds.[133X
+  correspond  to  the  indices in the given poset. When invoked from [5XXGAP[105X, the
+  context-menu  of  each  node gives additional information about the node. If
+  for  some  node  it is known whether the underlying color graph is surian or
+  not, then this is made visible in the graphical poset. Nodes for which it is
+  not  known whether the cgr is Schurian, are represented by squares. Schurian
+  nodes  are represented by circles, and non-Schurian nodes are represented by
+  diamonds.[133X
   
-  [33X[0;0YThis function is available only from [5XXGAP[105X.[133X
+  [33X[0;0YThis  function  is  available  only from [5XXGAP[105X or within [5XJupyter-GAP[105X when the
+  package [5XFrancy[105X was loaded before [5Xcoco2p[105X.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xlcgr:=AllAssociationSchemes(15);[127X[104X

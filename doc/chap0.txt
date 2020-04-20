@@ -1,6 +1,6 @@
   
   
-                               [1XThe [5XCOCO2P[105X Package[101X
+                               [1XThe [5Xcoco2p[105X Package[101X
   
   
                                   Version 0.17
@@ -23,20 +23,20 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 2012, 2014, 2018 by the authors[133X
+  [33X[0;0Y© 2012, 2014, 2018, 2019, 2020 by the authors[133X
   
   [33X[0;0YThis  package  may  be distributed under the terms and conditions of the GNU
-  Public License Version 2 or higher.[133X
+  Public License Version v3.0 or higher.[133X
   
   
   -------------------------------------------------------
   
   
-  [1XContents (COCO2P)[101X
+  [1XContents (coco2p)[101X
   
   1 [33X[0;0YColor Graphs[133X
     1.1 [33X[0;0YTheory[133X
-    1.2 [33X[0;0YOn the representation of color graphs in [5XCOCO2P[105X[133X
+    1.2 [33X[0;0YOn the representation of color graphs in [5Xcoco2p[105X[133X
     1.3 [33X[0;0YFunctions for the construction of color graphs[133X
       1.3-1 ColorGraphByOrbitals
       1.3-2 ColorGraph
@@ -81,7 +81,7 @@
       1.6-2 IsHomogeneous
       1.6-3 IsWLStableColorGraph
       1.6-4 IsSchurian
-      1.6-5 IsPrimitive
+      1.6-5 IsPrimitiveColorGraph
     1.7 [33X[0;0YSymmetries of color graphs[133X
       1.7-1 KnownGroupOfAutomorphisms
       1.7-2 AutGroupOfCocoObject
@@ -133,7 +133,7 @@
       2.5-6 IsIsomorphismOfObjects
     2.6 [33X[0;0YCharacter tables of structure constants tensors[133X
       2.6-1 CharacterTableOfTensor
-  3 [33X[0;0YWL-Stable Fusions Color Graphs[133X
+  3 [33X[0;0YWL-Stable Fusions of Color Graphs[133X
     3.1 [33X[0;0YIntroduction[133X
     3.2 [33X[0;0YGood sets[133X
       3.2-1 BuildGoodSet
@@ -159,21 +159,24 @@
       3.4-4 TensorOfFusion
       3.4-5 BaseOfFusion
       3.4-6 RankOfFusion
+      3.4-7 OrderOfFusion
     3.5 [33X[0;0YOrbits of fusions[133X
       3.5-1 HomogeneousFusionOrbits
-      3.5-2 FusionOrbit
-      3.5-3 CanonicalRepresentativeOfCocoOrbit
-      3.5-4 Representative
-      3.5-5 UnderlyingGroupOfCocoOrbit
-      3.5-6 StabilizerOfCanonicalRepresentative
-      3.5-7 Size
-      3.5-8 AsList
-      3.5-9 AsSet
-      3.5-10 SubOrbitsOfCocoOrbit
-      3.5-11 SubOrbitsWithInvariantPropertyOfCocoOrbit
+      3.5-2 PosetOfHomogeneousFusionOrbits
+      3.5-3 GraphicCocoPoset
+      3.5-4 FusionOrbit
+      3.5-5 CanonicalRepresentativeOfCocoOrbit
+      3.5-6 Representative
+      3.5-7 UnderlyingGroupOfCocoOrbit
+      3.5-8 StabilizerOfCanonicalRepresentative
+      3.5-9 Size
+      3.5-10 AsList
+      3.5-11 AsSet
+      3.5-12 SubOrbitsOfCocoOrbit
+      3.5-13 SubOrbitsWithInvariantPropertyOfCocoOrbit
   4 [33X[0;0YPartially ordered sets[133X
     4.1 [33X[0;0YIntroduction[133X
-    4.2 [33X[0;0YGeneral functions for [5XCOCO2P[105X-posets[133X
+    4.2 [33X[0;0YGeneral functions for [5Xcoco2p[105X-posets[133X
       4.2-1 CocoPosetByFunctions
       4.2-2 ElementsOfCocoPoset
       4.2-3 Size
@@ -186,7 +189,7 @@
       4.2-10 InducedCocoPoset
       4.2-11 GraphicCocoPoset
     4.3 [33X[0;0YPosets of color graphs[133X
-      4.3-1 ColorIsomorphicFusions
+      4.3-1 OrbitsOfColorIsomorphicFusions
       4.3-2 SubColorIsomorphismPoset
       4.3-3 GraphicCocoPoset
   5 [33X[0;0YColor Semirings[133X

@@ -46,9 +46,11 @@
 \indexentry{BaseGraphOfColorGraph@\texttt  {BaseGraphOfColorGraph}!first variant|hyperpage}{17}
 \indexentry{BaseGraphOfColorGraph@\texttt  {BaseGraphOfColorGraph}!second variant|hyperpage}{17}
 \indexentry{IsUndirectedColorGraph@\texttt  {IsUndirectedColorGraph}|hyperpage}{18}
+\indexentry{IsSymmetricColorGraph@\texttt  {IsSymmetricColorGraph}|hyperpage}{18}
 \indexentry{IsHomogeneous@\texttt  {IsHomogeneous}|hyperpage}{18}
 \indexentry{IsWLStableColorGraph@\texttt  {IsWLStableColorGraph}|hyperpage}{19}
 \indexentry{IsSchurian@\texttt  {IsSchurian}|hyperpage}{19}
+\indexentry{IsPrimitiveColorGraph@\texttt  {IsPrimitiveColorGraph}!for WL-stable color graphs|hyperpage}{19}
 \indexentry{IsPrimitive@\texttt  {IsPrimitive}!for WL-stable color graphs|hyperpage}{19}
 \indexentry{KnownGroupOfAutomorphisms@\texttt  {KnownGroupOfAutomorphisms}!for color graphs|hyperpage}{20}
 \indexentry{AutGroupOfCocoObject@\texttt  {AutGroupOfCocoObject}!for color graphs|hyperpage}{20}
@@ -129,34 +131,37 @@
 \indexentry{TensorOfFusion@\texttt  {TensorOfFusion}|hyperpage}{33}
 \indexentry{BaseOfFusion@\texttt  {BaseOfFusion}|hyperpage}{33}
 \indexentry{RankOfFusion@\texttt  {RankOfFusion}|hyperpage}{33}
+\indexentry{OrderOfFusion@\texttt  {OrderOfFusion}|hyperpage}{33}
 \indexentry{HomogeneousFusionOrbits@\texttt  {HomogeneousFusionOrbits}!for structure constants tensors|hyperpage}{33}
 \indexentry{HomogeneousFusionOrbits@\texttt  {HomogeneousFusionOrbits}!for structure constants tensors, alternative|hyperpage}{33}
-\indexentry{FusionOrbit@\texttt  {FusionOrbit}|hyperpage}{33}
+\indexentry{PosetOfHomogeneousFusionOrbits@\texttt  {PosetOfHomogeneousFusionOrbits}!for WL-stable color graphs|hyperpage}{34}
+\indexentry{GraphicCocoPoset@\texttt  {GraphicCocoPoset}!for posets of fusion orbits|hyperpage}{34}
+\indexentry{FusionOrbit@\texttt  {FusionOrbit}|hyperpage}{34}
 \indexentry{CanonicalRepresentativeOfCocoOrbit@\texttt  {CanonicalRepresentativeOfCocoOrbit}!for orbits of fusions|hyperpage}{34}
-\indexentry{Representative@\texttt  {Representative}!for orbits of fusions|hyperpage}{34}
-\indexentry{UnderlyingGroupOfCocoOrbit@\texttt  {UnderlyingGroupOfCocoOrbit}!for orbits of fusions|hyperpage}{34}
-\indexentry{StabilizerOfCanonicalRepresentative@\texttt  {StabilizerOfCanonicalRepresentative}!for orbits of fusions|hyperpage}{34}
-\indexentry{Size@\texttt  {Size}!for orbits of fusions|hyperpage}{34}
-\indexentry{AsList@\texttt  {AsList}!for orbits of fusions|hyperpage}{34}
-\indexentry{AsSet@\texttt  {AsSet}!for orbits of fusions|hyperpage}{34}
+\indexentry{Representative@\texttt  {Representative}!for orbits of fusions|hyperpage}{35}
+\indexentry{UnderlyingGroupOfCocoOrbit@\texttt  {UnderlyingGroupOfCocoOrbit}!for orbits of fusions|hyperpage}{35}
+\indexentry{StabilizerOfCanonicalRepresentative@\texttt  {StabilizerOfCanonicalRepresentative}!for orbits of fusions|hyperpage}{35}
+\indexentry{Size@\texttt  {Size}!for orbits of fusions|hyperpage}{35}
+\indexentry{AsList@\texttt  {AsList}!for orbits of fusions|hyperpage}{35}
+\indexentry{AsSet@\texttt  {AsSet}!for orbits of fusions|hyperpage}{35}
 \indexentry{SubOrbitsOfCocoOrbit@\texttt  {SubOrbitsOfCocoOrbit}!for orbits of fusions|hyperpage}{35}
-\indexentry{SubOrbitsWithInvariantPropertyOfCocoOrbit@\texttt  {Sub}\-\texttt  {Orbits}\-\texttt  {With}\-\texttt  {Invariant}\-\texttt  {Property}\-\texttt  {Of}\-\texttt  {Coco}\-\texttt  {Orbit}!for orbits of fusions|hyperpage}{35}
-\indexentry{CocoPosetByFunctions@\texttt  {CocoPosetByFunctions}|hyperpage}{36}
-\indexentry{ElementsOfCocoPoset@\texttt  {ElementsOfCocoPoset}|hyperpage}{37}
-\indexentry{Size@\texttt  {Size}!for COCO-posets|hyperpage}{37}
-\indexentry{SuccessorsInCocoPoset@\texttt  {SuccessorsInCocoPoset}|hyperpage}{37}
-\indexentry{PredecessorsInCocoPoset@\texttt  {PredecessorsInCocoPoset}|hyperpage}{37}
-\indexentry{IdealInCocoPoset@\texttt  {IdealInCocoPoset}|hyperpage}{37}
-\indexentry{IdealInCocoPoset@\texttt  {IdealInCocoPoset}!for principal ideals|hyperpage}{37}
-\indexentry{FilterInCocoPoset@\texttt  {FilterInCocoPoset}|hyperpage}{37}
-\indexentry{FilterInCocoPoset@\texttt  {FilterInCocoPoset}!for principal filters|hyperpage}{37}
-\indexentry{MinimalElementsInCocoPoset@\texttt  {MinimalElementsInCocoPoset}|hyperpage}{37}
-\indexentry{MaximalElementsInCocoPoset@\texttt  {MaximalElementsInCocoPoset}|hyperpage}{38}
-\indexentry{InducedCocoPoset@\texttt  {InducedCocoPoset}|hyperpage}{38}
-\indexentry{GraphicCocoPoset@\texttt  {GraphicCocoPoset}|hyperpage}{38}
-\indexentry{ColorIsomorphicFusions@\texttt  {ColorIsomorphicFusions}|hyperpage}{38}
-\indexentry{SubColorIsomorphismPoset@\texttt  {SubColorIsomorphismPoset}|hyperpage}{38}
-\indexentry{GraphicCocoPoset@\texttt  {GraphicCocoPoset}!for posets of color graphs|hyperpage}{38}
-\indexentry{ColorSemiring@\texttt  {ColorSemiring}|hyperpage}{41}
-\indexentry{GeneratorsOfColorSemiring@\texttt  {GeneratorsOfColorSemiring}|hyperpage}{42}
-\indexentry{AsElementOfColorSemiring@\texttt  {AsElementOfColorSemiring}|hyperpage}{42}
+\indexentry{SubOrbitsWithInvariantPropertyOfCocoOrbit@\texttt  {Sub}\-\texttt  {Orbits}\-\texttt  {With}\-\texttt  {Invariant}\-\texttt  {Property}\-\texttt  {Of}\-\texttt  {Coco}\-\texttt  {Orbit}!for orbits of fusions|hyperpage}{36}
+\indexentry{CocoPosetByFunctions@\texttt  {CocoPosetByFunctions}|hyperpage}{37}
+\indexentry{ElementsOfCocoPoset@\texttt  {ElementsOfCocoPoset}|hyperpage}{38}
+\indexentry{Size@\texttt  {Size}!for COCO-posets|hyperpage}{38}
+\indexentry{SuccessorsInCocoPoset@\texttt  {SuccessorsInCocoPoset}|hyperpage}{38}
+\indexentry{PredecessorsInCocoPoset@\texttt  {PredecessorsInCocoPoset}|hyperpage}{38}
+\indexentry{IdealInCocoPoset@\texttt  {IdealInCocoPoset}|hyperpage}{38}
+\indexentry{IdealInCocoPoset@\texttt  {IdealInCocoPoset}!for principal ideals|hyperpage}{38}
+\indexentry{FilterInCocoPoset@\texttt  {FilterInCocoPoset}|hyperpage}{38}
+\indexentry{FilterInCocoPoset@\texttt  {FilterInCocoPoset}!for principal filters|hyperpage}{38}
+\indexentry{MinimalElementsInCocoPoset@\texttt  {MinimalElementsInCocoPoset}|hyperpage}{38}
+\indexentry{MaximalElementsInCocoPoset@\texttt  {MaximalElementsInCocoPoset}|hyperpage}{39}
+\indexentry{InducedCocoPoset@\texttt  {InducedCocoPoset}|hyperpage}{39}
+\indexentry{GraphicCocoPoset@\texttt  {GraphicCocoPoset}|hyperpage}{39}
+\indexentry{OrbitsOfColorIsomorphicFusions@\texttt  {OrbitsOfColorIsomorphicFusions}|hyperpage}{39}
+\indexentry{SubColorIsomorphismPoset@\texttt  {SubColorIsomorphismPoset}|hyperpage}{39}
+\indexentry{GraphicCocoPoset@\texttt  {GraphicCocoPoset}!for posets of color graphs|hyperpage}{39}
+\indexentry{ColorSemiring@\texttt  {ColorSemiring}|hyperpage}{42}
+\indexentry{GeneratorsOfColorSemiring@\texttt  {GeneratorsOfColorSemiring}|hyperpage}{43}
+\indexentry{AsElementOfColorSemiring@\texttt  {AsElementOfColorSemiring}|hyperpage}{43}
