@@ -1,3 +1,29 @@
+Changes from version 0.18 to version 0.19
+cocoorbit.g?     - minor cleanup
+colgraph.g?	 - adder IsPrimitiveColorGraph
+		 - created synonym IsSymmetricColorGraph
+		 - made IsHomogeneous "immediate"
+		 - IsSchurian treats the rank-2 case and the imprimitive
+		  rank-3 case separately now
+colorsemiring.g? - minor cleanup
+francy.g?	 - implemented a basic interface to the package francy
+fusion.g?	 - reimplementation using partial fusions, partial fusion orbits,
+		   and iterators
+goodsets.g?	 - reimplementation using partial good sets, orbits of
+		   partial good sets, and iterators
+newsubiso.g?	 - reimplementation of subiso using the new good sets and fusions
+nodes.g?	 - nodes are objects that agregate information about coco-objects
+		   they are used in the interface to xgap and to francy
+partfus.g?	 - implementation of partial fusions, orbits of partial fusions,
+		   and an iterator for the enumeration of partial fusion orbits
+partgs.g?	 - implementation of partial good sets, orbits of partial good sets,
+		   and an iterator for the enumeration of partial good sets
+pbag.g?		 - minor cleanup
+posets.g?	 - minor cleanup
+redtest.gi	 - minor cleanup
+tensor.g?	 - added IsHomogeneousTensor, BlockOfTensor
+xgap.g?		 - reimplementation of the interface to cgap
+
 Changes from version 0.17 to version 0.18
 coco.xml        - added documentation for KnownGroupOfColorAutomorphismsOnColors
                 - added documentation for IsColorIsomorphismOfColorGraphs
