@@ -2,18 +2,18 @@ DeclareRepresentation( "IsColorSemiringElementRep",
         IsPositionalObjectRep,
         [1]);
 
-InstallMethod( ViewObj,
+InstallMethod( ViewString,
     "for elements of color semirings",
     [ IsElementOfColorSemiring and IsColorSemiringElementRep ],
     function( obj )
-    Print( "<", obj![1], ">" );
+    return Concatenation("<", String(obj![1]), ">" );
 end );
 
-InstallMethod( ViewObj,
+InstallMethod( ViewString,
         "for color semirings",
         [IsColorSemiring],
 function(sr)
-    Print("<ColorSemiring>");
+    return "<ColorSemiring>";
 end);
 
 InstallMethod( ColorSemiringElement,

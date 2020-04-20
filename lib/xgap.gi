@@ -1,70 +1,113 @@
-# BindGlobal( "ClearGreenColor",
-#   function( latt )
-#   local lev, class, vert, sel;
-#     sel := Selected( latt );
-#     for lev in Levels( latt ) do
-#       for class in Classes( latt, lev ) do
-#         for vert in Vertices( latt, lev, class ) do
-# 	  if not( vert in sel ) then
-# 		Recolor( latt, vert, COLORS.black );
-# 	  fi;
-# 	od;
-#       od;
-#     od;
-# end );
- 
+#############################################################################
+##
+##  xgap.gi                      COCO package
+##                                                              Mikhail Klin
+##                                                            Christian Pech
+##                                                             Sven Reichard
+##
+##  Implementation of the xgap interface
+##
+#############################################################################
 
-InstallMethod(
-	ChooseShape,
-	"for Graphic cgr iso posets",
-	[IsGraphicPosetRep and IsGraphicCgrIsoPoset,IsRecord],
-function( cgrposet, data )
-  local cgr;
-    cgr := data.cgr;
-    if HasIsSchurian( cgr ) then
-        if IsSchurian( cgr ) then
-            return "circle"; 
-        else
-            return "diamond";
+
+DeclareRepresentation( "IsGraphicCocoPosetRep",
+  IsComponentObjectRep and IsAttributeStoringRep and IsGraphicSheet and
+  IsGraphicSheetRep and IsGraphicGraphRep and IsGraphicPosetRep,
+# we inherit those components from the sheet:
+  [ "name", "width", "height", "gapMenu", "callbackName", "callbackFunc",
+    "menus", "objects", "free",
+# and the following from being a poset:
+    "levels",           # list of levels, stores current total ordering
+    "levelparams",      # list of level parameters
+    "selectedvertices", # list of selected vertices
+    "menutypes",        # one entry per menu which contains list of types
+    "menuenabled",      # one entry per menu which contains list of flags
+    "rightclickfunction",    # the current function which is called when
+                             # user clicks right button
+    "color",            # some color infos for the case of different models
+    "levelboxes",       # little graphic boxes for the user to handle levels
+    "showlevels",       # flag, if levelboxes are shown
+# now follow our own components:
+    "lastresult" ],      # list of vertices which are "green"
+    IsGraphicSheet );
+
+
+BindGlobal( "ClearGreen@",
+function( gpos )
+local sel, v;
+
+    sel := Selected(gpos);
+    for v in gpos!.lastresult do
+        if IsAlive(v) then
+            if PositionSet(sel,v) = fail then
+                Recolor(gpos,v,gpos!.color.unselected);
+            else
+                Recolor(gpos,v,gpos!.color.selected);
+            fi;
         fi;
-    else
-        return "rectangle";
-    fi;
+    od;
+    gpos!.lastresult := [];
 end );
 
-InstallMethod(ChooseLevel,
-	"for Graphic COCO-posets",
-	[IsGraphicPosetRep and IsGraphicCocoPoset, IsRecord],
-function( cocoposet, data )
-    return data.level;
+BindGlobal( "ReshapeAll@",
+  function( gpos )
+  local lev, class, vert, sel;
+    sel := Selected( gpos );
+    for lev in Levels( gpos ) do
+      for class in Classes( gpos, lev ) do
+        for vert in Vertices( gpos, lev, class ) do
+            Reshape( gpos, vert );
+        od;
+      od;
+    od;
 end );
 
-InstallMethod(ChooseLevel,
-	"for Graphic cgr iso posets",
-	[IsGraphicPosetRep and IsGraphicCgrIsoPoset, IsRecord],
-function( cgrposet, data )
-    return RankOfColorGraph( data.cgr );
-end );
 
-InstallMethod(
-	CompareLevels,
-	"for cgr iso posets",
-	[ IsGraphicPosetRep and IsGraphicCgrIsoPoset, IsInt, IsInt ],
-function( poset, a, b )
-    if a < b then
-	return 1;
-    elif a > b then
-	return -1;
-    else
-	return 0;
-    fi;
+
+InstallMethod(ChooseShape,
+        "for graphic coco posets",
+        [IsGraphicCocoPoset and IsGraphicPosetRep, IsCocoNode],
+function(poset,data)
+    return ShapeOfCocoNode(data);
 end);
 
+# InstallMethod(
+# 	ChooseShape,
+# 	"for graphic coco posets of color graphs",
+# 	[IsGraphicCocoPoset and IsGraphicPosetRep,IsCocoNode and IsColorGraphNodeRep],
+# function( cgrposet, data )
+#     local cgr;
+#     cgr := data!.cgr;
+#     if RankOfColorGraph(cgr)=2 then
+#         return "circle";
+#     fi;
+#     if RankOfColorGraph(cgr)=3 and not IsPrimitiveColorGraph(cgr) then
+#         return "circle";
+#     fi;
+    
+#     if HasIsSchurian( cgr ) then
+#         if IsSchurian( cgr ) then
+#             return "circle";
+#         else
+#             return "diamond";
+#         fi;
+#     else
+#         return "rectangle";
+#     fi;
+# end );
+
+
+InstallMethod(ChooseLevel,
+	"for graphic coco posets of color graphs",
+	[IsGraphicCocoPoset and IsGraphicPosetRep, IsCocoNode],
+function( cocoposet, data )
+    return LevelOfCocoNode(data);
+end );
+
 InstallMethod(
 	CompareLevels,
-	true,
-	[ IsGraphicPosetRep and IsGraphicCocoPoset, IsInt, IsInt ],
-	0,
+	"for graphic coco posets",
+	[ IsGraphicCocoPoset and IsGraphicPosetRep, IsInt, IsInt ],
 function( poset, a, b )
     if a < b then
 	return 1;
@@ -79,21 +122,38 @@ InstallMethod(GraphicCocoPoset,
         "for COCO-posets",
         [IsCocoPoset],
 function(cocoposet)
-    local   gposet,  vertices,  i,  elm,  j,  lev;
-    
+    local   gposet,  vertices,  i,  elm,  j,  lev,levels,NewNode;
+
+
+    NewNode:=function(poset,index,level)
+        return Objectify(NewType(CocoNodesFam, IsCocoNode and IsCocoNodeRep),
+                       rec( poset:=poset,
+                            index:=index,
+                            level:=level));
+    end;
+
+
     gposet := GraphicPoset( "COCO-poset", 800, 600 );
 
-    SetFilterObj( gposet, IsGraphicCocoPoset );
+    SetFilterObj( gposet, IsGraphicCocoPoset and IsGraphicCocoPosetRep );
+    gposet!.lastresult:=[];
 
     vertices := [];
+    levels:=ListWithIdenticalEntries(Size(cocoposet),0);
     for i in [1..Size(cocoposet)] do
-        elm:=ElementsOfCocoPoset(cocoposet)[i];
-        lev:=Length(IdealInCocoPoset(cocoposet,i));
-        
-	CreateLevel( gposet, lev);
-	Add( vertices, Vertex( gposet, rec( element := elm, level := lev),  
-			rec( label := String( i )
-			) ) ); 
+        for j in SuccessorsInCocoPoset(cocoposet,i) do
+            if levels[j]<=levels[i] then
+                levels[j]:=levels[i]+1;
+            fi;
+        od;
+    od;
+    for i in [1..Maximum(levels)] do
+        CreateLevel(gposet, i);
+    od;
+
+    for i in [1..Size(cocoposet)] do
+	Add( vertices, Vertex( gposet, NewNode(cocoposet,i,levels[i]),
+			rec( label := String( i ))));
     od;
     for i in [1..Size(cocoposet)] do
       for j in SuccessorsInCocoPoset(cocoposet,i) do
@@ -104,204 +164,673 @@ function(cocoposet)
 end);
 
 
+
+
+
+
+
 InstallMethod(GraphicCocoPoset,
-        "for Sub Iso Lattices",
-        [IsCocoPoset and IsSubIsoLattice],
+        "for sub color isomorphism posets",
+        [IsCocoPoset and IsSubColorIsomorphismPoset],
 function(cgrposet)
-    local gposet,cgr,i,j,vertices,funcclose;
-    
-    gposet := GraphicPoset( "Iso-poset of color graphs", 800, 600 );
+    local gposet,levels, vertices, classes,lcls,i,j,cgr,funcclose,funcall,updater,setter;
 
-    SetFilterObj( gposet, IsGraphicCgrIsoPoset );
 
-    vertices := [];
+    gposet := GraphicPoset( "SubColorIsomorphismPoset", 800, 600 );
+    gposet!.infobox:=false;
+
+
+    SetFilterObj( gposet, IsGraphicCocoPoset );
+    gposet!.lastresult:=[];
+    levels:=Set(ElementsOfCocoPoset(cgrposet), RankOfColorGraph);
+
+    for i in levels do
+        CreateLevel( gposet, i );
+    od;
+
+    vertices:=[];
+
     for i in [1..Size(cgrposet)] do
         cgr:=ElementsOfCocoPoset(cgrposet)[i];
-	CreateLevel( gposet, RankOfColorGraph(cgr) );
-	Add( vertices, Vertex( gposet, rec( cgr := cgr ), 
-			rec( label := String( i )
-			) ) ); 
+        Add( vertices, Vertex( gposet, NewCocoNode(cgrposet,i),
+                rec( label := String( i )
+                              ) ) );
     od;
+
     for i in [1..Size(cgrposet)] do
       for j in SuccessorsInCocoPoset(cgrposet,i) do
 	Edge( gposet, vertices[i], vertices[j] );
       od;
     od;
 
-    # Menu( latt, "Ideals", 
-    #     [
-    #     "Intersection",
-    #     "Closure",
-    #     "Commutator",
-    #     "Covers",
-    #     "Subcovers",
-    #     "Ideal type",
-    #     ], 
-    #     [
-    #     "forsubset",
-    #     "forsubset",
-    #     "forsubset",
-    #     "forone",
-    #     "forone",
-    #     "forsubset"
-    #     ], 
-    #     [
-    #     # Intersection
-    #     function(arg)
-    #       local sel, C, latt;
-    #         latt := arg[1];
-    #         sel := Selected( latt );
-    #         C := Intersection( List( sel, I -> I!.data.ideal ) );
-    #         C := WhichVertex( latt, C, 
-    #     	function( N, R ) return R.ideal = N; end ); 
-    #         ClearGreen( latt );
-    #         Recolor( latt, C, COLORS.green ); 
-    #     end,
+    Menu( gposet, "Properties",
+          [
+           "Primitive",
+           "Symmetric",
+           "Commutative",
+           "non-Schurian"
+           ],
+          [
+           "forany",
+           "forany",
+           "forany",
+           "forany"
+           ],
+          [
+           # Primitive
+           function(gpos, menu, entry)
+        local V,Vs;
+        Vs:=WhichVertices(gpos,[], function(data,vertex)
+            return IsPrimitiveColorGraph(vertex!.cgr);
+        end);
+        ClearGreen@( gpos );
 
-    #     # Closure
-    #     function(arg)
-    #       local sel, I, C, latt;
-    #         latt := arg[1];
-    #         sel := Selected( latt );
-    #         sel := List( sel, I -> I!.data.ideal );
-    #         C := sel[1];
-    #         for I in sel{[2..Length(sel)]} do
-    #           C := ClosureNearRingIdeal( C, I );
-    #         od;
-    #         C := WhichVertex( latt, C, 
-    #     	function( N, R ) return R.ideal = N; end ); 
-    #         ClearGreen( latt );
-    #         Recolor( latt, C, COLORS.green ); 
-    #     end,
+        for V in Vs do
+            Recolor( gpos, V, COLORS.green );
+            Add(gpos!.lastresult,V);
+        od;
+    end,
+        # Symmetric
+      function(gpos, menu, entry)
+        local V,Vs;
+        Vs:=WhichVertices(gpos,[], function(data,vertex)
+            return IsSymmetricColorGraph(vertex!.cgr);
+        end);
+        ClearGreen@( gpos );
 
-    #     # Commutator
-    #     function(arg) 
-    #       local sel, I, J, C, latt;
-    #         latt := arg[1];
-    #         sel := Selected( latt );
-    #         if Length( sel )=1 then
-    #     	I := sel[1]; J := sel[1];
-    #         elif Length( sel )=2 then
-    #             I := sel[1]; J := sel[2];
-    #         else
-    #     	return;
-    #         fi;
-    #         C := NearRingCommutator(I!.data.ideal,J!.data.ideal);
-    #         C := WhichVertex( latt, C, 
-    #     	function( N, R ) return R.ideal = N; end ); 
-    #         ClearGreen( latt );
-    #         Recolor( latt, C, COLORS.green ); 
-    #     end,
+        for V in Vs do
+            Recolor( gpos, V, COLORS.green );
+            Add(gpos!.lastresult,V);
+        od;
+    end,
+        # commutative
+      function(gpos, menu, entry)
+        local V,Vs;
+        Vs:=WhichVertices(gpos,[], function(data,vertex)
+            return IsCommutativeTensor(StructureConstantsOfColorGraph(vertex!.cgr));
+        end);
+        ClearGreen@( gpos );
 
-    #     # Covers
-    #     function(arg)
-    #       local V, I, Cs, latt;
-    #         latt := arg[1];
-    #         I := Selected(latt)[1];
-    #         Cs := MaximalIn( latt, I );
-    #         ClearGreen( latt );
-    #         for V in Cs do
-    #           Recolor( latt, V, COLORS.green ); 
-    #         od;
-    #     end,
+        for V in Vs do
+            Recolor( gpos, V, COLORS.green );
+            Add(gpos!.lastresult,V);
+        od;
+    end,
+        # non-Schurian
+      function(gpos, menu, entry)
+        local V,Vs;
+        Vs:=WhichVertices(gpos,[], function(data,vertex)
+            return not IsSchurian(vertex!.cgr);
+        end);
+        ClearGreen@( gpos );
+        ReshapeAll@(gpos);
 
-    #     # Subcovers
-    #     function(arg)
-    #       local V, I, Cs, latt;
-    #         latt := arg[1];
-    #         I := Selected(latt)[1];
-    #         Cs := Maximals( latt, I );
-    #         ClearGreen( latt );
-    #         for V in Cs do
-    #           Recolor( latt, V, COLORS.green ); 
-    #         od;
-    #     end,
-
-    #     # Ideal type
-    #     function(arg)
-    #     local latt, sel, vert;
-    #       latt := arg[1];
-    #       sel := Selected( latt ); 
-    #       for vert in sel do
-    #         if IsNearRingIdeal( vert!.data.ideal ) then
-    #     	Reshape( latt, vert, "circle" );
-    #         fi;
-    #       od;
-    #     end
-    #     ] );
+        for V in Vs do
+            Recolor( gpos, V, COLORS.green );
+            Add(gpos!.lastresult,V);
+        od;
+    end
+      ]);
+    Menu( gposet, "Symmetries",
+          [
+           "compute Aut",
+           "compute cAut/Aut",
+           "compute aAut"
+           ],
+          [
+           "forsubset",
+           "forsubset",
+           "forsubset"
+           ],
+          [
+           # compute Aut
+           function(gpos,menu,entry)
+        local sel,v,node,idx,i;
+        
+        sel:=Selected(gpos);
+        for v in sel do
+            node:=v!.data;
+            idx:=Position(node!.nodeInfo.names,"Aut:");
+            if idx <> fail then
+                setter(node,idx);
+            fi;
+            for i in [1..Length(node!.nodeInfo.names)] do
+                updater(node,i);
+            od;
+            ReshapeAll@(gpos);
+        od;
+    end,
+      # compute cAut/Aut
+      function(gpos,menu,entry)
+        local sel,v,node,idx,i;
+        
+        sel:=Selected(gpos);
+        for v in sel do
+            node:=v!.data;
+            idx:=Position(node!.nodeInfo.names,"cAut/Aut:");
+            if idx <> fail then
+                setter(node,idx);
+            fi;
+            for i in [1..Length(node!.nodeInfo.names)] do
+                updater(node,i);
+            od;
+        od;
+    end,
+      # compute aAut
+      function(gpos,menu,entry)
+        local sel,v,node,idx,i;
+        
+        sel:=Selected(gpos);
+        for v in sel do
+            node:=v!.data;
+            idx:=Position(node!.nodeInfo.names,"aAut:");
+            if idx <> fail then
+                setter(node,idx);
+            fi;
+            for i in [1..Length(node!.nodeInfo.names)] do
+                updater(node,i);
+            od;
+        od;
+    end
+      ]);
+    
+        Menu( gposet, "Selection",
+          [
+           "Select Green",
+           "Invert Selection",,
+           "Report..."
+           ],
+          [
+           "forany",
+           "forany",,
+           "forsubset"
+           ],
+          [
+        # select green
+           function(gpos, menu, entry)
+        local sel,V;
+        sel:=gpos!.lastresult;
+        DeselectAll(gpos);
+        ClearGreen@( gpos );
+        
+        for V in sel do
+            Select( gpos, V );
+        od;
+    end,
+      # invert selection
+      function(gpos,menu,entry)
+        local sel,lev,class,vert;
+        sel:=Selected(gpos);
+        DeselectAll(gpos);
+        for lev in Levels( gpos ) do
+            for class in Classes( gpos, lev ) do
+                for vert in Vertices( gpos, lev, class ) do
+                    if not( vert in sel ) then
+                        Select(gpos,vert);
+                    fi;
+                od;
+            od;
+        od;
+    end,,
+      # report
+      function(gpos,menu,entry)
+        local sel,di,res,v,node,ninf,i,pos,strictupperbounds,maxin,maxlength,indices,index;
+        
+        sel:=Selected(gpos);
+        SortBy(sel, v->IndexOfCocoNode(v!.data));
+        indices:=List(sel, x->IndexOfCocoNode(x!.data));
+        
+        di := Dialog("Filename","Log File?");
+        res:= Query(di,"coco2p.info");
+        PrintTo(res,"COCO2P - Informations about a SubColorIsomorphismPoset\n",
+                "----------------------------------------------------\n");
+        
+        if res <> false then
+            for v in sel do
+                node:=v!.data;
+                ninf:=node!.nodeInfo;
+                maxlength:=Maximum(ninf.maxlength, 20);
+                index:=IndexOfCocoNode(node);
+                AppendTo(res, NodeInfoString(node));
+                pos:=node!.poset;
+                strictupperbounds:=Difference(FilterInCocoPoset(pos,index),[index]);
+                strictupperbounds:=Intersection(strictupperbounds,indices);
+                maxin:=[];
+                if strictupperbounds<>[] then
+                    maxin:=MinimalElementsInCocoPoset(pos,strictupperbounds);
+                fi;
+                AppendTo(res, String("Maximal Merging in: ",-maxlength), maxin,"\n");
+                AppendTo(res,"\n");
+            od;
+        fi;
+        end]);
 
   # close text selector
     funcclose := function( sel, bt )
+        gposet!.infobox := false;
         Close(sel);
-        return true;  
+        return true;
     end;
 
+    funcall := function( sel, bt )
+        local i;
+        for i  in [ 1 .. Length(sel!.labels) ]  do
+            sel!.selected := i;
+            sel!.textFuncs[i]( sel, sel!.labels[i] );
+        od;
+        Enable( sel, "all", false );
+        return true;
+    end;
+
+    updater:=function(node,i)
+        if node!.nodeInfo.values[i]<>"unknown" then
+            return;
+        fi;
+        if node!.nodeInfo.testers[i](node) then
+            node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](node!.nodeInfo.getters[i](node));
+        fi;
+    end;
+    
+    setter:=function(node,i);
+        if node!.nodeInfo.values[i]<>"unknown" then
+            return;
+        fi;
+        node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](node!.nodeInfo.getters[i](node));
+    end;
+    
+        
     InstallPopup( gposet,
     function( sheet, vert, x, y )
-	local id, text;
-        #          text := Concatenation( "LibraryNearRing( ",Name(id[1]),", ",String(id[2])," )");
-        sheet!.infobox := TextSelector( 
-        Concatenation( "Information on color graph ",vert!.label ), 
-        [ 
-        "Order : ",
-        function(x,y) 
-            Relabel( x, 1, Concatenation( "Order : ", String(Order(vert!.data.cgr)) ) );
-            return Order(vert!.data.cgr); 
-	end,
+	local id, texts,node;
 
-        "Rank : ",
-        function(x,y) 
-            Relabel( x, 2, Concatenation( "Rank : ", String(Rank(vert!.data.cgr)) ) );
-            return Rank(vert!.data.cgr); 
-	end,
-   
-        "Is Schurian : ",
-	function(x,y)
-	  Relabel( x, 3, Concatenation( "Is Schurian : ",
-                  String( IsSchurian( vert!.data.cgr ) ) ) );
-          Reshape( gposet, vert);
+        if sheet!.infobox <> false then
+            Close(sheet!.infobox);
+            sheet!.infobox := false;
+        fi;
 
-	  return IsSchurian( vert!.data.cgr );
-	end,
+        if vert=fail then
+            PopupFromMenu(sheet!.menus[3]);
+            return;
+        fi;
+        node:=vert!.data;
 
-        "Is homogeneous : ",
-	function(x,y)
-	  Relabel( x, 4, Concatenation( "Is homogeneous : ",
-                  String( IsHomogeneous( vert!.data.cgr ) ) ) );
+        texts:=[];
+        for i in [1..Length(node!.nodeInfo.names)] do
+            updater(node,i);
+            Add(texts, Concatenation(String(node!.nodeInfo.names[i],-node!.nodeInfo.maxlength), node!.nodeInfo.values[i]));
+            Add(texts, function(x,y)
+                local ret,i;
 
-	  return IsHomogeneous( vert!.data.cgr );
-	end,
-   
-        "Is primitive : ",
-	function(x,y)
-	  Relabel( x, 5, Concatenation( "Is primitive : ",
-                  String( IsPrimitive( vert!.data.cgr ) ) ) );
+                ret:=node!.nodeInfo.getters[x!.selected](node);
+                node!.nodeInfo.values[x!.selected]:=node!.nodeInfo.toStr[x!.selected](ret);
 
-	  return IsPrimitive( vert!.data.cgr );
-	end,
-   
-        #   "Factor isomorphic to",
-	# function(x,y)
-	# local factor, id; 
-	#   factor := FactorNearRing( Parent(vert!.data.ideal),
-	# 				vert!.data.ideal );
-	#   if Size(factor) > 15 then
-	# 	return factor;
-	#   else
-	# 	id := IdLibraryNearRing( factor );
-	# 	Relabel( x, 3, Concatenation( "Factor isomorphic to ", 
-	# 	"LibraryNearRing( ",Name(id[1]),", ",String(id[2])," )") );
-	# 	return factor;
-	#   fi;
-	# end,
+                #Relabel(x,x!.selected,Concatenation(node!.nodeInfo.names[x!.selected],node!.nodeInfo.values[x!.selected]));
+                for i in [1..Length(node!.nodeInfo.names)] do
+                    updater(node,i);
+                    Relabel(x,i,Concatenation(String(node!.nodeInfo.names[i],-node!.nodeInfo.maxlength),node!.nodeInfo.values[i]));
+                od;
 
-	  "Export color graph to GAP", 
-	function(x,y) return vert!.data.cgr; end
-	], 
+                Reshape( gposet, vert);
+                return ret;
+            end);
+        od;
 
-	[ "close", funcclose ] );
-	end
-	);
-     return gposet;
- end);
+        sheet!.infobox := TextSelector("",
+        texts,
+	[ "all", funcall, "close", funcclose ] );
+    end);
+    return gposet;
+end);
 
+
+InstallMethod(GraphicCocoPoset,
+        "for posets of fusion orbits",
+        [IsPosetOfFusionOrbits and IsPosetOfFusionOrbitsRep],
+function(forbposet)
+    local gposet,levels, vertices, classes,lcls,i,j,cgr,funcclose,funcall,updater,setter;
+
+
+    gposet := GraphicPoset( "PosetOfFusionOrbits", 800, 600 );
+    gposet!.infobox:=false;
+    gposet!.lastresult:=[];
+
+    SetFilterObj( gposet, IsGraphicCocoPoset );
+
+    levels:=Set(forbposet!.colorGraphs, RankOfColorGraph);
+    vertices:=[];
+    classes:=[];
+
+    lcls:=List([1..Size(forbposet)],x->Union([x],forbposet!.algTwins[x]));
+
+    for i in levels do
+        CreateLevel( gposet, i );
+        for j in lcls do
+            CreateClass( gposet, i, j );
+        od;
+    od;
+
+    for i in [1..Size(forbposet)] do
+        cgr:=forbposet!.colorGraphs[i];
+        Add( vertices, Vertex( gposet, NewCocoNode(forbposet,i),
+                rec(
+                     label := String( i ),
+                              levelparam := Rank(cgr),
+                              classparam:=lcls[i] ) ) );
+    od;
+
+    for i in [1..Size(forbposet)] do
+      for j in SuccessorsInCocoPoset(forbposet,i) do
+	Edge( gposet, vertices[i], vertices[j] );
+      od;
+    od;
+
+    Menu( gposet, "Properties",
+          [
+           "Primitive",
+           "Symmetric",
+           "Commutative",
+           "non-Schurian",
+           "algebraic"
+           ],
+          [
+           "forany",
+           "forany",
+           "forany",
+           "forany",
+           "forany"
+           ],
+          [
+           # Primitive
+           function(gpos, menu, entry)
+        local V,Vs;
+        Vs:=WhichVertices(gpos,[], function(data,vertex)
+            return IsPrimitiveColorGraph(vertex!.cgr);
+        end);
+        ClearGreen@( gpos );
+
+        for V in Vs do
+            Recolor( gpos, V, COLORS.green );
+            Add(gpos!.lastresult,V);
+        od;
+    end,
+      # Symmetric
+      function(gpos, menu, entry)
+        local V,Vs;
+        Vs:=WhichVertices(gpos,[], function(data,vertex)
+            return IsSymmetricColorGraph(vertex!.cgr);
+        end);
+        ClearGreen@( gpos );
+
+        for V in Vs do
+            Recolor( gpos, V, COLORS.green );
+            Add(gpos!.lastresult,V);
+        od;
+    end,
+      # commutative
+      function(gpos, menu, entry)
+        local V,Vs;
+        Vs:=WhichVertices(gpos,[], function(data,vertex)
+            return IsCommutativeTensor(StructureConstantsOfColorGraph(vertex!.cgr));
+        end);
+        ClearGreen@( gpos );
+
+        for V in Vs do
+            Recolor( gpos, V, COLORS.green );
+            Add(gpos!.lastresult,V);
+        od;
+    end,
+      # non-Schurian
+      function(gpos, menu, entry)
+        local V,Vs;
+        Vs:=WhichVertices(gpos,[], function(data,vertex)
+            return not IsSchurian(vertex!.cgr);
+        end);
+        ClearGreen@( gpos );
+        ReshapeAll@(gpos);
+        
+        for V in Vs do
+            Recolor( gpos, V, COLORS.green );
+            Add(gpos!.lastresult,V);
+        od;
+    end,
+      # algebraic
+      function(gpos, menu, entry)
+        local V,Vs;
+        Vs:=WhichVertices(gpos,[], function(data,vertex)
+            return vertex!.index in vertex!.poset!.algebraicFusions;
+        end);
+        ClearGreen@( gpos );
+
+        for V in Vs do
+            Recolor( gpos, V, COLORS.green );
+            Add(gpos!.lastresult,V);
+        od;
+    end]);
+
+    Menu( gposet, "Symmetries",
+          [
+           "compute Aut",
+           "compute cAut/Aut",
+           "compute aAut"
+           ],
+          [
+           "forsubset",
+           "forsubset",
+           "forsubset"
+           ],
+          [
+           # compute Aut
+           function(gpos,menu,entry)
+        local sel,v,node,idx,i;
+        
+        sel:=Selected(gpos);
+        for v in sel do
+            node:=v!.data;
+            idx:=Position(node!.nodeInfo.names,"Aut:");
+            if idx <> fail then
+                setter(node,idx);
+            fi;
+            for i in [1..Length(node!.nodeInfo.names)] do
+                updater(node,i);
+            od;
+            ReshapeAll@(gpos);
+        od;
+    end,
+      # compute cAut/Aut
+      function(gpos,menu,entry)
+        local sel,v,node,idx,i;
+        
+        sel:=Selected(gpos);
+        for v in sel do
+            node:=v!.data;
+            idx:=Position(node!.nodeInfo.names,"cAut/Aut:");
+            if idx <> fail then
+                setter(node,idx);
+            fi;
+            for i in [1..Length(node!.nodeInfo.names)] do
+                updater(node,i);
+            od;
+        od;
+    end,
+      # compute aAut
+      function(gpos,menu,entry)
+        local sel,v,node,idx,i;
+        
+        sel:=Selected(gpos);
+        for v in sel do
+            node:=v!.data;
+            idx:=Position(node!.nodeInfo.names,"aAut:");
+            if idx <> fail then
+                setter(node,idx);
+            fi;
+            for i in [1..Length(node!.nodeInfo.names)] do
+                updater(node,i);
+            od;
+        od;
+    end
+      ]);
+
+    Menu( gposet, "Selection",
+          [
+           "Select Green",
+           "Invert Selection",,
+           "Report..."
+           ],
+          [
+           "forany",
+           "forany",,
+           "forsubset"
+           ],
+          [
+        # select green
+           function(gpos, menu, entry)
+        local sel,V;
+        sel:=gpos!.lastresult;
+        DeselectAll(gpos);
+        ClearGreen@( gpos );
+        
+        for V in sel do
+            Select( gpos, V );
+        od;
+    end,
+      # invert selection
+      function(gpos,menu,entry)
+        local sel,lev,class,vert;
+        sel:=Selected(gpos);
+        DeselectAll(gpos);
+        for lev in Levels( gpos ) do
+            for class in Classes( gpos, lev ) do
+                for vert in Vertices( gpos, lev, class ) do
+                    if not( vert in sel ) then
+                        Select(gpos,vert);
+                    fi;
+                od;
+            od;
+        od;
+    end,,
+      # report
+      function(gpos,menu,entry)
+        local sel,di,res,v,node,ninf,i,pos,strictupperbounds,maxin,maxlength,indices,index,algtwins;
+        
+        sel:=Selected(gpos);
+        SortBy(sel, v->IndexOfCocoNode(v!.data));
+        indices:=List(sel, x->IndexOfCocoNode(x!.data));
+        
+        di := Dialog("Filename","Log File?");
+        res:= Query(di,"coco2p.info");
+        PrintTo(res,"COCO2P - Informations about a PosetOfFusionOrbits\n",
+                "-------------------------------------------------\n");
+        
+        if res <> false then
+            for v in sel do
+                node:=v!.data;
+                ninf:=node!.nodeInfo;
+                maxlength:=Maximum(ninf.maxlength, 20);
+                index:=IndexOfCocoNode(node);
+                AppendTo(res, NodeInfoString(node));
+                pos:=node!.poset;
+                algtwins:=Intersection(pos!.algTwins[index], indices);
+                if algtwins<>[] then
+                    AppendTo(res, String("Algebraic Twins: ",-maxlength), algtwins,"\n");
+                fi;
+                strictupperbounds:=Difference(FilterInCocoPoset(pos,index),[index]);
+                strictupperbounds:=Intersection(strictupperbounds,indices);
+                maxin:=[];
+                if strictupperbounds<>[] then
+                    maxin:=MinimalElementsInCocoPoset(pos,strictupperbounds);
+                fi;
+                AppendTo(res, String("Maximal Merging in: ",-maxlength), maxin,"\n");
+                AppendTo(res,"\n");
+            od;
+        fi;
+        end]);
+
+
+  # close text selector
+    funcclose := function( sel, bt )
+        gposet!.infobox := false;
+        Close(sel);
+        return true;
+    end;
+
+    funcall := function( sel, bt )
+        local i;
+        for i  in [ 1 .. Length(sel!.labels) ]  do
+            sel!.selected := i;
+            sel!.textFuncs[i]( sel, sel!.labels[i] );
+        od;
+        Enable( sel, "all", false );
+        return true;
+    end;
+
+    updater:=function(node,i)
+        if node!.nodeInfo.values[i]<>"unknown" then
+            return;
+        fi;
+        if node!.nodeInfo.testers[i](node) then
+            node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](node!.nodeInfo.getters[i](node));
+        fi;
+    end;
+    
+    setter:=function(node,i);
+        if node!.nodeInfo.values[i]<>"unknown" then
+            return;
+        fi;
+        node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](node!.nodeInfo.getters[i](node));
+    end;
+
+    
+    InstallPopup( gposet,
+    function( sheet, vert, x, y )
+	local id, texts,node;
+
+        if sheet!.infobox <> false then
+            Close(sheet!.infobox);
+            sheet!.infobox := false;
+        fi;
+
+        if vert=fail then
+            PopupFromMenu(sheet!.menus[3]);
+            return;
+        fi;
+        node:=vert!.data;
+
+        texts:=[];
+        for i in [1..Length(node!.nodeInfo.names)] do
+            updater(node,i);
+            Add(texts, Concatenation(String(node!.nodeInfo.names[i],-node!.nodeInfo.maxlength), node!.nodeInfo.values[i]));
+            Add(texts, function(x,y)
+                local ret,i;
+
+                ret:=node!.nodeInfo.getters[x!.selected](node);
+                node!.nodeInfo.values[x!.selected]:=node!.nodeInfo.toStr[x!.selected](ret);
+
+                for i in [1..Length(node!.nodeInfo.names)] do
+                    updater(node,i);
+                    Relabel(x,i,Concatenation(String(node!.nodeInfo.names[i],-node!.nodeInfo.maxlength),node!.nodeInfo.values[i]));
+                od;
+
+                Reshape( gposet, vert);
+                return ret;
+            end);
+        od;
+
+        sheet!.infobox := TextSelector(
+        Concatenation( "Information on color graph ",vert!.label ),
+        texts,
+	[ "all", funcall, "close", funcclose ] );
+    end);
+    return gposet;
+end);
+
+
+InstallMethod(SelectedElements,
+        "for graphic coco posets",
+        [IsGraphicCocoPoset],
+function(gpos)
+    local sel;
+
+    sel:=Selected(gpos);
+
+    return Set(sel, v->IndexOfCocoNode(v!.data));
+end);

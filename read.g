@@ -11,16 +11,25 @@ ReadPackage("coco2p", "lib/colgraph.gi");
 ReadPackage("coco2p", "lib/xcgrinv.gi");
 ReadPackage("coco2p", "lib/cocoorbit.gi");
 ReadPackage("coco2p", "lib/goodsets.gi");
-ReadPackage("coco2p", "lib/fusion.gi");
-ReadPackage("coco2p", "lib/schemesdb.gi");
+ReadPackage("coco2p", "lib/partgs.gi");
 ReadPackage("coco2p", "lib/posets.gi");
-ReadPackage("coco2p", "lib/subiso.gi");
+ReadPackage("coco2p", "lib/fusion.gi");
+ReadPackage("coco2p", "lib/partfus.gi");
+ReadPackage("coco2p", "lib/schemesdb.gi");
+ReadPackage("coco2p", "lib/newsubiso.gi");
 ReadPackage("coco2p", "lib/character.gi");
 ReadPackage("coco2p", "lib/colorsemiring.gi");
 ReadPackage("coco2p", "lib/hashtable.gi");
+ReadPackage("coco2p", "lib/nodes.gi");
+
 if TestPackageAvailability("xgap","0")=true then
     ReadPackage("coco2p", "lib/xgap.gi");
 fi;
+
+if TestPackageAvailability("francy","0")=true then
+    ReadPackage("coco2p","lib/francy.gi");
+fi;
+
 if TestPackageAvailability("grape","0")=true then
     ReadPackage("coco2p", "lib/srg.g");
 fi;

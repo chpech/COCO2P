@@ -19,6 +19,8 @@ DeclareInfoClass("InfoTensor");
 
 DeclareGlobalFunction( "DenseTensorFromEntries" );                                                 # documented
 DeclareGlobalFunction( "BlockedTensorFromColorReps" );                                             # undocumented
+DeclareGlobalFunction( "TensorFromColorReps" );
+               # undocumented
 
 
 ###
@@ -26,7 +28,10 @@ DeclareGlobalFunction( "BlockedTensorFromColorReps" );                          
 ###
 
 DeclareProperty( "IsTensorOfCC", IsTensor );                                                            # documented
-DeclareProperty( "IsCommutativeTensor", IsTensor );                                                     # documented
+DeclareProperty( "IsCommutativeTensor", IsTensor );    # documented
+DeclareProperty( "IsHomogeneousTensor", IsTensor );
+#and IsTensorOfCC );
+
 
 ###
 ### Operations
@@ -37,11 +42,12 @@ DeclareOperation( "EntryOfTensor",   [IsTensor, IsPosInt, IsPosInt, IsPosInt] );
 DeclareOperation( "ComplexProduct",                 [IsTensor, IsList,IsList] );                        # documented
 DeclareOperation( "StartBlock",                     [IsTensor and IsTensorOfCC, IsPosInt] );            # documented
 DeclareOperation( "FinishBlock",                    [IsTensor and IsTensorOfCC, IsPosInt] );            # documented
+DeclareOperation( "BlockOfTensor",                  [IsTensor and IsTensorOfCC, IsPosInt, IsPosInt] );  # !document! 
 
 DeclareSynonym( "IsIsomorphicTensor", IsIsomorphicCocoObject);                                          # documented
 DeclareSynonym( "IsomorphismTensors", IsomorphismCocoObjects);                                          # documented
 DeclareSynonym( "IsIsomorphismOfTensors", IsIsomorphismOfObjects);                                      # documented
-DeclareSynonymAttr( "VertexNamesOfTensor", VertexNamesOfCocoObject);                                        # documented
+DeclareSynonymAttr( "VertexNamesOfTensor", VertexNamesOfCocoObject);                                    # documented
 DeclareSynonym( "IsAutomorphismOfTensor", IsAutomorphismOfObject);                                      # documented
 
 

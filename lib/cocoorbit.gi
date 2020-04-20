@@ -77,14 +77,16 @@ function(orb)
 end);
 
 
-InstallMethod(ViewObj,
+InstallMethod(ViewString,
         "for coco orbits",
         [IsCocoOrbit],
         function(x)
-    Print("<");
+    local res;
+    res:="<";
     if IsMutable(x) then
-        Print("mutable ");
+        Append(res,"mutable ");
     fi;
-    Print("CocoOrbit", ">");
+    Append(res,"CocoOrbit>");
+    return res;
 end);
         

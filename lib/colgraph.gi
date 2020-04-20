@@ -384,16 +384,16 @@ function(cgr)
     return NumberOfFibres(cgr)=1;
 end);
 
-InstallMethod( IsHomogeneous,
+InstallImmediateMethod( IsHomogeneous,
         "for a WL-stable color graph",
-        [IsColorGraph and IsWLStableColorGraph],
+        IsColorGraph and IsWLStableColorGraph,0,
 function(cgr)
     return Length(ReflexiveColors(cgr)) = 1;
 end);
 
-InstallMethod( IsHomogeneous,
+InstallImmediateMethod( IsHomogeneous,
         "for a color graph in SchurianCCRep",
-        [IsColorGraph and IsWLStableColorGraph and IsSchurianCCRep],
+        IsColorGraph and IsWLStableColorGraph and IsSchurianCCRep,0,
 function(cgr)
     return Length(OrbRepsOfGroupAction(cgr!.action)) = 1;
 end);
@@ -1062,8 +1062,8 @@ function(cgr)
    return cgr!.colorNames;
 end);
 
-InstallOtherMethod(IsPrimitive,
-        "for color graphs",
+InstallMethod(IsPrimitiveColorGraph,
+        "for wl-stable color graphs",
         [IsColorGraph and IsWLStableColorGraph],
 function(cgr)
     if not IsHomogeneous(cgr) then
@@ -1072,12 +1072,29 @@ function(cgr)
     return IsPrimitive(StructureConstantsOfColorGraph(cgr));
 end);
 
+InstallOtherMethod(IsPrimitive,
+        "for wl-stable color graphs",
+        [IsColorGraph and IsWLStableColorGraph],
+function(cgr)
+    return IsPrimitiveColorGraph(cgr);
+end);
+
+# InstallMethod(IsSymmetricColorGraph,
+#         "for wl-stable color graphs",
+#         [IsColorGraph and IsWLStableColorGraph],
+# function(cgr)
+#     return ForAll([1..Rank(cgr)], i->ArcColorOfColorGraph(cgr, Reversed(ColorRepresentative(cgr,i)))=i);
+# end);
 
 InstallMethod(IsSchurian, "for WL-stable color graphs",
 		[IsColorGraph and IsWLStableColorGraph],
 function(cgr)
     local orbs;
-
+    
+    if RankOfColorGraph(cgr)=2 or (RankOfColorGraph(cgr)=3 and not IsPrimitiveColorGraph(cgr)) then
+        return true;
+    fi;
+    
     orbs:=List(Orbits(AutGroupOfCocoObject(cgr),[1..OrderOfColorGraph(cgr)]), Representative);
     return Sum(List(orbs, x->Length(Orbits(Stabilizer(AutGroupOfCocoObject(cgr),x),[1..OrderOfColorGraph(cgr)]))))=RankOfColorGraph(cgr);
 #    return RankAction(AutGroupOfCocoObject(cgr),[1..OrderOfColorGraph(cgr)])=RankOfColorGraph(cgr);
@@ -1551,3 +1568,4 @@ InstallMethod( String,
     return STRINGIFY("ColorGraphByMatrix( ",
                    List(AdjacencyMatrix(cgr),r->List(r, e->names[e]))," )");
 end);
+

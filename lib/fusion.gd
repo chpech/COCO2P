@@ -13,8 +13,6 @@ DeclareCategory( "IsFusionOfTensor", IsObject );
 
 DeclareGlobalFunction( "FusionFromPartition" );                          # documented
 DeclareGlobalFunction( "FusionFromPartitionNC" );                        # undocumented
-DeclareGlobalFunction( "FusionFromPartitionAndBaseNC" );                 # undocumented
-DeclareGlobalFunction( "RefineFuseAndFilterGoodSetOrbits" );              # undocumented
 DeclareGlobalFunction( "FusionOrbitsFromGoodSetOrbits" );  # undocumented ?
 
 
@@ -23,7 +21,8 @@ DeclareOperation( "TensorOfFusion", [IsFusionOfTensor] );                 # docu
 DeclareOperation( "OnFusions", [IsFusionOfTensor, IsPerm] );              # undocumented
 
 DeclareAttribute("RankOfFusion", IsFusionOfTensor);                       # documented
-DeclareAttribute("BaseOfFusion", IsFusionOfTensor);                       # documented
+DeclareAttribute("OrderOfFusion", IsFusionOfTensor);                      # undocumented
+ 
 DeclareAttribute("AsPartition", IsFusionOfTensor);                        # documented
 DeclareAttribute( "HomogeneousFusionOrbits", IsTensor and IsTensorOfCC ); # documented
 
@@ -32,6 +31,8 @@ DeclareGlobalFunction( "FusionOrbitNC" );                                 # undo
 DeclareGlobalFunction( "FusionOrbit" );                                   # documented
 
 
-DeclareGlobalFunction( "ShortLexSorted" );                                # undocumented
-DeclareGlobalFunction( "WLRefinedPartition" );     # undocumented
-DeclareGlobalFunction( "IsCompatibleGS" );
+DeclareGlobalFunction( "ShortLexSorted" );                                # internal
+
+DeclareCategory("IsPosetOfFusionOrbits", IsCocoPoset);
+
+DeclareGlobalFunction( "PosetOfHomogeneousFusionOrbits" );                # undocumented 

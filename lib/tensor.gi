@@ -174,8 +174,8 @@ end);
 ##    There has to be at least one arc from each color of <cgr>.
 ##    This constructor is not supposed to be used by the user of coco
 
-#InstallGlobalFunction(TensorFromColorReps,
-TensorFromColorReps:=
+InstallGlobalFunction(TensorFromColorReps,
+#TensorFromColorReps:=
 function(cgr,tor)
    local o,r,k,i,j,tensor,mat,submat,
          row,column,pos,
@@ -284,7 +284,7 @@ function(cgr,tor)
    SetOrderOfCocoObject(tensor, RankOfColorGraph(cgr));
    return tensor;
 end
-#  )
+  )
   ;
 
 
@@ -551,6 +551,41 @@ function(tensor, i)
   return tensor!.colBlk[i];
 end);
 
+InstallMethod(BlockOfTensor,
+   "for tensors of coherent configurations",
+   [IsTensor and IsTensorOfCC, IsPosInt, IsPosInt],
+function(tensor,row,col)
+    local res;
+    res:=Filtered([1..Order(tensor)], i->StartBlock(tensor,i) = row);
+    return Filtered(res, i->FinishBlock(tensor,i)=col);
+end);
+
+InstallMethod(BlockOfTensor,
+   "for tensors of homogeneous coherent configurations",
+   [IsTensor and IsTensorOfCC and IsHomogeneousTensor, IsPosInt, IsPosInt],
+function(tensor,row,col)
+    
+    if row>1 or col>1 then
+        return [];
+    else
+        return [1..Order(tensor)];
+    fi;
+end);
+
+InstallMethod(BlockOfTensor,
+   "for blocked tensors of coherent configurations",
+   [IsTensor and IsTensorOfCC and IsBlockedTensorRep, IsPosInt, IsPosInt],
+function(tensor,row,col)
+    local nof;
+    nof:=Length(tensor!.reflexiveColors);
+    
+    if row >nof or col> nof then
+        return [];
+    else
+        return ShallowCopy(tensor!.blocks[row][col]);
+    fi;
+end);
+
 
 InstallMethod(KnownGroupOfAutomorphisms,
    "for dense tensors",
@@ -774,11 +809,18 @@ function(tensor)
    return Length(ReflexiveColors(tensor));
 end);
 
+InstallImmediateMethod(IsHomogeneousTensor,
+		"for structure constants tensors",
+	IsTensor and IsTensorOfCC,
+function(tensor)
+  return NumberOfFibres(tensor)=1;
+end);
+
 InstallOtherMethod(IsHomogeneous,
 		"for structure constants tensors",
 	[IsTensor and IsTensorOfCC],
 function(tensor)
-  return NumberOfFibres(tensor)=1;
+  return IsHomogeneousTensor(tensor);
 end);
 
 
@@ -860,7 +902,7 @@ InstallMethod(GoodSetsFamily,
 	[IsTensor and IsTensorOfCC],
 function(tensor)
    local fam;
-   fam:=NewFamily("GoodSetsFam", IsGoodSetCandidate);
+   fam:=NewFamily("GoodSetsFam", IsGoodSet);
    return fam;
 end);
 
@@ -916,7 +958,8 @@ InstallOtherMethod( IsPrimitive,
         "for structure constants tensors",
         [IsTensor and IsTensorOfCC],
 function(tensor)
-    return IsHomogeneous(tensor) and Length(ClosedSets(tensor))<=2;
+    
+    return IsHomogeneous(tensor) and ForAll(Difference([1..Order(tensor)],ReflexiveColors(tensor)), x->ClosureSet( tensor, [x] ) = [1..Order(tensor)]);
 end);
 
 InstallOtherMethod(\[\],

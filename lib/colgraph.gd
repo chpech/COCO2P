@@ -37,6 +37,7 @@ DeclareProperty( "IsWLStableColorGraph",   IsColorGraph );                      
 DeclareProperty( "IsHomogeneous",          IsColorGraph );                                                           # documented
 DeclareProperty( "IsSchurian",             IsColorGraph and IsWLStableColorGraph );                                  # documented
 DeclareProperty( "IsUndirectedColorGraph", IsColorGraph );                                                           # documented
+DeclareProperty( "IsPrimitiveColorGraph", IsColorGraph ); # undocumented 
 
 ####
 #### Operations
@@ -97,6 +98,8 @@ DeclareAttribute( "NumberOfFibres",                 IsColorGraph );             
 DeclareAttribute( "ColorAutomorphismGroup",         IsColorGraph );                                                  # for WL-stable; documented
 DeclareAttribute( "ColorAutomorphismGroupOnColors", IsColorGraph );                                                  # for WL-stable; documented
 DeclareAttribute( "AlgebraicAutomorphismGroup",     IsColorGraph and IsWLStableColorGraph );                         # documented
+DeclareSynonymAttr ( "IsSymmetricColorGraph", IsUndirectedColorGraph );
+
 
 ###
 ### Private functions, for internal use

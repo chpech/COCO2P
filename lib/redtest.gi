@@ -6,7 +6,8 @@
 ##                                                             Sven Reichard
 ##
 ##  Implementation of the irreducibility test for set-orbit representatives
-##
+##  and for set-set-orbit representatives
+## 
 #############################################################################
 
 
