@@ -27,14 +27,6 @@ DeclareGlobalFunction( "STCMergingsMultiset" );
 DeclareGlobalFunction( "STCSolution2Types" );
 DeclareGlobalFunction( "STCAugmentedSymType" );
 
-DeclareGlobalFunction( "STCAsymGSReps" );
-DeclareGlobalFunction( "STCSymGSReps" );
-DeclareGlobalFunction( "STCGoodSetReps" );
-DeclareGlobalFunction( "STCSub" );
-
-
-
-
 DeclareCategory("IsSubColorIsomorphismPoset", IsCocoPoset);
 DeclareOperation( "OrbitsOfColorIsomorphicFusions", [IsColorGraph, IsColorGraph] );   # was ColorIsomorphicFusions
 DeclareGlobalFunction( "SubColorIsomorphismPoset" );
