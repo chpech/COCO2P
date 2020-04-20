@@ -2,10 +2,12 @@
 
 
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
-[ <!ENTITY COCO "<Package>COCO2P</Package>">
+[<!ENTITY COCO "<Package>coco2p</Package>">
+<!ENTITY FRANCY "<Package>Francy</Package>">
+<!ENTITY JUPYTERGAP "<Package>Jupyter-GAP</Package>">
   ]>
 
-<Book Name="COCO2P">
+<Book Name="coco2p">
   <TitlePage>
     <Title>The  &COCO; Package</Title>
     <Version>Version 0.17</Version>
@@ -19,9 +21,9 @@
     <Author>Sven Reichard
     <Email>sven.reichard@tu-dresden.de</Email>
     </Author>
-    <Copyright>  &copyright; 2012, 2014, 2018 by the authors<P/>
+    <Copyright>  &copyright; 2012, 2014, 2018, 2019, 2020 by the authors<P/>
     This package may be distributed under the terms and conditions of the
-    GNU Public License Version 2 or higher.
+    GNU Public License Version v3.0 or higher.
     </Copyright>
   </TitlePage>
   <TableOfContents/>
@@ -873,6 +875,7 @@ gap> GlobalParameters(gamma);
 	</Heading>
 	<ManSection>
 	  <Prop Name="IsUndirectedColorGraph" Arg="cgr"/>
+	  <Meth Name="IsSymmetricColorGraph" Arg="cgr"/>
 	  <Description>
 	    A color graph is called <E>undirected</E> if for all
 	    vertices <M>u</M> and <M>v</M> the arc <M>(u,v)</M> has
@@ -942,7 +945,8 @@ gap> lcgr:=Filtered(lcgr, x->not IsSchurian(x));
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Prop Name="IsPrimitive"
+	  <Prop Name="IsPrimitiveColorGraph" Arg="cgr" Label="for WL-stable color graphs"/>
+	  <Meth Name="IsPrimitive"
 		Arg="cgr"
 		Label="for WL-stable color graphs"/>
 	  <Description>
@@ -954,7 +958,7 @@ gap> lcgr:=Filtered(lcgr, x->not IsSchurian(x));
 	    <Example>
 <![CDATA[gap> cgr:=ColorGraph(Group((1,2,3,4)));
 <color graph of order 4 and rank 4>
-gap> IsPrimitive(cgr);
+gap> IsPrimitiveColorGraph(cgr);
 false
 gap> ReflexiveColors(cgr);
 [ 1 ]
@@ -1535,7 +1539,7 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
       </Section>
     </Chapter>
     <Chapter>
-      <Heading>WL-Stable Fusions Color Graphs</Heading>
+      <Heading>WL-Stable Fusions of Color Graphs</Heading>
       <Section>
 	<Heading>Introduction</Heading>
 	One of the fundamental methods how to derive new color graphs
@@ -1812,6 +1816,13 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	    returns the number of classes of <A>fusion</A>.
 	  </Description>
 	</ManSection>
+	<ManSection>
+	  <Attr Name="OrderOfFusion"
+		Arg="fusion"/>
+	  <Description>
+	    returns the order of the underlying tensor of <A>fusion</A>.
+	  </Description>
+	</ManSection>
       </Section>
       <Section>
 	<Heading> Orbits of fusions</Heading>
@@ -1837,6 +1848,45 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	    <P/>
 	    This function returns all
 	    <A>group</A>-orbits of homogeneous stable fusions.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="PosetOfHomogeneousFusionOrbits" Arg="cgr"
+		Label="for WL-stable color graphs"/>
+	  <Description>
+	    <A>cgr</A> is a WL-stable color graph. The function
+	    creates a poset of orbits of fusions of the tensor of
+	    structure constants of <A>cgr</A> under
+	    the color automorphism group of <A>cgr</A>. An orbit
+	    <M>o1</M> is below an orbit <M>o2</M> if every element of
+	    <M>o1</M> is coarser than some element <M>o2</M>.
+	</ManSection>
+	<ManSection>
+	  <Meth Name="GraphicCocoPoset"
+		Arg="poset" Label="for posets of fusion orbits"/>
+	  <Description>
+	    <A>poset</A> is a &COCO;-poset of fusion orbits, obtained,
+	    e.g., by <Ref Func="PosetOfHomogeneousFusionOrbits" Style="Text"/>. This
+	    function creates a graphical representation of this
+	    poset. The labels  of the nodes of the graphical poset
+	    correspond to the indices in the given poset.When invoked
+	    in &XGAP;, the context-menu of each node gives additional information
+	    about the node. If for some node it is known whether the
+	    underlying color graph is surian or not, then this is made
+	    visible in the graphical poset. Nodes for which it is not
+	    known whether the cgr is Schurian, are represented by
+	    squares. Schurian nodes are represented by circles, and
+	    non-Schurian nodes are represented by diamonds.
+	    <P/>
+	    This function is available only from &XGAP; or within
+	    &JUPYTERGAP; when the package &FRANCY; was loaded before &COCO;.
+	    <Example>
+<![CDATA[gap> pos:=PosetOfHomogeneousFusionOrbits(BIKColorGraph(4));
+<poset of fusion orbits with with 5 elements>
+gap> GraphicCocoPoset(pos);
+<graphic poset "PosetOfFusionOrbits">
+gap> ]]>
+	    </Example>
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -2095,7 +2145,7 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	  <Oper Name="GraphicCocoPoset" Arg="poset"/>
 	  <Description>
 	    This function creates a graphical representation of
-	    <A>poset</A> using &XGAP;.
+	    <A>poset</A> using &XGAP; or &FRANCY; under &JUPYTERGAP;.
 	  </Description>
 	</ManSection>
       </Section>
@@ -2113,7 +2163,7 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	partial order. &COCO; is able to compute this induced order
 	for lists of WL-stable color graphs.
 	<ManSection>
-	  <Func Name="ColorIsomorphicFusions"
+	  <Func Name="OrbitsOfColorIsomorphicFusions"
 		Arg="cgr1,cgr2"/>
 	  <Description>
 	    This function returns a list of all fusion orbits under
@@ -2142,7 +2192,8 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	    <A>poset</A> is a &COCO;-poset of colored graphs. This
 	    function creates a graphical representation of this
 	    poset. The labels  of the nodes of the graphical poset
-	    correspond to the indices in the given poset. The
+	    correspond to the indices in the given poset. When invoked
+	    from &XGAP;, the
 	    context-menu of each node gives additional information
 	    about the node. If for some node it is known whether the
 	    underlying color graph is surian or not, then this is made
@@ -2151,7 +2202,8 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	    squares. Schurian nodes are represented by circles, and
 	    non-Schurian nodes are represented by diamonds.
 	    <P/>
-	    This function is available only from &XGAP;.
+	    This function is available only from &XGAP; or within
+	    &JUPYTERGAP; when the package &FRANCY; was loaded before &COCO;.
 	    <Example>
 <![CDATA[gap> lcgr:=AllAssociationSchemes(15);
 [ AS(15,1), AS(15,2), AS(15,3), AS(15,4), AS(15,5), AS(15,6), AS(15,7),
