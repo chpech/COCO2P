@@ -17,7 +17,8 @@ DeclareRepresentation("IsPartialGoodSetRep",
           "imap",
           "domain",
           "set",
-          "maxlength"
+          "maxlength",
+          "square"
           ]);
 
 #
@@ -100,17 +101,25 @@ InstallMethod(GoodSetFromPartialGoodSet,
     "for symmetric partial good sets in PartialGoodSetRep",
     [IsSymPartialGoodSet and IsPartialGoodSetRep],
 function(cand)
-    local part;
+    local part,sqr,set;
     
     if cand!.set = [] then
         return fail;
     fi;
 
+    sqr:=cand!.square;
+    set:=cand!.set;
+    if Length(set)>1 and ForAny([2..Length(set)], i->sqr[set[1]]<>sqr[set[i]]) then
+        return fail;
+    fi;
+#    COCOPrint("W\c");
+    
     part:=WLBuildSymGoodSetPartition(cand!.tensor,cand!.set);
     part:=WLStabil(cand!.tensor,part);
     if part= fail then
         return fail;
     fi;
+#    COCOPrint("L\c");
     
     return BuildGoodSet(cand!.tensor, cand!.set, part.classes);
     
@@ -120,8 +129,26 @@ InstallMethod(ExtendedPartialGoodSet,
     "for symmetric partial good sets in PartialGoodSetRep",
     [IsSymPartialGoodSet and IsPartialGoodSetRep, IsPosInt],
 function(cand,pt)
-   local ndom,obj;
-
+   local ndom,obj,ent,sq,mates,i;
+   
+   ent:=cand!.tensor!.entries;
+   mates:=cand!.imap[pt];
+   sq:=ShallowCopy(cand!.square);
+   for i in cand!.set do
+       sq:=sq+ent[i][mates[1]];
+       sq:=sq+ent[mates[1]][i];
+   od;
+   sq:=sq+ent[mates[1]][mates[1]];
+   if Length(mates)=2 then
+       for i in cand!.set do
+           sq:=sq+ent[i][mates[2]];
+           sq:=sq+ent[mates[2]][i];
+       od;
+       sq:=sq+ent[mates[1]][mates[2]];
+       sq:=sq+ent[mates[2]][mates[1]];
+       sq:=sq+ent[mates[2]][mates[2]];
+   fi;
+   
    ndom:=Filtered(cand!.domain, x->x>pt);
 
    obj:=rec(
@@ -130,7 +157,8 @@ function(cand,pt)
             imap:=cand!.imap,
             domain:=ndom,
             set:=Union(cand!.set,cand!.imap[pt]),
-            maxlength:=cand!.maxlength);
+            maxlength:=cand!.maxlength,
+            square:=sq);
    
    return Objectify(NewType(GoodSetsFamily(cand!.tensor), IsSymPartialGoodSet and IsPartialGoodSetRep), obj);
 end);
@@ -147,7 +175,7 @@ function(tensor)
     sclr:=Filtered(clr, x->x^Mates(tensor)=x);
     aclr:=Filtered(clr, x->x<x^Mates(tensor));
     imap:=[];
-    # List(rclr, x->[x]);
+ 
     Append(imap, List(sclr, x->[x]));
     Append(imap,List(aclr, x->[x,x^Mates(tensor)]));
     map:=[];
@@ -156,19 +184,14 @@ function(tensor)
             map[j]:=i;
         od;
     od;
-    # map:=[1..Length(rclr)];
-    # Append(map, List([1..Length(sclr)], i->Length(rclr)+i));
-    # for i in [1..Length(aclr)] do
-    #     Add(map, i);
-    #     Add(map, i);
-    # od;
     
     cand:=rec(tensor:=tensor,
               map:=map,
               imap:=imap,
               domain:=[1..Length(imap)],
               set:=[],               
-              maxlength:=Int((OrderOfTensor(tensor)-1)/2)
+              maxlength:=Int((OrderOfTensor(tensor)-1)/2),
+              square:=ListWithIdenticalEntries(0,OrderOfTensor(tensor))
               );
    
    return Objectify(NewType(GoodSetsFamily(tensor), IsSymPartialGoodSet and IsPartialGoodSetRep), cand);
@@ -183,7 +206,7 @@ InstallMethod(GoodSetFromPartialGoodSet,
     "for asymmetric partial good sets in PartialGoodSetRep",
     [IsAsymPartialGoodSet and IsPartialGoodSetRep],
 function(cand)
-    local T,set,gs,part;
+    local T,set,gs,part,sqr;
     
     if cand!.set = [] then
         return fail;
@@ -191,6 +214,12 @@ function(cand)
 
     T:=cand!.tensor;
     set:=cand!.set;
+    
+    sqr:=cand!.square;
+    if Length(set)>1 and ForAny([2..Length(set)], i->sqr[set[1]]<>sqr[set[i]]) then
+        return fail;
+    fi;
+
     gs:=[set, OnSets(set, Mates(T))];
     part:=WLBuildAsymGoodSetPartition(T,gs);
     part:=WLStabil(T,part);
@@ -202,25 +231,25 @@ function(cand)
 end);
 
 
-InstallMethod(GoodSetFromPartialGoodSet,
-    "for symmetric partial good sets in PartialGoodSetRep",
-    [IsSymPartialGoodSet and IsPartialGoodSetRep],
-function(cand)
-    local part;
+# InstallMethod(GoodSetFromPartialGoodSet,
+#     "for symmetric partial good sets in PartialGoodSetRep",
+#     [IsSymPartialGoodSet and IsPartialGoodSetRep],
+# function(cand)
+#     local part;
     
-    if cand!.set = [] then
-        return fail;
-    fi;
+#     if cand!.set = [] then
+#         return fail;
+#     fi;
     
-    part:=WLBuildSymGoodSetPartition(cand!.tensor,cand!.set);
-    part:=WLStabil(cand!.tensor,part);
-    if part= fail then
-        return fail;
-    fi;
+#     part:=WLBuildSymGoodSetPartition(cand!.tensor,cand!.set);
+#     part:=WLStabil(cand!.tensor,part);
+#     if part= fail then
+#         return fail;
+#     fi;
     
-    return BuildGoodSet(cand!.tensor, cand!.set, part.classes);
+#     return BuildGoodSet(cand!.tensor, cand!.set, part.classes);
     
-end);
+# end);
 
 
 
@@ -228,20 +257,30 @@ InstallMethod(ExtendedPartialGoodSet,
     "for asymmetric partial good sets in PartialGoodSetRep",
     [IsAsymPartialGoodSet and IsPartialGoodSetRep, IsPosInt],
 function(cand,pt)
-   local t,ipt,ndom,obj;
+    local t,clr,ent,ipt,ndom,obj,sq,i;
+    
+    t:=cand!.tensor;
+    clr:=cand!.imap[pt][1];
+    ipt:=cand!.map[cand!.imap[pt][1]^Mates(t)];
+    ent:=t!.entries;
+    
+    sq:=ShallowCopy(cand!.square);
+    for i in cand!.set do
+        sq:=sq+ent[i][clr];
+        sq:=sq+ent[clr][i];
+    od;
+    sq:=sq+ent[clr][clr];
+    
+    ndom:=Filtered(cand!.domain, x->x>pt and x<>ipt);
    
-   t:=cand!.tensor;
-   ipt:=cand!.map[cand!.imap[pt][1]^Mates(t)];
-   
-   ndom:=Filtered(cand!.domain, x->x>pt and x<>ipt);
-
-   obj:=rec(
-            tensor:=cand!.tensor,
-            map:=cand!.map,
-            imap:=cand!.imap,
-            domain:=ndom,
-            set:=Union(cand!.set,cand!.imap[pt]),
-            maxlength:=cand!.maxlength);
+    obj:=rec(
+             tensor:=cand!.tensor,
+             map:=cand!.map,
+             imap:=cand!.imap,
+             domain:=ndom,
+             set:=Union(cand!.set,cand!.imap[pt]),
+             maxlength:=cand!.maxlength,
+             square:=sq);
    
    return Objectify(NewType(GoodSetsFamily(cand!.tensor), IsAsymPartialGoodSet and IsPartialGoodSetRep), obj);
 end);
@@ -265,7 +304,8 @@ function(tensor)
               imap:=imap,
               domain:=[1..Length(imap)],
               set:=[],
-              maxlength:=Int((OrderOfTensor(tensor)-1)/2)
+              maxlength:=Int((OrderOfTensor(tensor)-1)/2),
+              square:=ListWithIdenticalEntries(0,OrderOfTensor(tensor))
               );
     
     return Objectify(NewType(GoodSetsFamily(tensor), IsAsymPartialGoodSet and IsPartialGoodSetRep), cand);
@@ -335,11 +375,11 @@ function(cand)
        return fail;
     fi;
     
-    sqr:=cand!.square;
-    set:=cand!.set;
-    if Length(set)>1 and ForAny([2..Length(set)], i->sqr[set[1]]<>sqr[set[i]]) then
-#        return fail;
-    fi;
+    # sqr:=cand!.square;
+    # set:=cand!.set;
+    # if Length(set)>1 and ForAny([2..Length(set)], i->sqr[set[1]]<>sqr[set[i]]) then
+    #     return fail;
+    # fi;
 
     TryNextMethod();
 end);
@@ -392,19 +432,6 @@ function(cand)
           fi;
        od;
     od;
-    # if LMab<>[] then
-    #    for a in [1..nof] do
-    #       for b in [1..nof] do
-    #         if cand!.blockingmat[a][b]<>[] then
-    #            if not a in cand!.fullrows or not b in cand!.fullrows then
-    #               if Maximum(cand!.square{cand!.blockingmat[a][b]})>LMab[1] then
-    #                  return false;
-    #               fi;
-    #            fi;
-    #         fi;
-    #       od;
-    #    od;
-    # fi;
     cand!.checkedfullrows:=Length(cand!.fullrows);
     
    return true;
@@ -737,11 +764,11 @@ function(cand)
        return fail;
     fi;
     
-    sqr:=cand!.square;
-    set:=cand!.set;
-    if Length(set)>1 and ForAny([2..Length(set)], i->sqr[set[1]]<>sqr[set[i]]) then
-        return fail;
-    fi;
+    # sqr:=cand!.square;
+    # set:=cand!.set;
+    # if Length(set)>1 and ForAny([2..Length(set)], i->sqr[set[1]]<>sqr[set[i]]) then
+    #     return fail;
+    # fi;
     
     TryNextMethod();    
 end);
@@ -771,7 +798,6 @@ function(cand)
     
     for i in [cand!.checkedfullrows+1..Length(cand!.fullrows)] do
         a:=cand!.fullrows[i];
-#    for a in cand!.fullrows do
         for b in cand!.fullrows do
             if cand!.blockingmat[a][b]<>[] then
                 subdeg:=Set(cand!.square{cand!.blockingmat[a][b]});
