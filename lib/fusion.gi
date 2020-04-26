@@ -416,6 +416,9 @@ function(filter,forbposet,set)
     npos!.colorGraphs:=forbposet!.colorGraphs{set};
     SetFilterObj(npos,IsPosetOfFusionOrbits);
     SetFilterObj(npos,IsPosetOfFusionOrbitsRep);
+    
+    npos!.cgr:=forbposet!.cgr;
+    
     return npos;
 end);
     
