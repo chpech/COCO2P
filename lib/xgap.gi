@@ -374,7 +374,7 @@ function(cgrposet)
     end,,
       # report
       function(gpos,menu,entry)
-        local sel,di,res,v,node,ninf,i,pos,strictupperbounds,maxin,maxlength,indices,index;
+        local sel,di,res,v,node,ninf,i,pos,strictupperbounds,maxin,maxlength,indices,index,cgr;
         
         sel:=Selected(gpos);
         SortBy(sel, v->IndexOfCocoNode(v!.data));
@@ -710,7 +710,7 @@ function(forbposet)
     end,,
       # report
       function(gpos,menu,entry)
-        local sel,di,res,v,node,ninf,i,pos,strictupperbounds,maxin,maxlength,indices,index,algtwins;
+        local sel,di,res,v,node,ninf,i,pos,strictupperbounds,maxin,maxlength,indices,index,algtwins,cgr,str;
         
         sel:=Selected(gpos);
         SortBy(sel, v->IndexOfCocoNode(v!.data));
@@ -722,6 +722,17 @@ function(forbposet)
                 "-------------------------------------------------\n");
         
         if res <> false then
+            if sel<>[] then
+                cgr:=sel[1]!.data!.poset!.cgr;
+                node:=NewCocoNode(cgr);
+                ComputeAllInfos(node);
+                for str in infoOptions@.disabled do
+                    ComputeInfo(node,str);
+                od;
+                AppendTo(res, NodeInfoString(node));
+                AppendTo(res, "-------------------------------------------------\n");
+            fi;
+            
             for v in sel do
                 node:=v!.data;
                 ninf:=node!.nodeInfo;
