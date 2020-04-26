@@ -19,7 +19,6 @@ DeclareRepresentation( "IsCocoPosetRep",
          "successors",   # on index i the list of all indices of successors of the
                          # element #i is stored
          "predecessors", # the same as successors for predecessors
-         "levels"
          ]);
 
 InstallMethod(SuccessorsInCocoPoset,
