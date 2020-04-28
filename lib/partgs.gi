@@ -762,10 +762,10 @@ function(cand,pt)
         if sb>1 then
             npgs.kIsKnown:=true;
             npgs.k:=cand!.degreelist[1];
-            if ForAny([2..sb-1], x->cand!.degreelist[x]<>npgs.k) then
+            if npgs.k<cand!.maxdeg then
                 return fail;
             fi;
-            if npgs.k<cand!.maxdeg then
+            if ForAny([2..sb-1], x->cand!.degreelist[x]<>npgs.k) then
                 return fail;
             fi;
             
@@ -778,6 +778,9 @@ function(cand,pt)
                     if block<>[] then
                         npgs.lbdIsKnown:=true;
                         npgs.lbd:=cand!.square[block[1]];
+                        if npgs.lbd<cand!.maxlbd then
+                            return fail;
+                        fi;
                         break;
                     fi;
                 od;
@@ -786,18 +789,12 @@ function(cand,pt)
                 fi;
             od;
             if npgs.lbdIsKnown then
-                for i in [1..Length(cand!.ridx)] do
-                    b:=cand!.ridx[i];
+                for i in [i..Length(npgs.fullrows)] do
+                    b:=npgs.fullrows[i];
                     for j in [1..i] do
-                        a:=cand!.ridx[j];
-                        if a in npgs.fullrows and b in npgs.fullrows then
-                            if ForAny(cand!.blockingmat[a][b], x->cand!.square[x]<>npgs.lbd) then
-                                return fail;
-                            fi;
-                        else
-                            if ForAny(cand!.blockingmat[a][b], x->cand!.square[x]>npgs.lbd) then
-                                return fail;
-                            fi;
+                        a:=npgs.fullrows[j];
+                        if ForAny(cand!.blockingmat[a][b], x->cand!.square[x]<>npgs.lbd) then
+                            return fail;
                         fi;
                     od;
                 od;
@@ -883,48 +880,58 @@ function(cand,pt)
             return fail;
         fi;
         for b in cand!.ridx do        # c*A*
-            block:=bm[fb][b];
-            for j in cand!.blockingmat[sb][b] do
-                for k in cand!.blocks[fb][b] do
-                    sq[k]:=sq[k]+EntryOfTensor(t,icolor,j,k);
+            if fb<=b then
+                block:=bm[fb][b];
+                for j in cand!.blockingmat[sb][b] do
+                    for k in cand!.blocks[fb][b] do
+                        sq[k]:=sq[k]+EntryOfTensor(t,icolor,j,k);
+                    od;
                 od;
-            od;
-            if block<>[] then
-                npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
-            fi;
-            if fb<>sb and b<>sb and b<>fb and block<>[] then    # if block(=bm[fb][b]) is complete
-                if not npgs.lbdIsKnown and fbinfr and b in npgs.fullrows then  
-                    npgs.lbdIsKnown:=true;
-                    npgs.lbd:=sq[block[1]];
-                    if ForAny([2..Length(block)], k->sq[block[k]]<> npgs.lbd) then
-                        return fail;
+                if block<>[] then
+                    npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+                fi;
+                if fb<>sb and b<>sb and b<>fb and block<>[] then    # if block(=bm[fb][b]) is complete
+                    if not npgs.lbdIsKnown and fbinfr and b in npgs.fullrows then  
+                        npgs.lbdIsKnown:=true;
+                        npgs.lbd:=sq[block[1]];
+                        if npgs.lbd<npgs.maxlbd then
+                            return fail;
+                        fi;
+                        if ForAny([2..Length(block)], k->sq[block[k]]<> npgs.lbd) then
+                            return fail;
+                        fi;
                     fi;
                 fi;
-            fi;
-            if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-                return fail;
+                if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
+                    return fail;
+                fi;
             fi;
             
-            block:=bm[b][fb];   # Ac
-            for j in cand!.blockingmat[b][sb] do
-                for k in cand!.blocks[b][fb] do
-                    sq[k]:=sq[k]+EntryOfTensor(t,j,color,k);
+            if b<=fb then
+                block:=bm[b][fb];   # Ac
+                for j in cand!.blockingmat[b][sb] do
+                    for k in cand!.blocks[b][fb] do
+                        sq[k]:=sq[k]+EntryOfTensor(t,j,color,k);
+                    od;
                 od;
-            od;
-            if block<>[] then
-                npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
-            fi;
-            if fb<>sb and b<>sb and block<>[] then # if block(=bm[b][fb]) is complete
-                if not npgs.lbdIsKnown and fbinfr and b in npgs.fullrows  then
-                    npgs.lbdIsKnown:=true;
-                    npgs.lbd:=sq[block[1]];
-                    if ForAny([2..Length(block)], k->sq[block[k]]<> npgs.lbd) then
-                        return fail;
+                if block<>[] then
+                    npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+                fi;
+                if fb<>sb and b<>sb and block<>[] then # if block(=bm[b][fb]) is complete
+                    if not npgs.lbdIsKnown and fbinfr and b in npgs.fullrows  then
+                        npgs.lbdIsKnown:=true;
+                        npgs.lbd:=sq[block[1]];
+                        if npgs.lbd<npgs.maxlbd then
+                            return fail;
+                        fi;
+                        if ForAny([2..Length(block)], k->sq[block[k]]<> npgs.lbd) then
+                            return fail;
+                        fi;
                     fi;
                 fi;
-            fi;
-            if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-                return fail;
+                if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
+                    return fail;
+                fi;
             fi;
         od;
     fi;
@@ -940,57 +947,59 @@ function(cand,pt)
     fi;
         
     for b in cand!.ridx do      # cA*
-        block:=bm[sb][b];
-        for j in cand!.blockingmat[fb][b] do
-            for k in cand!.blocks[sb][b] do
-                sq[k]:=sq[k]+EntryOfTensor(t,color,j,k);
+        if sb<=b then
+            block:=bm[sb][b];
+            for j in cand!.blockingmat[fb][b] do
+                for k in cand!.blocks[sb][b] do
+                    sq[k]:=sq[k]+EntryOfTensor(t,color,j,k);
+                od;
             od;
-        od;
-        if block<>[] then
-            npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
-        fi;
-        if b<>sb  and block<>[] then   # if block(=bm[sb][b]) is complete
-            if not npgs.lbdIsKnown and sbinfr and b in npgs.fullrows then
-                npgs.lbdIsKnown:=true;
-                npgs.lbd:=sq[block[1]];
-                if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
-                    return fail;
+            if block<>[] then
+                npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+            fi;
+            if b<>sb  and block<>[] then   # if block(=bm[sb][b]) is complete
+                if not npgs.lbdIsKnown and sbinfr and b in npgs.fullrows then
+                    npgs.lbdIsKnown:=true;
+                    npgs.lbd:=sq[block[1]];
+                    if npgs.lbd<npgs.maxlbd then
+                        return fail;
+                    fi;
+                    if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
+                        return fail;
+                    fi;
                 fi;
             fi;
-        fi;
-        if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-            return fail;
-        fi;
-        
-        block:=bm[b][sb]; # Ac*
-        for j in cand!.blockingmat[b][fb] do
-            for k in cand!.blocks[b][sb] do
-                sq[k]:=sq[k]+EntryOfTensor(t,j,icolor,k);
-            od;
-        od;
-        if block<>[] then
-            npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
-        fi;
-        if not npgs.lbdIsKnown and block<>[] then # block (=bm[b][sb] is complete  
-            if sbinfr and b in npgs.fullrows then 
-                npgs.lbdIsKnown:=true;
-                npgs.lbd:=sq[block[1]];
-                if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
-                    return fail;
-                fi;
+            if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
+                return fail;
             fi;
         fi;
-        if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-            return fail;
+        if b<=sb then
+            block:=bm[b][sb]; # Ac*
+            for j in cand!.blockingmat[b][fb] do
+                for k in cand!.blocks[b][sb] do
+                    sq[k]:=sq[k]+EntryOfTensor(t,j,icolor,k);
+                od;
+            od;
+            if block<>[] then
+                npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+            fi;
+            if not npgs.lbdIsKnown and block<>[] then # block (=bm[b][sb] is complete  
+                if sbinfr and b in npgs.fullrows then 
+                    npgs.lbdIsKnown:=true;
+                    npgs.lbd:=sq[block[1]];
+                    if npgs.lbd<npgs.maxlbd then
+                        return fail;
+                    fi;
+                    if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
+                        return fail;
+                    fi;
+                fi;
+            fi;
+            if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
+                return fail;
+            fi;
         fi;
     od;
-    # if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-    #     Print("c\c");
-    #     return fail;
-    # fi;
-
-    
-
     
     Assert(1,sq=ComplexProduct(t,npgs.set,OnSets(npgs.set,Mates(t))));
     
@@ -1022,42 +1031,12 @@ function(cand,pt)
         else
             Add(npgs.domain,k);
         fi;
-    od;
-    
-    # Assert(1,obj.degreelist=RowDegreeList(obj.tensor,obj.set),"??????????????A");
-    # Assert(1,obj.blockingmat=BlockingMat(obj.tensor, obj.set),"??????????????B");
-    # Assert(1,obj.domdegreelist=RowDegreeList(obj.tensor,Union(List(obj.domain,x->obj.imap[x]))),"??????????????C");
-    # Assert(1,obj.domdegreelist=RowDegreeList(obj.tensor,Union(List(obj.domain,x->obj.imap[x]))));
-    # Assert(1,obj.ridx=Set(obj.set,x->StartBlock(obj.tensor,x)),"??????????????D");
-    # Assert(1,obj.square=ComplexProduct(obj.tensor,obj.set,obj.set),"??????????????E");
-    # Assert(1,obj.maxdeg=Maximum(obj.degreelist),"??????????????F");
-    # Assert(1,function() if Length(obj.degreelist)>1 then
-    #         if  ForAny(obj.set, x->StartBlock(obj.tensor,x)>1 and FinishBlock(obj.tensor,x)>=StartBlock(obj.tensor,x)) then
-    #             if obj.fullrows <> Filtered([1..Length(obj.degreelist)], i->obj.degreelist[i] = obj.degreelist[1])  then
-    #                 return false;
-    #             fi;
-    #         fi;
-    #     fi; return true;
-    # end(), "??????????????G");
-    
+    od;    
     
     Objectify(NewType(GoodSetsFamily(t), IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep), npgs);
-    # if testlbd(ncand) <> fail and not ncand!.lbdIsKnown then
-    #     Error("lbd should be known!");
-    # fi;
-    
-    # if npgs!.lbdIsKnown and ForAny(npgs!.set, c->npgs!.square[c]>npgs!.lbd) then
-    #     Error("contradictory values for lbd!");
-    # fi;
-    
     return npgs;
     
 end);
-
-
-
-
-
 
 InstallMethod(EmptySymPartialGoodSet,
         "for blocked tensors of structure constants",
@@ -1224,27 +1203,18 @@ function(iter)
         
         ncand:=fail;
         while ncand=fail and state.orbidx <= Length(state.orbreps) do 
-            repeat
-                pt:=state.orbreps[state.orbidx];
-                state.orbidx:=state.orbidx+1;
-                if IsCompatiblePoint(state.cand,pt) then
+        #    repeat
+            pt:=state.orbreps[state.orbidx];
+            state.orbidx:=state.orbidx+1;
+            if IsCompatiblePoint(state.cand,pt) then
+                ncand:=ExtendedPartialGoodSet(state.cand,pt);
+                if ncand<>fail then
                     SC:=CocoSetReducibilityTest(state.S,state.SM,state.M,pt);
-                else
-                    SC:=();
+                    if IsPerm(SC) then
+                        ncand:=fail;
+                    fi;
                 fi;
-            until not IsPerm(SC) or state.orbidx > Length(state.orbreps);
-            if IsPerm(SC) then
-                return NextState(state.linkback);
             fi;
-            ncand:=ExtendedPartialGoodSet(state.cand,pt);
-            #[ 1, 12, 13, 16, 18, 27, 33, 34 ]
-            # if state.M=[ 1, 3, 16, 18, 27, 30,33] and pt=34 then 
-            # if IsSubset([ 1, 12, 13, 16, 18, 27, 33, 34 ], Union(state.M,[pt])) and ncand=fail then
-            #      testflag:=true;
-            #      ncand:=ExtendedPartialGoodSet(state.cand,pt);
-            #      Error("?????");
-            #  fi;
-            
         od;
         
         if ncand=fail then
@@ -1288,7 +1258,7 @@ function(iter)
           String(iter!.state.M), ">");
 end);         
          
-COCOInfoGSSize:=15;
+COCOInfoGSSize:=10;
 InstallMethod(AllGoodSetOrbits,
         "for iterators of good set candidates",
         [IsIteratorOfPartialGoodSetOrbits and IsPartialGoodSetOrbitIterRep],
