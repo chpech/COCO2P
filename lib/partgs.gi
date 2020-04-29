@@ -328,20 +328,37 @@ InstallMethod(IsCompletePartialGoodSet,
     "for asymmetric partial good sets in AsymPartialGoodSetBlkRep",
     [IsAsymPartialGoodSet and IsAsymPartialGoodSetBlkRep],
 function(cand)
-    local cdegs;
+    local a,b,block;
     
-    if not cand!.kIsKnown or not cand!.lbdIsKnown then
+    if cand!.set=[] then
         return false;
     fi;
     
-    if not Length(cand!.fullrows)=Length(cand!.blocks) then
-        return false;
+    if cand!.kIsKnown then 
+        if Length(cand!.fullrows)=Length(cand!.blocks) then
+            return true;
+        fi;
+    else
+        if cand!.rmaxdeg<>cand!.cmaxdeg then
+            return false;
+        fi;
+        if ForAny([1..Length(cand!.blocks)], b->cand!.rowdegs[b]<>cand!.rmaxdeg) then
+            return false;
+        fi;
+        if ForAny([1..Length(cand!.blocks)], b->cand!.coldegs[b]<>cand!.rmaxdeg) then
+            return false;
+        fi;
+        
+        for b in [1..Length(cand!.blocks)] do
+            for a in [1..b] do 
+                block:=cand!.blockingmat[a][b];
+                if ForAny(block, x->cand!.square[x]<>cand!.maxlbd) then
+                    return false;
+                fi;
+            od;
+        od;
     fi;
     
-    cdegs:=cand!.coldegs;
-    if ForAny([2..Length(cdegs)], i->cdegs[1]<>cdegs[i]) then
-        return false;
-    fi;
     
     return true;
 end);
@@ -636,8 +653,6 @@ function(tensor)
             fi;
         od;
     od;
-#    grp:=ClosureGroup(aaut,Mates(tensor));
-#    act:=ActionHomomorphism(grp,imap,OnPoints);
   
     map:=[];
     for i in [1..Length(imap)] do
@@ -721,13 +736,31 @@ InstallMethod(IsCompletePartialGoodSet,
     "for symmetric partial good sets in SymPartialGoodSetBlkRep",
     [IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep],
 function(cand)
-    if not cand!.kIsKnown or not cand!.lbdIsKnown then
+    local a,b,block;
+    
+    if cand!.set=[] then
         return false;
     fi;
     
-    if not Length(cand!.fullrows)=Length(cand!.blocks) then
-        return false;
+    if cand!.kIsKnown then
+        if Length(cand!.fullrows)=Length(cand!.blocks) then
+            return true;
+        fi;
+    else
+        if ForAny([1..Length(cand!.blocks)], b->cand!.degreelist[b]<>cand!.maxdeg) then
+            return false;
+        fi;
+    
+        for b in [1..Length(cand!.blocks)] do
+            for a in [1..b] do 
+                block:=cand!.blockingmat[a][b];
+                if ForAny(block, x->cand!.square[x]<>cand!.maxlbd) then
+                    return false;
+                fi;
+            od;
+        od;
     fi;
+    
     return true;
 end);
 
@@ -804,9 +837,15 @@ function(cand,pt)
             npgs.kIsKnown:=true;
             npgs.k:=cand!.degreelist[1];
             if npgs.k<cand!.maxdeg then
+                if testflag then
+                    Print("00\n");
+                fi;
                 return fail;
             fi;
             if ForAny([2..sb-1], x->cand!.degreelist[x]<>npgs.k) then
+                if testflag then
+                    Print("01\n");
+                fi;
                 return fail;
             fi;
             
@@ -820,6 +859,9 @@ function(cand,pt)
                         npgs.lbdIsKnown:=true;
                         npgs.lbd:=cand!.square[block[1]];
                         if npgs.lbd<cand!.maxlbd then
+                            if testflag then
+                                Print("02\n");
+                            fi;
                             return fail;
                         fi;
                         break;
@@ -835,6 +877,9 @@ function(cand,pt)
                     for j in [1..i] do
                         a:=npgs.fullrows[j];
                         if ForAny(cand!.blockingmat[a][b], x->cand!.square[x]<>npgs.lbd) then
+                            if testflag then
+                                Print("03\n");
+                            fi;
                             return fail;
                         fi;
                     od;
@@ -844,6 +889,9 @@ function(cand,pt)
     fi;
     
     if npgs.lbdIsKnown and (cand!.square[color]>npgs.lbd or (color<>icolor and cand!.square[icolor]>npgs.lbd) )then
+        if testflag then
+            Print("04\n");
+        fi;
         return fail;
     fi;
     
@@ -872,6 +920,9 @@ function(cand,pt)
         npgs.maxdeg:=Maximum(npgs.maxdeg, npgs.degreelist[fb]);
     fi;
     if npgs.kIsKnown and npgs.maxdeg>npgs.k then
+        if testflag then
+            Print("05\n");
+        fi;
         return fail;
     fi;
     
@@ -907,6 +958,9 @@ function(cand,pt)
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
             fi;
             if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
+                if testflag then
+                    Print("06\n");
+                fi;
                 return fail;
             fi;
         fi;
@@ -918,6 +972,9 @@ function(cand,pt)
             npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
         fi;
         if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
+            if testflag then
+                Print("07\n");
+            fi;
             return fail;
         fi;
         for b in cand!.ridx do        # c*A*
@@ -936,14 +993,23 @@ function(cand,pt)
                         npgs.lbdIsKnown:=true;
                         npgs.lbd:=sq[block[1]];
                         if npgs.lbd<npgs.maxlbd then
+                            if testflag then
+                                Print("08\n");
+                            fi;
                             return fail;
                         fi;
                         if ForAny([2..Length(block)], k->sq[block[k]]<> npgs.lbd) then
+                            if testflag then
+                                Print("09\n");
+                            fi;
                             return fail;
                         fi;
                     fi;
                 fi;
                 if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
+                    if testflag then
+                        Print("10\n");
+                    fi;
                     return fail;
                 fi;
             fi;
@@ -963,14 +1029,23 @@ function(cand,pt)
                         npgs.lbdIsKnown:=true;
                         npgs.lbd:=sq[block[1]];
                         if npgs.lbd<npgs.maxlbd then
+                            if testflag then
+                                Print("11\n");
+                            fi;
                             return fail;
                         fi;
                         if ForAny([2..Length(block)], k->sq[block[k]]<> npgs.lbd) then
+                            if testflag then
+                                Print("12\n");
+                            fi;
                             return fail;
                         fi;
                     fi;
                 fi;
                 if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
+                    if testflag then
+                        Print("13\n");
+                    fi;
                     return fail;
                 fi;
             fi;
@@ -984,6 +1059,9 @@ function(cand,pt)
         npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
     fi;
     if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
+        if testflag then
+            Print("14\n");
+        fi;
         return fail;
     fi;
         
@@ -1003,14 +1081,23 @@ function(cand,pt)
                     npgs.lbdIsKnown:=true;
                     npgs.lbd:=sq[block[1]];
                     if npgs.lbd<npgs.maxlbd then
+                        if testflag then
+                            Print("15\n");
+                        fi;
                         return fail;
                     fi;
                     if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
+                        if testflag then
+                            Print("16\n");
+                        fi;
                         return fail;
                     fi;
                 fi;
             fi;
             if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
+                if testflag then
+                    Print("17\n");
+                fi;
                 return fail;
             fi;
         fi;
@@ -1029,14 +1116,23 @@ function(cand,pt)
                     npgs.lbdIsKnown:=true;
                     npgs.lbd:=sq[block[1]];
                     if npgs.lbd<npgs.maxlbd then
+                        if testflag then
+                            Print("18\n");
+                        fi;
                         return fail;
                     fi;
                     if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
+                        if testflag then
+                            Print("19\n");
+                        fi;
                         return fail;
                     fi;
                 fi;
             fi;
             if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
+                if testflag then
+                    Print("20\n");
+                fi;
                 return fail;
             fi;
         fi;
@@ -1061,11 +1157,17 @@ function(cand,pt)
            then
             npgs.domdegreelist[ksb]:=npgs.domdegreelist[ksb]-sd[kmts[1]];
             if npgs.domdegreelist[ksb]+npgs.degreelist[ksb]<npgs.maxdeg then
+                if testflag then
+                    Print("21\n");
+                fi;
                 return fail;
             fi;
             if Length(kmts)=2 then
                 npgs.domdegreelist[kfb]:=npgs.domdegreelist[kfb]-sd[kmts[2]];
                 if npgs.domdegreelist[kfb]+npgs.degreelist[kfb]<npgs.maxdeg then
+                    if testflag then
+                        Print("22\n");
+                    fi;
                     return fail;
                 fi;
             fi;
@@ -1074,6 +1176,7 @@ function(cand,pt)
         fi;
     od;    
     
+            
     Objectify(NewType(GoodSetsFamily(t), IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep), npgs);
     return npgs;
     
@@ -1249,6 +1352,7 @@ function(iter)
             state.orbidx:=state.orbidx+1;
             if IsCompatiblePoint(state.cand,pt) then
                 ncand:=ExtendedPartialGoodSet(state.cand,pt);
+                
                 if ncand<>fail then
                     SC:=CocoSetReducibilityTest(state.S,state.SM,state.M,pt);
                     if IsPerm(SC) then
