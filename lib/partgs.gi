@@ -542,13 +542,15 @@ function(cand,pt)
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
             fi;
             if b<>sb  and block<>[] then   # if block(=bm[sb][b]) is complete
-                if not npgs.lbdIsForced and sbinfr and b in npgs.fullrows then
-                    npgs.lbdIsForced:=true;
-                    npgs.lbd:=sq[block[1]];
-                    if npgs.lbd<npgs.maxlbd then
-                        return fail;
+                if sbinfr and b in npgs.fullrows then
+                    if not npgs.lbdIsForced then
+                        npgs.lbdIsForced:=true;
+                        npgs.lbd:=sq[block[1]];
+                        if npgs.lbd<npgs.maxlbd then
+                            return fail;
+                        fi;
                     fi;
-                    if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
+                    if ForAny(block, x->sq[x] <> npgs.lbd) then
                         return fail;
                     fi;
                 fi;
@@ -567,14 +569,18 @@ function(cand,pt)
             if block<>[] then
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
             fi;
-            if not npgs.lbdIsForced and block<>[] then # block (=bm[b][sb] is complete  
+            if  block<>[] then # block (=bm[b][sb] is complete  
                 if sbinfr and b in npgs.fullrows then 
-                    npgs.lbdIsForced:=true;
-                    npgs.lbd:=sq[block[1]];
-                    if npgs.lbd<npgs.maxlbd then
-                        return fail;
+                    if not npgs.lbdIsForced then 
+                        npgs.lbdIsForced:=true;
+                        npgs.lbd:=sq[block[1]];
+                        if npgs.lbd<npgs.maxlbd then
+                            stt[21]:=stt[21]+1;
+                            return fail;
+                        fi;
                     fi;
-                    if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
+                    if ForAny(block, x->sq[x] <> npgs.lbd) then
+                        stt[22]:=stt[22]+1;
                         return fail;
                     fi;
                 fi;
@@ -585,6 +591,24 @@ function(cand,pt)
         fi;
     od;
     
+    # if npgs.lbdIsForced then
+    #     for i in [1..Length(npgs.fullrows)] do
+    #         a:=npgs.fullrows[i];
+    #         for j in [i..Length(npgs.fullrows)] do
+    #             b:=npgs.fullrows[j];
+    #             block:=npgs.blockingmat[a][b];
+    #             if block <>[] then
+    #                 if Length(Set(npgs.square{block}))>1 then
+    #                     Error("Error 1");
+    #                 fi;
+    #                 if npgs.square[block[1]]<>npgs.lbd then
+    #                     Error("Error 2");
+    #                 fi;
+    #             fi;
+    #         od;
+    #     od;
+    # fi;
+
     # Assert(1,sq=ComplexProduct(t,npgs.set,OnSets(npgs.set,Mates(t))));
     
     
@@ -819,9 +843,9 @@ function(cand,pt)
             
             npgs.fullrows:=Filtered([1..Length(cand!.blocks)], x->cand!.degreelist[x]=npgs.k);
             for i in [1..Length(npgs.fullrows)] do
-                b:=npgs.fullrows[i];
-                for j in [1..i] do
-                    a:=npgs.fullrows[j];
+                a:=npgs.fullrows[i];
+                for j in [i..Length(npgs.fullrows)] do
+                    b:=npgs.fullrows[j];
                     block:=cand!.blockingmat[a][b];
                     if block<>[] then
                         npgs.lbdIsForced:=true;
@@ -839,9 +863,9 @@ function(cand,pt)
             od;
             if npgs.lbdIsForced then
                 for i in [i..Length(npgs.fullrows)] do
-                    b:=npgs.fullrows[i];
-                    for j in [1..i] do
-                        a:=npgs.fullrows[j];
+                    a:=npgs.fullrows[i];
+                    for j in [i..Length(npgs.fullrows)] do
+                        b:=npgs.fullrows[j];
                         if ForAny(cand!.blockingmat[a][b], x->cand!.square[x]<>npgs.lbd) then
                             stt[4]:=stt[4]+1;
                             return nonext;
@@ -859,6 +883,12 @@ function(cand,pt)
     fi;
         
     npgs.currentRow:=sb;
+    
+    # if cand!.set = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,33,34,35,36,37,49,50] and pt = 16 then
+    #     Error("brk1");
+    # fi;
+    
+    
     
     if npgs.lbdIsForced and (cand!.square[color]>npgs.lbd or (color<>icolor and cand!.square[icolor]>npgs.lbd) )then
         stt[5]:=stt[5]+1;
@@ -983,14 +1013,16 @@ function(cand,pt)
                     npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
                 fi;
                 if fb<>sb and b<>sb and b<>fb and block<>[] then    # if block(=bm[fb][b]) is complete
-                    if not npgs.lbdIsForced and fbinfr and b in npgs.fullrows then  
-                        npgs.lbdIsForced:=true;
-                        npgs.lbd:=sq[block[1]];
-                        if npgs.lbd<npgs.maxlbd then
-                            stt[11]:=stt[11]+1;
-                            return fail;
+                    if fbinfr and b in npgs.fullrows then
+                        if not npgs.lbdIsForced  then  
+                            npgs.lbdIsForced:=true;
+                            npgs.lbd:=sq[block[1]];
+                            if npgs.lbd<npgs.maxlbd then
+                                stt[11]:=stt[11]+1;
+                                return fail;
+                            fi;
                         fi;
-                        if ForAny([2..Length(block)], k->sq[block[k]]<> npgs.lbd) then
+                        if ForAny(block, x->sq[x]<>npgs.lbd) then
                             stt[12]:=stt[12]+1;
                             return fail;
                         fi;
@@ -1013,14 +1045,16 @@ function(cand,pt)
                     npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
                 fi;
                 if fb<>sb and b<>sb and block<>[] then # if block(=bm[b][fb]) is complete
-                    if not npgs.lbdIsForced and fbinfr and b in npgs.fullrows  then
-                        npgs.lbdIsForced:=true;
-                        npgs.lbd:=sq[block[1]];
-                        if npgs.lbd<npgs.maxlbd then
-                            stt[14]:=stt[14]+1;
-                            return fail;
+                    if  fbinfr and b in npgs.fullrows  then
+                        if not npgs.lbdIsForced then
+                            npgs.lbdIsForced:=true;
+                            npgs.lbd:=sq[block[1]];
+                            if npgs.lbd<npgs.maxlbd then
+                                stt[14]:=stt[14]+1;
+                                return fail;
+                            fi;
                         fi;
-                        if ForAny([2..Length(block)], k->sq[block[k]]<> npgs.lbd) then
+                        if ForAny(block, x->sq[x]<> npgs.lbd) then
                             stt[15]:=stt[15]+1;
                             return fail;
                         fi;
@@ -1057,14 +1091,16 @@ function(cand,pt)
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
             fi;
             if b<>sb  and block<>[] then   # if block(=bm[sb][b]) is complete
-                if not npgs.lbdIsForced and sbinfr and b in npgs.fullrows then
-                    npgs.lbdIsForced:=true;
-                    npgs.lbd:=sq[block[1]];
-                    if npgs.lbd<npgs.maxlbd then
-                        stt[18]:=stt[18]+1;
-                        return fail;
+                if sbinfr and b in npgs.fullrows then
+                    if not npgs.lbdIsForced then
+                        npgs.lbdIsForced:=true;
+                        npgs.lbd:=sq[block[1]];
+                        if npgs.lbd<npgs.maxlbd then
+                            stt[18]:=stt[18]+1;
+                            return fail;
+                        fi;
                     fi;
-                    if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
+                    if ForAny(block, x->sq[x] <> npgs.lbd) then
                         stt[19]:=stt[19]+1;
                         return fail;
                     fi;
@@ -1085,15 +1121,17 @@ function(cand,pt)
             if block<>[] then
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
             fi;
-            if not npgs.lbdIsForced and block<>[] then # block (=bm[b][sb] is complete  
+            if  block<>[] then # block (=bm[b][sb] is complete  
                 if sbinfr and b in npgs.fullrows then 
-                    npgs.lbdIsForced:=true;
-                    npgs.lbd:=sq[block[1]];
-                    if npgs.lbd<npgs.maxlbd then
-                        stt[21]:=stt[21]+1;
-                        return fail;
+                    if not npgs.lbdIsForced then 
+                        npgs.lbdIsForced:=true;
+                        npgs.lbd:=sq[block[1]];
+                        if npgs.lbd<npgs.maxlbd then
+                            stt[21]:=stt[21]+1;
+                            return fail;
+                        fi;
                     fi;
-                    if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
+                    if ForAny(block, x->sq[x] <> npgs.lbd) then
                         stt[22]:=stt[22]+1;
                         return fail;
                     fi;
@@ -1106,6 +1144,40 @@ function(cand,pt)
         fi;
     od;
     
+    if npgs.lbdIsForced then
+        if sbinfr and ForAny(npgs.blockingmat[sb][sb], x->sq[x]<>npgs.lbd) then
+            return fail;
+        fi;
+        if sb<>fb and fbinfr and ForAny(npgs.blockingmat[sb][sb], x->sq[x]<>npgs.lbd) then
+            return fail;
+        fi;
+        if sb<>fb and sbinfr and fbinfr and ForAny(npgs.blockingmat[sb][fb], x->sq[x]<>npgs.lbd) then
+            return fail;
+        fi;
+    fi;
+    
+            
+    
+
+    # if npgs.lbdIsForced then
+    #     for i in [1..Length(npgs.fullrows)] do
+    #         a:=npgs.fullrows[i];
+    #         for j in [i..Length(npgs.fullrows)] do
+    #             b:=npgs.fullrows[j];
+    #             block:=npgs.blockingmat[a][b];
+    #             if block <>[] then
+    #                 if Length(Set(npgs.square{block}))>1 then
+    #                     Error("Error 1");
+    #                 fi;
+    #                 if npgs.square[block[1]]<>npgs.lbd then
+    #                     Error("Error 2");
+    #                 fi;
+    #             fi;
+    #         od;
+    #     od;
+    # fi;
+    
+                
     #Assert(1,sq=ComplexProduct(t,npgs.set,OnSets(npgs.set,Mates(t))));
     
     
@@ -1270,6 +1342,10 @@ function(iter)
         if state=fail then 
             return fail; 
         fi;
+        
+        # if state.M=[ 1, 5, 6, 7, 8, 9, 10, 11, 16, 17, 18, 24] then
+        #     Error("tst");
+        # fi;
         
         if not IsExtendiblePartialGoodSet(state.cand) then
             return NextState(state.linkback);
