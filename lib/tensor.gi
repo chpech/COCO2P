@@ -63,108 +63,6 @@ function(entries)
    return obj;
 end);
 
-############################################
-#F  BlockedTensorFromColorReps( <cgr>, <creps> )
-##    Trys to construct a tensor of structure constants for <cgr>
-##    <creps> is a list of arcs of <cgr>.
-##    There has to be at least one arc from each color of <cgr>.
-##    This constructor is not supposed to be used by the user of coco
-InstallGlobalFunction(BlockedTensorFromColorReps,
-function(cgr,tor)
-   local o,r,k,i,j,tensor,mat,submat,
-         row,column,pos,
-         part,
-         refl,irrefl,
-         reflexiveColors, rowBlk, colBlk,
-         blocks, blockIndices,
-         entries,a,b,c,
-         rb,cb;
-
-    part := List([1..RankOfColorGraph(cgr)], x->[]);
-    refl:=List([1..RankOfColorGraph(cgr)], x->false);
-    irrefl:=List([1..RankOfColorGraph(cgr)], x->false);
-    for i in [1..Length(tor)] do
-        j:=ArcColorOfColorGraph(cgr,tor[i]);
-        Add(part[j], i);
-        if tor[i][1]=tor[i][2] then
-           refl[j]:=true;
-        else
-           irrefl[j]:=true;
-        fi;
-        if irrefl[j] and refl[j] then
-           return fail;
-        fi;
-    od;
-
-   reflexiveColors:=ListBlist([1..RankOfColorGraph(cgr)], refl);
-   rowBlk:=[];
-   colBlk:=[];
-   blocks:=List([1..Length(reflexiveColors)], x->List([1..Length(reflexiveColors)], x->[]));
-   blockIndices:=[];
-   for i in [1..RankOfColorGraph(cgr)] do
-      for o in part[i] do
-          rb:=Position(reflexiveColors, ArcColorOfColorGraph(cgr, tor[o][1],tor[o][1]));
-          if not IsBound(rowBlk[i]) then
-             rowBlk[i]:=rb;
-          else
-             if rowBlk[i]<>rb then
-               return fail;
-             fi;
-          fi;
-          cb:=Position(reflexiveColors, ArcColorOfColorGraph(cgr, tor[o][2],tor[o][2]));
-          if not IsBound(colBlk[i]) then
-             colBlk[i]:=cb;
-          else
-             if colBlk[i]<>cb then
-               return fail;
-             fi;
-          fi;
-      od;
-      Add(blocks[rowBlk[i]][colBlk[i]],i);
-      blockIndices[i]:=Length(blocks[rowBlk[i]][colBlk[i]]);
-   od;
-
-   entries:=List([1..Length(reflexiveColors)],
-            a->List([1..Length(reflexiveColors)],
-               b->List([1..Length(reflexiveColors)],
-                 c->[])));
-
-   for r in tor do
-      k:=ArcColorOfColorGraph(cgr,r);
-      a:=rowBlk[k];
-      b:=colBlk[k];
-      mat:=LocalIntersectionArray(cgr,r);
-      for c in [1..Length(reflexiveColors)] do
-         submat:=List(mat{blocks[a][c]}, x->x{blocks[c][b]});
-         if IsBound(entries[a][b][c][blockIndices[k]]) then
-            if submat<>entries[a][b][c][blockIndices[k]] then
-               return fail;
-            fi;
-         else
-            entries[a][b][c][blockIndices[k]]:=submat;
-         fi;
-      od;
-   od;
-
-   tensor:=rec(
-               reflexiveColors := reflexiveColors,
-               rowBlk          := rowBlk,
-               colBlk          := colBlk,
-               blocks          := blocks,
-               blkIdx          := blockIndices,
-               knownAutGroup   := KnownGroupOfColorAutomorphisms(cgr),
-               vertexNames     := ColorNames(cgr),
-               entries         := entries
-              );
-
-   tensor:=Objectify(NewType(TensorFam, IsBlockedTensorRep), tensor);
-   if HasMates(cgr) then
-     SetMates(tensor, Mates(cgr));
-   fi;
-   SetReflexiveColors(tensor, reflexiveColors);
-   SetOrderOfCocoObject(tensor, RankOfColorGraph(cgr));
-   return tensor;
-end);
 
 
 ############################################
@@ -175,7 +73,6 @@ end);
 ##    This constructor is not supposed to be used by the user of coco
 
 InstallGlobalFunction(TensorFromColorReps,
-#TensorFromColorReps:=
 function(cgr,tor)
    local o,r,k,i,j,tensor,mat,submat,
          row,column,pos,
@@ -184,7 +81,8 @@ function(cgr,tor)
          reflexiveColors, rowBlk, colBlk,
          blocks, blockIndices,
          entries,a,b,c,
-         rb,cb;
+         rb,cb,
+         bltensor;
 
     part := List([1..RankOfColorGraph(cgr)], x->[]);
     refl:=List([1..RankOfColorGraph(cgr)], x->false);
@@ -253,6 +151,27 @@ function(cgr,tor)
    od;
 
    if Length(blocks)>1 then
+       for a in [1..Length(reflexiveColors)] do
+           for b in [1..Length(reflexiveColors)] do
+               for c in [1..Length(reflexiveColors)] do
+                   bltensor:=[];
+                   for k in [1..Length(entries[a][b][c])] do
+                       for i in [1..Length(entries[a][b][c][k])] do
+                           for j in [1..Length(entries[a][b][c][k][i])] do
+                               if not IsBound(bltensor[i]) then
+                                   bltensor[i]:=[];
+                               fi;
+                               if not IsBound(bltensor[i][j]) then
+                                   bltensor[i][j]:=[];
+                               fi;
+                               bltensor[i][j][k]:=entries[a][b][c][k][i][j];
+                           od;
+                       od;
+                   od;
+                   entries[a][b][c]:=bltensor;
+               od;
+           od;
+       od;
        tensor:=rec(
                    reflexiveColors := reflexiveColors,
                    rowBlk          := rowBlk,
@@ -327,7 +246,7 @@ function(T,i,j,k)
     if T!.rowBlk[j]<>c then
        return 0;
     fi;
-    return T!.entries[a][b][c][T!.blkIdx[k]][T!.blkIdx[i]][T!.blkIdx[j]];
+    return T!.entries[a][b][c][T!.blkIdx[i]][T!.blkIdx[j]][T!.blkIdx[k]];
 end);
 
 ##################################################

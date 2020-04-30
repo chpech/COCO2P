@@ -18,7 +18,6 @@ DeclareInfoClass("InfoTensor");
 ###
 
 DeclareGlobalFunction( "DenseTensorFromEntries" );                                                 # documented
-DeclareGlobalFunction( "BlockedTensorFromColorReps" );                                             # undocumented
 DeclareGlobalFunction( "TensorFromColorReps" );
                # undocumented
 

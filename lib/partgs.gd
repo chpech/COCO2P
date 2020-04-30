@@ -20,6 +20,7 @@ DeclareOperation( "ExtendedPartialGoodSet", [IsPartialGoodSet, IsPosInt] );     
 DeclareProperty( "IsExtendiblePartialGoodSet", IsPartialGoodSet );                           # internal
 DeclareOperation( "DomainOfPartialGoodSet", [IsPartialGoodSet] );                            # internal
 DeclareOperation( "IsCompatiblePoint", [IsPartialGoodSet,IsPosInt] );
+DeclareProperty( "IsCompletePartialGoodSet", IsPartialGoodSet);
 
 
 #DeclareOperation( "TestPartialGoodSet", [IsPartialGoodSet] );                                # internal 

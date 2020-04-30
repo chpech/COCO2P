@@ -17,8 +17,11 @@ DeclareRepresentation("IsPartialGoodSetRep",
           "imap",
           "domain",
           "set",
-          "maxlength"
+          "maxlength",
+          "square"
           ]);
+
+BindGlobal("nonext",false);
 
 #
 # methods for all partial good sets
@@ -93,19 +96,35 @@ function(pgs)
     return Concatenation(res,"partial good set ", String(s), ">");
 end);
 
+InstallMethod(IsCompletePartialGoodSet,
+    "for partial good sets in PartialGoodSetRep",
+    [IsPartialGoodSet and IsPartialGoodSetRep],
+function(pgs)
+    local set,sqr;
+    
+    set:=pgs!.set;
+    
+    if set = [] then
+        return false;
+    fi;
+    
+    sqr:=pgs!.square;
+    if Length(set)>1 and ForAny([2..Length(set)], i->sqr[set[1]]<>sqr[set[i]]) then
+        return false;
+    fi;
+    return true;
+end);
+
 #
 # symmetric partial good sets in homogeneous tensors
 #
+
 InstallMethod(GoodSetFromPartialGoodSet,
     "for symmetric partial good sets in PartialGoodSetRep",
     [IsSymPartialGoodSet and IsPartialGoodSetRep],
 function(cand)
-    local part;
-    
-    if cand!.set = [] then
-        return fail;
-    fi;
-
+    local part,sqr,set;
+       
     part:=WLBuildSymGoodSetPartition(cand!.tensor,cand!.set);
     part:=WLStabil(cand!.tensor,part);
     if part= fail then
@@ -120,8 +139,26 @@ InstallMethod(ExtendedPartialGoodSet,
     "for symmetric partial good sets in PartialGoodSetRep",
     [IsSymPartialGoodSet and IsPartialGoodSetRep, IsPosInt],
 function(cand,pt)
-   local ndom,obj;
-
+   local ndom,obj,ent,sq,mates,i;
+   
+   ent:=cand!.tensor!.entries;
+   mates:=cand!.imap[pt];
+   sq:=ShallowCopy(cand!.square);
+   for i in cand!.set do
+       sq:=sq+ent[i][mates[1]];
+       sq:=sq+ent[mates[1]][i];
+   od;
+   sq:=sq+ent[mates[1]][mates[1]];
+   if Length(mates)=2 then
+       for i in cand!.set do
+           sq:=sq+ent[i][mates[2]];
+           sq:=sq+ent[mates[2]][i];
+       od;
+       sq:=sq+ent[mates[1]][mates[2]];
+       sq:=sq+ent[mates[2]][mates[1]];
+       sq:=sq+ent[mates[2]][mates[2]];
+   fi;
+   
    ndom:=Filtered(cand!.domain, x->x>pt);
 
    obj:=rec(
@@ -130,7 +167,8 @@ function(cand,pt)
             imap:=cand!.imap,
             domain:=ndom,
             set:=Union(cand!.set,cand!.imap[pt]),
-            maxlength:=cand!.maxlength);
+            maxlength:=cand!.maxlength,
+            square:=sq);
    
    return Objectify(NewType(GoodSetsFamily(cand!.tensor), IsSymPartialGoodSet and IsPartialGoodSetRep), obj);
 end);
@@ -147,7 +185,7 @@ function(tensor)
     sclr:=Filtered(clr, x->x^Mates(tensor)=x);
     aclr:=Filtered(clr, x->x<x^Mates(tensor));
     imap:=[];
-    # List(rclr, x->[x]);
+ 
     Append(imap, List(sclr, x->[x]));
     Append(imap,List(aclr, x->[x,x^Mates(tensor)]));
     map:=[];
@@ -156,19 +194,14 @@ function(tensor)
             map[j]:=i;
         od;
     od;
-    # map:=[1..Length(rclr)];
-    # Append(map, List([1..Length(sclr)], i->Length(rclr)+i));
-    # for i in [1..Length(aclr)] do
-    #     Add(map, i);
-    #     Add(map, i);
-    # od;
     
     cand:=rec(tensor:=tensor,
               map:=map,
               imap:=imap,
               domain:=[1..Length(imap)],
               set:=[],               
-              maxlength:=Int((OrderOfTensor(tensor)-1)/2)
+              maxlength:=Int((OrderOfTensor(tensor)-1)/2),
+              square:=ListWithIdenticalEntries(0,OrderOfTensor(tensor))
               );
    
    return Objectify(NewType(GoodSetsFamily(tensor), IsSymPartialGoodSet and IsPartialGoodSetRep), cand);
@@ -178,19 +211,16 @@ end);
 #
 # Asymmetric candidates in homogeneous tensors
 #
-
+    
 InstallMethod(GoodSetFromPartialGoodSet,
     "for asymmetric partial good sets in PartialGoodSetRep",
     [IsAsymPartialGoodSet and IsPartialGoodSetRep],
 function(cand)
     local T,set,gs,part;
     
-    if cand!.set = [] then
-        return fail;
-    fi;
-
     T:=cand!.tensor;
     set:=cand!.set;
+    
     gs:=[set, OnSets(set, Mates(T))];
     part:=WLBuildAsymGoodSetPartition(T,gs);
     part:=WLStabil(T,part);
@@ -201,47 +231,34 @@ function(cand)
     return BuildGoodSet(T, set,part.classes);
 end);
 
-
-InstallMethod(GoodSetFromPartialGoodSet,
-    "for symmetric partial good sets in PartialGoodSetRep",
-    [IsSymPartialGoodSet and IsPartialGoodSetRep],
-function(cand)
-    local part;
-    
-    if cand!.set = [] then
-        return fail;
-    fi;
-    
-    part:=WLBuildSymGoodSetPartition(cand!.tensor,cand!.set);
-    part:=WLStabil(cand!.tensor,part);
-    if part= fail then
-        return fail;
-    fi;
-    
-    return BuildGoodSet(cand!.tensor, cand!.set, part.classes);
-    
-end);
-
-
-
 InstallMethod(ExtendedPartialGoodSet,
     "for asymmetric partial good sets in PartialGoodSetRep",
     [IsAsymPartialGoodSet and IsPartialGoodSetRep, IsPosInt],
 function(cand,pt)
-   local t,ipt,ndom,obj;
+    local t,clr,ent,ipt,ndom,obj,sq,i;
+    
+    t:=cand!.tensor;
+    clr:=cand!.imap[pt][1];
+    ipt:=cand!.map[cand!.imap[pt][1]^Mates(t)];
+    ent:=t!.entries;
+    
+    sq:=ShallowCopy(cand!.square);
+    for i in cand!.set do
+        sq:=sq+ent[i][clr];
+        sq:=sq+ent[clr][i];
+    od;
+    sq:=sq+ent[clr][clr];
+    
+    ndom:=Filtered(cand!.domain, x->x>pt and x<>ipt);
    
-   t:=cand!.tensor;
-   ipt:=cand!.map[cand!.imap[pt][1]^Mates(t)];
-   
-   ndom:=Filtered(cand!.domain, x->x>pt and x<>ipt);
-
-   obj:=rec(
-            tensor:=cand!.tensor,
-            map:=cand!.map,
-            imap:=cand!.imap,
-            domain:=ndom,
-            set:=Union(cand!.set,cand!.imap[pt]),
-            maxlength:=cand!.maxlength);
+    obj:=rec(
+             tensor:=cand!.tensor,
+             map:=cand!.map,
+             imap:=cand!.imap,
+             domain:=ndom,
+             set:=Union(cand!.set,cand!.imap[pt]),
+             maxlength:=cand!.maxlength,
+             square:=sq);
    
    return Objectify(NewType(GoodSetsFamily(cand!.tensor), IsAsymPartialGoodSet and IsPartialGoodSetRep), obj);
 end);
@@ -265,7 +282,8 @@ function(tensor)
               imap:=imap,
               domain:=[1..Length(imap)],
               set:=[],
-              maxlength:=Int((OrderOfTensor(tensor)-1)/2)
+              maxlength:=Int((OrderOfTensor(tensor)-1)/2),
+              square:=ListWithIdenticalEntries(0,OrderOfTensor(tensor))
               );
     
     return Objectify(NewType(GoodSetsFamily(tensor), IsAsymPartialGoodSet and IsPartialGoodSetRep), cand);
@@ -300,117 +318,49 @@ DeclareRepresentation("IsAsymPartialGoodSetBlkRep",
           "ridx",
           "cidx",
           "square",
-          "fullrows"
+          "fullrows",
+          "kIsForced",
+          "k",
+          "lbdIsForced",
+          "lbd"
           ]);
 
-InstallMethod(DomainOfPartialGoodSet,
-        "for asymmetric partial good sets in AsymPartialGoodSetBlkRep",
-        [IsAsymPartialGoodSet and IsAsymPartialGoodSetBlkRep],
-function(cand)
-    return cand!.domain;
-end);
 
-
-InstallMethod(GoodSetFromPartialGoodSet,
+InstallMethod(IsCompletePartialGoodSet,
     "for asymmetric partial good sets in AsymPartialGoodSetBlkRep",
     [IsAsymPartialGoodSet and IsAsymPartialGoodSetBlkRep],
 function(cand)
-    local T,part,gs,res,rdegs,cdegs,sqr,set;
-    rdegs:=cand!.rowdegs;
-    if ForAny([2..Length(rdegs)], i->rdegs[1]<>rdegs[i]) then
-       return fail;
+    local a,b,block;
+    
+    if cand!.set=[] then
+        return false;
     fi;
     
-    cdegs:=cand!.coldegs;
-    if ForAny([2..Length(cdegs)], i->cdegs[1]<>cdegs[i]) then
-       return fail;
-    fi;
-
-    if cand!.rowdegs[1]<>cand!.coldegs[1] then
-       return fail;
+    if cand!.kIsForced then 
+        return Length(cand!.fullrows)=Length(cand!.blocks);
+    else
+        if cand!.rmaxdeg<>cand!.cmaxdeg then
+            return false;
+        fi;
+        if ForAny([1..Length(cand!.blocks)], b->cand!.rowdegs[b]<>cand!.rmaxdeg) then
+            return false;
+        fi;
+        if ForAny([1..Length(cand!.blocks)], b->cand!.coldegs[b]<>cand!.rmaxdeg) then
+            return false;
+        fi;
+        
+        for b in [1..Length(cand!.blocks)] do
+            for a in [1..b] do 
+                block:=cand!.blockingmat[a][b];
+                if ForAny(block, x->cand!.square[x]<>cand!.maxlbd) then
+                    return false;
+                fi;
+            od;
+        od;
     fi;
     
-    sqr:=cand!.square;
-    set:=cand!.set;
-    if Length(set)>1 and ForAny([2..Length(set)], i->sqr[set[1]]<>sqr[set[i]]) then
-#        return fail;
-    fi;
-
-    TryNextMethod();
-end);
-
-
-InstallMethod(IsExtendiblePartialGoodSet,
-    "for asymmetric partial good sets in AsymPartialGoodSetBlkRep",
-    [IsAsymPartialGoodSet and IsAsymPartialGoodSetBlkRep],
-function(cand)
-   local rmax,cmax,ridx,cidx,LMab,a,b,subdeg,nof;
-
-   if cand!.domain=[] then
-      return false;
-   fi;
-
-   if Length(cand!.set)>=cand!.maxlength then  
-      return false;
-   fi;
-
-   rmax:=cand!.rmaxdeg;
-   cmax:=cand!.cmaxdeg;
-   ridx:=cand!.ridx;
-   cidx:=cand!.cidx;
-
-   if cand!.fullrows<>[] then
-       if cmax>rmax then
-           return false;
-       fi;
-   fi;
-   cmax:=rmax;
-
-   if cand!.fullrows<>[] then
-      if cand!.rowdegs[cand!.fullrows[1]]<rmax then
-         return false;
-      fi;
-   fi;
-
-   if ForAny([1..Length(cand!.rowdegs)], i->cand!.rowdegs[i]+cand!.domrowdegs[i]<rmax) then
-      return false;
-   fi;
-   if ForAny([1..Length(cand!.coldegs)], i->cand!.coldegs[i]+cand!.domcoldegs[i]<cmax) then
-      return false;
-   fi;
-
-   LMab:=[];
-   nof:=Length(cand!.blockingmat);
-
-    for a in cand!.fullrows do
-       for b in cand!.fullrows do
-          if cand!.blockingmat[a][b]<>[] then
-              subdeg:=Set(cand!.square{cand!.blockingmat[a][b]});
-              if Length(subdeg)>1 then
-                 return false;
-              fi;
-              UniteSet(LMab, subdeg);
-              if Length(LMab)>1 then
-                 return false;
-              fi;
-          fi;
-       od;
-    od;
-    if LMab<>[] then
-       for a in [1..nof] do
-          for b in [1..nof] do
-            if cand!.blockingmat[a][b]<>[] then
-               if not a in cand!.fullrows or not b in cand!.fullrows then
-                  if Maximum(cand!.square{cand!.blockingmat[a][b]})>LMab[1] then
-                     return false;
-                  fi;
-               fi;
-            fi;
-          od;
-       od;
-    fi;
-
-   return true;
+    
+    return true;
 end);
 
 InstallMethod(IsCompatiblePoint,
@@ -429,158 +379,241 @@ function(cand,i)
     if sb-1>cand!.currentRow then
         return false;
     fi;
-    TryNextMethod();
+    return true;
 end);
 
 InstallMethod(ExtendedPartialGoodSet,
     "for asymmetric partial good sets in AsymPartialGoodSetBlkRep",
     [IsAsymPartialGoodSet and IsAsymPartialGoodSetBlkRep, IsPosInt],
-function(cand,i)
-    local t,color, sb,fb,rx,cx,fr,bm,sd,rd,cd,sq,nd,ndrd,ndcd,j,k,kmts,obj,cm,blk,rm,icolor,nxtdomrow,newnxtdom,ksb,kfb;
+function(cand,pt)
+    local t,bm,npgs,color,sb,fb,sd,i,j,k,kmts,a,b,block,md,sq,icolor,ksb,kfb,sbinfr;
 
     t:=cand!.tensor;
-    color:=cand!.imap[i][1];
+    
+    npgs:=rec(
+              tensor:=cand!.tensor,
+              blocks:=cand!.blocks,
+              startBlock:=cand!.startBlock,
+              finishBlock:=cand!.finishBlock,
+              map:=cand!.map,
+              imap:=cand!.imap,
+              maxlength:=cand!.maxlength
+              );
+    
+    color:=cand!.imap[pt][1];
     sb:=cand!.startBlock[color];
     fb:=cand!.finishBlock[color];
-   
-   
-    rx:=ShallowCopy(cand!.ridx);
-    AddSet(rx, sb);
-    cx:=ShallowCopy(cand!.cidx);
-    AddSet(cx, fb);
-
     
-    if cand!.fullrows=[] and sb>1 then
-        fr:=[1..sb-1];
-    else
-        fr:=ShallowCopy(cand!.fullrows);
-    fi;
-
-    bm:=StructuralCopy(cand!.blockingmat);
-    AddSet(bm[sb][fb], color);
-   
-   
-    sd:=OutValencies(t);
-    rd:=ShallowCopy(cand!.rowdegs);
-    cd:=ShallowCopy(cand!.coldegs);
-
-    rd[sb]:=rd[sb]+sd[color];
-    rm:=Maximum(rd[sb], cand!.rmaxdeg);
-    icolor:=color^Mates(t);
-    cd[fb]:=cd[fb]+sd[icolor];
-    cm:=Maximum(cd[fb], cand!.cmaxdeg);
-
-    if fr<>[] then
-        if rd[sb]=rd[fr[1]] then
-            AddSet(fr,sb);
+    npgs.currentRow:=sb;
+    
+    npgs.fullrows:=ShallowCopy(cand!.fullrows);
+    npgs.kIsForced:=cand!.kIsForced;
+    npgs.k:=cand!.k;
+    npgs.lbdIsForced:=cand!.lbdIsForced;
+    npgs.lbd:=cand!.lbd;
+    
+    if not npgs.kIsForced then
+        if sb>1 then
+            npgs.kIsForced:=true;
+            npgs.k:=cand!.rowdegs[1];
+            if npgs.k<cand!.rmaxdeg or npgs.k<cand!.cmaxdeg then
+                return nonext;
+            fi;
+            if ForAny([2..sb-1], x->cand!.rowdegs[x]<>npgs.k) then
+                return nonext;
+            fi;
+            npgs.fullrows:=[1..sb-1];
+            for i in [1..Length(npgs.fullrows)] do
+                b:=npgs.fullrows[i];
+                for j in [1..i] do
+                    a:=npgs.fullrows[j];
+                    block:=cand!.blockingmat[a][b];
+                    if block<>[] then
+                        npgs.lbdIsForced:=true;
+                        npgs.lbd:=cand!.square[block[1]];
+                        if npgs.lbd<cand!.maxlbd then
+                            return nonext;
+                        fi;
+                        break;
+                    fi;
+                od;
+                if npgs.lbdIsForced then
+                    break;
+                fi;
+            od;
+            if npgs.lbdIsForced then
+                for i in [i..Length(npgs.fullrows)] do
+                    b:=npgs.fullrows[i];
+                    for j in [1..i] do
+                        a:=npgs.fullrows[j];
+                        if ForAny(cand!.blockingmat[a][b], x->cand!.square[x]<>npgs.lbd) then
+                            return nonext;
+                        fi;
+                    od;
+                od;
+            fi;
         fi;
     fi;
-
-
-    sq:=ShallowCopy(cand!.square); 
-    for blk in cand!.ridx do
-        for j in cand!.blockingmat[blk][sb] do
-            for k in cand!.blocks[blk][fb] do
-                sq[k]:=sq[k]+EntryOfTensor(t,j,color,k);
-            od;
-        od;
-    od;
-    for blk in cand!.cidx do
-        for j in cand!.blockingmat[fb][blk] do
-            for k in cand!.blocks[sb][blk] do
-                sq[k]:=sq[k]+EntryOfTensor(t,color,j,k);
-            od;
-        od;
-    od;
     
-    if sb=fb then
-        for k in cand!.blocks[sb][fb] do
-            sq[k]:=sq[k]+EntryOfTensor(t,color,color,k);
-        od;
+    if npgs.lbdIsForced and cand!.square[color]>npgs.lbd then
+        return fail;
+    fi;
+    npgs.set:=Union(cand!.set, [color]);
+   
+    npgs.ridx:=Union(cand!.ridx,[sb]);
+    npgs.cidx:=Union(cand!.cidx,[fb]);
+    
+    sd:=OutValencies(t);
+    
+    npgs.blockingmat:=ShallowCopy(cand!.blockingmat);
+    npgs.blockingmat[sb]:=ShallowCopy(npgs.blockingmat[sb]);
+    npgs.blockingmat[sb][fb]:=ShallowCopy(npgs.blockingmat[sb][fb]);
+    AddSet(npgs.blockingmat[sb][fb],color);   
+   
+    npgs.rowdegs:=ShallowCopy(cand!.rowdegs);
+    npgs.coldegs:=ShallowCopy(cand!.coldegs);
+
+    npgs.rowdegs[sb]:=npgs.rowdegs[sb]+sd[color];
+    npgs.rmaxdeg:=Maximum(npgs.rowdegs[sb], cand!.rmaxdeg);
+    icolor:=color^Mates(t);
+    npgs.coldegs[fb]:=npgs.coldegs[fb]+sd[icolor];
+    npgs.cmaxdeg:=Maximum(npgs.coldegs[fb], cand!.cmaxdeg);    
+    md:=Maximum(npgs.rmaxdeg, npgs.cmaxdeg);
+    
+    if npgs.kIsForced and md>npgs.k then
+        return fail;
     fi;
     
-    nd:=[];
-    ndrd:=ShallowCopy(cand!.domrowdegs);
-    ndcd:=ShallowCopy(cand!.domcoldegs);
+    sbinfr:=npgs.kIsForced and npgs.rowdegs[sb]=npgs.k;
+    if sbinfr then
+        AddSet(npgs.fullrows,sb);
+    fi;
+    
+    npgs.domain:=[];
+    npgs.domrowdegs:=ShallowCopy(cand!.domrowdegs);
+    npgs.domcoldegs:=ShallowCopy(cand!.domcoldegs);
     for k in cand!.domain do
 #        k:=cand!.domain[j];
         kmts:=[cand!.imap[k][1],cand!.imap[k][1]^Mates(t)];
         ksb:=cand!.startBlock[kmts[1]];
         kfb:=cand!.finishBlock[kmts[1]];
-        if k<=i then
-            ndrd[ksb]:=ndrd[ksb]-sd[kmts[1]];
-            ndcd[kfb]:=ndcd[kfb]-sd[kmts[2]];
-            continue;
-        fi;
-        if kmts[1]=color^Mates(t) then
-            ndrd[ksb]:=ndrd[ksb]-sd[kmts[1]];
-            ndcd[kfb]:=ndcd[kfb]-sd[kmts[2]];
-            continue;
-        fi;
-        if sb in fr then
-            ndrd[ksb]:=ndrd[ksb]-sd[kmts[1]];
-            ndcd[kfb]:=ndcd[kfb]-sd[kmts[2]];
-            continue;
-        fi;
-        if fr<>[]  then
-            if  sd[kmts[1]]+rd[ksb]>rd[fr[1]]  then
-                ndrd[ksb]:=ndrd[ksb]-sd[kmts[1]];
-                ndcd[kfb]:=ndcd[kfb]-sd[kmts[2]];
-                continue;
+        if k<=pt  
+           or kmts[1]=color^Mates(t) 
+           or ksb in npgs.fullrows  
+           or npgs.kIsForced and (sd[kmts[1]]+npgs.rowdegs[ksb]>npgs.k 
+                   or sd[kmts[2]]+npgs.coldegs[kfb]>npgs.k) 
+           then
+            npgs.domrowdegs[ksb]:=npgs.domrowdegs[ksb]-sd[kmts[1]];
+            npgs.domcoldegs[kfb]:=npgs.domcoldegs[kfb]-sd[kmts[2]];
+            if npgs.domrowdegs[ksb]+npgs.rowdegs[ksb]<md or npgs.domcoldegs[kfb]+npgs.coldegs[kfb]<md then
+                return fail;
             fi;
-            if sd[kmts[2]]+cd[kfb]>rd[fr[1]] then
-                ndrd[ksb]:=ndrd[ksb]-sd[kmts[1]];
-                ndcd[kfb]:=ndcd[kfb]-sd[kmts[2]];
-                continue;
-            fi;
+        else 
+            Add(npgs.domain,k);
         fi;
-        Add(nd,k);
     od;
     
-    obj:=rec(tensor:=cand!.tensor,
-             blocks:=cand!.blocks,
-             startBlock:=cand!.startBlock,
-             finishBlock:=cand!.finishBlock,
-             map:=cand!.map,
-             imap:=cand!.imap,
-             domain:=nd,
-             currentRow:=sb,
-             set:=Union(cand!.set, [color]),
-             maxlength:=cand!.maxlength,
-             blockingmat:=bm,
-             rowdegs:=rd,
-             coldegs:=cd,
-             rmaxdeg:=rm,
-             cmaxdeg:=cm,
-             domrowdegs:=ndrd,
-             domcoldegs:=ndcd,
-             ridx:=rx,
-             cidx:=cx,
-             square:=sq,
-             fullrows:=fr);
+    npgs.square:=ShallowCopy(cand!.square);
+    sq:=npgs.square;
+    bm:=npgs.blockingmat;
+    npgs.maxlbd:=cand!.maxlbd;
     
-    # Assert(1,obj.rowdegs=RowDegreeList(obj.tensor,obj.set),"!!!!!!!!!!!!!!A");
-    # Assert(1,obj.coldegs=ColDegreeList(obj.tensor,obj.set),"!!!!!!!!!!!!!!B");
-    # Assert(1,obj.blockingmat=BlockingMat(obj.tensor,obj.set),"!!!!!!!!!!!!!!C");
-    # Assert(1,obj.domrowdegs=RowDegreeList(obj.tensor,Union(List(obj.domain,x->obj.imap[x]))),"!!!!!!!!!!!!!!D");
-    # Assert(1,obj.domrowdegs=RowDegreeList(obj.tensor,Union(List(obj.domain,x->obj.imap[x]))));
-    # Assert(1,obj.domcoldegs=ColDegreeList(obj.tensor,Union(List(obj.domain,x->obj.imap[x]))),"!!!!!!!!!!!!!!E");
-    # Assert(1,obj.ridx=Set(obj.set,x->StartBlock(obj.tensor,x)),"!!!!!!!!!!!!!!F");
-    # Assert(1,obj.cidx=Set(obj.set,x->FinishBlock(obj.tensor,x)),"!!!!!!!!!!!!!!G");
-    # Assert(1,obj.square=ComplexProduct(obj.tensor,obj.set,obj.set),"!!!!!!!!!!!!!!H");
-    # Assert(obj.rmaxdeg=Maximum(obj.rowdegs),"!!!!!!!!!!!!!!I");
-    # Assert(1,obj.cmaxdeg=Maximum(obj.coldegs),"!!!!!!!!!!!!!!J");
-    # Assert(1,function() 
-    #     if Length(obj.rowdegs)>1 then
-    #         if obj.rowdegs[2]<>0 then
-    #             if obj.fullrows <> Filtered([1..Length(obj.rowdegs)], i->obj.rowdegs[i] = obj.rowdegs[1]) then
-    #                 return false;
+    
+    block:=bm[sb][sb];      # c c*
+    for k in cand!.blocks[sb][sb] do
+        sq[k]:=sq[k]+EntryOfTensor(t,color,icolor,k);
+    od;
+    if block<>[] then
+        npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+    fi;
+    if npgs.lbdIsForced and npgs.maxlbd> npgs.lbd then
+        return fail;
+    fi;
+
+    for b in cand!.ridx do      # c A*
+        if sb<=b then
+            block:=bm[sb][b];
+            for j in cand!.blockingmat[fb][b] do
+                for k in cand!.blocks[sb][b] do
+                    sq[k]:=sq[k]+EntryOfTensor(t,color,j,k);
+                od;
+            od;
+            if block<>[] then
+                npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+            fi;
+            if b<>sb  and block<>[] then   # if block(=bm[sb][b]) is complete
+                if sbinfr and b in npgs.fullrows then
+                    if not npgs.lbdIsForced then
+                        npgs.lbdIsForced:=true;
+                        npgs.lbd:=sq[block[1]];
+                        if npgs.lbd<npgs.maxlbd then
+                            return fail;
+                        fi;
+                    fi;
+                    if ForAny(block, x->sq[x] <> npgs.lbd) then
+                        return fail;
+                    fi;
+                fi;
+            fi;
+            if npgs.lbdIsForced and npgs.maxlbd> npgs.lbd then
+                return fail;
+            fi;
+        fi;
+        if b<=sb then
+            block:=bm[b][sb]; # A c*
+            for j in cand!.blockingmat[b][fb] do
+                for k in cand!.blocks[b][sb] do
+                    sq[k]:=sq[k]+EntryOfTensor(t,j,icolor,k);
+                od;
+            od;
+            if block<>[] then
+                npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+            fi;
+            if  block<>[] then # block (=bm[b][sb] is complete  
+                if sbinfr and b in npgs.fullrows then 
+                    if not npgs.lbdIsForced then 
+                        npgs.lbdIsForced:=true;
+                        npgs.lbd:=sq[block[1]];
+                        if npgs.lbd<npgs.maxlbd then
+                            stt[21]:=stt[21]+1;
+                            return fail;
+                        fi;
+                    fi;
+                    if ForAny(block, x->sq[x] <> npgs.lbd) then
+                        stt[22]:=stt[22]+1;
+                        return fail;
+                    fi;
+                fi;
+            fi;
+            if npgs.lbdIsForced and npgs.maxlbd> npgs.lbd then
+                return fail;
+            fi;
+        fi;
+    od;
+    
+    # if npgs.lbdIsForced then
+    #     for i in [1..Length(npgs.fullrows)] do
+    #         a:=npgs.fullrows[i];
+    #         for j in [i..Length(npgs.fullrows)] do
+    #             b:=npgs.fullrows[j];
+    #             block:=npgs.blockingmat[a][b];
+    #             if block <>[] then
+    #                 if Length(Set(npgs.square{block}))>1 then
+    #                     Error("Error 1");
+    #                 fi;
+    #                 if npgs.square[block[1]]<>npgs.lbd then
+    #                     Error("Error 2");
+    #                 fi;
     #             fi;
-    #         fi;
-    #     fi;return true;
-    # end(),"!!!!!!!!!!!!!!K");
+    #         od;
+    #     od;
+    # fi;
+
+    # Assert(1,sq=ComplexProduct(t,npgs.set,OnSets(npgs.set,Mates(t))));
     
-    return Objectify(NewType(GoodSetsFamily(t), IsAsymPartialGoodSet and IsAsymPartialGoodSetBlkRep), obj);
+    
+    Objectify(NewType(GoodSetsFamily(t), IsAsymPartialGoodSet and IsAsymPartialGoodSetBlkRep), npgs);
+    return npgs;
 end);
 
 
@@ -616,8 +649,6 @@ function(tensor)
             fi;
         od;
     od;
-#    grp:=ClosureGroup(aaut,Mates(tensor));
-#    act:=ActionHomomorphism(grp,imap,OnPoints);
   
     map:=[];
     for i in [1..Length(imap)] do
@@ -651,12 +682,17 @@ function(tensor)
               coldegs:=ListWithIdenticalEntries(nof,0),
               rmaxdeg:=0,
               cmaxdeg:=0,
+              maxlbd:=0,
               domrowdegs:=domrowdegs,
               domcoldegs:=domcoldegs,
               ridx:=[],
               cidx:=[],
               square:=ListWithIdenticalEntries(Order(tensor),0),
-              fullrows:=[]);
+              fullrows:=[],
+              kIsForced:=false,
+              k:=0,
+              lbdIsForced:=false,
+              lbd:=0);
     return Objectify(NewType(GoodSetsFamily(tensor), IsAsymPartialGoodSet and IsAsymPartialGoodSetBlkRep), cand);
 end);
 
@@ -681,92 +717,44 @@ DeclareRepresentation("IsSymPartialGoodSetBlkRep",
           "blockingmat",
           "degreelist",
           "maxdeg",
+          "maxlbd",
           "domdegreelist",
           "ridx",
           "square",
-          "fullrows"
+          "fullrows",
+          "kIsForced",
+          "k",
+          "lbdIsForced",
+          "lbd"
           ]);
 
-InstallMethod(DomainOfPartialGoodSet,
-        "for symmetric partial good sets in SymPartialGoodSetBlkRep",
-        [IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep],
-function(cand)
-    return cand!.domain;
-end);
-
-
-InstallMethod(GoodSetFromPartialGoodSet,
+InstallMethod(IsCompletePartialGoodSet,
     "for symmetric partial good sets in SymPartialGoodSetBlkRep",
     [IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep],
 function(cand)
-    local T,part,gs,res,deg,sqr,set;
+    local a,b,block;
     
-    deg:=cand!.degreelist;
-    if ForAny([2..Length(deg)], i->deg[1]<>deg[i]) then
-       return fail;
-    fi;
-    
-    sqr:=cand!.square;
-    set:=cand!.set;
-    if Length(set)>1 and ForAny([2..Length(set)], i->sqr[set[1]]<>sqr[set[i]]) then
-        return fail;
-    fi;
-    
-    TryNextMethod();    
-end);
-
-InstallMethod(IsExtendiblePartialGoodSet,
-    "for symmetric partial good sets in SymPartialGoodSetBlkRep",
-    [IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep],
-function(cand)
-    local LMab,a,b,subdeg,nof;
-    if cand!.domain=[] then
-        return false;
-    fi;
-    if Length(cand!.set)>=cand!.maxlength then
+    if cand!.set=[] then
         return false;
     fi;
     
-    if cand!.fullrows<>[] then
-        if cand!.maxdeg>cand!.degreelist[cand!.fullrows[1]] then
+    if cand!.kIsForced then
+        return Length(cand!.fullrows)=Length(cand!.blocks);
+    else
+        if ForAny([1..Length(cand!.blocks)], b->cand!.degreelist[b]<>cand!.maxdeg) then
             return false;
         fi;
-    fi;
-    if ForAny([1..Length(cand!.degreelist)], i->cand!.degreelist[i]+cand!.domdegreelist[i]<cand!.maxdeg) then
-        return false;
-    fi;
     
-    LMab:=[];
-    nof:=Length(cand!.blockingmat);
-    
-    for a in cand!.fullrows do
-        for b in cand!.fullrows do
-            if cand!.blockingmat[a][b]<>[] then
-                subdeg:=Set(cand!.square{cand!.blockingmat[a][b]});
-                if Length(subdeg)>1 then
+        for b in [1..Length(cand!.blocks)] do
+            for a in [1..b] do 
+                block:=cand!.blockingmat[a][b];
+                if ForAny(block, x->cand!.square[x]<>cand!.maxlbd) then
                     return false;
-                fi;
-                UniteSet(LMab, subdeg);
-                if Length(LMab)>1 then
-                    return false;
-                fi;
-            fi;
-        od;
-    od;
-    
-    if LMab<>[] then
-        for a in [1..nof] do
-            for b in [1..nof] do
-                if cand!.blockingmat[a][b]<>[] then
-                    if not a in cand!.fullrows or not b in cand!.fullrows then
-                        if Maximum(cand!.square{cand!.blockingmat[a][b]})>LMab[1] then
-                            return false;
-                        fi;
-                    fi;
                 fi;
             od;
         od;
     fi;
+    
     return true;
 end);
 
@@ -775,8 +763,6 @@ InstallMethod(IsCompatiblePoint,
     [IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep, IsPosInt],
 function(cand,i)
     local  t, mates, sb, fb,  pos;
-    
-    #return true;
     
     t:=cand!.tensor;
     mates:=cand!.imap[i];
@@ -798,209 +784,414 @@ function(cand,i)
         return true;
     fi;
     return false;
-    
-    # if not IsSubset(Union(cand!.fullrows,[cand!.currentRow]), [1..pos-1]) then # pos-1 >cand!.currentRow then
-        
-    #     return false;
-    # fi;
-    TryNextMethod();
 end);
+
+testflag:=false;
+stt:=List([1..24],x->0);
 
 
 InstallMethod(ExtendedPartialGoodSet,
     "for symmetric partial good sets in SymPartialGoodSetBlk",
     [IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep, IsPosInt],
-function(cand,i)
-   local t,mates, sb,fb,rx,pos,fr,bm,sd,dl,md,sq,blk,j,k,nd,nddl,kmts,obj,ksb,kfb;
-
-   t:=cand!.tensor;
-   mates:=cand!.imap[i];
-   
-   sb:=cand!.startBlock[mates[1]];
-   fb:=cand!.finishBlock[mates[1]];
-   rx:=ShallowCopy(cand!.ridx);
-   AddSet(rx,sb);
-   AddSet(rx,fb);
-   pos:=Minimum([sb,fb]);  # this is the row in which i resides
-         
-   bm:=StructuralCopy(cand!.blockingmat);
-   AddSet(bm[sb][fb],mates[1]);
-   
-   sd:=OutValencies(t);
-   dl:=ShallowCopy(cand!.degreelist);
-
-   dl[sb]:=dl[sb]+sd[mates[1]];
-   md:=Maximum(cand!.maxdeg, dl[sb]);
-   if Length(mates)=2 then
-      AddSet(bm[fb][sb],mates[2]);
-      dl[fb]:=dl[fb]+sd[mates[2]];
-      md:=Maximum(md, dl[fb]);
-  fi;
-  
-  if cand!.fullrows=[] then
-      if pos>1 then
-          fr:=Filtered([1..Length(cand!.blocks)], x->dl[x]=dl[1]);
-      else
-          fr:=[];
-      fi;
-  else
-      fr:=ShallowCopy(cand!.fullrows);
-      if dl[sb]=dl[fr[1]] then
-          AddSet(fr,sb);
-      fi;
-      if Length(mates)=2 then
-          if dl[fb]=dl[fr[1]] then
-              AddSet(fr, fb);
-          fi;
-      fi;
-  fi;
-   
-  
-   sq:=ShallowCopy(cand!.square);
-   for blk in cand!.ridx do
-       for j in cand!.blockingmat[blk][sb] do
-           for k in cand!.blocks[blk][fb] do
-               sq[k]:=sq[k]+EntryOfTensor(t,j,mates[1],k);
-           od;
-       od;
-   od;
-   for blk in cand!.ridx do
-       for j in cand!.blockingmat[fb][blk] do
-           for k in cand!.blocks[sb][blk] do
-               sq[k]:=sq[k]+EntryOfTensor(t,mates[1],j,k);
-           od;
-       od;
-   od;
-   
-   if sb=fb then
-       for k in cand!.blocks[sb][fb] do
-           sq[k]:=sq[k]+EntryOfTensor(t,mates[1],mates[1],k);
-       od;
-   fi;
-   
-   if Length(mates)=2 then
-       for blk in cand!.ridx do
-           for j in cand!.blockingmat[blk][fb] do
-               for k in cand!.blocks[blk][sb] do
-                   sq[k]:=sq[k]+EntryOfTensor(t,j,mates[2],k);
-               od;
-           od;
-       od;
-       for blk in cand!.ridx do
-           for j in cand!.blockingmat[sb][blk] do
-               for k in cand!.blocks[fb][blk] do
-                   sq[k]:=sq[k]+EntryOfTensor(t,mates[2],j,k);
-               od;
-           od;
-       od;
-       
-       if sb=fb then
-           for k in cand!.blocks[fb][sb] do
-               sq[k]:=sq[k]+EntryOfTensor(t,mates[2],mates[2],k);
-           od;
-       fi;
-       for k in cand!.blocks[sb][sb] do
-           sq[k]:=sq[k]+EntryOfTensor(t, mates[1],mates[2],k);
-       od;
-       for k in cand!.blocks[fb][fb] do
-           sq[k]:=sq[k]+EntryOfTensor(t, mates[2],mates[1],k);
-       od;
-       
-   fi;
-   
-   nd:=[];
-   
-   nddl:=ShallowCopy(cand!.domdegreelist);
-   for j in [1..Length(cand!.domain)] do
-       k:=cand!.domain[j];
-       kmts:=cand!.imap[k];
-       ksb:=cand!.startBlock[kmts[1]];
-       kfb:=cand!.finishBlock[kmts[1]];
-       if k<=i then
-           nddl[ksb]:=nddl[ksb]-sd[kmts[1]];
-           if Length(kmts)=2 then
-               nddl[kfb]:=nddl[kfb]-sd[kmts[2]];
-           fi;
-           continue;
-       fi;
-       if ksb in fr then
-           nddl[ksb]:=nddl[ksb]-sd[kmts[1]];
-           if Length(kmts)=2 then
-               nddl[kfb]:=nddl[kfb]-sd[kmts[2]];
-           fi;
-           continue;
-       fi;
-       if kfb in fr then
-           nddl[ksb]:=nddl[ksb]-sd[kmts[1]];
-           if Length(kmts)=2 then
-               nddl[kfb]:=nddl[kfb]-sd[kmts[2]];
-           fi;
-           continue;
-       fi;
-       if fr<>[]  then
-           if  sd[kmts[1]]+dl[ksb]>dl[fr[1]] then
-               nddl[ksb]:=nddl[ksb]-sd[kmts[1]];
-               if Length(kmts)=2 then
-                   nddl[kfb]:=nddl[kfb]-sd[kmts[2]];
-               fi;
-               continue;
-           fi;
-           if Length(kmts)=2 then
-               if sd[kmts[2]]+dl[kfb]>dl[fr[1]] then
-                   nddl[ksb]:=nddl[ksb]-sd[kmts[1]];
-                   if Length(kmts)=2 then
-                       nddl[kfb]:=nddl[kfb]-sd[kmts[2]];
-                   fi;
-                   continue;
-               fi;
-           fi;
-       fi;
-       Add(nd,k);
-   od;
-   
-   obj:=rec(tensor:=cand!.tensor,
-            blocks:=cand!.blocks,
-            startBlock:=cand!.startBlock,
-            finishBlock:=cand!.finishBlock,
-            map:=cand!.map,
-            imap:=cand!.imap,
-            domain:=nd,
-            currentRow:=pos,
-            set:=Union(cand!.set, mates),
-            maxlength:=cand!.maxlength,
-            blockingmat:=bm,
-            degreelist:=dl,
-            maxdeg:=md,
-            domdegreelist:=nddl,
-            ridx:=rx,
-            square:=sq,
-            fullrows:=fr);
-    # Assert(1,obj.degreelist=RowDegreeList(obj.tensor,obj.set),"??????????????A");
-    # Assert(1,obj.blockingmat=BlockingMat(obj.tensor, obj.set),"??????????????B");
-    # Assert(1,obj.domdegreelist=RowDegreeList(obj.tensor,Union(List(obj.domain,x->obj.imap[x]))),"??????????????C");
-    # Assert(1,obj.domdegreelist=RowDegreeList(obj.tensor,Union(List(obj.domain,x->obj.imap[x]))));
-    # Assert(1,obj.ridx=Set(obj.set,x->StartBlock(obj.tensor,x)),"??????????????D");
-    # Assert(1,obj.square=ComplexProduct(obj.tensor,obj.set,obj.set),"??????????????E");
-    # Assert(1,obj.maxdeg=Maximum(obj.degreelist),"??????????????F");
-    # Assert(1,function() if Length(obj.degreelist)>1 then
-    #         if  ForAny(obj.set, x->StartBlock(obj.tensor,x)>1 and FinishBlock(obj.tensor,x)>=StartBlock(obj.tensor,x)) then
-    #             if obj.fullrows <> Filtered([1..Length(obj.degreelist)], i->obj.degreelist[i] = obj.degreelist[1])  then
-    #                 return false;
-    #             fi;
-    #         fi;
-    #     fi; return true;
-    # end(), "??????????????G");
+function(cand,pt)
+    local t,npgs,color,icolor,sb,fb,i,b,j,a,block,sd,sbinfr,fbinfr,sq,bm,k,kmts,
+          ksb,kfb,ncand;                
     
-   
-   return Objectify(NewType(GoodSetsFamily(t), IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep), obj);
-end);
+    
+    t:=cand!.tensor;
+    
+    npgs:=rec(
+              tensor:=cand!.tensor,
+              blocks:=cand!.blocks,
+              perm:=cand!.perm,
+              startBlock:=cand!.startBlock,
+              finishBlock:=cand!.finishBlock,
+              map:=cand!.map,
+              imap:=cand!.imap,
+              maxlength:=cand!.maxlength
+              );
+    
+    color:=cand!.imap[pt][1];
+    icolor:=color^Mates(t);
+    sb:=cand!.startBlock[color];
+    fb:=cand!.finishBlock[color];
+    
+    if fb<sb then
+        color:=cand!.imap[pt][2];
+        icolor:=cand!.imap[pt][1];
+        sb:=cand!.startBlock[color];
+        fb:=cand!.finishBlock[color];
+    fi;
+    
+    npgs.fullrows:=ShallowCopy(cand!.fullrows);
+    npgs.kIsForced:=cand!.kIsForced;
+    npgs.k:=cand!.k;
+    npgs.lbdIsForced:=cand!.lbdIsForced;
+    npgs.lbd:=cand!.lbd;
+    if not cand!.kIsForced then
+        if sb>1 then
+            npgs.kIsForced:=true;
+            npgs.k:=cand!.degreelist[1];
+            if npgs.k<cand!.maxdeg then
+                stt[1]:=stt[1]+1;
+                return nonext;
+            fi;
+            if ForAny([2..sb-1], x->cand!.degreelist[x]<>npgs.k) then
+                stt[2]:=stt[2]+1;
+                return nonext;
+            fi;
+            
+            npgs.fullrows:=Filtered([1..Length(cand!.blocks)], x->cand!.degreelist[x]=npgs.k);
+            for i in [1..Length(npgs.fullrows)] do
+                a:=npgs.fullrows[i];
+                for j in [i..Length(npgs.fullrows)] do
+                    b:=npgs.fullrows[j];
+                    block:=cand!.blockingmat[a][b];
+                    if block<>[] then
+                        npgs.lbdIsForced:=true;
+                        npgs.lbd:=cand!.square[block[1]];
+                        if npgs.lbd<cand!.maxlbd then
+                            stt[3]:=stt[3]+1;
+                            return nonext;
+                        fi;
+                        break;
+                    fi;
+                od;
+                if npgs.lbdIsForced then
+                    break;
+                fi;
+            od;
+            if npgs.lbdIsForced then
+                for i in [i..Length(npgs.fullrows)] do
+                    a:=npgs.fullrows[i];
+                    for j in [i..Length(npgs.fullrows)] do
+                        b:=npgs.fullrows[j];
+                        if ForAny(cand!.blockingmat[a][b], x->cand!.square[x]<>npgs.lbd) then
+                            stt[4]:=stt[4]+1;
+                            return nonext;
+                        fi;
+                    od;
+                od;
+            fi;
+        fi;
+    # else
+    #     if ForAny([cand!.currentRow..sb-1], x->cand!.degreelist[x]<>cand!.k) then
+    #         Error("test");
+    #         return fail;
+    #     fi;
 
+    fi;
+        
+    npgs.currentRow:=sb;
+    
+    # if cand!.set = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,33,34,35,36,37,49,50] and pt = 16 then
+    #     Error("brk1");
+    # fi;
+    
+    
+    
+    if npgs.lbdIsForced and (cand!.square[color]>npgs.lbd or (color<>icolor and cand!.square[icolor]>npgs.lbd) )then
+        stt[5]:=stt[5]+1;
+        return fail;
+    fi;
+    
+    # starting from here we actually define the set of npgs
+    npgs.set:=Union(cand!.set, [color,icolor]);
+    npgs.ridx:=Union(cand!.ridx,[sb,fb]);
+    
+    sd:=OutValencies(t);
+    
+    npgs.blockingmat:=ShallowCopy(cand!.blockingmat);
+    npgs.blockingmat[sb]:=ShallowCopy(npgs.blockingmat[sb]);
+    npgs.blockingmat[sb][fb]:=ShallowCopy(npgs.blockingmat[sb][fb]);
+    AddSet(npgs.blockingmat[sb][fb],color);
+    
+    npgs.degreelist:=ShallowCopy(cand!.degreelist);
+    npgs.degreelist[sb]:=npgs.degreelist[sb]+sd[color];
+    npgs.maxdeg:=Maximum(cand!.maxdeg, npgs.degreelist[sb]);
+    
+    if color<>icolor then
+        if fb<>sb then
+            npgs.blockingmat[fb]:=ShallowCopy(npgs.blockingmat[fb]);
+            npgs.blockingmat[fb][sb]:=ShallowCopy(npgs.blockingmat[fb][sb]);
+        fi;
+        AddSet(npgs.blockingmat[fb][sb],icolor);
+        npgs.degreelist[fb]:=npgs.degreelist[fb]+sd[icolor];
+        npgs.maxdeg:=Maximum(npgs.maxdeg, npgs.degreelist[fb]);
+    fi;
+    if npgs.kIsForced and npgs.maxdeg>npgs.k then
+        stt[6]:=stt[6]+1;
+        return fail;
+    fi;
+    
+    sbinfr:=npgs.kIsForced and npgs.degreelist[sb]=npgs.k;
+    if sbinfr then
+        AddSet(npgs.fullrows,sb);
+    fi;
+    
+    if fb<>sb then
+        fbinfr:=npgs.kIsForced and npgs.degreelist[fb]=npgs.k;
+        if fbinfr then
+            AddSet(npgs.fullrows,fb);
+        fi;
+    else
+        fbinfr:=sbinfr;
+    fi;
+    
+    npgs.domain:=[];
+    npgs.domdegreelist:=ShallowCopy(cand!.domdegreelist);
+    for j in [1..Length(cand!.domain)] do
+        k:=cand!.domain[j];
+        kmts:=cand!.imap[k];
+        ksb:=cand!.startBlock[kmts[1]];
+        kfb:=cand!.finishBlock[kmts[1]];
+        if k<=pt 
+           or ksb in npgs.fullrows
+           or kfb in npgs.fullrows
+           or npgs.kIsForced and (sd[kmts[1]]+npgs.degreelist[ksb]>npgs.k 
+                   or  (Length(kmts)=2 and sd[kmts[2]]+npgs.degreelist[kfb]>npgs.k))
+#           or npgs.lbdIsForced and (sq[kmts[1]]>npgs.lbd 
+#                   or (Length(kmts)=2 and sq[kmts[2]]>npgs.lbd))
+           then
+            npgs.domdegreelist[ksb]:=npgs.domdegreelist[ksb]-sd[kmts[1]];
+            if npgs.domdegreelist[ksb]+npgs.degreelist[ksb]<npgs.maxdeg then
+                stt[7]:=stt[7]+1;
+                return fail;
+            fi;
+            if Length(kmts)=2 then
+                npgs.domdegreelist[kfb]:=npgs.domdegreelist[kfb]-sd[kmts[2]];
+                if npgs.domdegreelist[kfb]+npgs.degreelist[kfb]<npgs.maxdeg then
+                    stt[8]:=stt[8]+1;
+                    return fail;
+                fi;
+            fi;
+        else
+            Add(npgs.domain,k);
+        fi;
+    od;    
+
+    npgs.square:=ShallowCopy(cand!.square);
+    sq:=npgs.square;
+    bm:=npgs.blockingmat;
+    npgs.maxlbd:=cand!.maxlbd;
+    
+    if color<>icolor then
+        if sb=fb then
+            block:=bm[sb][fb];
+            for k in cand!.blocks[sb][fb] do # c c,c* c*
+                sq[k]:=sq[k]+EntryOfTensor(t,color,color,k);
+                sq[k]:=sq[k]+EntryOfTensor(t,icolor,icolor,k);
+            od;
+            if block<>[] then
+                npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+            fi;
+            if npgs.lbdIsForced and npgs.maxlbd> npgs.lbd then
+                stt[9]:=stt[9]+1;
+                return fail;
+            fi;
+        fi;
+        block:=bm[fb][fb];
+        for k in cand!.blocks[fb][fb] do        # c* c
+            sq[k]:=sq[k]+EntryOfTensor(t,icolor,color,k);
+        od;
+        if block<>[] then
+            npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+        fi;
+        if npgs.lbdIsForced and npgs.maxlbd> npgs.lbd then
+            stt[10]:=stt[10]+1;
+            return fail;
+        fi;
+        for b in cand!.ridx do        # c* A*
+            if fb<=b then
+                block:=bm[fb][b];
+                for j in cand!.blockingmat[sb][b] do
+                    for k in cand!.blocks[fb][b] do
+                        sq[k]:=sq[k]+EntryOfTensor(t,icolor,j,k);
+                    od;
+                od;
+                if block<>[] then
+                    npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+                fi;
+                if fb<>sb and b<>sb and b<>fb and block<>[] then    # if block(=bm[fb][b]) is complete
+                    if fbinfr and b in npgs.fullrows then
+                        if not npgs.lbdIsForced  then  
+                            npgs.lbdIsForced:=true;
+                            npgs.lbd:=sq[block[1]];
+                            if npgs.lbd<npgs.maxlbd then
+                                stt[11]:=stt[11]+1;
+                                return fail;
+                            fi;
+                        fi;
+                        if ForAny(block, x->sq[x]<>npgs.lbd) then
+                            stt[12]:=stt[12]+1;
+                            return fail;
+                        fi;
+                    fi;
+                fi;
+                if npgs.lbdIsForced and npgs.maxlbd> npgs.lbd then
+                    stt[13]:=stt[13]+1;
+                    return fail;
+                fi;
+            fi;
+            
+            if b<=fb then
+                block:=bm[b][fb];   # A c
+                for j in cand!.blockingmat[b][sb] do
+                    for k in cand!.blocks[b][fb] do
+                        sq[k]:=sq[k]+EntryOfTensor(t,j,color,k);
+                    od;
+                od;
+                if block<>[] then
+                    npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+                fi;
+                if fb<>sb and b<>sb and block<>[] then # if block(=bm[b][fb]) is complete
+                    if  fbinfr and b in npgs.fullrows  then
+                        if not npgs.lbdIsForced then
+                            npgs.lbdIsForced:=true;
+                            npgs.lbd:=sq[block[1]];
+                            if npgs.lbd<npgs.maxlbd then
+                                stt[14]:=stt[14]+1;
+                                return fail;
+                            fi;
+                        fi;
+                        if ForAny(block, x->sq[x]<> npgs.lbd) then
+                            stt[15]:=stt[15]+1;
+                            return fail;
+                        fi;
+                    fi;
+                fi;
+                if npgs.lbdIsForced and npgs.maxlbd> npgs.lbd then
+                    stt[16]:=stt[16]+1;
+                    return fail;
+                fi;
+            fi;
+        od;
+    fi;
+    block:=bm[sb][sb];      # c c*
+    for k in cand!.blocks[sb][sb] do
+        sq[k]:=sq[k]+EntryOfTensor(t,color,icolor,k);
+    od;
+    if block<>[] then
+        npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+    fi;
+    if npgs.lbdIsForced and npgs.maxlbd> npgs.lbd then
+        stt[17]:=stt[17]+1;
+        return fail;
+    fi;
+        
+    for b in cand!.ridx do      # c A*
+        if sb<=b then
+            block:=bm[sb][b];
+            for j in cand!.blockingmat[fb][b] do
+                for k in cand!.blocks[sb][b] do
+                    sq[k]:=sq[k]+EntryOfTensor(t,color,j,k);
+                od;
+            od;
+            if block<>[] then
+                npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+            fi;
+            if b<>sb  and block<>[] then   # if block(=bm[sb][b]) is complete
+                if sbinfr and b in npgs.fullrows then
+                    if not npgs.lbdIsForced then
+                        npgs.lbdIsForced:=true;
+                        npgs.lbd:=sq[block[1]];
+                        if npgs.lbd<npgs.maxlbd then
+                            stt[18]:=stt[18]+1;
+                            return fail;
+                        fi;
+                    fi;
+                    if ForAny(block, x->sq[x] <> npgs.lbd) then
+                        stt[19]:=stt[19]+1;
+                        return fail;
+                    fi;
+                fi;
+            fi;
+            if npgs.lbdIsForced and npgs.maxlbd> npgs.lbd then
+                stt[20]:=stt[20]+1;
+                return fail;
+            fi;
+        fi;
+        if b<=sb then
+            block:=bm[b][sb]; # A c*
+            for j in cand!.blockingmat[b][fb] do
+                for k in cand!.blocks[b][sb] do
+                    sq[k]:=sq[k]+EntryOfTensor(t,j,icolor,k);
+                od;
+            od;
+            if block<>[] then
+                npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
+            fi;
+            if  block<>[] then # block (=bm[b][sb] is complete  
+                if sbinfr and b in npgs.fullrows then 
+                    if not npgs.lbdIsForced then 
+                        npgs.lbdIsForced:=true;
+                        npgs.lbd:=sq[block[1]];
+                        if npgs.lbd<npgs.maxlbd then
+                            stt[21]:=stt[21]+1;
+                            return fail;
+                        fi;
+                    fi;
+                    if ForAny(block, x->sq[x] <> npgs.lbd) then
+                        stt[22]:=stt[22]+1;
+                        return fail;
+                    fi;
+                fi;
+            fi;
+            if npgs.lbdIsForced and npgs.maxlbd> npgs.lbd then
+                stt[23]:=stt[23]+1;
+                return fail;
+            fi;
+        fi;
+    od;
+    
+    if npgs.lbdIsForced then
+        if sbinfr and ForAny(npgs.blockingmat[sb][sb], x->sq[x]<>npgs.lbd) then
+            return fail;
+        fi;
+        if sb<>fb and fbinfr and ForAny(npgs.blockingmat[sb][sb], x->sq[x]<>npgs.lbd) then
+            return fail;
+        fi;
+        if sb<>fb and sbinfr and fbinfr and ForAny(npgs.blockingmat[sb][fb], x->sq[x]<>npgs.lbd) then
+            return fail;
+        fi;
+    fi;
+    
+            
+    
+
+    # if npgs.lbdIsForced then
+    #     for i in [1..Length(npgs.fullrows)] do
+    #         a:=npgs.fullrows[i];
+    #         for j in [i..Length(npgs.fullrows)] do
+    #             b:=npgs.fullrows[j];
+    #             block:=npgs.blockingmat[a][b];
+    #             if block <>[] then
+    #                 if Length(Set(npgs.square{block}))>1 then
+    #                     Error("Error 1");
+    #                 fi;
+    #                 if npgs.square[block[1]]<>npgs.lbd then
+    #                     Error("Error 2");
+    #                 fi;
+    #             fi;
+    #         od;
+    #     od;
+    # fi;
+    
+                
+    #Assert(1,sq=ComplexProduct(t,npgs.set,OnSets(npgs.set,Mates(t))));
+    
+    
+            
+    Objectify(NewType(GoodSetsFamily(t), IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep), npgs);
+    return npgs;
+    
+end);
 
 InstallMethod(EmptySymPartialGoodSet,
         "for blocked tensors of structure constants",
         [IsTensor and IsTensorOfCC and IsBlockedTensorRep],
 function(tensor)
-    local mat,vec,perm,blocks,startBlock,finishBlock,rclr,clr,nof,imap,a,sclr,aclr,b,map,i,j,domdegreelist,cand,sb,bclr;
+    local mat,vec,perm,blocks,startBlock,finishBlock,rclr,clr,nof,imap,a,sclr,aclr,b,map,i,j,domdegreelist,cand,sb,bclr,idxBlk;
     
     mat:=List(tensor!.blocks, a->List(tensor!.blocks, Length));
     vec:=List(mat,Sum);
@@ -1044,9 +1235,10 @@ function(tensor)
        sb:=startBlock[i];
        domdegreelist[sb]:=domdegreelist[sb]+OutValencies(tensor)[i];
     od;
-
+    
     cand:=rec(tensor:=tensor,
               blocks:=blocks,
+              perm:=perm,
               startBlock:=startBlock,
               finishBlock:=finishBlock,
               map:=map,
@@ -1058,10 +1250,15 @@ function(tensor)
               blockingmat:=List([1..nof], a->List([1..nof], b->[])),
               degreelist:=ListWithIdenticalEntries(nof,0),
               maxdeg:=0,
+              maxlbd:=0,
               domdegreelist:=domdegreelist,
               ridx:=[],
               square:=ListWithIdenticalEntries(Order(tensor),0),
-              fullrows:=[]);
+              fullrows:=[],
+              kIsForced:=false,
+              k:=0,
+              lbdIsForced:=false,
+              lbd:=0);
     return Objectify(NewType(GoodSetsFamily(tensor), IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep), cand);
 end);
 
@@ -1146,9 +1343,9 @@ function(iter)
             return fail; 
         fi;
         
-        if state.M= [ 1, 5, 6, 7, 8, 9, 10, 11, 16, 17, 18, 24 ] then
-            Error("tst");
-        fi;
+        # if state.M=[ 1, 5, 6, 7, 8, 9, 10, 11, 16, 17, 18, 24] then
+        #     Error("tst");
+        # fi;
         
         if not IsExtendiblePartialGoodSet(state.cand) then
             return NextState(state.linkback);
@@ -1158,20 +1355,33 @@ function(iter)
             return NextState(state.linkback);
         fi;
         
+        ncand:=fail;
+        # while ncand=fail and state.orbidx <= Length(state.orbreps) do 
         repeat
             pt:=state.orbreps[state.orbidx];
             state.orbidx:=state.orbidx+1;
             if IsCompatiblePoint(state.cand,pt) then
-                SC:=CocoSetReducibilityTest(state.S,state.SM,state.M,pt);
-            else
-                SC:=();
+                ncand:=ExtendedPartialGoodSet(state.cand,pt);
+                if ncand=nonext then
+                    ncand:=fail;
+                    break;
+                fi;
+                
+                if ncand<>fail then
+                    SC:=CocoSetReducibilityTest(state.S,state.SM,state.M,pt);
+                    if IsPerm(SC) then
+                        ncand:=fail;
+                    fi;
+                fi;
             fi;
-        until not IsPerm(SC) or state.orbidx > Length(state.orbreps);
-        if IsPerm(SC) then
+        until ncand<>fail or state.orbidx > Length(state.orbreps);
+        
+        
+        if ncand=fail then
             return NextState(state.linkback);
         fi;
-        ncand:=ExtendedPartialGoodSet(state.cand,pt);
-           
+        
+            
         nextstate:=rec(cand:=ncand,
                        act:=state.act,
                        S:=state.S,
@@ -1208,7 +1418,7 @@ function(iter)
           String(iter!.state.M), ">");
 end);         
          
-COCOInfoGSSize:=15;
+COCOInfoGSSize:=10;
 InstallMethod(AllGoodSetOrbits,
         "for iterators of good set candidates",
         [IsIteratorOfPartialGoodSetOrbits and IsPartialGoodSetOrbitIterRep],
@@ -1225,15 +1435,28 @@ function(iter)
     
     while not IsDoneIterator(iter) do
         if Length(iter!.state.M)<=COCOInfoGSSize then
-            COCOPrint(iter!.state.M,"\n");
+            COCOPrint(iter!.state.M);
+            # if iter!.state.cand!.kIsForced then
+            #     COCOPrint("(",iter!.state.cand!.k);
+            # fi;
+            # if iter!.state.cand!.lbdIsForced then
+            #     COCOPrint(",",iter!.state.cand!.lbd);
+            # fi;
+            # if iter!.state.cand!.kIsForced then
+            #     COCOPrint(")");
+            # fi;
+            COCOPrint("\n");
         fi;
         
-        gs:=GoodSetFromPartialGoodSet(iter!.state.cand);
-        if gs <> fail then 
-            gens:=ShallowCopy(iter!.state.SM.generators);
-            stab:=Group(PreImagesSet(iter!.state.act,gens),());            
-            Add(res, GoodSetOrbit(grp,gs, stab));
+        if IsCompletePartialGoodSet(iter!.state.cand) then
+            gs:=GoodSetFromPartialGoodSet(iter!.state.cand);
+            if gs <> fail then 
+                gens:=ShallowCopy(iter!.state.SM.generators);
+                stab:=Group(PreImagesSet(iter!.state.act,gens),());            
+                Add(res, GoodSetOrbit(grp,gs, stab));
+            fi;
         fi;
+        
         NextIterator(iter);
     od;
     return res;
