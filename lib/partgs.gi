@@ -335,9 +335,7 @@ function(cand)
     fi;
     
     if cand!.kIsKnown then 
-        if Length(cand!.fullrows)=Length(cand!.blocks) then
-            return true;
-        fi;
+        return Length(cand!.fullrows)=Length(cand!.blocks);
     else
         if cand!.rmaxdeg<>cand!.cmaxdeg then
             return false;
@@ -743,9 +741,7 @@ function(cand)
     fi;
     
     if cand!.kIsKnown then
-        if Length(cand!.fullrows)=Length(cand!.blocks) then
-            return true;
-        fi;
+        return Length(cand!.fullrows)=Length(cand!.blocks);
     else
         if ForAny([1..Length(cand!.blocks)], b->cand!.degreelist[b]<>cand!.maxdeg) then
             return false;
@@ -793,6 +789,9 @@ function(cand,i)
 end);
 
 testflag:=false;
+stt:=List([1..24],x->0);
+
+BindGlobal("nonext",false);
 
 InstallMethod(ExtendedPartialGoodSet,
     "for symmetric partial good sets in SymPartialGoodSetBlk",
@@ -800,6 +799,7 @@ InstallMethod(ExtendedPartialGoodSet,
 function(cand,pt)
     local t,npgs,color,icolor,sb,fb,i,b,j,a,block,sd,sbinfr,fbinfr,sq,bm,k,kmts,
           ksb,kfb,ncand;                
+    
     
     t:=cand!.tensor;
     
@@ -825,8 +825,6 @@ function(cand,pt)
         fb:=cand!.finishBlock[color];
     fi;
     
-    npgs.currentRow:=sb;
-    
     npgs.fullrows:=ShallowCopy(cand!.fullrows);
     npgs.kIsKnown:=cand!.kIsKnown;
     npgs.k:=cand!.k;
@@ -837,16 +835,12 @@ function(cand,pt)
             npgs.kIsKnown:=true;
             npgs.k:=cand!.degreelist[1];
             if npgs.k<cand!.maxdeg then
-                if testflag then
-                    Print("00\n");
-                fi;
-                return fail;
+                stt[1]:=stt[1]+1;
+                return nonext;
             fi;
             if ForAny([2..sb-1], x->cand!.degreelist[x]<>npgs.k) then
-                if testflag then
-                    Print("01\n");
-                fi;
-                return fail;
+                stt[2]:=stt[2]+1;
+                return nonext;
             fi;
             
             npgs.fullrows:=Filtered([1..Length(cand!.blocks)], x->cand!.degreelist[x]=npgs.k);
@@ -859,10 +853,8 @@ function(cand,pt)
                         npgs.lbdIsKnown:=true;
                         npgs.lbd:=cand!.square[block[1]];
                         if npgs.lbd<cand!.maxlbd then
-                            if testflag then
-                                Print("02\n");
-                            fi;
-                            return fail;
+                            stt[3]:=stt[3]+1;
+                            return nonext;
                         fi;
                         break;
                     fi;
@@ -877,21 +869,25 @@ function(cand,pt)
                     for j in [1..i] do
                         a:=npgs.fullrows[j];
                         if ForAny(cand!.blockingmat[a][b], x->cand!.square[x]<>npgs.lbd) then
-                            if testflag then
-                                Print("03\n");
-                            fi;
-                            return fail;
+                            stt[4]:=stt[4]+1;
+                            return nonext;
                         fi;
                     od;
                 od;
             fi;
         fi;
+    # else
+    #     if ForAny([cand!.currentRow..sb-1], x->cand!.degreelist[x]<>cand!.k) then
+    #         Error("test");
+    #         return fail;
+    #     fi;
+
     fi;
+        
+    npgs.currentRow:=sb;
     
     if npgs.lbdIsKnown and (cand!.square[color]>npgs.lbd or (color<>icolor and cand!.square[icolor]>npgs.lbd) )then
-        if testflag then
-            Print("04\n");
-        fi;
+        stt[5]:=stt[5]+1;
         return fail;
     fi;
     
@@ -920,13 +916,9 @@ function(cand,pt)
         npgs.maxdeg:=Maximum(npgs.maxdeg, npgs.degreelist[fb]);
     fi;
     if npgs.kIsKnown and npgs.maxdeg>npgs.k then
-        if testflag then
-            Print("05\n");
-        fi;
+        stt[6]:=stt[6]+1;
         return fail;
     fi;
-    
-
     
     sbinfr:=npgs.kIsKnown and npgs.degreelist[sb]=npgs.k;
     if sbinfr then
@@ -942,6 +934,38 @@ function(cand,pt)
         fbinfr:=sbinfr;
     fi;
     
+    npgs.domain:=[];
+    npgs.domdegreelist:=ShallowCopy(cand!.domdegreelist);
+    for j in [1..Length(cand!.domain)] do
+        k:=cand!.domain[j];
+        kmts:=cand!.imap[k];
+        ksb:=cand!.startBlock[kmts[1]];
+        kfb:=cand!.finishBlock[kmts[1]];
+        if k<=pt 
+           or ksb in npgs.fullrows
+           or kfb in npgs.fullrows
+           or npgs.kIsKnown and (sd[kmts[1]]+npgs.degreelist[ksb]>npgs.k 
+                   or  (Length(kmts)=2 and sd[kmts[2]]+npgs.degreelist[kfb]>npgs.k))
+#           or npgs.lbdIsKnown and (sq[kmts[1]]>npgs.lbd 
+#                   or (Length(kmts)=2 and sq[kmts[2]]>npgs.lbd))
+           then
+            npgs.domdegreelist[ksb]:=npgs.domdegreelist[ksb]-sd[kmts[1]];
+            if npgs.domdegreelist[ksb]+npgs.degreelist[ksb]<npgs.maxdeg then
+                stt[7]:=stt[7]+1;
+                return fail;
+            fi;
+            if Length(kmts)=2 then
+                npgs.domdegreelist[kfb]:=npgs.domdegreelist[kfb]-sd[kmts[2]];
+                if npgs.domdegreelist[kfb]+npgs.degreelist[kfb]<npgs.maxdeg then
+                    stt[8]:=stt[8]+1;
+                    return fail;
+                fi;
+            fi;
+        else
+            Add(npgs.domain,k);
+        fi;
+    od;    
+
     npgs.square:=ShallowCopy(cand!.square);
     sq:=npgs.square;
     bm:=npgs.blockingmat;
@@ -958,26 +982,22 @@ function(cand,pt)
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
             fi;
             if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-                if testflag then
-                    Print("06\n");
-                fi;
+                stt[9]:=stt[9]+1;
                 return fail;
             fi;
         fi;
         block:=bm[fb][fb];
-        for k in cand!.blocks[fb][fb] do        # c*c
+        for k in cand!.blocks[fb][fb] do        # c* c
             sq[k]:=sq[k]+EntryOfTensor(t,icolor,color,k);
         od;
         if block<>[] then
             npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
         fi;
         if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-            if testflag then
-                Print("07\n");
-            fi;
+            stt[10]:=stt[10]+1;
             return fail;
         fi;
-        for b in cand!.ridx do        # c*A*
+        for b in cand!.ridx do        # c* A*
             if fb<=b then
                 block:=bm[fb][b];
                 for j in cand!.blockingmat[sb][b] do
@@ -993,29 +1013,23 @@ function(cand,pt)
                         npgs.lbdIsKnown:=true;
                         npgs.lbd:=sq[block[1]];
                         if npgs.lbd<npgs.maxlbd then
-                            if testflag then
-                                Print("08\n");
-                            fi;
+                            stt[11]:=stt[11]+1;
                             return fail;
                         fi;
                         if ForAny([2..Length(block)], k->sq[block[k]]<> npgs.lbd) then
-                            if testflag then
-                                Print("09\n");
-                            fi;
+                            stt[12]:=stt[12]+1;
                             return fail;
                         fi;
                     fi;
                 fi;
                 if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-                    if testflag then
-                        Print("10\n");
-                    fi;
+                    stt[13]:=stt[13]+1;
                     return fail;
                 fi;
             fi;
             
             if b<=fb then
-                block:=bm[b][fb];   # Ac
+                block:=bm[b][fb];   # A c
                 for j in cand!.blockingmat[b][sb] do
                     for k in cand!.blocks[b][fb] do
                         sq[k]:=sq[k]+EntryOfTensor(t,j,color,k);
@@ -1029,29 +1043,23 @@ function(cand,pt)
                         npgs.lbdIsKnown:=true;
                         npgs.lbd:=sq[block[1]];
                         if npgs.lbd<npgs.maxlbd then
-                            if testflag then
-                                Print("11\n");
-                            fi;
+                            stt[14]:=stt[14]+1;
                             return fail;
                         fi;
                         if ForAny([2..Length(block)], k->sq[block[k]]<> npgs.lbd) then
-                            if testflag then
-                                Print("12\n");
-                            fi;
+                            stt[15]:=stt[15]+1;
                             return fail;
                         fi;
                     fi;
                 fi;
                 if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-                    if testflag then
-                        Print("13\n");
-                    fi;
+                    stt[16]:=stt[16]+1;
                     return fail;
                 fi;
             fi;
         od;
     fi;
-    block:=bm[sb][sb];      # cc*
+    block:=bm[sb][sb];      # c c*
     for k in cand!.blocks[sb][sb] do
         sq[k]:=sq[k]+EntryOfTensor(t,color,icolor,k);
     od;
@@ -1059,13 +1067,11 @@ function(cand,pt)
         npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
     fi;
     if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-        if testflag then
-            Print("14\n");
-        fi;
+        stt[17]:=stt[17]+1;
         return fail;
     fi;
         
-    for b in cand!.ridx do      # cA*
+    for b in cand!.ridx do      # c A*
         if sb<=b then
             block:=bm[sb][b];
             for j in cand!.blockingmat[fb][b] do
@@ -1081,28 +1087,22 @@ function(cand,pt)
                     npgs.lbdIsKnown:=true;
                     npgs.lbd:=sq[block[1]];
                     if npgs.lbd<npgs.maxlbd then
-                        if testflag then
-                            Print("15\n");
-                        fi;
+                        stt[18]:=stt[18]+1;
                         return fail;
                     fi;
                     if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
-                        if testflag then
-                            Print("16\n");
-                        fi;
+                        stt[19]:=stt[19]+1;
                         return fail;
                     fi;
                 fi;
             fi;
             if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-                if testflag then
-                    Print("17\n");
-                fi;
+                stt[20]:=stt[20]+1;
                 return fail;
             fi;
         fi;
         if b<=sb then
-            block:=bm[b][sb]; # Ac*
+            block:=bm[b][sb]; # A c*
             for j in cand!.blockingmat[b][fb] do
                 for k in cand!.blocks[b][sb] do
                     sq[k]:=sq[k]+EntryOfTensor(t,j,icolor,k);
@@ -1116,65 +1116,24 @@ function(cand,pt)
                     npgs.lbdIsKnown:=true;
                     npgs.lbd:=sq[block[1]];
                     if npgs.lbd<npgs.maxlbd then
-                        if testflag then
-                            Print("18\n");
-                        fi;
+                        stt[21]:=stt[21]+1;
                         return fail;
                     fi;
                     if ForAny([2..Length(block)], k->sq[block[k]] <> npgs.lbd) then
-                        if testflag then
-                            Print("19\n");
-                        fi;
+                        stt[22]:=stt[22]+1;
                         return fail;
                     fi;
                 fi;
             fi;
             if npgs.lbdIsKnown and npgs.maxlbd> npgs.lbd then
-                if testflag then
-                    Print("20\n");
-                fi;
+                stt[23]:=stt[23]+1;
                 return fail;
             fi;
         fi;
     od;
     
-    Assert(1,sq=ComplexProduct(t,npgs.set,OnSets(npgs.set,Mates(t))));
+    #Assert(1,sq=ComplexProduct(t,npgs.set,OnSets(npgs.set,Mates(t))));
     
-    npgs.domain:=[];
-    npgs.domdegreelist:=ShallowCopy(cand!.domdegreelist);
-    for j in [1..Length(cand!.domain)] do
-        k:=cand!.domain[j];
-        kmts:=cand!.imap[k];
-        ksb:=cand!.startBlock[kmts[1]];
-        kfb:=cand!.finishBlock[kmts[1]];
-        if k<=pt 
-           or ksb in npgs.fullrows
-           or kfb in npgs.fullrows
-           or npgs.kIsKnown and (sd[kmts[1]]+npgs.degreelist[ksb]>npgs.k 
-                   or  (Length(kmts)=2 and sd[kmts[2]]+npgs.degreelist[kfb]>npgs.k))
-#           or lbdIsKnown and (sq[kmts[1]]>lbd 
-#                   or (Length(kmts)=2 and sq[kmts[2]]>lbd))
-           then
-            npgs.domdegreelist[ksb]:=npgs.domdegreelist[ksb]-sd[kmts[1]];
-            if npgs.domdegreelist[ksb]+npgs.degreelist[ksb]<npgs.maxdeg then
-                if testflag then
-                    Print("21\n");
-                fi;
-                return fail;
-            fi;
-            if Length(kmts)=2 then
-                npgs.domdegreelist[kfb]:=npgs.domdegreelist[kfb]-sd[kmts[2]];
-                if npgs.domdegreelist[kfb]+npgs.degreelist[kfb]<npgs.maxdeg then
-                    if testflag then
-                        Print("22\n");
-                    fi;
-                    return fail;
-                fi;
-            fi;
-        else
-            Add(npgs.domain,k);
-        fi;
-    od;    
     
             
     Objectify(NewType(GoodSetsFamily(t), IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep), npgs);
@@ -1346,12 +1305,16 @@ function(iter)
         fi;
         
         ncand:=fail;
-        while ncand=fail and state.orbidx <= Length(state.orbreps) do 
-        #    repeat
+        # while ncand=fail and state.orbidx <= Length(state.orbreps) do 
+        repeat
             pt:=state.orbreps[state.orbidx];
             state.orbidx:=state.orbidx+1;
             if IsCompatiblePoint(state.cand,pt) then
                 ncand:=ExtendedPartialGoodSet(state.cand,pt);
+                if ncand=nonext then
+                    ncand:=fail;
+                    break;
+                fi;
                 
                 if ncand<>fail then
                     SC:=CocoSetReducibilityTest(state.S,state.SM,state.M,pt);
@@ -1360,7 +1323,8 @@ function(iter)
                     fi;
                 fi;
             fi;
-        od;
+        until ncand<>fail or state.orbidx > Length(state.orbreps);
+        
         
         if ncand=fail then
             return NextState(state.linkback);
