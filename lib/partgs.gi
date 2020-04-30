@@ -1146,6 +1146,10 @@ function(iter)
             return fail; 
         fi;
         
+        if state.M= [ 1, 5, 6, 7, 8, 9, 10, 11, 16, 17, 18, 24 ] then
+            Error("tst");
+        fi;
+        
         if not IsExtendiblePartialGoodSet(state.cand) then
             return NextState(state.linkback);
         fi;
