@@ -575,12 +575,10 @@ function(cand,pt)
                         npgs.lbdIsForced:=true;
                         npgs.lbd:=sq[block[1]];
                         if npgs.lbd<npgs.maxlbd then
-                            stt[21]:=stt[21]+1;
                             return fail;
                         fi;
                     fi;
                     if ForAny(block, x->sq[x] <> npgs.lbd) then
-                        stt[22]:=stt[22]+1;
                         return fail;
                     fi;
                 fi;
