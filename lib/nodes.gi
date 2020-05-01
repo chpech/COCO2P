@@ -101,7 +101,27 @@ function(node)
     od;
 end);
 
+StringMultiset:=function(s)
+    local cs,e,str,res;
+    
+    res:="";
+    str:=OutputTextString(res,true);
+    cs:=Collected(s);
+    for e in cs do
+        if e[2]=1 then
+            PrintTo(str,e[1]);
+        else
+            PrintTo(str,e[1],"^",e[2]);
+        fi;
+        if e<>cs[Length(cs)] then
+            PrintTo(str,",");
+        fi;
+    od;
+    CloseStream(str);
+    return res;
+end;
 
+              
 InstallOtherMethod(NewCocoNode,
         "for color graphs",
         [IsColorGraph and IsWLStableColorGraph],
@@ -151,7 +171,7 @@ function(cgr)
     
     if RankOfColorGraph(cgr)>3 then
         if IsHomogeneous(cgr) then 
-            register(rec(name:="valencies:", toStr:=String, tester:=node->true,getter:=node->OutValencies(StructureConstantsOfColorGraph(node!.cgr))));
+            register(rec(name:="valencies:", toStr:=StringMultiset, tester:=node->true,getter:=node->OutValencies(StructureConstantsOfColorGraph(node!.cgr))));
         else
             register(rec(name:="# of fibres:", toStr:=String, tester:=node->true,getter:=node->NumberOfFibres(node!.cgr)));
         fi;
@@ -234,7 +254,7 @@ function(poset,index)
     fi;
 
     if RankOfColorGraph(cgr)>3 then
-        register(rec(name:="valencies:", toStr:=String, tester:=node->true,getter:=node->OutValencies(StructureConstantsOfColorGraph(node!.cgr))));
+        register(rec(name:="valencies:", toStr:=StringMultiset, tester:=node->true,getter:=node->OutValencies(StructureConstantsOfColorGraph(node!.cgr))));
     fi;
 
     if RankOfColorGraph(cgr)>2 and (RankOfColorGraph(cgr)>3 or IsPrimitiveColorGraph(cgr)) then
@@ -314,7 +334,7 @@ function(poset,index)
     fi;
 
     if RankOfColorGraph(cgr)>3 then
-        register(rec(name:="valencies:", toStr:=String, tester:=node->true,getter:=node->OutValencies(StructureConstantsOfColorGraph(node!.cgr))));
+        register(rec(name:="valencies:", toStr:=StringMultiset, tester:=node->true,getter:=node->OutValencies(StructureConstantsOfColorGraph(node!.cgr))));
     fi;
 
     if RankOfColorGraph(cgr)>2 and (RankOfColorGraph(cgr)>3 or IsPrimitiveColorGraph(cgr)) then
