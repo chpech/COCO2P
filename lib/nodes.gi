@@ -82,7 +82,10 @@ function(node,str)
     if pos=fail then
         return fail;
     fi;
-    node!.nodeInfo.values[pos]:=node!.nodeInfo.toStr[pos](node!.nodeInfo.getters[pos](node));
+    if node!.nodeInfo.values[pos]="unknown" then
+        node!.nodeInfo.values[pos]:=node!.nodeInfo.toStr[pos](node!.nodeInfo.getters[pos](node));
+    fi;
+    
     return true;
 end);
 
@@ -343,7 +346,7 @@ function(poset,index)
         register(rec(name:="symmetric:",toStr:=String,tester:=node->true,getter:=node->IsSymmetricColorGraph(node!.cgr)));
         register(rec(name:="commutative:",toStr:=String,tester:=node->true,getter:=node->IsCommutativeTensor(StructureConstantsOfColorGraph(node!.cgr))));
         register(rec(name:="order(Aut):",toStr:=StringPP,tester:=node->HasAutGroupOfCocoObject(node!.cgr),getter:=node->Order(AutGroupOfCocoObject(node!.cgr))));
-        register(rec(name:="Aut:",toStr:=String,tester:=node->false,getter:=node->StructureDescription(AutGroupOfCocoObject(node!.cgr):short)));
+        register(rec(name:="Aut:",toStr:=String,tester:=node->HasAutGroupOfCocoObject(node!.cgr) and HasStructureDescription(AutGroupOfCocoObject(node!.cgr)),getter:=node->StructureDescription(AutGroupOfCocoObject(node!.cgr):short)));
         register(rec(name:="order(cAut/Aut):", toStr:=StringPP,tester:=node->HasColorAutomorphismGroupOnColors(node!.cgr),getter:=node->Order(ColorAutomorphismGroupOnColors(node!.cgr))));
         register(rec(name:="cAut/Aut:",toStr:=String,tester:=node->HasColorAutomorphismGroupOnColors(node!.cgr),getter:=node->StructureDescription(ColorAutomorphismGroupOnColors(node!.cgr):short)));
         register(rec(name:="[aAut:cAut/Aut]:", toStr:=StringPP, tester:=node->HasAlgebraicAutomorphismGroup(node!.cgr) and HasColorAutomorphismGroupOnColors(node!.cgr),getter:=node->Order(AlgebraicAutomorphismGroup(node!.cgr))/Order(ColorAutomorphismGroupOnColors(node!.cgr))));
@@ -373,7 +376,7 @@ function(node)
     ninf:=node!.nodeInfo;
     maxlength:=Maximum(ninf.maxlength, 20);
     for i in [1..Length(ninf.names)] do
-        if ninf.values[i]="unknown" and not ninf.names[i] in infoOptions@.disabled then
+        if ninf.values[i]="unknown" and not ninf.names[i] in infoOptions@.disabled or node!.nodeInfo.testers[i](node) then
             ninf.values[i]:=ninf.toStr[i](ninf.getters[i](node));
         fi;
         AppendTo(res, String(ninf.names[i],-maxlength),ninf.values[i],"\n");
@@ -382,3 +385,20 @@ function(node)
     return str;
 end);
 
+InstallMethod(UpdateInfoInCocoNode,
+        "for coco nodes in ColorGraphNodeRep",
+        [IsCocoNode and IsColorGraphNodeRep,IsString],
+function(node,str)
+    local pos;
+    
+    pos:=Position(node!.nodeInfo.names,str);
+    if pos=fail then
+        return fail;
+    fi;
+    if node!.nodeInfo.values[pos]<>"unknown" then
+        return;
+    fi;
+    if node!.nodeInfo.testers[pos](node) then
+        node!.nodeInfo.values[pos]:=node!.nodeInfo.toStr[pos](node!.nodeInfo.getters[pos](node));
+    fi;
+end);
