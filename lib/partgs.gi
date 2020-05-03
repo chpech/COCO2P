@@ -300,6 +300,7 @@ DeclareRepresentation("IsAsymPartialGoodSetBlkRep",
         IsPartialGoodSetRep,
         [ "tensor",
           "blocks",
+          "perm",
           "startBlock",
           "finishBlock",
           "map",
@@ -386,13 +387,14 @@ InstallMethod(ExtendedPartialGoodSet,
     "for asymmetric partial good sets in AsymPartialGoodSetBlkRep",
     [IsAsymPartialGoodSet and IsAsymPartialGoodSetBlkRep, IsPosInt],
 function(cand,pt)
-    local t,bm,npgs,color,sb,fb,sd,i,j,k,kmts,a,b,block,md,sq,icolor,ksb,kfb,sbinfr;
+    local t,bm,npgs,color,sb,fb,sd,i,j,k,kmts,a,b,block,md,sq,icolor,ksb,kfb,sbinfr,ent,blkIdx,ba,bb,bc,bbl;
 
     t:=cand!.tensor;
     
     npgs:=rec(
               tensor:=cand!.tensor,
               blocks:=cand!.blocks,
+              perm:=cand!.perm,
               startBlock:=cand!.startBlock,
               finishBlock:=cand!.finishBlock,
               map:=cand!.map,
@@ -517,12 +519,18 @@ function(cand,pt)
     sq:=npgs.square;
     bm:=npgs.blockingmat;
     npgs.maxlbd:=cand!.maxlbd;
+    ent:=t!.entries;
+    blkIdx:=t!.blkIdx;
+    
     
     
     block:=bm[sb][sb];      # c c*
-    for k in cand!.blocks[sb][sb] do
-        sq[k]:=sq[k]+EntryOfTensor(t,color,icolor,k);
-    od;
+    ba:=sb/npgs.perm;
+    bb:=sb/npgs.perm;
+    bc:=fb/npgs.perm;
+    bbl:=cand!.blocks[sb][sb];
+    sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[color]][blkIdx[icolor]];
+    
     if block<>[] then
         npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
     fi;
@@ -534,9 +542,11 @@ function(cand,pt)
         if sb<=b then
             block:=bm[sb][b];
             for j in cand!.blockingmat[fb][b] do
-                for k in cand!.blocks[sb][b] do
-                    sq[k]:=sq[k]+EntryOfTensor(t,color,j,k);
-                od;
+                ba:=sb/npgs.perm;
+                bb:=b/npgs.perm;
+                bc:=fb/npgs.perm;
+                bbl:=cand!.blocks[sb][b];
+                sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[color]][blkIdx[j]];
             od;
             if block<>[] then
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
@@ -562,9 +572,11 @@ function(cand,pt)
         if b<=sb then
             block:=bm[b][sb]; # A c*
             for j in cand!.blockingmat[b][fb] do
-                for k in cand!.blocks[b][sb] do
-                    sq[k]:=sq[k]+EntryOfTensor(t,j,icolor,k);
-                od;
+                ba:=b/npgs.perm;
+                bb:=sb/npgs.perm;
+                bc:=fb/npgs.perm;
+                bbl:=cand!.blocks[b][sb];
+                sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[j]][blkIdx[icolor]];
             od;
             if block<>[] then
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
@@ -667,6 +679,7 @@ function(tensor)
     
     cand:=rec(tensor:=tensor,
               blocks:=blocks,
+              perm:=perm,
               startBlock:=startBlock,
               finishBlock:=finishBlock,
               map:=map,
@@ -704,6 +717,7 @@ DeclareRepresentation("IsSymPartialGoodSetBlkRep",
         IsPartialGoodSetRep,
         [ "tensor",
           "blocks",
+          "perm",
           "startBlock",
           "finishBlock",
           "map",
@@ -793,7 +807,7 @@ InstallMethod(ExtendedPartialGoodSet,
     [IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep, IsPosInt],
 function(cand,pt)
     local t,npgs,color,icolor,sb,fb,i,b,j,a,block,sd,sbinfr,fbinfr,sq,bm,k,kmts,
-          ksb,kfb,ncand;                
+          ksb,kfb,ncand,ent,blkIdx,ba,bb,bc,bbl;                
     
     
     t:=cand!.tensor;
@@ -970,16 +984,23 @@ function(cand,pt)
 
     npgs.square:=ShallowCopy(cand!.square);
     sq:=npgs.square;
+    ent:=t!.entries;
+    blkIdx:=t!.blkIdx;
+    
+    
     bm:=npgs.blockingmat;
     npgs.maxlbd:=cand!.maxlbd;
     
     if color<>icolor then
         if sb=fb then
-            block:=bm[sb][fb];
-            for k in cand!.blocks[sb][fb] do # c c,c* c*
-                sq[k]:=sq[k]+EntryOfTensor(t,color,color,k);
-                sq[k]:=sq[k]+EntryOfTensor(t,icolor,icolor,k);
-            od;
+            block:=bm[sb][fb]; # c c,c* c*
+            ba:=sb/npgs.perm;
+            bb:=sb/npgs.perm;
+            bc:=sb/npgs.perm;
+            bbl:=cand!.blocks[sb][sb];
+            sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[color]][blkIdx[color]];
+            sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[icolor]][blkIdx[icolor]];
+            
             if block<>[] then
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
             fi;
@@ -988,10 +1009,13 @@ function(cand,pt)
                 return fail;
             fi;
         fi;
-        block:=bm[fb][fb];
-        for k in cand!.blocks[fb][fb] do        # c* c
-            sq[k]:=sq[k]+EntryOfTensor(t,icolor,color,k);
-        od;
+        block:=bm[fb][fb];   # c* c
+        ba:=fb/npgs.perm;
+        bb:=fb/npgs.perm;
+        bc:=sb/npgs.perm;
+        bbl:=cand!.blocks[fb][fb];
+        sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[icolor]][blkIdx[color]];
+        
         if block<>[] then
             npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
         fi;
@@ -1003,9 +1027,11 @@ function(cand,pt)
             if fb<=b then
                 block:=bm[fb][b];
                 for j in cand!.blockingmat[sb][b] do
-                    for k in cand!.blocks[fb][b] do
-                        sq[k]:=sq[k]+EntryOfTensor(t,icolor,j,k);
-                    od;
+                    ba:=fb/npgs.perm;
+                    bb:=b/npgs.perm;
+                    bc:=sb/npgs.perm;
+                    bbl:=cand!.blocks[fb][b];
+                    sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[icolor]][blkIdx[j]];
                 od;
                 if block<>[] then
                     npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
@@ -1035,9 +1061,11 @@ function(cand,pt)
             if b<=fb then
                 block:=bm[b][fb];   # A c
                 for j in cand!.blockingmat[b][sb] do
-                    for k in cand!.blocks[b][fb] do
-                        sq[k]:=sq[k]+EntryOfTensor(t,j,color,k);
-                    od;
+                    ba:=b/npgs.perm;
+                    bb:=fb/npgs.perm;
+                    bc:=sb/npgs.perm;
+                    bbl:=cand!.blocks[b][fb];
+                    sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[j]][blkIdx[color]];
                 od;
                 if block<>[] then
                     npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
@@ -1066,9 +1094,12 @@ function(cand,pt)
         od;
     fi;
     block:=bm[sb][sb];      # c c*
-    for k in cand!.blocks[sb][sb] do
-        sq[k]:=sq[k]+EntryOfTensor(t,color,icolor,k);
-    od;
+    ba:=sb/npgs.perm;
+    bb:=sb/npgs.perm;
+    bc:=fb/npgs.perm;
+    bbl:=cand!.blocks[sb][sb];
+    sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[color]][blkIdx[icolor]];
+
     if block<>[] then
         npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
     fi;
@@ -1081,9 +1112,11 @@ function(cand,pt)
         if sb<=b then
             block:=bm[sb][b];
             for j in cand!.blockingmat[fb][b] do
-                for k in cand!.blocks[sb][b] do
-                    sq[k]:=sq[k]+EntryOfTensor(t,color,j,k);
-                od;
+                ba:=sb/npgs.perm;
+                bb:=b/npgs.perm;
+                bc:=fb/npgs.perm;
+                bbl:=cand!.blocks[sb][b];
+                sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[color]][blkIdx[j]];
             od;
             if block<>[] then
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
@@ -1112,9 +1145,11 @@ function(cand,pt)
         if b<=sb then
             block:=bm[b][sb]; # A c*
             for j in cand!.blockingmat[b][fb] do
-                for k in cand!.blocks[b][sb] do
-                    sq[k]:=sq[k]+EntryOfTensor(t,j,icolor,k);
-                od;
+                ba:=b/npgs.perm;
+                bb:=sb/npgs.perm;
+                bc:=fb/npgs.perm;
+                bbl:=cand!.blocks[b][sb];
+                sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[j]][blkIdx[icolor]];
             od;
             if block<>[] then
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
