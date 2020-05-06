@@ -139,8 +139,8 @@ function(pfus)
 end);
 
 InstallMethod( FusionFromCompletePartialFusion,
-        "for complete partial fusions",
-        [IsPartialFusion and IsCompletePartialFusion and IsPartialFusionRep],
+        "for partial fusions",
+        [IsPartialFusion and IsPartialFusionRep],
 function(cpfus)
     return FusionFromPartitionNC(cpfus!.tensor,cpfus!.part.classes);
 end);

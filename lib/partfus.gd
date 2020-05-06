@@ -18,7 +18,7 @@ DeclareProperty( "IsExtendiblePartialFusion", IsPartialFusion );
 DeclareOperation( "IsCompatibleWithPart", [IsPartialFusion, IsGoodSet] );
 DeclareOperation( "TensorOfPartialFusion", [IsPartialFusion] );
 DeclareAttribute( "IsCompletePartialFusion", IsPartialFusion );
-DeclareOperation( "FusionFromCompletePartialFusion", [IsPartialFusion and IsCompletePartialFusion] );
+DeclareOperation( "FusionFromCompletePartialFusion", [IsPartialFusion ] );
 
 
 DeclareCategory( "IsPartialFusionOrbit", IsCocoOrbit );
