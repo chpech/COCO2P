@@ -183,6 +183,12 @@ function(tensor,type)
     return Objectify(NewType(GoodSetsFamily(tensor), IsSymPartialGoodSet and IsSymPartialSTCGoodSetRep), cand);
 end);
 
+InstallMethod(IsCompatiblePoint,
+        "for symmetric partial good sets in SymPartialSTCoodSetRep",
+        [IsSymPartialGoodSet and IsSymPartialSTCGoodSetRep, IsPosInt],
+function(cand, i)
+    return true;
+end);
     
 InstallMethod(ExtendedPartialGoodSet,
         "for symmetric partial good sets in SymPartialSTCoodSetRep",
@@ -243,6 +249,12 @@ function(cand)
     return true;
 end);
 
+InstallMethod(IsCompletePartialGoodSet,
+     "for symmetric partial good sets in SymPartialSTCoodSetRep",
+    [IsSymPartialGoodSet and IsSymPartialSTCGoodSetRep],
+function(cand)
+    return cand!.currIdx>Length(cand!.task);
+end);
 
 InstallMethod(GoodSetFromPartialGoodSet,
      "for symmetric partial good sets in SymPartialSTCoodSetRep",
@@ -252,9 +264,9 @@ function(cand)
     
 #    Error("breakpoint2");
     
-    if cand!.currIdx<=Length(cand!.task) then
-        return fail;
-    fi;
+    # if cand!.currIdx<=Length(cand!.task) then
+    #     return fail;
+    # fi;
 
 
     set:=ShallowCopy(cand!.set);
@@ -369,6 +381,12 @@ function(T,type)
     return Objectify(NewType(GoodSetsFamily(T), IsAsymPartialGoodSet and IsAsymPartialSTCGoodSetRep), obj);
 end);
 
+InstallMethod(IsCompatiblePoint,
+        "for asymmetric partial good sets in AsymPartialSTCGoodSetRep",
+        [IsAsymPartialGoodSet and IsAsymPartialSTCGoodSetRep, IsPosInt],
+function(cand, i)
+    return true;
+end);
 
 InstallMethod(ExtendedPartialGoodSet,
         "for asymmetric partial good sets in AsymPartialSTCGoodSetRep",
@@ -424,15 +442,24 @@ function(cand)
     return true;
 end);
 
+InstallMethod(IsCompletePartialGoodSet,
+    "for asymmetric partial good sets in AsymPartialSTCoodSetRep",
+    [IsAsymPartialGoodSet and IsAsymPartialSTCGoodSetRep],
+function(cand)
+    return cand!.currIdx>Length(cand!.task);
+end);
+
+                  
+
 InstallMethod(GoodSetFromPartialGoodSet,
      "for asymmetric partial good sets in AsymPartialSTCoodSetRep",
     [IsAsymPartialGoodSet and IsAsymPartialSTCGoodSetRep],
 function(cand)
     local   set,  i,  res,  part;
 
-    if cand!.currIdx<=Length(cand!.task) then
-        return fail;
-    fi;
+    # if cand!.currIdx<=Length(cand!.task) then
+    #     return fail;
+    # fi;
 
 
     set:=Union(cand!.set);
