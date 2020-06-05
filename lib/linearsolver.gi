@@ -1,12 +1,12 @@
 # input: a matrix "mat", a vector "bound", a number "k"
 # output: all vector x, such that 
 #           x .mat = vec(k) 
-# where vec(k) is the vecor whose every coordinate equals k,
+# where vec(k) is the vecor whose every coordinate is equals to k,
 # subject to the condition that 0<=x[i]<=bound[i], for all i.
-MAX_SOLUTIONS:=-1;
-DeclareInfoClass("InfoSRG");
+MAX_SOLUTIONS@:=-1;
 
-AllSolutions:=function(mat,bound,k)
+InstallGlobalFunction(BoundedSolutionsOfSLDE,
+function(mat,bound,k)
     local nextPSol, isCompletePSol, emptyPSol,updatePSol,
           aVeryBigNumber,recursion,solutions,pSol,perm;
     
@@ -20,9 +20,11 @@ AllSolutions:=function(mat,bound,k)
         pSol.maxSummands:=List([1..Length(mat)], i->bound[i]*mat[i]);
         perm:=[1..Length(pSol.maxSummands)];
         SortParallel(pSol.maxSummands, perm, function(a,b) return a>b;end);
-        perm:=PermList(perm);
+        perm:=PermList(perm)^-1;
         pSol.mat:=Permuted(mat,perm);
         pSol.bound:=Permuted(bound,perm);
+        Assert(1,pSol.maxSummands = List([1..Length(pSol.mat)], i->pSol.bound[i]*pSol.mat[i]));
+        
         pSol.perm:=perm;
         pSol.gcds:=List([1..Length(pSol.mat)],
                    x->List([1..Length(pSol.mat[x])], 
@@ -38,17 +40,17 @@ AllSolutions:=function(mat,bound,k)
         od;
         pSol.maxRest:=List([1..Length(pSol.maxSummands)],
                            x->Sum(pSol.maxSummands{[x..Length(pSol.maxSummands)]}));
-        pSol.rest:=ListWithIdenticalEntries(Length(mat),k);
+        #pSol.rest:=ListWithIdenticalEntries(Length(mat),k);
         pSol.k:=k;
         pSol.partSum:=List([1..Length(mat[1])], x->0);
         pSol.x:=ListWithIdenticalEntries(Length(mat),0);
+        
         return pSol;
     end;
     
     updatePSol:=function(pSol,currIdx,i)
         pSol.partSum:=pSol.partSum+pSol.mat[currIdx]*(i-pSol.x[currIdx]);
         pSol.x[currIdx]:=i;
-        COCOPrint(pSol.partSum,"\n");
     end;
     
     
@@ -62,13 +64,17 @@ AllSolutions:=function(mat,bound,k)
     recursion:=function(psol,currIdx)
         local li,mi,i,j,rest;
         
-        if MAX_SOLUTIONS>=0 and Length(solutions)>MAX_SOLUTIONS then
+        
+        if MAX_SOLUTIONS@>=0 and Length(solutions)>MAX_SOLUTIONS@ then
           return;
         fi;
+        COCOPrint(pSol.x,"\n");
+        
         if isCompletePSol(pSol) then 
             Add(solutions, ShallowCopy(pSol.x));
+            
             if Length(solutions) mod 1000 =0 then
-               Info(InfoSRG,2,Length(solutions));
+               Info(InfoSLDE,2,Length(solutions));
             fi;
             return;
         fi;
@@ -102,7 +108,7 @@ AllSolutions:=function(mat,bound,k)
         
         if currIdx=Length(pSol.mat) then
             updatePSol(pSol,currIdx,mi);
-            recursion(pSol.currIdx+1);
+            recursion(pSol,currIdx+1);
             updatePSol(pSol,currIdx,0);
             return;
         fi;
@@ -119,6 +125,7 @@ AllSolutions:=function(mat,bound,k)
             fi;
         od;
         
+        
         for i in [mi,mi-1..li] do
             updatePSol(pSol,currIdx,i);
             recursion(pSol,currIdx+1);
@@ -131,38 +138,9 @@ AllSolutions:=function(mat,bound,k)
     solutions:=[];
     
     pSol:=emptyPSol(mat,bound,k);
+    
     perm:=pSol.perm^(-1);
     recursion(pSol,1);
     return List(solutions, sol->Permuted(sol, perm));
-    
-end;
+end);
 
-                   
-MatrixAndBoundsSym:=function(tensor)
-    local  clr, nof, mat, c, row, pos,cls;
-
-    clr:=Difference([1..Order(tensor)],ReflexiveColors(tensor));
-    clr:=Filtered(clr, x->x<=x^Mates(tensor));
-    nof:=Length(ReflexiveColors(tensor));
-    mat:=[];
-    cls:=[];
-    
-    for c in clr do
-        row:=ListWithIdenticalEntries(nof,0);
-        row[StartBlock(tensor,c)]:=OutValencies(tensor)[c];
-        if c^Mates(tensor)<>c then
-            row[StartBlock(tensor,c^Mates(tensor))]:=row[StartBlock(tensor,c^Mates(tensor))] + OutValencies(tensor)[c^Mates(tensor)];
-        fi;
-        pos:=PositionSorted(mat,row);
-        if not IsBound(mat[pos]) or mat[pos]<>row then
-            Add(mat,row,pos);
-            Add(cls,[c],pos);
-        else
-            AddSet(cls[pos],c);
-        fi;
-    od;
-    return [mat,List(cls,Length),cls];
-end;
-
-        
-    

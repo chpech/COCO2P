@@ -1,0 +1,4 @@
+DeclareInfoClass("InfoSLDE");
+
+DeclareGlobalFunction("BoundedSolutionsOfSLDE");
+
