@@ -49,7 +49,6 @@ DeclareOperation( "RowOfColorGraph",                         [IsColorGraph, IsPo
 DeclareOperation( "ColumnOfColorGraph",                      [IsColorGraph, IsPosInt] );                             # documented
 DeclareOperation( "Fibres",                                  [IsColorGraph] );                                       # documented
 DeclareOperation( "Neighbors",                               [IsColorGraph, IsPosInt, IsList] );                     # documented
-DeclareOperation( "AdjacencyMatrix",                         [IsColorGraph] );                                       # documented
 DeclareOperation( "ColorRepresentative",                     [IsColorGraph, IsPosInt] );                             # documented
 DeclareOperation( "LocalIntersectionArray",                  [IsColorGraph, IsPosInt, IsPosInt] );                   # documented
 DeclareOperation( "QuotientColorGraph",                      [IsColorGraph, IsSet] );                                # documented
@@ -89,6 +88,7 @@ fi;
 ### Attributes
 ###
 
+DeclareAttribute( "AdjacencyMatrix",                IsColorGraph );                                       # documented
 DeclareSynonymAttr( "OrderOfColorGraph", OrderOfCocoObject );                                                        # documented
 DeclareAttribute( "RankOfColorGraph",               IsColorGraph );                                                  # documented
 DeclareAttribute( "StructureConstantsOfColorGraph", IsColorGraph and IsWLStableColorGraph );                         # documented
