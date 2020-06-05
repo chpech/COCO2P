@@ -891,6 +891,8 @@ function(cgr1,cgr2)
     
     fusorbs:=Union(List(fusorbs, x->SubOrbitsOfCocoOrbit(caut,x)));
     
+#    Error("brk");
+    
     return Filtered(fusorbs, x->IsColorIsomorphicColorGraph(cgr2, ColorGraphByFusion(cgr1,Representative(x))));
 end);
 
