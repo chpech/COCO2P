@@ -423,19 +423,29 @@ function(cgrposet)
     end;
 
     updater:=function(node,i)
+        local val;
+        
         if node!.nodeInfo.values[i]<>"unknown" then
             return;
         fi;
         if node!.nodeInfo.testers[i](node) then
-            node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](node!.nodeInfo.getters[i](node));
+            val:=node!.nodeInfo.getters[i](node);
+            if val<>fail then
+                node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](val);
+            fi;
         fi;
     end;
     
-    setter:=function(node,i);
+    setter:=function(node,i)
+        local val;
+        
         if node!.nodeInfo.values[i]<>"unknown" then
             return;
         fi;
-        node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](node!.nodeInfo.getters[i](node));
+        val:=node!.nodeInfo.getters[i](node);
+        if val<>fail then
+            node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](val);
+        fi;
     end;
     
         
@@ -459,10 +469,12 @@ function(cgrposet)
             updater(node,i);
             Add(texts, Concatenation(String(node!.nodeInfo.names[i],-node!.nodeInfo.maxlength), node!.nodeInfo.values[i]));
             Add(texts, function(x,y)
-                local ret,i;
+                   local ret,i;
 
-                ret:=node!.nodeInfo.getters[x!.selected](node);
-                node!.nodeInfo.values[x!.selected]:=node!.nodeInfo.toStr[x!.selected](ret);
+                   ret:=node!.nodeInfo.getters[x!.selected](node);
+                   if ret <> fail then
+                       node!.nodeInfo.values[x!.selected]:=node!.nodeInfo.toStr[x!.selected](ret);
+                   fi;
 
                 #Relabel(x,x!.selected,Concatenation(node!.nodeInfo.names[x!.selected],node!.nodeInfo.values[x!.selected]));
                 for i in [1..Length(node!.nodeInfo.names)] do
@@ -718,10 +730,10 @@ function(forbposet)
         
         di := Dialog("Filename","Log File?");
         res:= Query(di,"coco2p.info");
-        PrintTo(res,"COCO2P - Informations about a PosetOfFusionOrbits\n",
-                "-------------------------------------------------\n");
         
         if res <> false then
+            PrintTo(res,"COCO2P - Informations about a PosetOfFusionOrbits\n",
+                    "-------------------------------------------------\n");
             if sel<>[] then
                 cgr:=sel[1]!.data!.poset!.cgr;
                 node:=NewCocoNode(cgr);
@@ -775,19 +787,29 @@ function(forbposet)
     end;
 
     updater:=function(node,i)
+        local val;
+        
         if node!.nodeInfo.values[i]<>"unknown" then
             return;
         fi;
         if node!.nodeInfo.testers[i](node) then
-            node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](node!.nodeInfo.getters[i](node));
+            val:=node!.nodeInfo.getters[i](node);
+            if val <> fail then
+                node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](val);
+            fi;
         fi;
     end;
     
-    setter:=function(node,i);
+    setter:=function(node,i)
+        local val;
+        
         if node!.nodeInfo.values[i]<>"unknown" then
             return;
         fi;
-        node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](node!.nodeInfo.getters[i](node));
+        val:=node!.nodeInfo.getters[i](node);
+        if val <> fail then
+            node!.nodeInfo.values[i]:=node!.nodeInfo.toStr[i](val);
+        fi;
     end;
 
     
@@ -814,7 +836,10 @@ function(forbposet)
                 local ret,i;
 
                 ret:=node!.nodeInfo.getters[x!.selected](node);
-                node!.nodeInfo.values[x!.selected]:=node!.nodeInfo.toStr[x!.selected](ret);
+                if ret <> fail then
+                    node!.nodeInfo.values[x!.selected]:=node!.nodeInfo.toStr[x!.selected](ret);
+                fi;
+                
 
                 for i in [1..Length(node!.nodeInfo.names)] do
                     updater(node,i);
