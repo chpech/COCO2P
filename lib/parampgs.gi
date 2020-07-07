@@ -59,7 +59,7 @@ InstallMethod(EmptySymPartialGoodSetWithParams,
 function(tensor,x,cls,k,lbd)
     local  mat, vec, perm, blocks, startBlock, finishBlock, rclr, clr, 
            nof, imap, a, sclr, aclr, b, bclr, map, i, j, idx, nsupply, 
-           currIdx, dom, obj, domain, set, task, done;
+           currIdx, dom, obj, domain, set, task, done, blkidx,xcls,d,c,cblk;
     
     mat:=List(tensor!.blocks, a->List(tensor!.blocks, Length));
     vec:=List(mat,Sum);
@@ -69,28 +69,61 @@ function(tensor,x,cls,k,lbd)
     startBlock:=List([1..Order(tensor)], i->StartBlock(tensor,i)^perm);
     finishBlock:=List([1..Order(tensor)], i->FinishBlock(tensor,i)^perm);
     
-    rclr:=ReflexiveColors(tensor);
-    clr:=Difference([1..OrderOfTensor(tensor)], rclr);
-    nof:=Length(rclr);
+    idx:=Filtered([1..Length(cls)], i->x[i]<>0);
+    x:=x{idx};
+    cls:=cls{idx};
+    SortParallel(cls,x,function(c1,c2) return SortedList([startBlock[c1[1]],finishBlock[c1[1]]])<SortedList([startBlock[c2[1]],finishBlock[c2[1]]]);end);
     
-    imap:=[];
     
-    for a in [1..nof] do
-        sclr:=Intersection(Filtered(blocks[a][a], x->x^Mates(tensor)=x),clr);
-        aclr:=Filtered(blocks[a][a], x->x<x^Mates(tensor));
-        imap[a]:=List(sclr, x->[x]);
-        Append(imap[a], List(aclr, x->[x,x^Mates(tensor)]));
-        SortBy(imap[a], x->-Sum(List(x,i->-OutValencies(tensor)[i])));
-    od;
-
-    for a in [1..nof] do
-        for b in [a+1..nof] do
-            bclr:=ShallowCopy(blocks[a][b]);
-            SortBy(bclr, i->-OutValencies(tensor)[i]);
-            Append(imap[a], List(bclr, x->Set([x,x^Mates(tensor)])));
+#    rclr:=ReflexiveColors(tensor);
+#    clr:=Difference([1..OrderOfTensor(tensor)], rclr);
+    nof:=NumberOfFibres(tensor);
+#    blk:=List(cls, x->Set([startBlock[x[1]],finishBlock[x[1]]]));
+    # blkidx:=List(Set(blk), x->Filtered([1..Length(cls)], i->blk[i]=x));
+    # xcls:=List(cls, x->Union(List(x, y->[x,x^Mates(tensor)])))
+    # xcls:=List([1..Length(blk)], i->Concatenation(cls{blkidx[i]}));
+    # xcls
+    # List([1..Length(blk)], i->,Difference
+    # clr:=Concatenation(cls);
+    # imap:=List(clr, x->Set([x,x^Mates(tensor)]));
+    
+    
+    imap:=List([1..nof], i->List([1..nof],j->[]));
+    for c in cls do
+        for d in c do
+            blkidx:=SortedList([startBlock[d],finishBlock[d]]);
+            Add(imap[blkidx[1]][blkidx[2]],Set([d,d^Mates(tensor)]));
         od;
     od;
-    imap:=Concatenation(imap);
+    
+    for a in [1..nof] do
+        for b in [a..nof] do
+            cblk:=Difference(blocks[a][b], Union(imap[a][b]));
+            if a=b then
+                cblk:=Filtered(cblk, x->x<=x^Mates(tensor));
+            fi;
+            Append(imap[a][b], List(cblk, x->Set([x,x^Mates(tensor)])));
+        od;
+    od;
+    
+    
+    # for a in [1..nof] do
+    #     sclr:=Intersection(Filtered(blocks[a][a], x->x^Mates(tensor)=x),clr);
+    #     aclr:=Filtered(blocks[a][a], x->x<x^Mates(tensor));
+    #     imap[a]:=List(sclr, x->[x]);
+    #     Append(imap[a], List(aclr, x->[x,x^Mates(tensor)]));
+    #     SortBy(imap[a], x->-Sum(List(x,i->-OutValencies(tensor)[i])));
+    # od;
+
+    # for a in [1..nof] do
+    #     for b in [a+1..nof] do
+    #         bclr:=ShallowCopy(blocks[a][b]);
+    #         SortBy(bclr, i->-OutValencies(tensor)[i]);
+    #         Append(imap[a], List(bclr, x->Set([x,x^Mates(tensor)])));
+    #     od;
+    # od;
+    
+    imap:=Concatenation(Concatenation(imap));
     
     map:=[];
     for i in [1..Length(imap)] do
@@ -100,13 +133,13 @@ function(tensor,x,cls,k,lbd)
     od;
     
     # remove empty classes and sort colors by blocks
-    idx:=Filtered([1..Length(cls)], i->x[i]<>0);
-    x:=x{idx};
-    cls:=cls{idx};
-    SortParallel(cls,x,function(c1,c2) return Set([startBlock[c1[1]],finishBlock[c1[1]]])<Set([startBlock[c2[1]],finishBlock[c2[1]]]);end);
+    # idx:=Filtered([1..Length(cls)], i->x[i]<>0);
+    # x:=x{idx};
+    # cls:=cls{idx};
+    # SortParallel(cls,x,function(c1,c2) return Set([startBlock[c1[1]],finishBlock[c1[1]]])<Set([startBlock[c2[1]],finishBlock[c2[1]]]);end);
     nsupply:=List(cls, x->Set(x, i->map[i]));
     
-    SortParallel(nsupply,x, function(a,b) return Minimum(a)<Minimum(b);end);
+#    SortParallel(nsupply,x, function(a,b) return Minimum(a)<Minimum(b);end);
     
     currIdx:=1;
     if nsupply=[] then
@@ -137,6 +170,7 @@ function(tensor,x,cls,k,lbd)
               maxlbd:=0,
               ridx:=[]
             );
+   # Error("brk");
     
     
     return Objectify(NewType(GoodSetsFamily(tensor), IsSymPartialGoodSet and IsSymPGSWithParamsBlkRep), obj);
