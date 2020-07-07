@@ -21,12 +21,16 @@ StbcInvCosRep:=InverseRepresentative;
 StbcSize:=SizeStabChain;
 
 StbcMinimalOrbitReps:=function(S,dom)
-    local orb, gens, repr, repidx, sch, im, i,j,k,ret,lengthes;
+    local orb, gens, repr, repidx, sch, im, i,j,k,ret,lengthes,max;
 
     if dom=[] then
       return [];
     fi;
-    sch:=BlistList([1..Maximum(dom)],[]);
+    max:=Maximum(dom);
+    max := Maximum(max,LargestMovedPointPerms(S.generators));
+
+    
+    sch:=BlistList([1..max],[]);
     repr:=[];
     gens:=S.generators;
 
