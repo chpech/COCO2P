@@ -757,6 +757,42 @@ function(tensor)
    return tensor!.vertexNames;
 end);
 
+
+InstallMethod(PPolynomialOrdering, 
+              "for structure constants tensors",
+              [IsTensor and IsTensorOfCC, IsPosInt],
+function(tensor,i)
+    local  list, j, set, new;
+    
+    if not IsHomogeneousTensor(tensor) or not Mates(tensor)=() then
+        return fail;
+    fi;
+    list:=[ReflexiveColors(tensor)[1],i];
+    for j in [2..Order(tensor)-1] do
+        set:=Filtered([1..Order(tensor)], k->EntryOfTensor(tensor,list[j],i,k)<>0);
+        new:=Difference(set, Set([list[j-1],list[j]]));
+        if Length(new)<>1 then
+            return fail;
+        fi;
+        list[j+1]:=new[1];
+    od;
+    return list;
+end);
+    
+InstallMethod(PPolynomialOrderings, 
+              "for structure constants tensors",
+              [IsTensor and IsTensorOfCC],
+function(tensor)
+    local  res;
+    if not IsHomogeneousTensor(tensor) or not Mates(tensor)=() then
+        return [];
+    fi;
+    res:=List(Difference([1..Order(tensor)], ReflexiveColors(tensor)), 
+              i->PPolynomialOrdering(tensor,i));
+    res:=Filtered(res, x->x<>fail);
+    return res;
+end);
+
 InstallMethod(SetKnownGroupOfAutomorphismsNC,
 		"for tensors in TensorRep",
      	[IsTensor and IsTensorRep, IsPermGroup],
@@ -880,6 +916,21 @@ function(tensor)
     
     return IsHomogeneous(tensor) and ForAll(Difference([1..Order(tensor)],ReflexiveColors(tensor)), x->ClosureSet( tensor, [x] ) = [1..Order(tensor)]);
 end);
+
+InstallMethod( IsClosedSet,
+               "for tensors and sets of colors",
+               [IsTensor, IsList],
+function(tensor,set)
+    local prod,carrier;
+    
+    prod:=ComplexProduct(tensor,set,set);
+    carrier:=Filtered([1..Length(prod)], x->prod[x]<>0);
+    if carrier <> Set(set) then
+        return false;
+    fi;
+    return true;
+end);
+
 
 InstallOtherMethod(\[\],
         "for tensors",

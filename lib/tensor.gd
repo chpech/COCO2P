@@ -48,6 +48,9 @@ DeclareSynonym( "IsomorphismTensors", IsomorphismCocoObjects);                  
 DeclareSynonym( "IsIsomorphismOfTensors", IsIsomorphismOfObjects);                                      # documented
 DeclareSynonymAttr( "VertexNamesOfTensor", VertexNamesOfCocoObject);                                    # documented
 DeclareSynonym( "IsAutomorphismOfTensor", IsAutomorphismOfObject);                                      # documented
+DeclareOperation( "IsClosedSet", [IsTensor, IsList] );
+DeclareOperation( "PPolynomialOrdering", [IsTensor and IsTensorOfCC, IsPosInt]);
+
 
 
 ###
@@ -59,6 +62,7 @@ DeclareAttribute( "Mates",                          IsTensor and IsTensorOfCC );
 DeclareAttribute( "OutValencies",                   IsTensor and IsTensorOfCC );                        # documented
 DeclareAttribute( "FibreLengths",                   IsTensor and IsTensorOfCC );                        # documented
 DeclareAttribute( "ClosedSets",                     IsTensor );                                         # documented
+DeclareAttribute( "PPolynomialOrderings",           IsTensor and IsTensorOfCC );
 
 
 ###
