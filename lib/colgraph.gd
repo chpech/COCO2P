@@ -51,7 +51,7 @@ DeclareOperation( "Fibres",                                  [IsColorGraph] );  
 DeclareOperation( "Neighbors",                               [IsColorGraph, IsPosInt, IsList] );                     # documented
 DeclareOperation( "ColorRepresentative",                     [IsColorGraph, IsPosInt] );                             # documented
 DeclareOperation( "LocalIntersectionArray",                  [IsColorGraph, IsPosInt, IsPosInt] );                   # documented
-DeclareOperation( "QuotientColorGraph",                      [IsColorGraph, IsSet] );                                # documented
+DeclareOperation( "QuotientColorGraph",                      [IsColorGraph, IsList] );                                # documented
 DeclareOperation( "ColorNames",                              [IsColorGraph] );                                       # documented
 DeclareOperation( "InducedSubColorGraph",                    [IsColorGraph, IsList] );                               # documented
 DeclareOperation( "DirectProductColorGraphs",                [IsColorGraph, IsColorGraph] );                         # documented

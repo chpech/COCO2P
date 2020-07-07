@@ -1045,7 +1045,7 @@ end);
 
 InstallMethod(QuotientColorGraph,
         "for a color graph and a vertex-partition",
-        [IsColorGraph, IsSet],
+        [IsColorGraph, IsList],
 function(cgr,part)
   local g;
 
