@@ -7,6 +7,7 @@ DeclareOperation( "NodeInfoString", [IsCocoNode] );
 DeclareOperation( "ComputeInfo", [IsCocoNode, IsString] );
 DeclareOperation( "ComputeAllInfos", [IsCocoNode] );
 DeclareOperation( "UpdateInfoInCocoNode", [IsCocoNode,IsString] );
+DeclareOperation( "RegisterInfoCocoNode", [IsCocoNode, IsRecord] );
 
 
 BindGlobal( "infoOptions@", rec(disabled:=["Aut:"]));
