@@ -6,11 +6,6 @@ Multiset := function (z)
     return  List(Set(z), x ->[x,Length(Filtered(z, y -> y=x))]);
 end;
 
-TriangularGraph := function(n)
-    return EdgeGraph(CompleteGraph(SymmetricGroup(n)));
-end;
-
-
 IsStronglyRegular := function(gamma)
     local parameters, diameter, delta;
     
