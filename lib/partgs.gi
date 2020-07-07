@@ -1181,7 +1181,7 @@ function(cand,pt)
         if sbinfr and ForAny(npgs.blockingmat[sb][sb], x->sq[x]<>npgs.lbd) then
             return fail;
         fi;
-        if sb<>fb and fbinfr and ForAny(npgs.blockingmat[sb][sb], x->sq[x]<>npgs.lbd) then
+        if sb<>fb and fbinfr and ForAny(npgs.blockingmat[fb][fb], x->sq[x]<>npgs.lbd) then
             return fail;
         fi;
         if sb<>fb and sbinfr and fbinfr and ForAny(npgs.blockingmat[sb][fb], x->sq[x]<>npgs.lbd) then
