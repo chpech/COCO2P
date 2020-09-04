@@ -44,7 +44,7 @@ InstallMethod(ExtendedPartialFusion,
         IsIdenticalObj,
         [IsPartialFusion and IsPartialFusionRep, IsGoodSet],
 function(pfusion,gs)
-    local obj,tensor,class,npart,pos,nppart,nvarpart,sortpart;
+    local obj,tensor,class,npart,pos,nppart,nvarpart,sortpart,npfusion,mates;
     
     tensor:=pfusion!.tensor;
         
@@ -62,7 +62,7 @@ function(pfusion,gs)
                   part:=npart,
                   varpart:=pfusion!.varpart{[2..Length(pfusion!.varpart)]},
                   maxclasssize:=pfusion!.maxclasssize);
-        sortpart:=ShortLexSorted(Filtered(obj.part.classes, x->not x[1] in ReflexiveColors(obj.tensor)));
+#        sortpart:=ShortLexSorted(Filtered(obj.part.classes, x->not x[1] in ReflexiveColors(obj.tensor)));
 #        Assert(1,ForAll([1..Length(obj.ppart)], i->obj.ppart[i] = sortpart[i]), "!!not initial segment!!");        
     elif Length(gs)<Length(class) or (Length(gs)=Length(class) and AsSet(gs)<=class) then
         npart:=WLShallowCopyStablePartition(pfusion!.part);
@@ -86,12 +86,15 @@ function(pfusion,gs)
                   part:=npart,
                   varpart:=nvarpart,
                   maxclasssize:=pfusion!.maxclasssize);
-        sortpart:=ShortLexSorted(Filtered(obj.part.classes, x->not x[1] in ReflexiveColors(obj.tensor)));
+#        sortpart:=ShortLexSorted(Filtered(obj.part.classes, x->not x[1] in ReflexiveColors(obj.tensor)));
 #        Assert(1,ForAll([1..Length(obj.ppart)], i->obj.ppart[i] = sortpart[i]));        
     else
         return fail;
     fi;
-    return Objectify(NewType(GoodSetsFamily(tensor), IsPartialFusion and IsPartialFusionRep), obj);
+    npfusion:=Objectify(NewType(GoodSetsFamily(tensor), IsPartialFusion and IsPartialFusionRep), obj);
+    Assert(1, OnSetsSets(Set(npfusion!.part.classes),Mates(npfusion!.tensor))=Set(npfusion!.part.classes));
+    return npfusion;
+    
 end);
 
 InstallMethod(IsCompatibleWithPart,
@@ -142,6 +145,8 @@ InstallMethod( FusionFromCompletePartialFusion,
         "for partial fusions",
         [IsPartialFusion and IsPartialFusionRep],
 function(cpfus)
+ #   Assert(1, OnSetsSets(Set(cpfus!.part.classes),Mates(cpfus!.tensor))=Set(cpfus!.part.classes));
+    
     return FusionFromPartitionNC(cpfus!.tensor,cpfus!.part.classes);
 end);
 
@@ -225,7 +230,7 @@ function(iter)
     local NextState, pfus,grp,stab;
         
     NextState:=function(state)
-        local gsorb,gs,npfus,nH,nextstate,norbits,xnorbits;
+        local gsorb,gs,ags,npfus,nH,nextstate,norbits,xnorbits;
         
         if state=fail then 
             return fail; 
@@ -241,6 +246,11 @@ function(iter)
             state.orbidx:=state.orbidx+1;
             
             if state.slice=[] then
+                ags:=OnGoodSets(gs, Mates(TensorOfGoodSet(gs)));
+                if AsSet(ags)<AsSet(gs) then
+                    nH:=();
+                    continue;
+                fi;
                 npfus:=ExtendedPartialFusion(state.pfus,gs);
                 if npfus=fail then
                     nH:=();
@@ -263,6 +273,11 @@ function(iter)
                                 orbidx:=1,
                                 linkback:=state);
             elif Length(state.slice[1])<Length(gs) then
+                ags:=OnGoodSets(gs, Mates(TensorOfGoodSet(gs)));
+                if AsSet(ags)<AsSet(gs) then
+                    nH:=();
+                    continue;
+                fi;
                 npfus:=ExtendedPartialFusion(state.pfus,gs);
                 if npfus=fail then
                     nH:=();
@@ -286,6 +301,13 @@ function(iter)
                                 linkback:=state);
             else
 #                Assert(1, Length(gs)>=Length(state.slice[1]));
+                ags:=OnGoodSets(gs, Mates(TensorOfGoodSet(gs)));
+                if AsSet(ags)<AsSet(gs) then
+                    if not AsSet(ags) in state.slice then
+                        nH:=();
+                        continue;
+                    fi;
+                fi;
                 
                 npfus:=ExtendedPartialFusion(state.pfus,gs);
                 if npfus=fail then
@@ -359,8 +381,9 @@ function(iter)
             COCOPrint("!\c");
             pfus:=iter!.state.pfus;
             fus:=FusionFromCompletePartialFusion(pfus);
+            
             fusorb:=FusionOrbitNC(iter!.state.G, fus, iter!.state.H);
-#            Assert(1,iter!.state.H = Stabilizer(iter!.state.G, AsPartition(fus),OnSetsSets));
+            Assert(1,iter!.state.H = Stabilizer(iter!.state.G, AsPartition(fus),OnSetsSets));
 #            Assert(1, not fusorb in res);
             
             Add(res, fusorb);
