@@ -790,11 +790,18 @@ function(cand,i)
         return true;
     fi;
     
+    if not sb in cand!.fullrows and not fb in cand!.fullrows then
+        return true;
+    fi;
+    
+    
     if IsSubset(cand!.fullrows, [cand!.currentRow..pos-1]) then
 #        Assert(1,IsSubset(Union(cand!.fullrows,[cand!.currentRow]), [1..pos-1]));
         
         return true;
     fi;
+    
+    
     return false;
 end);
 
@@ -834,7 +841,7 @@ function(cand,pt)
         sb:=cand!.startBlock[color];
         fb:=cand!.finishBlock[color];
     fi;
-    
+        
     npgs.fullrows:=ShallowCopy(cand!.fullrows);
     npgs.kIsForced:=cand!.kIsForced;
     npgs.k:=cand!.k;
@@ -1292,6 +1299,7 @@ function(tensor)
               k:=0,
               lbdIsForced:=false,
               lbd:=0);
+    
     return Objectify(NewType(GoodSetsFamily(tensor), IsSymPartialGoodSet and IsSymPartialGoodSetBlkRep), cand);
 end);
 
@@ -1376,9 +1384,6 @@ function(iter)
             return fail; 
         fi;
         
-        # if state.M=[ 1, 5, 6, 7, 8, 9, 10, 11, 16, 17, 18, 24] then
-        #     Error("tst");
-        # fi;
         
         if not IsExtendiblePartialGoodSet(state.cand) then
             return NextState(state.linkback);
@@ -1469,6 +1474,7 @@ function(iter)
     while not IsDoneIterator(iter) do
         if Length(iter!.state.M)<=COCOInfoGSSize then
             COCOPrint(iter!.state.M);
+#            COCOPrint(iter!.state.cand!.set);
             # if iter!.state.cand!.kIsForced then
             #     COCOPrint("(",iter!.state.cand!.k);
             # fi;
