@@ -998,11 +998,11 @@ InstallMethod( DisplayString,
     for i in [1..Order(x)] do
         for k in [1..Order(x)] do
             for j in [1..Order(x)] do
-                max := Maximum(max, EntryOfTensor(x, i, j, k));
+                max := Maximum(max, Length(String(EntryOfTensor(x, i, j, k))));
             od;
         od;
     od;
-    width := LogInt(max, 10) + 3;
+    width := max+3;
     totalWidth := Order(x) * width + 1;
     res:=Concatenation("+", List([1..totalWidth], x -> '-'), "+\n");
     for i in [1..Order(x)] do
