@@ -229,6 +229,12 @@ function(cgr, colors)
     end));
 end);
 
+InstallOtherMethod(AdjacencyMatrix,
+     "for color graphs and a color",
+     [IsColorGraph, IsPosInt],
+function(cgr, color)
+    return AdjacencyMatrix(cgr,[color]);
+end);
 
 ####################
 #M BaseGraphOfColorGraph
@@ -1100,6 +1106,27 @@ function(cgr)
 #    return RankAction(AutGroupOfCocoObject(cgr),[1..OrderOfColorGraph(cgr)])=RankOfColorGraph(cgr);
 end);
 
+InstallMethod(IsMetricColorGraph, "for color graphs",
+		[IsColorGraph],
+function(cgr)
+    local  t;
+    if not IsWLStableColorGraph(cgr) then
+        return false;
+    fi;
+    t:=StructureConstantsOfColorGraph(cgr);
+    return PPolynomialOrderings(t)<>[];
+end);
+              
+InstallMethod(IsCometricColorGraph, "for color graphs",
+		[IsColorGraph],
+function(cgr)
+    local  t;
+    if not IsWLStableColorGraph(cgr) then
+        return false;
+    fi;
+    t:=StructureConstantsOfColorGraph(cgr);
+    return QPolynomialOrderings(t)<>[];
+end);
 
 InstallMethod(\=,
 		"for color graphs",

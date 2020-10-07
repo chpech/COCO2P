@@ -39,6 +39,9 @@ DeclareProperty( "IsSchurian",             IsColorGraph and IsWLStableColorGraph
 DeclareProperty( "IsUndirectedColorGraph", IsColorGraph );                                                           # documented
 DeclareProperty( "IsPrimitiveColorGraph", IsColorGraph ); # undocumented 
 
+DeclareProperty( "IsMetricColorGraph", IsColorGraph );
+DeclareProperty( "IsCometricColorGraph", IsColorGraph );
+
 ####
 #### Operations
 ####
