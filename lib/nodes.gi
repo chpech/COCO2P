@@ -212,7 +212,7 @@ function(node,info)
 end);
 
 RegisterStandardInfo@:=function(node)
-    local cgr,tensor,ppolord,i,key,ord;
+    local cgr,tensor,ppolord,qpolord,krein,i,key,ord;
     cgr:=node!.cgr;
     tensor:=StructureConstantsOfColorGraph(cgr);
     
@@ -256,6 +256,24 @@ RegisterStandardInfo@:=function(node)
                     RegisterInfoCocoNode(node,rec(name:=Concatenation("bipartite ", Concatenation(String(i),":")),
                                                   value:=String(IsClosedSet(tensor, ppolord[i]{Filtered([1..Order(tensor)], IsOddInt)}))));
                 fi;
+            od;
+        fi;
+    fi;
+    
+    if RankOfColorGraph(cgr)>3 and IsCommutativeTensor(tensor) then
+        qpolord:=QPolynomialOrderings(tensor);
+        krein:=TensorOfKreinNumbers(tensor);
+        if qpolord<>[] then
+            for i in [1..Length(qpolord)] do
+                RegisterInfoCocoNode(node,rec(name:=Concatenation("Q-polynomial ordering ",Concatenation(String(i),":")), 
+                                              value:=StringList@(qpolord[i])));
+                RegisterInfoCocoNode(node,rec(name:=Concatenation("Krein-parameters ",Concatenation(String(i),":")), 
+                                              toStr:=StringParams@, 
+                                              value:=StringParams@(GetParams@(krein,qpolord[i]))));
+                RegisterInfoCocoNode(node,rec(name:=Concatenation("antipodal ", Concatenation(String(i),":")),
+                                              value:=String(IsClosedSet(krein, Set([qpolord[i][1],qpolord[i][Length(qpolord[i])]])))));
+                RegisterInfoCocoNode(node,rec(name:=Concatenation("bipartite ", Concatenation(String(i),":")),
+                                              value:=String(IsClosedSet(krein, qpolord[i]{Filtered([1..Order(krein)], IsOddInt)}))));
             od;
         fi;
     fi;
