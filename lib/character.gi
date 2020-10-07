@@ -215,37 +215,130 @@ function(system)
     return solutions;
 end);
 
-InstallGlobalFunction(MultiplicitiesOfCharacters,
-function(t, solutions)
-    local   A,  mates,  order,  rhs, ident;
+# InstallGlobalFunction(MultiplicitiesOfCharacters,
+# function(t, solutions)
+#     local   A,  mates,  order,  rhs, ident;
     
-    ident:=ReflexiveColors(t)[1];
+#     ident:=ReflexiveColors(t)[1];
     
-    A := TransposedMat(solutions)^-1;
-    mates := Mates(t);
-    rhs := List([1..Order(t)], x -> 0);
-    rhs[ident] := Order(t);
-    return A*rhs;
+#     A := TransposedMat(solutions)^-1;
+#     mates := Mates(t);
+#     rhs := List([1..Order(t)], x -> 0);
+#     rhs[ident] := Order(t);
+#     return A*rhs;
+# end);
+
+
+InstallMethod( FirstEigenmatrix,
+        "for commutative structure constants tensors",
+        [IsTensor and IsCommutativeTensor and IsTensorOfCC],
+function(t)
+    local  system, solutions;
+    system := CharacteristicSystem(t);
+    solutions := SolutionsOfSystem(system);
+    solutions := Filtered(solutions, x -> ForAny(x, y -> y <> 0));
+    MakeImmutable(solutions);
+    return solutions;
+end);
+
+InstallMethod( SecondEigenmatrix,
+        "for commutative structure constants tensors",
+        [IsTensor and IsCommutativeTensor and IsTensorOfCC],
+function(t)
+    local  P, n, Q;
+    P:=FirstEigenmatrix(t);
+    n:=Sum(FibreLengths(t));
+    Q:=n*Inverse(P);
+    MakeImmutable(Q);
+    return Q;
+end);
+
+InstallMethod( CharacterTableOfTensor,
+        "for commutative structure constants tensors",
+        [IsTensor and IsCommutativeTensor and IsTensorOfCC],
+function(t)
+    local  r, P, Q, table;
+    r:=ReflexiveColors(t)[1];
+    P:=FirstEigenmatrix(t);
+    Q:=SecondEigenmatrix(t);
+    table := rec(
+                  characters := P,
+                  multiplicities := Q[r]);
+    MakeImmutable(table);
+    return table;
 end);
 
 InstallOtherMethod( CharacterTable,
-        "for tensors",
-        [IsTensor and IsCommutativeTensor],
+        "for commutative structure constants tensors",
+        [IsTensor and IsCommutativeTensor and IsTensorOfCC],
 function(t)
     return CharacterTableOfTensor(t);
 end);
 
+InstallMethod( TensorOfKreinNumbers,
+        "for commutative structure constants tensors",
+        [IsTensor and IsCommutativeTensor and IsTensorOfCC],
+function(tensor)
+    local  n, P, Q, entries, i, j, k, val;
+    
+    n:=Sum(OutValencies(tensor));
+    P:=FirstEigenmatrix(tensor);
+    Q:=SecondEigenmatrix(tensor);
+    entries:=List([1..Length(P)], i->List([1..Length(P)], j->List([1..Length(P)],k->0)));
+    for i in [1..Length(P)] do
+        for j in [1..Length(P)] do
+            for k in [1..Length(P)] do
+                val:=1/n*Sum(List([1..Length(P)], l->Q[l][i]*Q[l][j]*P[k][l]));
+                entries[i][j][k]:=val;
+            od;
+        od;
+    od;
+    return DenseTensorFromEntries(entries);
+end);
 
-InstallMethod( CharacterTableOfTensor,
-        "for tensors",
-        [IsTensor and IsCommutativeTensor],
-function(t)
-    local   system,  solutions,  table,  A,  mates,  order,  rhs;
-    system := CharacteristicSystem(t);
-    solutions := SolutionsOfSystem(system);
-    solutions := Filtered(solutions, x -> ForAny(x, y -> y <> 0));
-    table := rec();
-    table.characters := solutions;
-    table.multiplicities := MultiplicitiesOfCharacters(t, solutions);
-    return table;
+InstallMethod( IndexOfPrincipalCharacter,
+        "for commutative structure constants tensors",
+        [IsTensor and IsCommutativeTensor and IsTensorOfCC],
+function(tensor)
+    local  P, pc;
+    P:=FirstEigenmatrix(tensor);
+    pc:=OutValencies(tensor);
+    return Position(P,pc);
+end);
+
+InstallMethod( QPolynomialOrdering,
+        "for commutative structure constants tensors and a positive integer",
+        [IsTensor and IsCommutativeTensor and IsTensorOfCC, IsPosInt],
+function(tensor,i)
+    local  krein, list, j, set, new;
+    
+    krein:=TensorOfKreinNumbers(tensor);
+    list:=[IndexOfPrincipalCharacter(tensor),i];
+    if Length(Set(list))<2 then
+        return fail;
+    fi;
+    
+    for j in [2..Order(krein)-1] do
+        set:=Filtered([1..Order(krein)], k->EntryOfTensor(krein,list[j],i,k)<>0);
+        new:=Difference(set, Set([list[j-1],list[j]]));
+        if Length(new)<>1 then
+            return fail;
+        fi;
+        list[j+1]:=new[1];
+    od;
+    return list;
+end);
+
+InstallMethod( QPolynomialOrderings,
+        "for structure constants tensors",
+        [IsTensor and IsTensorOfCC],
+function(tensor)
+    local  res;
+    
+    if not IsCommutativeTensor(tensor) then
+        return [];
+    fi;
+    res:=List([1..Order(tensor)], i->QPolynomialOrdering(tensor,i));
+    res:=Filtered(res, x->x<>fail);
+    return res;
 end);
