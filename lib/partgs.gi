@@ -1452,8 +1452,12 @@ InstallMethod( ViewString,
         "for set orbit iterators",
         [IsIteratorOfPartialGoodSetOrbits and IsPartialGoodSetOrbitIterRep],
 function(iter)
-    return Concatenation("<good set orbit iterator, current set ",
-          String(iter!.state.M), ">");
+    if iter!.state=fail then
+        return "<done good set orbit iterator>";
+    else
+        return Concatenation("<good set orbit iterator, current set ",
+                             String(iter!.state.M), ">");
+    fi;
 end);         
          
 COCOInfoGSSize:=10;
