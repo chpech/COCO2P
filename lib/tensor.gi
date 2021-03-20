@@ -793,6 +793,19 @@ function(tensor)
     return res;
 end);
 
+
+InstallMethod(IsPPolynomial, 
+              "for structure constants tensors",
+              [IsTensor and IsTensorOfCC],
+function(tensor)
+    if not IsHomogeneousTensor(tensor) or not Mates(tensor)=() then
+        return false;
+    fi;
+    
+    return ForAny(Difference([1..Order(tensor)], ReflexiveColors(tensor)), i->PPolynomialOrdering(tensor,i)<>[]);
+end);
+         
+
 InstallMethod(SetKnownGroupOfAutomorphismsNC,
 		"for tensors in TensorRep",
      	[IsTensor and IsTensorRep, IsPermGroup],

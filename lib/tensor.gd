@@ -27,9 +27,11 @@ DeclareGlobalFunction( "TensorFromColorReps" );
 ###
 
 DeclareProperty( "IsTensorOfCC", IsTensor );                                                            # documented
-DeclareProperty( "IsCommutativeTensor", IsTensor );    # documented
-DeclareProperty( "IsHomogeneousTensor", IsTensor );
+DeclareProperty( "IsCommutativeTensor", IsTensor );                                                     # documented
+DeclareProperty( "IsHomogeneousTensor", IsTensor );   # !document!
 #and IsTensorOfCC );
+DeclareProperty( "IsPPolynomial", IsTensor and IsTensorOfCC ); # !document!
+
 
 
 ###
@@ -48,8 +50,8 @@ DeclareSynonym( "IsomorphismTensors", IsomorphismCocoObjects);                  
 DeclareSynonym( "IsIsomorphismOfTensors", IsIsomorphismOfObjects);                                      # documented
 DeclareSynonymAttr( "VertexNamesOfTensor", VertexNamesOfCocoObject);                                    # documented
 DeclareSynonym( "IsAutomorphismOfTensor", IsAutomorphismOfObject);                                      # documented
-DeclareOperation( "IsClosedSet", [IsTensor, IsList] );
-DeclareOperation( "PPolynomialOrdering", [IsTensor and IsTensorOfCC, IsPosInt]);
+DeclareOperation( "IsClosedSet", [IsTensor, IsList] );   # !document!
+DeclareOperation( "PPolynomialOrdering", [IsTensor and IsTensorOfCC, IsPosInt]); # !document!
 
 
 
@@ -62,7 +64,7 @@ DeclareAttribute( "Mates",                          IsTensor and IsTensorOfCC );
 DeclareAttribute( "OutValencies",                   IsTensor and IsTensorOfCC );                        # documented
 DeclareAttribute( "FibreLengths",                   IsTensor and IsTensorOfCC );                        # documented
 DeclareAttribute( "ClosedSets",                     IsTensor );                                         # documented
-DeclareAttribute( "PPolynomialOrderings",           IsTensor and IsTensorOfCC );
+DeclareAttribute( "PPolynomialOrderings",           IsTensor and IsTensorOfCC ); # !document!
 
 
 ###
