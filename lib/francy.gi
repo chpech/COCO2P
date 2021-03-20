@@ -334,7 +334,11 @@ function(cgrposet)
     maxrank:=Maximum(List(ElementsOfCocoPoset(cgrposet),RankOfColorGraph));
     
     for i in [1..Size(cgrposet)] do
-        node:=NewCocoNode(cgrposet,i);
+        node:=NewCocoNode(ElementsOfCocoPoset(cgrposet)[i]);
+        node!.index:=i;
+        RegisterInfoCocoNode(node, rec(name:="Number:",value:=String(node!.index)));
+        RegisterStandardInfo@(node);
+
         shape:=ShapeOfCocoNode(node);
         if shape="rectangle" then
             shape:=ShapeType.SQUARE;
@@ -775,7 +779,13 @@ function(forbposet)
     
     
     for i in [1..Size(forbposet)] do
-        node:=NewCocoNode(forbposet,i);
+        
+        node:=NewCocoNode(forbposet!.colorGrahps[i]);
+        node!.index:=i;
+        RegisterInfoCocoNode(node, rec(name:="Number:", value:=String(node!.index)));
+        RegisterStandardInfo@(node);
+        RegisterInfoCocoNode(node, rec(name:="algebraic:", value:=String(node!.index in node!.poset!.algebraicFusions)));
+
         shape:=ShapeOfCocoNode(node);
         if shape="rectangle" then
             shape:=ShapeType.SQUARE;
