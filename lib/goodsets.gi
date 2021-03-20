@@ -230,8 +230,8 @@ function(grp,gsorb)
     if not IsSubgroup(ug,grp) then
         Error("SubOrbitsOfCocoOrbit: The given group is not a subgroup of the underlying group of the orbit!");
     fi;
-    cosreps:=List(RightCosetsNC(ug,grp), x->Representative(x)^(-1)); # get left-coset representatives
     stab:=StabilizerOfCanonicalRepresentative(gsorb);
+    cosreps:=List(DoubleCosetsNC(ug,stab,grp), Representative); 
     gs:=CanonicalRepresentativeOfCocoOrbit(gsorb);
     ngs:=GoodSetOrbitNC(grp,gs, Intersection(stab,grp));
 
@@ -250,8 +250,8 @@ function(grp,gsorb,func)
         Error("SubOrbitsWithInvariantPropertyOfCocoOrbit: The given group is not a subgroup of the underlying group of the orbit!");
     fi;
 
-    cosreps:=List(RightCosetsNC(ug,grp), x->Representative(x)^(-1)); # get left-coset representatives
     stab:=StabilizerOfCanonicalRepresentative(gsorb);
+    cosreps:=List(DoubleCosetsNC(ug,stab,grp), Representative); 
     gs:=CanonicalRepresentativeOfCocoOrbit(gsorb);
     ngs:=GoodSetOrbitNC(grp,gs, Intersection(stab,grp));
     res:=List(cosreps, x->OnCocoOrbits(ngs,x));
