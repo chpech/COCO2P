@@ -173,7 +173,7 @@ InstallMethod(GraphicCocoPoset,
         "for sub color isomorphism posets",
         [IsCocoPoset and IsSubColorIsomorphismPoset],
 function(cgrposet)
-    local gposet,levels, vertices, classes,lcls,i,j,cgr,funcclose,funcall,updater,setter;
+    local gposet,levels, vertices, classes,lcls,i,j,cgr,funcclose,funcall,updater,setter,node;
 
 
     gposet := GraphicPoset( "SubColorIsomorphismPoset", 800, 600 );
@@ -192,7 +192,13 @@ function(cgrposet)
 
     for i in [1..Size(cgrposet)] do
         cgr:=ElementsOfCocoPoset(cgrposet)[i];
-        Add( vertices, Vertex( gposet, NewCocoNode(cgrposet,i),
+        
+        node:=NewCocoNode(ElementsOfCocoPoset(cgrposet)[i]);
+        node!.index:=i;
+        RegisterInfoCocoNode(node, rec(name:="Number:",value:=String(i)));
+        RegisterStandardInfo@(node);
+
+        Add( vertices, Vertex( gposet, node,
                 rec( label := String( i )
                               ) ) );
     od;
@@ -499,7 +505,7 @@ InstallMethod(GraphicCocoPoset,
         "for posets of fusion orbits",
         [IsPosetOfFusionOrbits and IsPosetOfFusionOrbitsRep],
 function(forbposet)
-    local gposet,levels, vertices, classes,lcls,i,j,cgr,funcclose,funcall,updater,setter;
+    local gposet,levels, vertices, classes,lcls,i,j,cgr,funcclose,funcall,updater,setter,node;
 
 
     gposet := GraphicPoset( "PosetOfFusionOrbits", 800, 600 );
@@ -523,7 +529,14 @@ function(forbposet)
 
     for i in [1..Size(forbposet)] do
         cgr:=forbposet!.colorGraphs[i];
-        Add( vertices, Vertex( gposet, NewCocoNode(forbposet,i),
+        
+        node:=NewCocoNode(forbposet!.colorGraphs[i]);
+        node!.index:=i;
+        RegisterInfoCocoNode(node, rec(name:="Number:", value:=String(i)));
+        RegisterStandardInfo@(node);
+        RegisterInfoCocoNode(node, rec(name:="algebraic:", value:=String(node!.index in node!.poset!.algebraicFusions)));
+
+        Add( vertices, Vertex( gposet, node,
                 rec(
                      label := String( i ),
                               levelparam := Rank(cgr),
@@ -736,7 +749,10 @@ function(forbposet)
                     "-------------------------------------------------\n");
             if sel<>[] then
                 cgr:=sel[1]!.data!.poset!.cgr;
+                
                 node:=NewCocoNode(cgr);
+                RegisterStandardInfo@(node);
+
                 ComputeAllInfos(node);
                 for str in infoOptions@.disabled do
                     ComputeInfo(node,str);
