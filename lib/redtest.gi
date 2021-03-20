@@ -103,13 +103,20 @@ function(xS,SM,M,x)
 end);
 
 InstallGlobalFunction(CocoTwoSetOrbitRepresentatives,
-function(G, n)
-    local  res, S, dom, firsts, i, Si, seconds, j, SC;
+function(G, bd)
+    local  n,res, S, dom, firsts, i, Si, seconds, j, SC;
 
     res:=[];
 
     S:=Stbc(G);
-    dom:=[1..n];
+    if IsList(bd) then
+        dom:=[Minimum(bd)..Maximum(bd)];
+        n:=Maximum(dom);
+    else
+        dom:=[1..bd];
+        n:=bd;
+    fi;
+    
     firsts:=StbcMinimalOrbitReps(S,dom);
     for i in firsts do
         Si:=StbcStabilizer(S,i);
