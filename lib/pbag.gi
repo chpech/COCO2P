@@ -746,7 +746,8 @@ function(object, H, TInv)
     t:=ShallowCopyPbagObject(object);
     PbagFindAutGroup(t,TInv,1);
     ReduceStabChain(t.stabChain);
-    return Group(ShallowCopy(t.stabChain.generators),());
+    return StbcGroup(CopyStabChain(t.stabChain));
+    # Group(ShallowCopy(t.stabChain.generators),());
 end);
 
 InstallGlobalFunction(IsomorphismPbagObjects,
