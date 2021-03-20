@@ -149,7 +149,7 @@ InstallGlobalFunction(CocoPosetByFunctions,
 function(elements,order,linorder)
     local   poset,  i,  active,  j;
     
-    Sort(elements, linorder);
+    StableSort(elements, linorder);
     
     poset:=rec();
     poset.elements:=Immutable(elements);
