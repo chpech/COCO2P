@@ -104,8 +104,8 @@ function(grp,orb)
     if not IsSubgroup(ug,grp) then
         Error("SubOrbitsOfCocoOrbit: The given group is not a subgroup of the underlying group of the good set orbit!");
     fi;
-    cosreps:=List(RightCosetsNC(ug,grp), x->Representative(x)^(-1)); # get left-coset representatives
     stab:=StabilizerOfCanonicalRepresentative(orb);
+    cosreps:=List(DoubleCosetsNC(ug,stab, grp), Representative);
     rep:=CanonicalRepresentativeOfCocoOrbit(orb);
     nrep:=FusionOrbitNC(grp,rep, Intersection(stab,grp));
 
@@ -124,8 +124,8 @@ function(grp,orb,func)
         Error("WithInvariantPropertyOfCocoOrbit: The given group is not a subgroup of the underlying group of the good set orbit!");
     fi;
 
-    cosreps:=List(RightCosetsNC(ug,grp), x->Representative(x)^(-1)); # get left-coset representatives
     stab:=StabilizerOfCanonicalRepresentative(orb);
+    cosreps:=List(DoubleCosetsNC(ug,stab,grp), Representative); 
     rep:=CanonicalRepresentativeOfCocoOrbit(orb);
     nrep:=GoodSetOrbitNC(grp,rep, Intersection(stab,grp));
     cosreps:=Filtered(cosreps, r->func(OnFusions(CanonicalRepresentativeOfCocoOrbit(nrep),r)));
@@ -381,6 +381,7 @@ function(cgr)
                 Add(algebraicFusions,Length(cautfusorbs));
             fi;
         od;
+        COCOPrint("*\c");
     od;
     
     poset:=CocoPosetByFunctions([1..Length(cautfusorbs)], order, linorder);
