@@ -10,4 +10,4 @@ DeclareOperation( "UpdateInfoInCocoNode", [IsCocoNode,IsString] );
 DeclareOperation( "RegisterInfoCocoNode", [IsCocoNode, IsRecord] );
 
 
-BindGlobal( "infoOptions@", rec(disabled:=["Aut:"]));
+BindGlobal( "infoOptions@", rec(disabled:=["Aut:","structure:"]));

@@ -112,6 +112,7 @@ StringMultiset@:=function(s)
     
     res:="";
     str:=OutputTextString(res,true);
+    SetPrintFormattingStatus(str,false);
     cs:=Collected(s);
     for e in cs do
         if e[2]=1 then
@@ -132,12 +133,16 @@ StringList@:=function(s)
     
     res:="";
     str:=OutputTextString(res,true);
+    SetPrintFormattingStatus(str,false);
+    PrintTo(str,"<");
     for e in s do
         PrintTo(str,e);
         if e<>s[Length(s)] then
             PrintTo(str,",");
         fi;
     od;
+    PrintTo(str,">");
+    
     CloseStream(str);
     return res;
 end;
@@ -159,6 +164,7 @@ StringParams@:=function(prm)
     
     res:="";
     str:=OutputTextString(res,true);
+    SetPrintFormattingStatus(str,false);
     PrintTo(str,"(");
     for i in [1..Length(bi)] do
         PrintTo(str, bi[i]);
@@ -178,6 +184,78 @@ StringParams@:=function(prm)
     return res;
 end;
 
+GetSrgParams@:=function(tensor)
+    local  srg, srg_I,  srg_A, srg_JIA,
+           delta, R, 
+           T, K, S, alpha, beta, gamma, threeisoregular;
+    if Order(tensor)<>3 or Mates(tensor)<>() then
+        return fail;
+    fi;
+    srg:=rec();
+    srg_I:=ReflexiveColors(tensor)[1];
+    srg.k:=Minimum(OutValencies(tensor)
+                               {Difference([1..Order(tensor)], [srg_I])});
+    srg_A:=First([1..Order(tensor)], x->OutValencies(tensor)[x]=srg.k);
+    srg_JIA:=Difference([1..3],Set([srg_I,srg_A]))[1];
+    srg.lambda:=tensor[[srg_A,srg_A,srg_A]];
+    srg.mu:=tensor[[srg_A,srg_A,srg_JIA]];
+    srg.v:=Sum(OutValencies(tensor));
+    if (srg.v-1)*(srg.mu-srg.lambda)-2*srg.k <> 0 then
+        srg.halfcase:=false;
+        delta := RootInt((srg.lambda-srg.mu)^2 + 
+                         4*(srg.k-srg.mu));
+        srg.r := (srg.lambda-srg.mu + delta)/2;
+        srg.s := (srg.lambda-srg.mu - delta)/2;
+        srg.f:=(srg.v-1+((srg.v-1)*(srg.mu-srg.lambda)-2*srg.k)/delta)/2;
+        srg.g:=(srg.v-1-((srg.v-1)*(srg.mu-srg.lambda)-2*srg.k)/delta)/2;
+    else
+        srg.halfcase:=true;
+        srg.f:=(srg.v-1)/2;
+        srg.g:=(srg.v-1)/2;
+        srg.r:=(-1+Sqrt(srg.v))/2;
+        srg.s:=(-1-Sqrt(srg.v))/2;
+    fi;
+    R := -srg.s;
+    T := srg.mu / R;
+    srg.isPseudoGeometric := false; # initialisation
+    if IsInt(T) and T>0 then
+        K := srg.r + T + 1;
+        if srg.v = K*(1+(K-1)*(R-1)/T) and
+           srg.k = R*(K-1) and
+           srg.lambda = (K-2) + (R-1)*(T-1) and
+           T <= K and T <= R then
+            srg.isPseudoGeometric := true;
+            srg.psg := rec(s := K-1, t := R-1, alpha := T);
+        fi;
+    fi;
+    
+    srg.isPseudoPartialQuadrangle:=false; # initialisation
+    if srg.mu<>0 then
+        S:=srg.lambda+1;
+        T:=srg.k/(srg.lambda+1)-1;
+        threeisoregular:=false; # initialisation
+        if IsInt(T) then
+            alpha:=(T+1)*T*S^2/srg.mu-1-(T+1)*S+srg.mu;
+            beta:=srg.mu*S*(T-1);
+            gamma:=srg.mu*(S*(T-1)+(srg.mu-1)*(srg.mu-2));
+            if alpha*gamma >= beta^2 then
+                if alpha*gamma=beta^2 then
+                    threeisoregular:=true;
+                fi;
+                srg.isPseudoPartialQuadrangle:=true;
+                srg.ppq:=rec(s:=S, 
+                             t:=T, 
+                             mu:=srg.mu, 
+                             threeisoregular:=threeisoregular);
+            fi;
+        fi;
+    fi;
+    
+    return srg;
+end;
+
+    
+    
 InstallMethod( RegisterInfoCocoNode,
                "for  coco nodes in ColorGraphNodeRep",
                [IsCocoNode and IsColorGraphNodeRep, IsRecord],
@@ -212,35 +290,51 @@ function(node,info)
 end);
 
 RegisterStandardInfo@:=function(node)
-    local cgr,tensor,ppolord,qpolord,krein,i,key,ord;
+    local cgr,tensor,ppolord,qpolord,krein,i,key,ord,srg,val,fvc;
     cgr:=node!.cgr;
     tensor:=StructureConstantsOfColorGraph(cgr);
     
+    
+    
+    fvc:=ValueOption("fvc");
+    if fvc=fail then
+        fvc:=false;
+    fi;
+
     RegisterInfoCocoNode(node,rec(name:="order:",
                                   getter:=node->OrderOfColorGraph(node!.cgr)));
     RegisterInfoCocoNode(node,rec(name:="rank:",
                                   getter:=node->RankOfColorGraph(node!.cgr)));
     if RankOfColorGraph(cgr)=3 then
         if Mates(tensor)=() then
-            RegisterInfoCocoNode(node,rec(name:="srg:", 
-                                          toStr:=vklm->Concatenation("(",String(vklm[1]),",",String(vklm[2]),",",String(vklm[3]),",",String(vklm[4]),")"),
-                                          getter:=function(node) 
-                                              local srg_I,srg_k,srg_A,srg_JIA,srg_lambda,srg_mu,tensor;
-                                              srg_I:=ReflexiveColors(node!.cgr)[1];
-                                              srg_k:=Minimum(OutValencies(node!.cgr)
-                                                                         {Difference([1..Rank(node!.cgr)], [srg_I])});
-                                              srg_A:=First([1..Rank(node!.cgr)], x->OutValencies(node!.cgr)[x]=srg_k);
-                                              srg_JIA:=Difference([1..3],Set([srg_I,srg_A]))[1];
-                                              tensor:=StructureConstantsOfColorGraph(node!.cgr);
-                                              srg_lambda:=tensor[[srg_A,srg_A,srg_A]];
-                                              srg_mu:=tensor[[srg_A,srg_A,srg_JIA]];
-                                              return [OrderOfColorGraph(node!.cgr), srg_k, srg_lambda, srg_mu];
-                                          end));
+            srg:=GetSrgParams@(tensor);
+            
+            RegisterInfoCocoNode(node,rec(name:="srg:",
+                                          value:=Concatenation("(",String(srg.v),",",String(srg.k),",",String(srg.lambda),",",String(srg.mu),")")));
+            if srg.isPseudoGeometric then
+                if srg.psg.alpha=1 then
+                    val:=Concatenation("GQ(",String(srg.psg.s),",",String(srg.psg.t),")");
+                else
+                    val:=Concatenation("PG(",String(srg.psg.s),",",String(srg.psg.t),",",String(srg.psg.alpha),")");
+                fi;
+                
+                RegisterInfoCocoNode(node, rec(name:="pseudo-geometric:",
+                                               value:=val));
+            elif srg.isPseudoPartialQuadrangle then
+                val:=Concatenation("PQ(",String(srg.ppq.s),",",String(srg.ppq.t),",",String(srg.ppq.mu),")");
+                if srg.ppq.threeisoregular then
+                    Append(val,"_3");
+                fi;
+                
+                RegisterInfoCocoNode(node, rec(name:="pseudo-PQ:", 
+                                               value:=val));
+            fi;
         else
             RegisterInfoCocoNode(node,rec(name:="type:",
                                           value:="doubly regular tournament"));
         fi;
     fi;
+    
     if RankOfColorGraph(cgr)>3 then
         ppolord:=PPolynomialOrderings(tensor);
         if ppolord<>[] then
@@ -248,7 +342,7 @@ RegisterStandardInfo@:=function(node)
                 RegisterInfoCocoNode(node,rec(name:=Concatenation("P-polynomial ordering ",Concatenation(String(i),":")), 
                                               value:=StringList@(ppolord[i])));
                 RegisterInfoCocoNode(node,rec(name:=Concatenation("drg-parameters ",Concatenation(String(i),":")), 
-                                              toStr:=StringParams@, 
+#                                              toStr:=StringParams@, 
                                               value:=StringParams@(GetParams@(tensor,ppolord[i]))));
                 if OutValencies(tensor)[ppolord[i][2]] > 2 then
                     RegisterInfoCocoNode(node,rec(name:=Concatenation("antipodal ", Concatenation(String(i),":")),
@@ -300,10 +394,15 @@ RegisterStandardInfo@:=function(node)
                                       getter:=node->IsPrimitiveColorGraph(node!.cgr)));
         RegisterInfoCocoNode(node,rec(name:="symmetric:",
                                       getter:=node->IsSymmetricColorGraph(node!.cgr)));
-        RegisterInfoCocoNode(node,rec(name:="commutative:",
-                                      getter:=node->IsCommutativeTensor(StructureConstantsOfColorGraph(node!.cgr))));
+        if not IsSymmetricColorGraph(cgr) then
+            RegisterInfoCocoNode(node,rec(name:="commutative:",
+                                          getter:=node->IsCommutativeTensor(StructureConstantsOfColorGraph(node!.cgr))));
+        fi;
     fi;
-    
+    if RankOfColorGraph(cgr)>3 and IsSymmetricColorGraph(cgr) and IsHomogeneous(cgr) then
+        RegisterInfoCocoNode(node, rec(name:="amorphic:", getter:=node->IsAmorphicColorGraph(node!.cgr)));
+    fi;
+
     if RankOfColorGraph(cgr)>2 and (RankOfColorGraph(cgr)>3 or IsPrimitiveColorGraph(cgr)) then
         RegisterInfoCocoNode(node,rec(name:="order(Aut):",
                                       toStr:=StringPP,
@@ -349,65 +448,65 @@ function(cgr)
                         level:=RankOfColorGraph(cgr),
                         cgr:=cgr,
                         nodeInfo:=nodeInfo));
-    RegisterStandardInfo@(node);
+#    RegisterStandardInfo@(node);
     return node;
 end);
 
 
-InstallMethod(NewCocoNode,
-        "for SubColorIsomorphismPosets and positive integers",
-        [IsSubColorIsomorphismPoset and IsSubColorIsomorphismPosetRep, IsPosInt],
-function(poset,index)
-    local cgr,nodeInfo,node;
-    cgr:=poset!.elements[index];
+# InstallMethod(NewCocoNode,
+#         "for SubColorIsomorphismPosets and positive integers",
+#         [IsSubColorIsomorphismPoset and IsSubColorIsomorphismPosetRep, IsPosInt],
+# function(poset,index)
+#     local cgr,nodeInfo,node;
+#     cgr:=poset!.elements[index];
 
 
-    nodeInfo:=rec(names:=[],
-                  values:=[],
-                  testers:=[],
-                  toStr:=[],
-                  getters:=[],
-                  maxlength:=0);
+#     nodeInfo:=rec(names:=[],
+#                   values:=[],
+#                   testers:=[],
+#                   toStr:=[],
+#                   getters:=[],
+#                   maxlength:=0);
     
 
-    node:=Objectify(NewType(CocoNodesFam, IsCocoNode and IsColorGraphNodeRep),
-                   rec( poset:=poset,
-                        index:=index,
-                        level:=RankOfColorGraph(cgr),
-                        cgr:=cgr,
-                        nodeInfo:=nodeInfo));
-    RegisterInfoCocoNode(node, rec(name:="Number:",value:=String(node->node!.index)));
-    RegisterStandardInfo@(node);
-    return node;
-end);
+#     node:=Objectify(NewType(CocoNodesFam, IsCocoNode and IsColorGraphNodeRep),
+#                    rec( poset:=poset,
+#                         index:=index,
+#                         level:=RankOfColorGraph(cgr),
+#                         cgr:=cgr,
+#                         nodeInfo:=nodeInfo));
+#     RegisterInfoCocoNode(node, rec(name:="Number:",value:=String(node!.index)));
+#     RegisterStandardInfo@(node);
+#     return node;
+# end);
 
-InstallMethod(NewCocoNode,
-        "for posets of fusion orbits and positive integers",
-        [IsPosetOfFusionOrbits and IsPosetOfFusionOrbitsRep, IsPosInt],
-function(poset,index)
-    local cgr,nodeInfo,node;
-    cgr:=poset!.colorGraphs[index];
+# InstallMethod(NewCocoNode,
+#         "for posets of fusion orbits and positive integers",
+#         [IsPosetOfFusionOrbits and IsPosetOfFusionOrbitsRep, IsPosInt],
+# function(poset,index)
+#     local cgr,nodeInfo,node;
+#     cgr:=poset!.colorGraphs[index];
 
 
-    nodeInfo:=rec(names:=[],
-                  values:=[],
-                  testers:=[],
-                  toStr:=[],
-                  getters:=[],
-                  maxlength:=0);
+#     nodeInfo:=rec(names:=[],
+#                   values:=[],
+#                   testers:=[],
+#                   toStr:=[],
+#                   getters:=[],
+#                   maxlength:=0);
     
 
-    node:=Objectify(NewType(CocoNodesFam, IsCocoNode and IsColorGraphNodeRep),
-                   rec( poset:=poset,
-                        index:=index,
-                        level:=RankOfColorGraph(cgr),
-                        cgr:=cgr,
-                        nodeInfo:=nodeInfo));
-    RegisterInfoCocoNode(node, rec(name:="Number:", value:=String(node!.index)));
-    RegisterStandardInfo@(node);
-    RegisterInfoCocoNode(node, rec(name:="algebraic:", value:=String(node!.index in node!.poset!.algebraicFusions)));
-    return node;
-end);
+#     node:=Objectify(NewType(CocoNodesFam, IsCocoNode and IsColorGraphNodeRep),
+#                    rec( poset:=poset,
+#                         index:=index,
+#                         level:=RankOfColorGraph(cgr),
+#                         cgr:=cgr,
+#                         nodeInfo:=nodeInfo));
+#     RegisterInfoCocoNode(node, rec(name:="Number:", value:=String(node!.index)));
+#     RegisterStandardInfo@(node);
+#     RegisterInfoCocoNode(node, rec(name:="algebraic:", value:=String(node!.index in node!.poset!.algebraicFusions)));
+#     return node;
+# end);
 
 
 InstallMethod(NodeInfoString,
@@ -419,10 +518,12 @@ function(node)
         
     str:="";
     res:=OutputTextString( str, true );
+    SetPrintFormattingStatus(res,false);
     ninf:=node!.nodeInfo;
     maxlength:=Maximum(ninf.maxlength, 20);
     for i in [1..Length(ninf.names)] do
         if ninf.values[i]="unknown" and not ninf.names[i] in infoOptions@.disabled or node!.nodeInfo.testers[i](node) then
+            
             val:=ninf.getters[i](node);
             if val <> fail then
                 ninf.values[i]:=ninf.toStr[i](val);
