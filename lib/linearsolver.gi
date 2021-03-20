@@ -49,6 +49,8 @@ function(mat,bound,k)
     end;
     
     updatePSol:=function(pSol,currIdx,i)
+        Print(pSol.x,"\t", currIdx,"\t", i,"\n");
+        
         pSol.partSum:=pSol.partSum+pSol.mat[currIdx]*(i-pSol.x[currIdx]);
         pSol.x[currIdx]:=i;
     end;
@@ -72,6 +74,7 @@ function(mat,bound,k)
         
         if isCompletePSol(pSol) then 
             Add(solutions, ShallowCopy(pSol.x));
+            COCOPrint("!!!", pSol.x,"\n");
             
             if Length(solutions) mod 1000 =0 then
                Info(InfoSLDE,2,Length(solutions));

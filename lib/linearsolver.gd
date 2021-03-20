@@ -1,4 +1,4 @@
 DeclareInfoClass("InfoSLDE");
 
-DeclareGlobalFunction("BoundedSolutionsOfSLDE");
+DeclareGlobalFunction("BoundedSolutionsOfSLDE"); # recursive version of solver
 
