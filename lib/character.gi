@@ -93,7 +93,7 @@ if TestPackageAvailability("alnuth","3")=true and AL_EXECUTABLE<>fail then
                 continue;
             fi;
             
-            factors := Filtered(DivisorsInt(discriminant), IsPrimePowerInt);
+            factors := Filtered(DivisorsInt(Sqrt(discriminant*ComplexConjugate(discriminant))), IsPrimePowerInt);
             Info(InfoTensor, 2, "factors of discriminant: ", factors);
             #        degrees := Concatenation(factors, Difference(degrees, factors));
             f:=FieldOfPolynomial(p)=Rationals;
@@ -125,7 +125,7 @@ if TestPackageAvailability("alnuth","3")=true and AL_EXECUTABLE<>fail then
 else
     InstallGlobalFunction(MyRootsOfPoly,
             function(poly)
-        local   F, roots,  indet,  i,  n, degrees,  factors, discriminant;
+        local   F, roots,  indet,  i,  n, degrees,  factors, discriminant,coeffs;
         roots := [];
         indet := IndeterminateOfUnivariateRationalFunction(poly);
         Info(InfoTensor, 1, "finding roots of polynomial ", poly);
@@ -137,14 +137,25 @@ else
             Info(InfoTensor, 1, "done");
             return roots;
         fi;
-        degrees := [2..20];
-        discriminant := Discriminant(poly);
-        Info(InfoTensor, 2, "discriminant: ", discriminant);
-        factors := Filtered(DivisorsInt(discriminant), IsPrimePowerInt);
-        Info(InfoTensor, 2, "factors of discriminant: ", factors);
-        degrees := Concatenation(factors, Difference(degrees, factors));
-        for n in degrees do
+#        degrees := [2..20];
+#        discriminant := Discriminant(poly);
+#        Info(InfoTensor, 2, "discriminant: ", discriminant);
+#        factors := Filtered(DivisorsInt(Sqrt(discriminant*ComplexConjugate(discriminant))), IsPrimePowerInt);
+#        factors := DivisorsInt(Sqrt(discriminant*ComplexConjugate(discriminant)));
+#        Info(InfoTensor, 2, "factors of discriminant: ", factors);
+#        degrees := Concatenation(factors, Difference(degrees, factors));
+        n:=1;
+        while true do
+#        for n in degrees do
             Info(InfoTensor, 2, "looking in CF(", n, ")");
+            coeffs:=CoefficientsOfLaurentPolynomial(poly)[1];
+            if ForAny(coeffs, x->not x in CF(n)) then
+                n:=n+1;
+                
+                continue;
+            fi;
+            
+            
             for i in RootsOfUPol(CF(n), poly) do
                 Add(roots, i);
 
@@ -153,8 +164,12 @@ else
             if DegreeOfLaurentPolynomial(poly) <= 0 then
                 break;
             fi;
+            n:=n+1;
         od;
-
+        if DegreeOfLaurentPolynomial(poly)>1 then
+            Error("not completely factorized");
+        fi;
+        
         Info(InfoTensor, 1, "done");
         return roots;
     end);
