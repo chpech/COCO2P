@@ -50,20 +50,21 @@ function(H, resH, xcgr1, xcgr2, h, res)
         return false;
     fi;
 
-    m1:=H.part.map;
-    m2:=Permuted(m1,h);
-    InfoW1(h,"\n",m1,"\n",m2,"\n");
-
-    ChangeColoringOfXCgr(xcgr1,m1);
-    ChangeColoringOfXCgr(xcgr2,m2);
-    o1:=BuildXCgrObject(xcgr1);
-    o2:=BuildXCgrObject(xcgr2);
-    y:=IsomorphismPbagObjects(o1,o2,XCgrInvariant);
-    if y=false then
-        InfoW1("/\c");
-       return false;
-    fi;
-
+    # if Length(H.orbit)>1 then
+    #     m1:=H.part.map;
+    #     m2:=Permuted(m1,h);
+    #     InfoW1(h,"\n",m1,"\n",m2,"\n");
+    #
+    #     ChangeColoringOfXCgr(xcgr1,m1);
+    #     ChangeColoringOfXCgr(xcgr2,m2);
+    #     o1:=BuildXCgrObject(xcgr1);
+    #     o2:=BuildXCgrObject(xcgr2);
+    #     y:=IsomorphismPbagObjects(o1,o2,XCgrInvariant);
+    #     if y=false then
+    #         COCOPrint("/\c");
+    #         return false;
+    #     fi;
+    # fi;
     pt:=H.orbit[1];
 
     for i in H.orbit do
@@ -76,9 +77,11 @@ function(H, resH, xcgr1, xcgr2, h, res)
         nh:=crep*h;
         x:=FindCosRep(H.stabilizer, resH.stabilizer, xcgr1,xcgr2,nh,res);
         if x <> false then
+            InfoW1(".\c");
             return x;
         fi;
     od;
+    InfoW1("|\c");
     return false;
 end);
 
