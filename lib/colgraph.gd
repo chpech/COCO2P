@@ -42,6 +42,9 @@ DeclareProperty( "IsPrimitiveColorGraph", IsColorGraph ); # undocumented
 DeclareProperty( "IsMetricColorGraph", IsColorGraph );
 DeclareProperty( "IsCometricColorGraph", IsColorGraph );
 
+DeclareProperty( "IsAmorphicColorGraph", IsColorGraph );
+
+
 ####
 #### Operations
 ####
