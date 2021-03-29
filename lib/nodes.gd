@@ -11,3 +11,4 @@ DeclareOperation( "RegisterInfoCocoNode", [IsCocoNode, IsRecord] );
 
 
 BindGlobal( "infoOptions@", rec(disabled:=["Aut:","structure:"]));
+DeclareGlobalFunction("RegisterStandardInfo@COCO2P");

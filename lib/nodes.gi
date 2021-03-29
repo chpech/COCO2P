@@ -322,7 +322,8 @@ function(node,info)
     fi;
 end);
 
-RegisterStandardInfo@:=function(node)
+InstallGlobalFunction("RegisterStandardInfo@COCO2P",
+function(node)
     local cgr,tensor,ppolord,qpolord,krein,i,key,ord,srg,val,fvc;
     cgr:=node!.cgr;
     tensor:=StructureConstantsOfColorGraph(cgr);
@@ -479,7 +480,7 @@ RegisterStandardInfo@:=function(node)
                                       tester:=node->HasAlgebraicAutomorphismGroup(node!.cgr),
                                       getter:=node->StructureDescription(AlgebraicAutomorphismGroup(node!.cgr):short)));
     fi;
-end;
+end);
 
                    
 InstallOtherMethod(NewCocoNode,
