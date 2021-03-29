@@ -184,22 +184,9 @@ StringParams@:=function(prm)
     return res;
 end;
 
-GetSrgParams@:=function(tensor)
-    local  srg, srg_I,  srg_A, srg_JIA,
-           delta, R, 
-           T, K, S, alpha, beta, gamma, threeisoregular;
-    if Order(tensor)<>3 or Mates(tensor)<>() then
-        return fail;
-    fi;
-    srg:=rec();
-    srg_I:=ReflexiveColors(tensor)[1];
-    srg.k:=Minimum(OutValencies(tensor)
-                               {Difference([1..Order(tensor)], [srg_I])});
-    srg_A:=First([1..Order(tensor)], x->OutValencies(tensor)[x]=srg.k);
-    srg_JIA:=Difference([1..3],Set([srg_I,srg_A]))[1];
-    srg.lambda:=tensor[[srg_A,srg_A,srg_A]];
-    srg.mu:=tensor[[srg_A,srg_A,srg_JIA]];
-    srg.v:=Sum(OutValencies(tensor));
+SetSpectrum@:=function(srg)
+    local delta;
+    
     if (srg.v-1)*(srg.mu-srg.lambda)-2*srg.k <> 0 then
         srg.halfcase:=false;
         delta := RootInt((srg.lambda-srg.mu)^2 + 
@@ -215,9 +202,18 @@ GetSrgParams@:=function(tensor)
         srg.r:=(-1+Sqrt(srg.v))/2;
         srg.s:=(-1-Sqrt(srg.v))/2;
     fi;
+end;
+
+SetPGParams@:=function(srg)
+    local  R, T, K;
+    
+    srg.isPseudoGeometric := false; # initialisation
+    if srg.mu=0 or srg.lambda = 2*srg.k-srg.v then # imprimitive case
+        return;
+    fi;
+    
     R := -srg.s;
     T := srg.mu / R;
-    srg.isPseudoGeometric := false; # initialisation
     if IsInt(T) and T>0 then
         K := srg.r + T + 1;
         if srg.v = K*(1+(K-1)*(R-1)/T) and
@@ -225,11 +221,19 @@ GetSrgParams@:=function(tensor)
            srg.lambda = (K-2) + (R-1)*(T-1) and
            T <= K and T <= R then
             srg.isPseudoGeometric := true;
-            srg.psg := rec(s := K-1, t := R-1, alpha := T);
+            srg.psg:=rec(s := K-1, t := R-1, alpha := T);
         fi;
     fi;
+end;
+
+SetPQParams@:=function(srg)
+    local S,T,threeisoregular,alpha,beta,gamma;
     
     srg.isPseudoPartialQuadrangle:=false; # initialisation
+    if srg.mu=0 or srg.lambda = 2*srg.k-srg.v then # imprimitive case
+        return;
+    fi;
+    
     if srg.mu<>0 then
         S:=srg.lambda+1;
         T:=srg.k/(srg.lambda+1)-1;
@@ -250,6 +254,35 @@ GetSrgParams@:=function(tensor)
             fi;
         fi;
     fi;
+end;
+
+GetSrgParams@:=function(tensor)
+    local  srg, srg_I,  srg_A, srg_JIA,csrg;
+    
+    if Order(tensor)<>3 or Mates(tensor)<>() then
+        return fail;
+    fi;
+    srg:=rec();
+    srg_I:=ReflexiveColors(tensor)[1];
+    srg.k:=Minimum(OutValencies(tensor)
+                               {Difference([1..Order(tensor)], [srg_I])});
+    srg_A:=First([1..Order(tensor)], x->OutValencies(tensor)[x]=srg.k);
+    srg_JIA:=Difference([1..3],Set([srg_I,srg_A]))[1];
+    srg.lambda:=tensor[[srg_A,srg_A,srg_A]];
+    srg.mu:=tensor[[srg_A,srg_A,srg_JIA]];
+    srg.v:=Sum(OutValencies(tensor));
+    csrg:=rec(
+               v:=srg.v,
+               k:=srg.v-srg.k-1,
+               lambda:=srg.v-2*srg.k+srg.mu-2,
+               mu:=srg.v-2*srg.k+srg.lambda);
+    SetSpectrum@(srg);
+    SetSpectrum@(csrg);
+    SetPGParams@(srg);
+    SetPGParams@(csrg);
+    SetPQParams@(srg);
+    SetPQParams@(csrg);
+    srg.complement:=csrg;
     
     return srg;
 end;
@@ -328,6 +361,26 @@ RegisterStandardInfo@:=function(node)
                 
                 RegisterInfoCocoNode(node, rec(name:="pseudo-PQ:", 
                                                value:=val));
+            fi;
+            if srg.k<>srg.complement.k then
+                if srg.complement.isPseudoGeometric then
+                    if srg.complement.psg.alpha=1 then
+                        val:=Concatenation("GQ(",String(srg.complement.psg.s),",",String(srg.complement.psg.t),")");
+                    else
+                        val:=Concatenation("PG(",String(srg.complement.psg.s),",",String(srg.complement.psg.t),",",String(srg.complement.psg.alpha),")");
+                    fi;
+                    
+                    RegisterInfoCocoNode(node, rec(name:="pseudo-geometric cmpl:",
+                                                   value:=val));
+                elif srg.complement.isPseudoPartialQuadrangle then
+                    val:=Concatenation("PQ(",String(srg.complement.ppq.s),",",String(srg.complement.ppq.t),",",String(srg.complement.ppq.mu),")");
+                    if srg.complement.ppq.threeisoregular then
+                        Append(val,"_3");
+                    fi;
+                    
+                    RegisterInfoCocoNode(node, rec(name:="pseudo-PQ cmpl:", 
+                                                   value:=val));
+                fi;
             fi;
         else
             RegisterInfoCocoNode(node,rec(name:="type:",
