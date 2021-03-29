@@ -1622,15 +1622,61 @@ end);
 
 
 
-InstallMethod( Display,
+InstallMethod( DisplayString,
         "for color graphs",
         [IsColorGraph],
-        function(cgr)
+function(cgr)
     local names;
 
     names:=ColorNames(cgr);
-    Display(List(AdjacencyMatrix(cgr),r->List(r, e->names[e])));
+    DisplayString(List(AdjacencyMatrix(cgr),r->List(r, e->names[e])));
 end);
+
+InstallMethod( DisplayString,
+               "for wl-stable color graphs",
+               [IsColorGraph and IsWLStableColorGraph],
+function(cgr)
+    local  long, fvc, res, str, node, ninf, maxlength, scgr, mrg;
+    long:=ValueOption("long");
+    if long=fail then
+        long:=false;
+    fi;
+    
+    fvc:=ValueOption("fvc");
+    if fvc=fail then
+        fvc:=false;
+    fi;
+    
+    res:="";
+    str:=OutputTextString(res,true);
+    SetPrintFormattingStatus(str,false);
+
+    node:=NewCocoNode(cgr);
+    RegisterStandardInfo@COCO2P(node);
+    ComputeAllInfos(node);
+    
+    ninf:=node!.nodeInfo;
+    AppendTo(str, NodeInfoString(node));
+    if long then
+        maxlength:=Maximum(ninf.maxlength, 20);
+        if not IsTransitive(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(cgr)]) then
+            AppendTo(str, String("Orbits of Aut: ",-maxlength));
+            AppendTo(str, StringCocoOrbReps@(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(node!.cgr)]));
+        fi;
+        AppendTo(str, String("Generators of Aut: ",-maxlength),"\n");
+        AppendTo(str, StringCocoGenerators@(AutomorphismGroup(node!.cgr), OrderOfColorGraph(node!.cgr)));
+
+        scgr:=ColorGraph(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(node!.cgr)],OnPoints,true);
+        if not IsSchurian(node!.cgr) then
+            AppendTo(str, String("Merging in Cgr(Aut): ",-maxlength),"\n");
+            mrg:=Set([1..Rank(node!.cgr)], i->Filtered([1..Rank(scgr)], j->ArcColorOfColorGraph(node!.cgr,ColorRepresentative(scgr,j))=i));
+            AppendTo(str, StringCocoMerging@(mrg));
+        fi;
+    fi;
+    CloseStream(str);
+    return res;
+end);
+
 
 InstallMethod( PrintString,
         "for color graphs",
