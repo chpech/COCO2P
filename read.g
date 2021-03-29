@@ -1,4 +1,5 @@
 ReadPackage("coco2p", "lib/stbc.g4");
+ReadPackage("coco2p", "lib/misc.g4");
 ReadPackage("coco2p", "lib/redtest.gi");
 ReadPackage("coco2p", "lib/pbag.gi");
 ReadPackage("coco2p", "lib/queue.gi");

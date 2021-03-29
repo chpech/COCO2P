@@ -7,6 +7,7 @@ ReadPackage("coco2p", "lib/groupact.gd"); #internal
 ReadPackage("coco2p", "lib/tensor.gd");   # documented
 ReadPackage("coco2p", "lib/cocoorbit.gd"); # documented
 ReadPackage("coco2p", "lib/posets.gd"); # documented
+ReadPackage("coco2p", "lib/nodes.gd");
 ReadPackage("coco2p", "lib/fusion.gd"); # documented
 ReadPackage("coco2p", "lib/colgraph.gd"); # documented
 ReadPackage("coco2p", "lib/xcgrinv.gd"); #internal
@@ -19,7 +20,6 @@ ReadPackage("coco2p", "lib/newsubiso.gd"); # documented
 ReadPackage("coco2p", "lib/character.gd"); # documented
 ReadPackage("coco2p", "lib/colorsemiring.gd"); # documented
 ReadPackage("coco2p", "lib/hashtable.gd"); # internal
-ReadPackage("coco2p", "lib/nodes.gd");
 
 COCOPrint:=ReturnTrue;
 
