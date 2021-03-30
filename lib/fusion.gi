@@ -432,8 +432,176 @@ end);
 
     
 InstallMethod( ViewString,
-        "for sub color isomorphism posets",
+        "for posets of fusion orbits",
         [IsPosetOfFusionOrbits],
 function(poset)
     return Concatenation("<poset of fusion orbits with with ", String(Length(ElementsOfCocoPoset(poset))), " elements>");
 end);
+
+InstallOtherMethod(DisplayString,
+                   "for posets of fusion orbits",
+                   [IsPosetOfFusionOrbits and IsPosetOfFusionOrbitsRep, IsList],
+function(pos, indices)
+        local  idx,nodes, str, outp,res, cgr, node, v, ninf, maxlength,
+           index, algtwins, strictupperbounds, maxin,nonsch,long,scgr,
+           sch,mrg,schfiss,i,cgrr,fvc,srg;
+
+    nonsch:=ValueOption("nonschurian");
+    if nonsch=fail then
+        nonsch:=false;
+    fi;
+    long:=ValueOption("long");
+    if long=fail then
+        long:=false;
+    fi;
+
+    schfiss:=ValueOption("schurianfission");
+    if schfiss=fail then
+        schfiss:=false;
+    fi;
+    
+    fvc:=ValueOption("fvc");
+    if fvc=fail then
+        fvc:=false;
+    fi;
+    
+    
+    for i in [1..Size(pos)] do
+        cgrr:=pos!.colorGraphs[i];
+        if Rank(cgrr)>2 and (Rank(cgrr)>3 or IsPrimitiveColorGraph(cgrr)) then
+            if RemInt(Size(AutomorphismGroup(cgrr)),2^12)<>0 then
+                StructureDescription(AutomorphismGroup(cgrr):short);
+            fi;
+        fi;COCOPrint(".\c");
+    od;
+
+    nodes:=[];
+    for i in [1..Size(pos)] do
+        node:=NewCocoNode(pos!.colorGraphs[i]);
+        node!.index:=i;
+        node!.poset:=pos;
+        RegisterInfoCocoNode(node, rec(name:="Number:", value:=String(node!.index)));
+        RegisterStandardInfo@COCO2P(node);
+        # if fvc then
+        #     if Rank(node!.cgr)=3 and IsSymmetricColorGraph(node!.cgr) and not IsSchurian(node!.cgr) then
+        #         srg:=SrgFromCgr(node!.cgr);
+        #         RegisterInfoCocoNode(node, rec(name:="4-vc:",
+        #                                        value:=String(IsHighlyRegular(srg,2,4))));
+        #     fi;
+        # fi;
+        
+        RegisterInfoCocoNode(node, rec(name:="algebraic:", value:=String(node!.index in node!.poset!.algebraicFusions)));
+        Add(nodes,node);
+    od;
+
+    outp:="";
+    res:=OutputTextString(outp,true);
+    SetPrintFormattingStatus(res,false);
+
+
+    PrintTo(res,"COCO2P - Informations about a PosetOfFusionOrbits\n",
+            "-------------------------------------------------\n");
+    cgr:=pos!.cgr;
+    node:=NewCocoNode(cgr);
+    RegisterStandardInfo@COCO2P(node);
+    ninf:=node!.nodeInfo;
+
+    ComputeAllInfos(node);
+    for str in infoOptions@COCO2P.disabled do
+        ComputeInfo(node,str);
+    od;
+    AppendTo(res, NodeInfoString(node));
+    if long and Rank(node!.cgr)>2 and not ( Rank(node!.cgr)=3 and not IsPrimitive(node!.cgr)) then
+        maxlength:=Maximum(ninf.maxlength, 20);
+        if not IsTransitive(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(cgr)]) then
+            AppendTo(res, String("Orbits of Aut: ",-maxlength));
+            AppendTo(res, StringCocoOrbReps@(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(cgr)]));
+        fi;
+        AppendTo(res, String("Generators of Aut: ",-maxlength),"\n");
+        AppendTo(res, StringCocoGenerators@(AutomorphismGroup(node!.cgr), OrderOfColorGraph(cgr)));
+        
+        scgr:=ColorGraph(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(cgr)],OnPoints,true);
+        if not IsSchurian(node!.cgr) then
+            AppendTo(res, String("Merging in Cgr(Aut): ",-maxlength),"\n");
+            mrg:=Set([1..Rank(node!.cgr)], i->Filtered([1..Rank(scgr)], j->ArcColorOfColorGraph(node!.cgr,ColorRepresentative(scgr,j))=i));
+            AppendTo(res, StringCocoMerging@(mrg));
+        fi;
+    fi;
+    AppendTo(res, "-------------------------------------------------\n");
+    
+    
+    idx:=0;
+    
+    for v in indices do
+        node:=nodes[v];
+        ninf:=node!.nodeInfo;
+        if nonsch then
+            if IsSchurian(node!.cgr) then
+                continue;
+            fi;
+        fi;
+        idx:=idx+1;
+
+        maxlength:=Maximum(ninf.maxlength, 20);
+        if nonsch then
+            AppendTo(res,String("Index: ",-maxlength), idx,"\n");
+        fi;
+        index:=IndexOfCocoNode(node);
+        AppendTo(res, NodeInfoString(node));
+        algtwins:=Intersection(pos!.algTwins[index], indices);
+        if algtwins<>[] then
+            AppendTo(res, String("Algebraic Twins: ",-maxlength), algtwins,"\n");
+        fi;
+        if schfiss then
+            if not IsSchurian(node!.cgr) then
+                if IsTransitive(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(cgr)]) then
+                    sch:=Filtered([1..Size(pos)], i->IsSchurian(pos!.colorGraphs[i]));
+                    sch:=Intersection(FilterInCocoPoset(pos, v),sch);
+                    sch:=MinimalElementsInCocoPoset(pos,sch);
+                    Assert(1,Length(sch)=1);
+                    Assert(1,sch[1]<>v);
+                    AppendTo(res, String("Schurian fission: ",-maxlength), sch[1],"\n");
+                fi;
+            fi;
+        fi;
+
+
+        strictupperbounds:=Difference(FilterInCocoPoset(pos,index),[index]);
+        strictupperbounds:=Intersection(strictupperbounds,indices);
+        maxin:=[];
+        if strictupperbounds<>[] then
+            maxin:=MinimalElementsInCocoPoset(pos,strictupperbounds);
+        fi;
+
+        AppendTo(res, String("Maximal Merging in: ",-maxlength), maxin,"\n");
+        if long and Rank(node!.cgr)>2 and not (Rank(node!.cgr)=3 and not IsPrimitive(node!.cgr)) then
+            if not IsTransitive(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(cgr)]) then
+                AppendTo(res, String("Orbits of Aut: ",-maxlength));
+                AppendTo(res, StringCocoOrbReps@(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(cgr)]));
+            fi;
+            AppendTo(res, String("Generators of Aut: ",-maxlength),"\n");
+            AppendTo(res, StringCocoGenerators@(AutomorphismGroup(node!.cgr), OrderOfColorGraph(cgr)));
+
+            scgr:=ColorGraph(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(cgr)],OnPoints,true);
+            if not IsSchurian(node!.cgr) then
+                AppendTo(res, String("Merging in Cgr(Aut): ",-maxlength),"\n");
+                mrg:=Set([1..Rank(node!.cgr)], i->Filtered([1..Rank(scgr)], j->ArcColorOfColorGraph(node!.cgr,ColorRepresentative(scgr,j))=i));
+                AppendTo(res, StringCocoMerging@(mrg));
+            fi;
+        fi;
+
+        AppendTo(res,"\n");
+    od;
+
+    CloseStream(res);
+    return outp;
+end);
+
+InstallMethod(DisplayString,
+                   "for posets of fusion orbits",
+                   [IsPosetOfFusionOrbits and IsPosetOfFusionOrbitsRep],
+function(pos)
+    return DisplayString(pos,[1..Size(pos)]);
+end);
+
+
