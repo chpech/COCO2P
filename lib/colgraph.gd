@@ -24,9 +24,11 @@ DeclareGlobalFunction("CyclotomicColorGraph");                                  
 DeclareGlobalFunction("ClassicalCompleteAffineScheme");                                                         # documented
 DeclareGlobalFunction("JohnsonScheme");                                                                         # documented
 DeclareGlobalFunction("ColorGraphByWLStabilization" );                                                          # documented
-DeclareGlobalFunction("WLStableColorGraphByMatrix" );                                                          # documented
+DeclareGlobalFunction("WLStableColorGraphByMatrix" );                                                           # documented
 DeclareGlobalFunction("BIKColorGraph" );                                                                        # documented
 DeclareGlobalFunction("IvanovColorGraph" );                                                                     # documented
+
+DeclareGlobalFunction("SrgFromCgr");                                                                            # undocumented
 
 
 ###
@@ -37,7 +39,7 @@ DeclareProperty( "IsWLStableColorGraph",   IsColorGraph );                      
 DeclareProperty( "IsHomogeneous",          IsColorGraph );                                                           # documented
 DeclareProperty( "IsSchurian",             IsColorGraph and IsWLStableColorGraph );                                  # documented
 DeclareProperty( "IsUndirectedColorGraph", IsColorGraph );                                                           # documented
-DeclareProperty( "IsPrimitiveColorGraph", IsColorGraph ); # undocumented 
+DeclareProperty( "IsPrimitiveColorGraph", IsColorGraph );                                                            # undocumented 
 
 DeclareProperty( "IsMetricColorGraph", IsColorGraph );
 DeclareProperty( "IsCometricColorGraph", IsColorGraph );

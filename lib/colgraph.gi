@@ -272,6 +272,20 @@ if TestPackageAvailability("grape","0")=true then
         gamma.names:=VertexNamesOfColorGraph(cgr);
         return gamma;
     end);
+    
+    InstallGlobalFunction(SrgFromCgr,
+    function(cgr)
+        local  ov, k, i;
+        
+        if not IsHomogeneous(cgr) or Rank(cgr)<>3 or not IsPrimitiveColorGraph(cgr) then
+            return fail;
+        fi;
+        
+        ov:=OutValencies(cgr);
+        k:=Minimum(Filtered(ov, x->x<>1));
+        i:=Position(ov,k);
+        return BaseGraphOfColorGraph(cgr,i);
+    end);
 fi;
 
 InstallMethod(AlgebraicAutomorphismGroup,
@@ -1636,7 +1650,7 @@ InstallMethod( DisplayString,
                "for wl-stable color graphs",
                [IsColorGraph and IsWLStableColorGraph],
 function(cgr)
-    local  long, fvc, res, str, node, ninf, maxlength, scgr, mrg;
+    local  long, fvc, res, str, node, srg, ninf, maxlength, scgr, mrg;
     long:=ValueOption("long");
     if long=fail then
         long:=false;
@@ -1654,6 +1668,15 @@ function(cgr)
     node:=NewCocoNode(cgr);
     RegisterStandardInfo@COCO2P(node);
     ComputeAllInfos(node);
+    
+    if fvc then
+        if Rank(node!.cgr)=3 and IsSymmetricColorGraph(node!.cgr) and not IsSchurian(node!.cgr) then
+            srg:=SrgFromCgr(node!.cgr);
+            RegisterInfoCocoNode(node, rec(name:="4-vc:",
+                                           value:=String(IsHighlyRegularGraph(srg,2,4))));
+        fi;
+    fi;
+
     
     ninf:=node!.nodeInfo;
     AppendTo(str, NodeInfoString(node));

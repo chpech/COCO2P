@@ -482,13 +482,13 @@ function(pos, indices)
         node!.poset:=pos;
         RegisterInfoCocoNode(node, rec(name:="Number:", value:=String(node!.index)));
         RegisterStandardInfo@COCO2P(node);
-        # if fvc then
-        #     if Rank(node!.cgr)=3 and IsSymmetricColorGraph(node!.cgr) and not IsSchurian(node!.cgr) then
-        #         srg:=SrgFromCgr(node!.cgr);
-        #         RegisterInfoCocoNode(node, rec(name:="4-vc:",
-        #                                        value:=String(IsHighlyRegular(srg,2,4))));
-        #     fi;
-        # fi;
+        if fvc then
+            if Rank(node!.cgr)=3 and IsSymmetricColorGraph(node!.cgr) and not IsSchurian(node!.cgr) then
+                srg:=SrgFromCgr(node!.cgr);
+                RegisterInfoCocoNode(node, rec(name:="4-vc:",
+                                               value:=String(IsHighlyRegularGraph(srg,2,4))));
+            fi;
+        fi;
         
         RegisterInfoCocoNode(node, rec(name:="algebraic:", value:=String(node!.index in node!.poset!.algebraicFusions)));
         Add(nodes,node);
