@@ -344,7 +344,7 @@ DeclareRepresentation( "IsPosetOfFusionOrbitsRep",
 
 InstallGlobalFunction(PosetOfHomogeneousFusionOrbits,
 function(cgr)
-    local order, linorder, tensor, caut,aautfusorbs,cautfusorbs,ltwins,i,suborbs,twins,forb,part,isAlgFus,algebraicFusions,j,poset;
+    local order, linorder, tensor, caut,aautfusorbs,cautfusorbs,ltwins,i,suborbs,twins,forb,part,isAlgFus,algebraicFusions,j,poset,mrg;
     
     order:=function(y,x)
         local part1;
@@ -367,8 +367,9 @@ function(cgr)
         suborbs:=SubOrbitsOfCocoOrbit(caut,aautfusorbs[i]);
         twins:=[Length(cautfusorbs)+1..Length(cautfusorbs)+Length(suborbs)];
         forb:=aautfusorbs[i];
-        part:=Orbits(StabilizerOfCanonicalRepresentative(forb),[1..Order(Representative(forb))]);
-        if Length(part)=Rank(Representative(forb)) then
+        mrg:=AsPartition(CanonicalRepresentativeOfCocoOrbit(forb));
+        part:=Orbits(Stabilizer(StabilizerOfCanonicalRepresentative(forb),mrg,OnTuplesSets),[1..Order(Representative(forb))]);
+        if Length(part)=Length(mrg) then
             isAlgFus:=true;
         else
             isAlgFus:=false;
