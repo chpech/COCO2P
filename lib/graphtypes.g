@@ -1,4 +1,4 @@
-GRAPHTYPESCACHE@COCO2P:=
+InstallValue(GRAPHTYPESCACHE@, 
 [ , [ ,, [ ,, [ rec(
                   adjacencies := [ [ 2 ] ],
                   base := 1,
@@ -35174,4 +35174,4 @@ GRAPHTYPESCACHE@COCO2P:=
                   names := [ 1, 2, 3, 4, 5, 6, 7 ],
                   order := 7,
                   representatives := [ 1 ],
-                  schreierVector := [ -1, 1, 2, 3, 4, 5, 6 ] ) ] ] ] ];
+                  schreierVector := [ -1, 1, 2, 3, 4, 5, 6 ] ) ] ] ] ]);

@@ -23,6 +23,9 @@ ReadPackage("coco2p", "lib/hashtable.gd"); # internal
 
 COCOPrint:=ReturnTrue;
 
+DeclareGlobalVariable("GRAPHTYPESCACHE@COCO2P");
+
+
 if TestPackageAvailability("xgap","0")=true then
     Print("COCO2P: Using XGAP to display posets...\n");
 
