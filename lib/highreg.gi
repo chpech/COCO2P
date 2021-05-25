@@ -1,6 +1,6 @@
 
-
-OnePointExtensions@:=function(gamma,theta,prt)
+InstallGlobalFunction(OnePointExtensions@,
+function(gamma,theta,prt)
     local  l, nbg, cand, i, nbgi, nnbgi;
     if Length(prt)=OrderGraph(theta) then
         return fail;
@@ -20,11 +20,11 @@ OnePointExtensions@:=function(gamma,theta,prt)
     od;
     cand:=Difference(cand, Set(prt));
     return cand;
-end;
+end);
 
 
-
-CountExtensionsSym@:=function(gamma,theta,prt)
+InstallGlobalFunction(CountExtensionsSym@,
+function(gamma,theta,prt)
     local  recure,h;
 
 
@@ -63,9 +63,10 @@ CountExtensionsSym@:=function(gamma,theta,prt)
     fi;
 
     return recure(h,prt);
-end;
+end);
 
-TOrbitRepresentatives@:=function(g,dom,t)
+InstallGlobalFunction(TOrbitRepresentatives@,
+function(g,dom,t)
     local recure,res;
 
     res:=[];
@@ -87,17 +88,19 @@ TOrbitRepresentatives@:=function(g,dom,t)
     recure(g,dom,t,[]);
 
     return res;
-end;
+end);
 
-TypeOfTuple@:=function(gamma,t)
+InstallGlobalFunction(TypeOfTuple@,
+function(gamma,t)
     local  s;
 
     s:=Set(t);
     return List([1..Length(t)], i->Set(Intersection(Adjacency(gamma,t[i]), s), v->Position(t,v)));
-end;
+end);
 
 
-IsRegularForType@:=function(gamma,theta)
+InstallGlobalFunction(IsRegularForType@,
+function(gamma,theta)
     local  reps, lreps, r, i,lcnt,tp,n,g,h;
 
     if IsBound(gamma.autGroup) then
@@ -127,11 +130,12 @@ IsRegularForType@:=function(gamma,theta)
         fi;
     od;
     return [lreps,lcnt];
-end;
+end);
 
 # restriction on the arguments: 1<=n<=4, n<m, 2<=m<=7 
 # it returns true if in addition gamma is (n,m)-regular
-IsHighlyRegularGraph:=function(gamma,n,m)
+InstallGlobalFunction(IsHighlyRegularGraph,
+function(gamma,n,m)
     local ltp,params,c,tp;
     
     
@@ -181,4 +185,4 @@ IsHighlyRegularGraph:=function(gamma,n,m)
     
     gamma.highlyregular[n][m]:=params;
     return true;
-end;
+end);
