@@ -113,7 +113,7 @@ ArchiveFormats := ".tar.gz",
 ##     rec(
 ##     # these are compulsory, the strings can be encoded in UTF-8 or latin1,
 ##     # so using German umlauts or other special characters is ok:
-##     LastName := "M�ller",
+##     LastName := "Müller",
 ##     FirstNames := "Fritz Eduard",
 ##
 ##     # At least one of the following two entries must be given and set
@@ -130,7 +130,7 @@ ArchiveFormats := ".tar.gz",
 ##     # complete URL, starting with protocol
 ##     WWWHome := "http://www.no.org/~Mueller",
 ##     # separate lines by '\n' (*optional*)
-##     PostalAddress := "Dr. F. M�ller\nNo Org Institute\nNo Place 13\n\
+##     PostalAddress := "Dr. F. Müller\nNo Org Institute\nNo Place 13\n\
 ##     12345 Notown\nNocountry"
 ##
 ##     # If you want, add one or both of the following entries (*optional*)
@@ -172,7 +172,7 @@ Persons := [
     IsAuthor      := true,
     IsMaintainer  := false,
     Email         := "sven.reichard@tu-dresden.de",
-    WWWHome       := "https://www.math.tu-dresden.de/~reichard/",
+    WWWHome       := "https://www.researchgate.net/profile/Sven-Reichard",
     PostalAddress := "",
     Place         := "Dresden",
     Institution   := "Dresden International University"

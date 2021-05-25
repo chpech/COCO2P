@@ -1,5 +1,3 @@
-# this reads the contents of the variable GRAPHTYPESCACHE@COCO2P
-ReadPackage("coco2p", "lib/graphtypes.g");
 
 
 OnePointExtensions@:=function(gamma,theta,prt)

@@ -1,4 +1,5 @@
-ReadPackage("coco2p", "lib/highreg.g4");
+ReadPackage("coco2p", "lib/graphtypes.g");
+ReadPackage("coco2p", "lib/highreg.gi");
 ReadPackage("coco2p", "lib/stbc.g4");
 ReadPackage("coco2p", "lib/misc.g4");
 ReadPackage("coco2p", "lib/redtest.gi");

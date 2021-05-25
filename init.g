@@ -1,3 +1,4 @@
+ReadPackage("coco2p", "lib/highreg.gd"); 
 ReadPackage("coco2p", "lib/redtest.gd"); # internal
 ReadPackage("coco2p", "lib/pbag.gd"); # internal
 ReadPackage("coco2p", "lib/queue.gd"); # internal
