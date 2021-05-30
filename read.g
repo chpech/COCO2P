@@ -33,7 +33,3 @@ if TestPackageAvailability("francy","0")=true then
     ReadPackage("coco2p","lib/francy.gi");
 fi;
 
-#if TestPackageAvailability("grape","0")=true then
-#    ReadPackage("coco2p", "lib/srg.g");
-#fi;
-
