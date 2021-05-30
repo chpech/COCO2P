@@ -346,11 +346,18 @@ InstallGlobalFunction(PosetOfHomogeneousFusionOrbits,
 function(cgr)
     local order, linorder, tensor, caut,aautfusorbs,cautfusorbs,ltwins,i,suborbs,twins,forb,part,isAlgFus,algebraicFusions,j,poset,mrg;
     
-    order:=function(y,x)
-        local part1;
+    order:=function(yy,xx)
+        local part1,part2,cosreps;
         
-        part1:=PartitionOfFusion(Representative(cautfusorbs[y]));
-        return ForAny(AsList(cautfusorbs[x]), fus->ForAll(PartitionOfFusion(fus), x->ForAny(part1, y->IsSubset(y,x))));
+        part1:=AsPartition(Representative(cautfusorbs[yy]));
+        part2:=AsPartition(Representative(cautfusorbs[xx]));
+        
+        if Length(part1)=Length(part2) then 
+            return part1=part2;
+        fi;
+        
+        cosreps:=List(DoubleCosetsNC(UnderlyingGroupOfCocoOrbit(cautfusorbs[xx]), StabilizerOfCanonicalRepresentative(cautfusorbs[xx]),  StabilizerOfCanonicalRepresentative(cautfusorbs[yy])),Representative);
+        return ForAny(cosreps, r->ForAll(OnSetsSets(part2,r), x->ForAny(part1, y->IsSubset(y,x))));
     end;
 
     linorder:=function(x,y)
