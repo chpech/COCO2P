@@ -1477,18 +1477,7 @@ function(iter)
     
     while not IsDoneIterator(iter) do
         if Length(iter!.state.M)<=COCOInfoGSSize then
-            COCOPrint(iter!.state.M);
-#            COCOPrint(iter!.state.cand!.set);
-            # if iter!.state.cand!.kIsForced then
-            #     COCOPrint("(",iter!.state.cand!.k);
-            # fi;
-            # if iter!.state.cand!.lbdIsForced then
-            #     COCOPrint(",",iter!.state.cand!.lbd);
-            # fi;
-            # if iter!.state.cand!.kIsForced then
-            #     COCOPrint(")");
-            # fi;
-            COCOPrint("\n");
+            Info(InfoCOCO,1,iter!.state.M,"\n");
         fi;
         
         if IsCompletePartialGoodSet(iter!.state.cand) then

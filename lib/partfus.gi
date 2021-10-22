@@ -378,7 +378,7 @@ function(iter)
         
     while not IsDoneIterator(iter) do
         if IsCompletePartialFusion(iter!.state.pfus) then
-            COCOPrint("!\c");
+            Info(InfoCOCO,1,"!");
             pfus:=iter!.state.pfus;
             fus:=FusionFromCompletePartialFusion(pfus);
             

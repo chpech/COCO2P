@@ -1,3 +1,34 @@
+
+
+SetInfoHandler(InfoCOCO, 
+function( infoclass, level, list )
+    local out, fun, s;
+    
+    out := InfoOutput(infoclass);
+    if out = "*Print*" then
+        
+        if UserPreference("UseColorsInTerminal")=true  then
+            Print(TextAttr.(String(level+1)));
+        fi;
+        
+        for s in list do
+            Print(s);
+        od;
+    
+        if UserPreference("UseColorsInTerminal")=true  then
+            Print(TextAttr.reset);
+        fi;
+        Print("\c");
+    else
+        for s in list do
+            AppendTo( out, s );
+        od;
+        AppendTo( out, "\c" );
+    fi;
+    return;
+end);
+
+
 ReadPackage("coco2p", "lib/graphtypes.g");
 ReadPackage("coco2p", "lib/highreg.gi");
 ReadPackage("coco2p", "lib/stbc.g4");

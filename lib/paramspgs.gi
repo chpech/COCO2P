@@ -461,7 +461,7 @@ function(cand)
     if part=fail then
         return fail;
     fi;
-    COCOPrint(".\c");
+    Info(InfoCOCO,1,".");
     
     return BuildGoodSet(cand!.tensor, set, part.classes);
 end);
@@ -522,13 +522,13 @@ function(tensor,k,lbd)
     bounds:=mb[2];
     cls:=mb[3];
     types:=BoundedSolutionsOfSLDE(mat,bounds,k);
-    COCOPrint("!\c");
+    Info(InfoCOCO,1,"!");
     res:=[];
     for sol in types do
         cand:=EmptySymPartialGoodSetWithParams(tensor,sol,cls,k,lbd);
         iter:=IteratorOfPartialGoodSetOrbits(AutomorphismGroup(tensor),cand);
         Append(res, AllGoodSetOrbits(iter));
-        COCOPrint("#\c");
+        Info(InfoCOCO,2,"#");
     od;
 
     return res;

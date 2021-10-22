@@ -157,6 +157,8 @@ function(elements,order,linorder)
     poset.predecessors:=List(elements,x->[]);
     poset:=Objectify(NewType(CocoPosetFam, IsCocoPosetRep), poset);
     
+    Info(InfoCOCO,1, "CocoPoset: ",Length(elements)," elements.\n");
+    
     for i in [Length(elements),Length(elements)-1..1] do
         active:=[i+1..Length(elements)];
         while active<>[] do
@@ -167,6 +169,7 @@ function(elements,order,linorder)
                 SubtractSet(active,FilterInCocoPoset(poset,j));
             fi;
         od;
+        Info(InfoCOCO,2,"±");
     od;
     MakeImmutable(poset!.successors);
     MakeImmutable(poset!.predecessors);
