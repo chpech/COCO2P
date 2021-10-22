@@ -1,5 +1,5 @@
 StringCocoOrbReps@ := function(arg)
-    local i,j,g,dom,str,res,orbs,l;
+    local i,j,g,dom,str,res,orbs,l,s;
 
     res:="";
     str:=OutputTextString(res,true);
@@ -13,10 +13,12 @@ StringCocoOrbReps@ := function(arg)
     fi;
 
     orbs:=Orbits(g,dom)-1;
-    orbs:=List(orbs,Minimum);
+#    orbs:=List(orbs,Minimum);
     l:=0;
     for i in  orbs do
-        PrintTo(str,"(",i,")");l:=l+2+Length(String(i));
+        s:=Concatenation("(",String(Minimum(i)),")");
+        Append(s,String(Length(i)));
+        PrintTo(str,s);l:=Length(s);
         if i= orbs[Length(orbs)] then
             PrintTo(str,"\n");
         else
