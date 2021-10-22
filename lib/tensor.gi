@@ -890,9 +890,10 @@ end);
 
 
 InstallGlobalFunction( ClosureSet,
-        function( tensor, set )
+function( tensor, set )
     local result, oldset;
-    result :=  ShallowCopy(set);
+    result :=  Union(set, OnSets(set,Mates(tensor)));
+    
     repeat
         oldset := result;
         result := ComplexProduct( tensor, oldset, oldset );
