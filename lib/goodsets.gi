@@ -296,7 +296,25 @@ InstallMethod(HomogeneousGoodSetOrbits,
         "for structure constants tensors",
         [IsTensor and IsTensorOfCC],
 function(tensor)
-    return Union(HomogeneousSymGoodSetOrbits(tensor), HomogeneousAsymGoodSetOrbits(tensor));
+    local lgs,sym,prim;
+    
+    sym:=ValueOption("sym");
+    if sym=fail then
+        sym:=false;
+    fi;
+    prim:=ValueOption("prim");
+    if prim=fail then
+        prim:=false;
+    fi;
+    lgs:=Set(HomogeneousSymGoodSetOrbits(tensor));
+    if not sym then
+        lgs:=Union(lgs, HomogeneousAsymGoodSetOrbits(tensor));
+    fi;
+    if prim then
+        lgs:=Filtered(lgs, x->ClosureSet(tensor, AsSet(Representative(x)))=[1..OrderOfTensor(tensor)]);
+    fi;
+    
+    return lgs;
 end);
 
 InstallOtherMethod(HomogeneousGoodSetOrbits,
