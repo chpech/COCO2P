@@ -37,7 +37,7 @@ InfoW1:=Ignore;
 
 InstallGlobalFunction(FindCosRep,
 function(H, resH, xcgr1, xcgr2, h, res)
-    local x,m1,m2,o1,o2,y,nh,pt,i,crep;
+    local x,m1,m2,o1,o2,y,nh,pt,i,crep,strong;
 
     InfoW1("Entering FindCosRep.\n");
     if StbcIsTrivialStabChainNode(H) then
@@ -49,28 +49,32 @@ function(H, resH, xcgr1, xcgr2, h, res)
         fi;
         return false;
     fi;
-
-    # if Length(H.orbit)>1 then
-    #     m1:=H.part.map;
-    #     m2:=Permuted(m1,h);
-    #     InfoW1(h,"\n",m1,"\n",m2,"\n");
-    #
-    #     ChangeColoringOfXCgr(xcgr1,m1);
-    #     ChangeColoringOfXCgr(xcgr2,m2);
-    #     o1:=BuildXCgrObject(xcgr1);
-    #     o2:=BuildXCgrObject(xcgr2);
-    #     y:=IsomorphismPbagObjects(o1,o2,XCgrInvariant);
-    #     if y=false then
-    #         COCOPrint("/\c");
-    #         return false;
-    #     fi;
-    # fi;
+    
+    strong:=ValueOption("wautstrong");
+    if strong=true then
+        if Length(H.orbit)>1 then
+            m1:=H.part.map;
+            m2:=Permuted(m1,h);
+            InfoW1(h,"\n",m1,"\n",m2,"\n");
+            
+            ChangeColoringOfXCgr(xcgr1,m1);
+            ChangeColoringOfXCgr(xcgr2,m2);
+            o1:=BuildXCgrObject(xcgr1);
+            o2:=BuildXCgrObject(xcgr2);
+            y:=IsomorphismPbagObjects(o1,o2,XCgrInvariant);
+            if y=false then
+                Info(InfoCOCO,1,"/");
+                return false;
+            fi;
+        fi;
+    fi;
+    
     pt:=H.orbit[1];
 
     for i in H.orbit do
         # check if i is the first element of its orbit in reH.stabilizer
         if resH.stabilizer.part.orbits[resH.stabilizer.part.map[i]][1]<>i then
-            COCOPrint("%\c");
+            Info(InfoCOCO,1,"%");
             continue;
         fi;
         crep:=StbcInvCosRep(H, i)^-1;
@@ -111,14 +115,14 @@ function(xcgr1, xcgr2, S, part, result)
            continue;
        fi;
        if resH.stabilizer.part.orbits[resH.stabilizer.part.map[i]][1]<>i then
-           COCOPrint("#\c");
+           Info(InfoCOCO,1,"#");
            continue;
        fi;
        crep:=StbcInvCosRep(S, i)^-1;
        y:=FindCosRep(S.stabilizer, resH.stabilizer, xcgr1, xcgr2, crep, result);
 
        if y <> false then
-           COCOPrint(".\c");
+           Info(InfoCOCO,1,".");
            StbcAddGensExtOrb(resH, [y]);
        fi;
    od;
