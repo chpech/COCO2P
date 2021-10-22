@@ -296,17 +296,19 @@ InstallOtherMethod(HomogeneousFusionOrbits,
         "for structure constant tensors",
         [IsPermGroup, IsTensor and IsTensorOfCC],
 function(grp,T)
-    local gsorbs;
+    local fsorbs;
 
     if not ForAll(GeneratorsOfGroup(grp), g->IsAutomorphismOfObject(T,g)) then
         Error("The given group must preserve the tensor of structure-constants!");
         return fail;
     fi;
-
-    gsorbs:=HomogeneousGoodSetOrbits(T);
-    gsorbs:=Union(List(gsorbs, gso->SubOrbitsOfCocoOrbit(grp,gso)));
     
-    return FusionOrbitsFromGoodSetOrbits(gsorbs);
+    fsorbs:=HomogeneousFusionOrbits(T);
+    if Size(grp)< Size(AutomorphismGroup(T)) then
+        fsorbs:=Union(List(fsorbs, fso->SubOrbitsOfCocoOrbit(grp,fso)));
+    fi;
+    
+    return fsorbs;
 end);
 
 InstallMethod(OnCocoOrbits,
@@ -341,6 +343,7 @@ DeclareRepresentation( "IsPosetOfFusionOrbitsRep",
          "colorGraphs",
          "cgr"
          ]);
+
 
 InstallGlobalFunction(PosetOfHomogeneousFusionOrbits,
 function(cgr)
@@ -389,7 +392,7 @@ function(cgr)
                 Add(algebraicFusions,Length(cautfusorbs));
             fi;
         od;
-        COCOPrint("*\c");
+        Info(InfoCOCO,1,"*");
     od;
     
     poset:=CocoPosetByFunctions([1..Length(cautfusorbs)], order, linorder);
@@ -452,8 +455,28 @@ InstallOtherMethod(DisplayString,
 function(pos, indices)
         local  idx,nodes, str, outp,res, cgr, node, v, ninf, maxlength,
            index, algtwins, strictupperbounds, maxin,nonsch,long,scgr,
-           sch,mrg,schfiss,i,cgrr,fvc,srg;
+           sch,mrg,schfiss,i,cgrr,fvc,srg,onlyfvc,cisomap,MapReps,map,cisorep;
+    
+    
+    MapReps:=function(list,fct)
+        local  obj, map, i, idx;
+        
+        map:=[];
+        
+        for i in [1..Length(list)] do
+            idx:=First([1..Length(list)], j->fct(list[i],list[j]));
+            if idx = i then
+                Info(InfoCOCO,1,"+");
+            else
+                Info(InfoCOCO,1,"-");
+            fi;
+            
+            map[i]:=idx;
+        od;
+        return map;
+    end;
 
+    
     nonsch:=ValueOption("nonschurian");
     if nonsch=fail then
         nonsch:=false;
@@ -473,6 +496,16 @@ function(pos, indices)
         fvc:=false;
     fi;
     
+    onlyfvc:=ValueOption("onlyfvc");
+    if onlyfvc=fail then
+        onlyfvc:=false;
+    fi;
+    
+    cisomap:=ValueOption("cisomap");
+    if cisomap=fail then
+        cisomap:=false;
+    fi;
+    
     
     for i in [1..Size(pos)] do
         cgrr:=pos!.colorGraphs[i];
@@ -480,9 +513,10 @@ function(pos, indices)
             if RemInt(Size(AutomorphismGroup(cgrr)),2^12)<>0 then
                 StructureDescription(AutomorphismGroup(cgrr):short);
             fi;
-        fi;COCOPrint(".\c");
+        fi;Info(InfoCOCO,1,".");
     od;
-
+    Info(InfoCOCO,1,"|");
+    
     nodes:=[];
     for i in [1..Size(pos)] do
         node:=NewCocoNode(pos!.colorGraphs[i]);
@@ -500,8 +534,14 @@ function(pos, indices)
         
         RegisterInfoCocoNode(node, rec(name:="algebraic:", value:=String(node!.index in node!.poset!.algebraicFusions)));
         Add(nodes,node);
+        Info(InfoCOCO,1,".");
     od;
-
+    Info(InfoCOCO,1,"|");
+    
+    if cisomap then 
+        map:=MapReps(List(nodes, x->x!.cgr), IsColorIsomorphicColorGraph);
+    fi;
+    
     outp:="";
     res:=OutputTextString(outp,true);
     SetPrintFormattingStatus(res,false);
@@ -548,6 +588,16 @@ function(pos, indices)
                 continue;
             fi;
         fi;
+        if onlyfvc then
+            if Rank(node!.cgr)>3 or 
+               not IsSymmetricColorGraph(node!.cgr) or 
+                   IsSchurian(node!.cgr) or 
+                   not IsHighlyRegularGraph(SrgFromCgr(node!.cgr),2,4) 
+            then
+                continue;
+            fi;
+        fi;
+        
         idx:=idx+1;
 
         maxlength:=Maximum(ninf.maxlength, 20);
@@ -555,6 +605,8 @@ function(pos, indices)
             AppendTo(res,String("Index: ",-maxlength), idx,"\n");
         fi;
         index:=IndexOfCocoNode(node);
+        
+        
         AppendTo(res, NodeInfoString(node));
         algtwins:=Intersection(pos!.algTwins[index], indices);
         if algtwins<>[] then
@@ -582,6 +634,12 @@ function(pos, indices)
         fi;
 
         AppendTo(res, String("Maximal Merging in: ",-maxlength), maxin,"\n");
+        if cisomap then
+            cisorep:=map[index];
+            if cisorep<>index then
+                AppendTo(res, String("C-isomorphic to: ",-maxlength), "#",cisorep,"\n");
+            fi;
+        fi;
         if long and Rank(node!.cgr)>2 and not (Rank(node!.cgr)=3 and not IsPrimitive(node!.cgr)) then
             if not IsTransitive(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(cgr)]) then
                 AppendTo(res, String("Orbits of Aut: ",-maxlength));
