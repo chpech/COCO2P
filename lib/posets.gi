@@ -177,3 +177,10 @@ function(elements,order,linorder)
     
 end);
 
+InstallOtherMethod(\[\],
+        "for posets",
+        [ IsCocoPoset, IsPosInt ],
+function( poset,idx)
+    return ElementsOfCocoPoset(poset)[idx];
+end);
+
