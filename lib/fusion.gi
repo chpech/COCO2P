@@ -458,22 +458,30 @@ function(pos, indices)
            sch,mrg,schfiss,i,cgrr,fvc,srg,onlyfvc,cisomap,MapReps,map,cisorep;
     
     
-    MapReps:=function(list,fct)
-        local  obj, map, i, idx;
+    MapReps:=function(i)
+        local  list,fct, idx;
         
-        map:=[];
+        list:=List(nodes, x->x!.cgr);
+        fct:=IsColorIsomorphicColorGraph;
         
-        for i in [1..Length(list)] do
+                 
+        if not IsBound(pos!.cisoMap) then
+            pos!.cisoMap:=[];
+        fi;
+        
+        if IsBound(pos!.cisoMap[i]) then
+            idx:=pos!.cisoMap[i];
+        else
             idx:=First([1..Length(list)], j->fct(list[i],list[j]));
-            if idx = i then
-                Info(InfoCOCO,1,"+");
-            else
-                Info(InfoCOCO,1,"-");
-            fi;
-            
-            map[i]:=idx;
-        od;
-        return map;
+            pos!.cisoMap[i]:=idx;
+        fi;
+        
+        if idx = i then
+            Info(InfoCOCO,1,"+");
+        else
+            Info(InfoCOCO,1,"-");
+        fi;
+        return idx;
     end;
 
     
@@ -538,9 +546,6 @@ function(pos, indices)
     od;
     Info(InfoCOCO,1,"|");
     
-    if cisomap then 
-        map:=MapReps(List(nodes, x->x!.cgr), IsColorIsomorphicColorGraph);
-    fi;
     
     outp:="";
     res:=OutputTextString(outp,true);
@@ -559,8 +564,8 @@ function(pos, indices)
         ComputeInfo(node,str);
     od;
     AppendTo(res, NodeInfoString(node));
+    maxlength:=Maximum(ninf.maxlength, 20);
     if long and Rank(node!.cgr)>2 and not ( Rank(node!.cgr)=3 and not IsPrimitive(node!.cgr)) then
-        maxlength:=Maximum(ninf.maxlength, 20);
         if not IsTransitive(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(cgr)]) then
             AppendTo(res, String("Orbits of Aut: ",-maxlength));
             AppendTo(res, StringCocoOrbReps@(AutomorphismGroup(node!.cgr),[1..OrderOfColorGraph(cgr)]));
@@ -576,6 +581,12 @@ function(pos, indices)
         fi;
     fi;
     AppendTo(res, "-------------------------------------------------\n");
+    PrintTo(res, String("Number of fusion orbits: ",-maxlength), Length(nodes{indices}),"\n");
+    PrintTo(res, String("              symmetric: ",-maxlength), Length(Filtered(nodes{indices}, x->IsSymmetricColorGraph(x!.cgr))),"\n");
+    PrintTo(res, String("              primitive: ",-maxlength), Length(Filtered(nodes{indices}, x->IsPrimitiveColorGraph(x!.cgr))),"\n");
+    PrintTo(res, String("  symmetric & primitive: ",-maxlength), Length(Filtered(nodes{indices}, x->IsSymmetricColorGraph(x!.cgr) and IsPrimitiveColorGraph(x!.cgr))),"\n");
+    PrintTo(res, "-------------------------------------------------\n");
+    
     
     
     idx:=0;
@@ -635,7 +646,7 @@ function(pos, indices)
 
         AppendTo(res, String("Maximal Merging in: ",-maxlength), maxin,"\n");
         if cisomap then
-            cisorep:=map[index];
+            cisorep:=MapReps(index);
             if cisorep<>index then
                 AppendTo(res, String("C-isomorphic to: ",-maxlength), "#",cisorep,"\n");
             fi;
