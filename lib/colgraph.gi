@@ -1457,7 +1457,13 @@ function(cgr,l)
     ncgr:=ColorGraph(g, sl, OnPoints, true, function(v,w)
         return ColorNames(cgr)[ArcColorOfColorGraph(cgr,v,w)];
                      end);
-    ncgr!.schurianCC!.VertexNamesOfCocoObject:=Immutable(VertexNamesOfColorGraph(cgr){sl});
+    
+    if HasVertexNamesOfCocoObject(ncgr) then
+        ncgr!.VertexNamesOfCocoObject:=Immutable(VertexNamesOfColorGraph(cgr){sl});
+    else
+        SetVertexNamesOfCocoObject(ncgr,Immutable(VertexNamesOfColorGraph(cgr){sl}));
+    fi;
+    
     
     return ncgr;
     
