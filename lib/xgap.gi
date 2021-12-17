@@ -532,6 +532,8 @@ function(forbposet)
         
         node:=NewCocoNode(forbposet!.colorGraphs[i]);
         node!.index:=i;
+        node!.poset:=pos;
+
         RegisterInfoCocoNode(node, rec(name:="Number:", value:=String(i)));
         RegisterStandardInfo@(node);
         RegisterInfoCocoNode(node, rec(name:="algebraic:", value:=String(node!.index in node!.poset!.algebraicFusions)));
