@@ -25,6 +25,30 @@ function(tensor)
     return [mat,List(cls,Length),cls];
 end);
 
+InstallGlobalFunction(MatrixAndBoundsAsym,
+function(tensor)
+    local  clr, nof, mat, c, row, pos,cls;
+
+    clr:=Difference([1..Order(tensor)],ReflexiveColors(tensor));
+    clr:=Filtered(clr, x->x<>x^Mates(tensor));
+    nof:=Length(ReflexiveColors(tensor));
+    mat:=[];
+    cls:=[];
+    
+    for c in clr do
+        row:=ListWithIdenticalEntries(nof,0);
+        row[StartBlock(tensor,c)]:=OutValencies(tensor)[c];
+        pos:=PositionSorted(mat,row);
+        if not IsBound(mat[pos]) or mat[pos]<>row then
+            Add(mat,row,pos);
+            Add(cls,[c],pos);
+        else
+            AddSet(cls[pos],c);
+        fi;
+    od;
+    return [mat,List(cls,Length),cls];
+end);
+
 
 DeclareRepresentation("IsSymPGSWithParamsBlkRep",
                       IsAttributeStoringRep,
@@ -48,6 +72,58 @@ DeclareRepresentation("IsSymPGSWithParamsBlkRep",
                           "degreelist"
                       ]);
 
+DeclareRepresentation("IsSymPGSWithParamsRep",
+                      IsAttributeStoringRep,
+                      [ 
+                          "tensor",
+                          "domain",
+                          "map",
+                          "imap",
+                          "nsupply",
+                          "set",
+                          "task",
+                          "done",
+                          "currIdx",
+                          "k",
+                          "lbd",
+                          "square",
+                          "degree",
+                          "maxlbd"
+                      ]);
+
+DeclareRepresentation("IsAsymPGSWithParamsRep",
+                      IsAttributeStoringRep,
+                      [ 
+                          "tensor",
+                          "domain",# a list of classes of points each is a subset of the 
+                                   # corresponding class of nsupply, it encodes the still 
+                                   # avaylable points from nsupply (mutable) 
+                          "map",   # every actual color is mapped to a local index (point) 
+                                   # this allows reordering and identification 
+                                   # of colors as fits (immutable)
+                          "imap",  # the inverse map of map (immutable)
+                          "nsupply", # a list of classes of points
+                                     # the number of points to be chosen from each class 
+                                     # is given in task (immutable)
+                          "insupply", # the mapping that maps each point to the index of 
+                                      # its class in nsupply (immutable)
+                          "set",    # the set of colors already chosen by the algorithm (mutable)
+                          "task",   # for each class of nsupply this holds the number of
+                                    # points to be chosen from this class (immutable)
+                          "done",   # the number of points already chosen from the class 
+                                    # of nsupply with index currIdx (mutable)
+                          "currIdx", # the index to the class in nsupply currently active (mutable)
+                          "k",       # the goal valencu of set (immutable and irrelevant 
+                                     # for the algorithm)
+                          "lbd",     # the goal arc-valency of set (immutable and relevant 
+                                     # for the algorithm)
+                          "square",  # the coefficients vector of set^2
+                          "degree",  # the actual valency of set
+                          "maxlbd",  # the maximal arc-valency of set
+                      ]);
+
+
+
 #      -  cls[i] is a set of colors
 #      -  x[i] elements have to be chosen from cls[i], for every i
 #         as we are constructing symmetric good sets, when cls[i][j] is choosen,
@@ -57,14 +133,17 @@ InstallMethod(EmptySymPartialGoodSetWithParams,
         "for blocked tensors of structure constants, two lists and a positive int",
         [IsTensor and IsTensorOfCC and IsBlockedTensorRep, IsList, IsList, IsPosInt, IsInt],
 function(tensor,x,cls,k,lbd)
-    local  mat, vec, perm, blocks, startBlock, finishBlock, rclr, clr, 
+    local  vec, perm, blocks, startBlock, finishBlock, rclr, clr, 
            nof, imap, a, sclr, aclr, b, bclr, map, i, j, idx, nsupply, 
            currIdx, dom, obj, domain, set, task, done, blkidx,xcls,d,c,cblk;
     
-    mat:=List(tensor!.blocks, a->List(tensor!.blocks, Length));
-    vec:=List(mat,Sum);
-    # perm:=();
-    perm:=SortingPerm(vec);
+    #mat:=List(tensor!.blocks, a->List(tensor!.blocks, Length));
+    #vec:=List(mat,Sum);
+    
+#    vec:=List([1..Length(t!.blocks)], i->Length(t!.blocks[i][i]));
+#    perm:=SortingPerm(vec);
+#    perm:=SortingPerm(vec);
+    perm:=();
     blocks:=Permuted(List(tensor!.blocks, x->Permuted(x,perm)),perm);
     startBlock:=List([1..Order(tensor)], i->StartBlock(tensor,i)^perm);
     finishBlock:=List([1..Order(tensor)], i->FinishBlock(tensor,i)^perm);
@@ -176,9 +255,146 @@ function(tensor,x,cls,k,lbd)
     return Objectify(NewType(GoodSetsFamily(tensor), IsSymPartialGoodSet and IsSymPGSWithParamsBlkRep), obj);
 end);
 
+InstallMethod(EmptySymPartialGoodSetWithParams,
+        "for dense tensors of structure constants, two lists and a positive int",
+        [IsTensor and IsTensorOfCC and IsTensorRep, IsList, IsList, IsPosInt, IsInt],
+function(tensor,x,cls,k,lbd)
+    local  idx, nsupply, currIdx, dom, obj,map,imap,c,d,i,j;
+    
+    
+    idx:=Filtered([1..Length(cls)], i->x[i]<>0);
+    x:=x{idx};
+    
+    imap:=[];
+    
+    cls:=cls{idx};
+    for c in cls do
+        for d in c do
+            Add(imap, Set([d,d^Mates(tensor)]));
+        od;
+    od;
+    map:=[];
+    for i in [1..Length(imap)] do
+        for j in imap[i] do
+            map[j]:=i;
+        od;
+    od;
+
+    
+    nsupply:=List(cls, x->Set(x, i->map[i]));
+
+    currIdx:=1;
+    if nsupply=[] then
+        dom:=[];
+    else
+        dom:=nsupply[currIdx];
+    fi;
+    
+    obj:=rec( tensor:=tensor,
+              domain:=dom,
+              map:=map,
+              imap:=imap,
+              nsupply:=nsupply,
+              set:=[],
+              task:=x,
+              done:=ListWithIdenticalEntries(Length(x),0),
+              currIdx:=currIdx,
+              k:=k,
+              lbd:=lbd,
+              square:=ListWithIdenticalEntries(OrderOfTensor(tensor),0),
+              degree:=0,
+              maxlbd:=0
+            );
+   # Error("brk");
+    
+    
+    return Objectify(NewType(GoodSetsFamily(tensor), IsSymPartialGoodSet and IsSymPGSWithParamsRep), obj);
+end);
+
+InstallMethod(EmptyAsymPartialGoodSetWithParams,
+        "for tensors of structure constants, two lists, a positive int and an int",
+        [IsTensor and IsTensorOfCC and IsTensorRep, IsList, IsList, IsPosInt, IsInt],
+function(tensor,x,cls,k,lbd)
+    local  idx, nsupply, currIdx, dom, obj,map,imap,c,d,i,j,insupply;
+    
+    
+    idx:=Filtered([1..Length(cls)], i->x[i]<>0);
+    x:=x{idx};
+    
+    imap:=[];
+    
+    cls:=cls{idx};
+    for c in cls do
+        for d in c do
+            Add(imap, d);
+        od;
+    od;
+    
+    map:=[];
+    for i in [1..Length(imap)] do
+        map[imap[i]]:=i;
+    od;
+    MakeImmutable(map);
+    imap:=List(imap, x->[x]);
+    
+    MakeImmutable(imap);
+        
+    nsupply:=List(cls, x->Set(x, i->map[i]));
+    MakeImmutable(nsupply);
+    
+    insupply:=[];
+    for i in [1..Length(nsupply)] do
+        for j in nsupply[i] do
+            insupply[j]:=i;
+        od;
+    od;
+    MakeImmutable(insupply);
+    
+    
+    currIdx:=1;
+    if nsupply=[] then
+        dom:=[];
+    else
+        dom:=List(nsupply, ShallowCopy);
+    fi;
+    
+    obj:=rec( tensor:=tensor,
+              domain:=dom,
+              map:=map,
+              imap:=imap,
+              nsupply:=nsupply,
+              insupply:=insupply,
+              set:=[],
+              task:=x,
+              done:=ListWithIdenticalEntries(Length(x),0),
+              currIdx:=currIdx,
+              k:=k,
+              lbd:=lbd,
+              square:=ListWithIdenticalEntries(OrderOfTensor(tensor),0),
+              degree:=0,
+              maxlbd:=0
+            );    
+    
+    return Objectify(NewType(GoodSetsFamily(tensor), IsAsymPartialGoodSet and IsAsymPGSWithParamsRep), obj);
+end);
+
 InstallMethod(IsCompatiblePoint,
         "for symmetric partial good sets with params in SymPGSWithParamsBlkRep",
         [IsSymPartialGoodSet and IsSymPGSWithParamsBlkRep, IsPosInt],
+function(cand, i)
+    return true;
+end);
+
+InstallMethod(IsCompatiblePoint,
+        "for symmetric partial good sets with params in SymPGSWithParamsRep",
+        [IsSymPartialGoodSet and IsSymPGSWithParamsRep, IsPosInt],
+function(cand, i)
+    return true;
+end);
+
+InstallMethod(IsCompatiblePoint,
+        "for asymmetric partial good sets with params in AsymPGSWithParamsRep",
+        [IsAsymPartialGoodSet and IsAsymPGSWithParamsRep, IsPosInt],
 function(cand, i)
     return true;
 end);
@@ -204,7 +420,7 @@ function(cand,pt)
               nsupply:=cand!.nsupply,
               task:=cand!.task,
               k:=cand!.k,
-              lbd:=cand!.lbd
+              lbd:=cand!.lbd,
              );
     color:=cand!.imap[pt][1];
     icolor:=color^Mates(t);
@@ -440,11 +656,185 @@ function(cand,pt)
     return Objectify(NewType(GoodSetsFamily(cand!.tensor), IsSymPartialGoodSet and IsSymPGSWithParamsBlkRep), obj);
 end);
 
+InstallMethod(ExtendedPartialGoodSet,
+        "for symmetric partial good sets with params in SymPGSWithParamsRep",
+        [IsSymPartialGoodSet and IsSymPGSWithParamsRep, IsPosInt],
+function(cand,pt)
+    local  t, obj, color, icolor, sd,  sq, ent, j;
+    
+    t:=cand!.tensor;
+    
+    obj:=rec(
+              tensor:=cand!.tensor,
+              map:=cand!.map,
+              imap:=cand!.imap,
+              nsupply:=cand!.nsupply,
+              task:=cand!.task,
+              k:=cand!.k,
+              lbd:=cand!.lbd,
+             );
+    color:=cand!.imap[pt][1];
+    icolor:=color^Mates(t);
+    
+    sd:=OutValencies(t);
+    obj.degree:=cand!.degree;
+    
+    
+    obj.degree:=obj.degree+sd[color];
+    if color<>icolor then
+        obj.degree:=obj.degree+sd[icolor];
+    fi;
+    
+    
+    
+    if cand!.done[cand!.currIdx]+1=cand!.task[cand!.currIdx] then
+        obj.currIdx:=cand!.currIdx+1;
+        if obj.currIdx <= Length(cand!.task) then
+            obj.domain:=cand!.nsupply[obj.currIdx];
+        else
+            obj.domain:=[];
+        fi;
+    else
+        obj.domain:=Filtered(cand!.domain, x->x>pt);
+        obj.currIdx:=cand!.currIdx;
+    fi;
+    
+    obj.done:=ShallowCopy(cand!.done);
+    obj.done[cand!.currIdx]:=obj.done[cand!.currIdx]+1;
+    obj.set:=Union(cand!.set, [color,icolor]);
+
+    sq:=ShallowCopy(cand!.square);
+    ent:=t!.entries;
+    
+    
+    obj.maxlbd:=cand!.maxlbd;
+    
+    sq:=sq+ent[color][color];       # c c
+    if color <> icolor then
+        sq:=sq+ent[icolor][icolor]; # c* c* 
+        sq:=sq+ent[color][icolor];  # c c*
+        sq:=sq+ent[icolor][color];  # c* c
+    fi;
+    
+    obj.maxlbd:=Maximum(obj.maxlbd, Maximum(sq{obj.set}));
+    if obj.maxlbd> obj.lbd then
+        return fail;
+    fi;
+    
+    for j in cand!.set do        
+        sq:=sq+ent[j][color];   # A c
+        sq:=sq+ent[color][j];   # c A
+        if color <> icolor then
+            sq:=sq+ent[j][icolor]; # A c*
+            sq:=sq+ent[icolor][j]; # c* A
+        fi;
+        
+        
+        obj.maxlbd:=Maximum(obj.maxlbd, Maximum(sq{obj.set}));
+        if obj.maxlbd > obj.lbd then
+            return fail;
+        fi;
+    od;
+    obj.square:=sq;
+    
+    
+    return Objectify(NewType(GoodSetsFamily(cand!.tensor), IsSymPartialGoodSet and IsSymPGSWithParamsRep), obj);
+end);
+
+InstallMethod(ExtendedPartialGoodSet,
+        "for asymmetric partial good sets with params in AsymPGSWithParamsRep",
+        [IsAsymPartialGoodSet and IsAsymPGSWithParamsRep, IsPosInt],
+function(cand,pt)
+    local  t, obj, color, icolor, sd,  sq, ent, j, ipt;
+    
+    t:=cand!.tensor;
+    
+    obj:=rec(
+              tensor:=cand!.tensor,
+              map:=cand!.map,
+              imap:=cand!.imap,
+              nsupply:=cand!.nsupply,
+              insupply:=cand!.insupply,
+              task:=cand!.task,
+              k:=cand!.k,
+              lbd:=cand!.lbd,
+             );
+    color:=cand!.imap[pt][1];
+    icolor:=color^Mates(t);
+    ipt:=cand!.map[icolor];
+    
+    
+    sd:=OutValencies(t);
+    obj.degree:=cand!.degree;
+    
+    
+    obj.degree:=obj.degree+sd[color];
+    
+    obj.domain:=List(cand!.domain, ShallowCopy);
+    
+    if cand!.done[cand!.currIdx]+1=cand!.task[cand!.currIdx] then
+        obj.currIdx:=cand!.currIdx+1;
+    else
+        obj.domain[cand!.currIdx]:=Filtered(cand!.domain[cand!.currIdx], x->x>pt);
+        obj.currIdx:=cand!.currIdx;
+        if obj.insupply[ipt]>=obj.currIdx then
+            RemoveSet(obj.domain[obj.insupply[ipt]],ipt);
+        fi;
+    fi;
+    
+    obj.done:=ShallowCopy(cand!.done);
+    obj.done[cand!.currIdx]:=obj.done[cand!.currIdx]+1;
+    obj.set:=Union(cand!.set, [color]);
+
+    sq:=ShallowCopy(cand!.square);
+    ent:=t!.entries;
+    
+    
+    obj.maxlbd:=cand!.maxlbd;
+    
+    sq:=sq+ent[color][color];       # c c
+    
+    obj.maxlbd:=Maximum(obj.maxlbd, Maximum(sq{obj.set}));
+    if obj.maxlbd> obj.lbd then
+        return fail;
+    fi;
+    
+    for j in cand!.set do        
+        sq:=sq+ent[j][color];   # A c
+        sq:=sq+ent[color][j];   # c A
+        
+        
+        obj.maxlbd:=Maximum(obj.maxlbd, Maximum(sq{obj.set}));
+        if obj.maxlbd > obj.lbd then
+            return fail;
+        fi;
+    od;
+    obj.square:=sq;
+    
+    
+    return Objectify(NewType(GoodSetsFamily(cand!.tensor), IsAsymPartialGoodSet and IsAsymPGSWithParamsRep), obj);
+end);
+
 InstallMethod(IsCompletePartialGoodSet,
      "for symmetric partial good sets in SymPGSWithParamsBlkRep",
     [IsSymPartialGoodSet and IsSymPGSWithParamsBlkRep],
 function(cand)
     
+    return cand!.currIdx>Length(cand!.task);
+end);
+
+InstallMethod(IsCompletePartialGoodSet,
+     "for symmetric partial good sets in SymPGSWithParamsRep",
+    [IsSymPartialGoodSet and IsSymPGSWithParamsRep],
+function(cand)
+    
+    return cand!.currIdx>Length(cand!.task);
+end);
+
+InstallMethod(IsCompletePartialGoodSet,
+     "for asymmetric partial good sets in AsymPGSWithParamsRep",
+    [IsAsymPartialGoodSet and IsAsymPGSWithParamsRep],
+function(cand)
     return cand!.currIdx>Length(cand!.task);
 end);
 
@@ -461,9 +851,45 @@ function(cand)
     if part=fail then
         return fail;
     fi;
-    Info(InfoCOCO,1,".");
     
     return BuildGoodSet(cand!.tensor, set, part.classes);
+end);
+
+InstallMethod(GoodSetFromPartialGoodSet,
+     "for symmetric partial good sets in SymPGSWithParamsRep",
+    [IsSymPartialGoodSet and IsSymPGSWithParamsRep],
+function(cand)
+    local   set,  i,  res,  part;
+    
+    set:=cand!.set;
+
+    part:=WLBuildSymGoodSetPartition(cand!.tensor,set);
+    part:=WLStabil(cand!.tensor,part);
+    if part=fail then
+        return fail;
+    fi;
+    
+    return BuildGoodSet(cand!.tensor, set, part.classes);
+end);
+
+InstallMethod(GoodSetFromPartialGoodSet,
+     "for asymmetric partial good sets in AsymPGSWithParamsRep",
+    [IsAsymPartialGoodSet and IsAsymPGSWithParamsRep],
+function(cand)
+    local  T, set, gs, part;
+    
+    T:=cand!.tensor;
+    set:=cand!.set;
+
+    gs:=[set,OnSets(set,Mates(T))];
+    
+    part:=WLBuildAsymGoodSetPartition(T,gs);
+    part:=WLStabil(T,part);
+    if part=fail then
+        return fail;
+    fi;
+    
+    return BuildGoodSet(T, set, part.classes);
 end);
 
 InstallMethod(DomainOfPartialGoodSet,
@@ -473,9 +899,41 @@ function(cand)
     return cand!.domain;
 end);
 
+InstallMethod(DomainOfPartialGoodSet,
+        "for partial good sets in SymPGSWithParamsRep",
+        [IsSymPartialGoodSet and IsSymPGSWithParamsRep],
+function(cand)
+    return cand!.domain;
+end);
+
+InstallMethod(DomainOfPartialGoodSet,
+        "for partial good sets in AsymPGSWithParamsRep",
+        [IsAsymPartialGoodSet and IsAsymPGSWithParamsRep],
+function(cand)
+    if cand!.currIdx> Length(cand!.domain) then
+        return [];
+    fi;
+    
+    return cand!.domain[cand!.currIdx];
+end);
+
 InstallMethod(TensorOfPartialGoodSet,
         "for partial good sets in SymPGSWithParamsBlkRep",
         [IsSymPartialGoodSet and IsSymPGSWithParamsBlkRep],
+function(cand)
+    return cand!.tensor;
+end);
+
+InstallMethod(TensorOfPartialGoodSet,
+        "for partial good sets in SymPGSWithParamsRep",
+        [IsSymPartialGoodSet and IsSymPGSWithParamsRep],
+function(cand)
+    return cand!.tensor;
+end);
+
+InstallMethod(TensorOfPartialGoodSet,
+        "for partial good sets in AsymPGSWithParamsRep",
+        [IsAsymPartialGoodSet and IsAsymPGSWithParamsRep],
 function(cand)
     return cand!.tensor;
 end);
@@ -487,9 +945,37 @@ function(cand)
     return cand!.imap;
 end);
 
+InstallMethod(IMapOfPartialGoodSet,
+        "for partial good sets in SymPGSWithParamsRep",
+        [IsSymPartialGoodSet and IsSymPGSWithParamsRep],
+function(cand)
+    return cand!.imap;
+end);
+
+InstallMethod(IMapOfPartialGoodSet,
+        "for partial good sets in AsymPGSWithParamsRep",
+        [IsAsymPartialGoodSet and IsAsymPGSWithParamsRep],
+function(cand)
+    return cand!.imap;
+end);
+
 InstallMethod(IsEmptyPartialGoodSet,
         "for partial good sets in SymPGSWithParamsBlkRep",
         [IsSymPartialGoodSet and IsSymPGSWithParamsBlkRep],
+function(cand)
+    return cand!.set=[];
+end);
+
+InstallMethod(IsEmptyPartialGoodSet,
+        "for partial good sets in SymPGSWithParamsRep",
+        [IsSymPartialGoodSet and IsSymPGSWithParamsRep],
+function(cand)
+    return cand!.set=[];
+end);
+
+InstallMethod(IsEmptyPartialGoodSet,
+        "for partial good sets in AsymPGSWithParamsRep",
+        [IsAsymPartialGoodSet and IsAsymPGSWithParamsRep],
 function(cand)
     return cand!.set=[];
 end);
@@ -502,6 +988,40 @@ function(cand)
         return false;
     fi;
     if cand!.done[cand!.currIdx]+Length(cand!.domain)<cand!.task[cand!.currIdx] then
+        return false;
+    fi;
+    if ForAll([cand!.currIdx..Length(cand!.task)], i->cand!.done[i]=cand!.task[i]) then
+        return false;
+    fi;
+    
+    return true;
+end);
+
+InstallMethod(IsExtendiblePartialGoodSet,
+        "for partial good sets in SymPGSWithParamsRep",
+        [IsSymPartialGoodSet and IsSymPGSWithParamsRep],
+function(cand)
+    if cand!.currIdx>Length(cand!.task) then
+        return false;
+    fi;
+    if cand!.done[cand!.currIdx]+Length(cand!.domain)<cand!.task[cand!.currIdx] then
+        return false;
+    fi;
+    if ForAll([cand!.currIdx..Length(cand!.task)], i->cand!.done[i]=cand!.task[i]) then
+        return false;
+    fi;
+    
+    return true;
+end);
+
+InstallMethod(IsExtendiblePartialGoodSet,
+        "for partial good sets in AsymPGSWithParamsRep",
+        [IsAsymPartialGoodSet and IsAsymPGSWithParamsRep],
+function(cand)
+    if cand!.currIdx>Length(cand!.task) then
+        return false;
+    fi;
+    if cand!.done[cand!.currIdx]+Length(cand!.domain[cand!.currIdx])<cand!.task[cand!.currIdx] then
         return false;
     fi;
     if ForAll([cand!.currIdx..Length(cand!.task)], i->cand!.done[i]=cand!.task[i]) then
@@ -534,3 +1054,29 @@ function(tensor,k,lbd)
     return res;
 end);
 
+InstallMethod(HomogeneousAsymGoodSetOrbitsWithParameters,
+        "for structure constants tensors",
+        [IsTensor and IsTensorOfCC, IsPosInt, IsInt],
+function(tensor,k,lbd)
+    local  mb, mat, bounds, cls, types, res, sol, cand, iter;
+    
+    mb:=MatrixAndBoundsAsym(tensor);
+    mat:=mb[1];
+    bounds:=mb[2];
+    cls:=mb[3];
+    if mat=[] then
+        return [];
+    fi;
+    
+    types:=BoundedSolutionsOfSLDE(mat,bounds,k);
+    Info(InfoCOCO,1,"!");
+    res:=[];
+    for sol in types do
+        cand:=EmptyAsymPartialGoodSetWithParams(tensor,sol,cls,k,lbd);
+        iter:=IteratorOfPartialGoodSetOrbits(AutomorphismGroup(tensor),cand);
+        Append(res, AllGoodSetOrbits(iter));
+        Info(InfoCOCO,2,"#");
+    od;
+
+    return res;
+end);
