@@ -108,6 +108,8 @@ DeclareAttribute( "ColorAutomorphismGroupOnColors", IsColorGraph );             
 DeclareAttribute( "AlgebraicAutomorphismGroup",     IsColorGraph and IsWLStableColorGraph );                         # documented
 DeclareSynonymAttr ( "IsSymmetricColorGraph", IsUndirectedColorGraph );
 
+DeclareAttribute( "IdentificationOfColorGraph", IsColorGraph );                                                      # undocumented
+
 
 ###
 ### Private functions, for internal use

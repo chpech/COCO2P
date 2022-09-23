@@ -826,6 +826,26 @@ function(cgr)
 end);
 
 
+InstallMethod( IdentificationOfColorGraph,
+        "for wl-stable color graphs",
+        [IsColorGraph and IsWLStableColorGraph],
+function(cgr)
+    local  lcgr, idx;
+    if IsHomogeneous(cgr) then
+        lcgr:=AllAssociationSchemes(OrderOfColorGraph(cgr));
+    else
+        lcgr:=AllCoherentConfigurations(OrderOfColorGraph(cgr));
+    fi;
+    if lcgr=fail then
+        return "unknown";
+    fi;
+    
+    idx:=First([1..Length(lcgr)], j->IsColorIsomorphicColorGraph(lcgr[j],cgr));
+    
+    return Name(lcgr[idx]);
+end);
+
+
 # Let p be a prime, n,d positive integers, such that d divides (p^n-1)
 # Let q:=p^n, and let r be a primitive element of GF(q).
 # let C be the set of all powers of r^d in GF(q)
@@ -1726,3 +1746,5 @@ InstallMethod( String,
     return STRINGIFY("ColorGraphByMatrix( ",
                    List(AdjacencyMatrix(cgr),r->List(r, e->names[e]))," )");
 end);
+
+               
