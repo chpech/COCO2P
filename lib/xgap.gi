@@ -388,7 +388,7 @@ function(cgrposet)
         
         di := Dialog("Filename","Log File?");
         res:= Query(di,"coco2p.info");
-        PrintTo(res,"COCO2P - Informations about a SubColorIsomorphismPoset\n",
+        PrintTo(res,"COCO2P - Information about a SubColorIsomorphismPoset\n",
                 "----------------------------------------------------\n");
         
         if res <> false then
@@ -532,7 +532,7 @@ function(forbposet)
         
         node:=NewCocoNode(forbposet!.colorGraphs[i]);
         node!.index:=i;
-        node!.poset:=pos;
+        node!.poset:=forbposet;
 
         RegisterInfoCocoNode(node, rec(name:="Number:", value:=String(i)));
         RegisterStandardInfo@(node);
@@ -747,7 +747,7 @@ function(forbposet)
         res:= Query(di,"coco2p.info");
         
         if res <> false then
-            PrintTo(res,"COCO2P - Informations about a PosetOfFusionOrbits\n",
+            PrintTo(res,"COCO2P - Information about a PosetOfFusionOrbits\n",
                     "-------------------------------------------------\n");
             if sel<>[] then
                 cgr:=sel[1]!.data!.poset!.cgr;

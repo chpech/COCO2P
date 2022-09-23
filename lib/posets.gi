@@ -67,7 +67,7 @@ end);
 
 InstallOtherMethod(FilterInCocoPoset,
         "for COCO-posets",
-        [IsCocoPoset, IsSet],
+        [IsCocoPoset, IsList],
 function(pos,m)
    return Union(List(m, x->FilterInCocoPoset(pos,x)));
 end);
@@ -89,7 +89,7 @@ end);
 
 InstallOtherMethod(IdealInCocoPoset,
         "for COCO-posets",
-        [IsCocoPoset, IsSet],
+        [IsCocoPoset, IsList],
 function(pos,m)
    return Union(List(m, x->IdealInCocoPoset(pos,x)));
 end);

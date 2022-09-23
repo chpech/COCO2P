@@ -17,9 +17,11 @@ ReadPackage("coco2p", "lib/xcgrinv.gd"); #internal
 ReadPackage("coco2p", "lib/goodsets.gd"); # documented
 ReadPackage("coco2p", "lib/partgs.gd"); # internal
 ReadPackage("coco2p", "lib/schemesdb.gd"); # documented
+ReadPackage("coco2p", "lib/linearsolver.gd"); # internal
+ReadPackage("coco2p", "lib/paramspgs.gd"); # internal
 ReadPackage("coco2p", "lib/partfus.gd"); # internal
 ReadPackage("coco2p", "lib/waut.gd"); # internal
-ReadPackage("coco2p", "lib/newsubiso.gd"); # documented
+ReadPackage("coco2p", "lib/subiso.gd"); # documented
 ReadPackage("coco2p", "lib/character.gd"); # documented
 ReadPackage("coco2p", "lib/colorsemiring.gd"); # documented
 ReadPackage("coco2p", "lib/hashtable.gd"); # internal

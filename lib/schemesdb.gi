@@ -2,10 +2,11 @@ InstallGlobalFunction(AllAssociationSchemes,
 function(n)
     local   orders,  suff,  name, nameshort,res,tempvar,fnameshortreadonly;
     
-    orders:=Difference([1..40],[1,2,31,35,36,37,39,40]);
+    orders:=Difference([1..40],[1,2,35,36,37,39,40]);
     
     if not n in orders then
-        Error("Only degrees ", orders," are availably.");
+        Info(InfoCOCO,1, Concatenation("AllAssociationSchemes: Only degrees ", orders," are availably."));
+        return fail;
     fi;
     if n in [0..9] then 
         suff:=Concatenation("0",String(n));
@@ -52,7 +53,8 @@ function(n)
     orders:=[1..15];
     
     if not n in orders then
-        ErrorNoReturn("Only degrees ", orders," are availably.");
+        Info(InfoCOCO,1, Concatenation("AllCoherentConfigurations: Only degrees ", orders," are availably."));
+        return fail;
     fi;
     if n in [0..9] then 
         suff:=Concatenation("0",String(n));

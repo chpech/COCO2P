@@ -1486,6 +1486,7 @@ function(iter)
                 gens:=ShallowCopy(iter!.state.SM.generators);
                 stab:=Group(PreImagesSet(iter!.state.act,gens),());            
                 Add(res, GoodSetOrbit(grp,gs, stab));
+                Info(InfoCOCO,1,"*");
             fi;
         fi;
         
