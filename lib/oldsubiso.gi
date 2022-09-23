@@ -1,6 +1,6 @@
 #############################################################################
 ##
-##  newsubiso.gi               COCO package
+##  subiso.gi                  COCO package
 ##                                                              Mikhail Klin
 ##                                                            Christian Pech
 ##                                                             Sven Reichard
@@ -883,9 +883,11 @@ function(cgr1,cgr2)
         Append(asymgsorbs, AllGoodSetOrbits(IteratorOfPartialGoodSetOrbits(AutomorphismGroup(T1),EmptyAsymPartialSTCGoodSet(T1,type))));
     od;
     
+    Error("brk1");
+    
     fusorbs:=AllFusionOrbits(IteratorOfPartialFusionOrbits(Union(symgsorbs,asymgsorbs)));
     
-#    Error("brk");
+    Error("brk2");
     
     caut:=ColorAutomorphismGroupOnColors(cgr1);
     
