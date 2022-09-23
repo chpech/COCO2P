@@ -802,7 +802,7 @@ function(tensor)
         return false;
     fi;
     
-    return ForAny(Difference([1..Order(tensor)], ReflexiveColors(tensor)), i->PPolynomialOrdering(tensor,i)<>[]);
+    return ForAny(Difference([1..Order(tensor)], ReflexiveColors(tensor)), i->PPolynomialOrdering(tensor,i)<>fail);
 end);
          
 
