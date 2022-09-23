@@ -339,6 +339,10 @@ function(tensor,i)
         if Length(new)<>1 then
             return fail;
         fi;
+        if new[1] = list[2] or new[1]=list[1] then
+            return fail;
+        fi;
+        
         list[j+1]:=new[1];
     od;
     return list;
@@ -356,4 +360,15 @@ function(tensor)
     res:=List([1..Order(tensor)], i->QPolynomialOrdering(tensor,i));
     res:=Filtered(res, x->x<>fail);
     return res;
+end);
+
+InstallMethod(IsQPolynomial, 
+              "for structure constants tensors",
+              [IsTensor and IsTensorOfCC],
+function(tensor)
+    if not IsHomogeneousTensor(tensor) or not IsCommutativeTensor(tensor) then
+        return false;
+    fi;
+    
+    return ForAny(Difference([1..Order(tensor)], [IndexOfPrincipalCharacter(tensor)]), i->QPolynomialOrdering(tensor,i)<>fail);
 end);

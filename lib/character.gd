@@ -13,6 +13,7 @@ DeclareAttribute( "TensorOfKreinNumbers", IsTensor and IsCommutativeTensor and I
 DeclareAttribute( "IndexOfPrincipalCharacter", IsTensor and IsCommutativeTensor and IsTensorOfCC); # to be documented
 
 DeclareAttribute( "QPolynomialOrderings", IsTensor and IsTensorOfCC); # to be documented
+DeclareProperty( "IsQPolynomial", IsTensor and IsTensorOfCC ); # to be documented
 
 DeclareAttribute( "CharacterTableOfTensor", IsTensor and IsCommutativeTensor and IsTensorOfCC); # documented
 if TestPackageAvailability("singular","12")=true then
