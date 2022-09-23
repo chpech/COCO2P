@@ -308,8 +308,6 @@ function(arg)
     fi;
     u:=WLInstabilQueueRemove(part);
     while u<>false do
-        Info(InfoCOCO,1,"*");
-        
         for i in [1..Length(part.classes)] do
             WLToTestQueueAdd(part, i);
         od;
