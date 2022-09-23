@@ -344,10 +344,17 @@ DeclareRepresentation( "IsPosetOfFusionOrbitsRep",
          "cgr"
          ]);
 
+InstallMethod(ComputationTime,
+          "for posets of fusion orbits",
+          [IsPosetOfFusionOrbits],
+function(cgr)
+    return "unknown";
+end);
+
 
 InstallGlobalFunction(PosetOfHomogeneousFusionOrbits,
 function(cgr)
-    local order, linorder, tensor, caut,aautfusorbs,cautfusorbs,ltwins,i,suborbs,twins,forb,part,isAlgFus,algebraicFusions,j,poset,mrg;
+    local order, linorder, tensor, caut,aautfusorbs,cautfusorbs,ltwins,i,suborbs,twins,forb,part,isAlgFus,algebraicFusions,j,poset,mrg,runtime,tstart,rt;
     
     order:=function(yy,xx)
         local part1,part2,cosreps;
@@ -367,6 +374,16 @@ function(cgr)
         return cautfusorbs[x]<cautfusorbs[y];
     end;
 
+    
+    runtime:=ValueOption("runtime");
+    if runtime=fail then
+        runtime:=false;
+    fi;
+    
+    if runtime then
+        tstart:=NanosecondsSinceEpoch();
+    fi;
+    
     
     tensor:=StructureConstantsOfColorGraph(cgr);
     caut:=ColorAutomorphismGroupOnColors(cgr);
@@ -405,6 +422,14 @@ function(cgr)
     
     SetFilterObj(poset,IsPosetOfFusionOrbits);
     SetFilterObj(poset,IsPosetOfFusionOrbitsRep);
+    
+    if runtime then
+        rt:=StringTime(Int((NanosecondsSinceEpoch()-tstart)/1000000));
+        RemoveCharacters(rt," ");
+        
+        SetComputationTime(poset, rt);
+    fi;
+
     return poset;
 end);
 
@@ -455,7 +480,8 @@ InstallOtherMethod(DisplayString,
 function(pos, indices)
         local  idx,nodes, str, outp,res, cgr, node, v, ninf, maxlength,
            index, algtwins, strictupperbounds, maxin,nonsch,long,scgr,
-           sch,mrg,schfiss,i,cgrr,fvc,srg,onlyfvc,cisomap,MapReps,map,cisorep;
+           sch,mrg,schfiss,i,cgrr,fvc,srg,onlyfvc,cisomap,MapReps,map,
+           cisorep,ord,filt,date,runtime;
     
     
     MapReps:=function(i)
@@ -483,7 +509,13 @@ function(pos, indices)
         fi;
         return idx;
     end;
-
+    
+    
+    filt:=ValueOption("filter");
+    if filt=fail then
+        filt:=ReturnTrue;
+    fi;
+    
     
     nonsch:=ValueOption("nonschurian");
     if nonsch=fail then
@@ -514,11 +546,25 @@ function(pos, indices)
         cisomap:=false;
     fi;
     
+    date:=ValueOption("date");
+    if date=fail then
+        date:=false;
+    fi;
+    
+    runtime:=ValueOption("runtime");
+    if runtime=fail then
+        runtime:=false;
+    fi;
+    
+    
     
     for i in [1..Size(pos)] do
         cgrr:=pos!.colorGraphs[i];
         if Rank(cgrr)>2 and (Rank(cgrr)>3 or IsPrimitiveColorGraph(cgrr)) then
-            if RemInt(Size(AutomorphismGroup(cgrr)),2^12)<>0 then
+            ord:=PrimePowersInt(Size(AutomorphismGroup(cgrr)));
+            ord:=ord{[2,4..Length(ord)]};
+            if ForAll(ord, x->x<=12) then
+#            if RemInt(Size(AutomorphismGroup(cgrr)),2^12)<>0 then
                 StructureDescription(AutomorphismGroup(cgrr):short);
             fi;
         fi;Info(InfoCOCO,1,".");
@@ -552,8 +598,8 @@ function(pos, indices)
     SetPrintFormattingStatus(res,false);
 
 
-    PrintTo(res,"COCO2P - Informations about a PosetOfFusionOrbits\n",
-            "-------------------------------------------------\n");
+    PrintTo(res,"COCO2P - Information about a PosetOfFusionOrbits\n",
+                "------------------------------------------------\n");
     cgr:=pos!.cgr;
     node:=NewCocoNode(cgr);
     RegisterStandardInfo@COCO2P(node);
@@ -581,6 +627,13 @@ function(pos, indices)
         fi;
     fi;
     AppendTo(res, "-------------------------------------------------\n");
+    if date then
+        PrintTo(res, String("                   Date: ",-maxlength), TodayString@(),"\n");
+    fi;
+    if runtime then
+        PrintTo(res, String("                Runtime: ",-maxlength), ComputationTime(pos),"\n");
+    fi;
+    
     PrintTo(res, String("Number of fusion orbits: ",-maxlength), Length(nodes{indices}),"\n");
     PrintTo(res, String("              symmetric: ",-maxlength), Length(Filtered(nodes{indices}, x->IsSymmetricColorGraph(x!.cgr))),"\n");
     PrintTo(res, String("              primitive: ",-maxlength), Length(Filtered(nodes{indices}, x->IsPrimitiveColorGraph(x!.cgr))),"\n");
@@ -608,11 +661,15 @@ function(pos, indices)
                 continue;
             fi;
         fi;
+        if not filt(node!.cgr) then
+            continue;
+        fi;
+        
         
         idx:=idx+1;
 
         maxlength:=Maximum(ninf.maxlength, 20);
-        if nonsch then
+        if nonsch or onlyfvc or filt<>ReturnTrue or indices <> [1..Size(pos)] then
             AppendTo(res,String("Index: ",-maxlength), idx,"\n");
         fi;
         index:=IndexOfCocoNode(node);

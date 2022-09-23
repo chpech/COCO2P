@@ -118,3 +118,26 @@ StringCocoMerging@:=function(mrg)
     CloseStream(str);
     return res;
 end;
+
+TodayString@:=function()
+    local  path, date, stdin, res, str, dir,v;
+    path:=DirectoriesSystemPrograms();;
+    date:=Filename(path,"date");
+    if date = fail then
+        return "unknown";
+    fi;
+    
+    stdin := InputTextUser();
+    res:="";
+    str:=OutputTextString(res,true);
+    SetPrintFormattingStatus(str,false);
+    dir:=DirectoryCurrent( );
+    v:=Process(dir, date, stdin,str, ["+\%Y-\%m-\%d"]);
+    CloseStream(str);
+    if v <> 0 then
+        return "unknown";
+    fi;
+
+    return Chomp(res);
+end;
+
