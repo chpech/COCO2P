@@ -202,6 +202,7 @@ SetSpectrum@:=function(srg)
         srg.r:=(-1+Sqrt(srg.v))/2;
         srg.s:=(-1-Sqrt(srg.v))/2;
     fi;
+    srg.seidelspec:=Set([srg.v-1-2*srg.k, -1-2*srg.r, -1-2*srg.s]);        
 end;
 
 SetPGParams@:=function(srg)
@@ -255,6 +256,8 @@ SetPQParams@:=function(srg)
         fi;
     fi;
 end;
+
+    
 
 GetSrgParams@:=function(tensor)
     local  srg, srg_I,  srg_A, srg_JIA,csrg;
@@ -324,8 +327,10 @@ end);
 
 InstallGlobalFunction("RegisterStandardInfo@COCO2P",
 function(node)
-    local cgr,tensor,ppolord,qpolord,krein,i,key,ord,srg,val,fvc;
+    local cgr,tensor,ppolord,qpolord,krein,i,key,ord,srg,val,fvc,prmstr,identification;
+    
     cgr:=node!.cgr;
+    
     tensor:=StructureConstantsOfColorGraph(cgr);
     
     
@@ -334,7 +339,17 @@ function(node)
     if fvc=fail then
         fvc:=false;
     fi;
+    
+    identification:=ValueOption("identification");
+    if identification=fail then
+        identification:=false;
+    fi;
 
+    if identification then
+        RegisterInfoCocoNode(node, rec(name:="Identification:",
+                                       getter:=node->IdentificationOfColorGraph(node!.cgr)));
+    fi;
+    
     RegisterInfoCocoNode(node,rec(name:="order:",
                                   getter:=node->OrderOfColorGraph(node!.cgr)));
     RegisterInfoCocoNode(node,rec(name:="rank:",
@@ -342,9 +357,17 @@ function(node)
     if RankOfColorGraph(cgr)=3 then
         if Mates(tensor)=() then
             srg:=GetSrgParams@(tensor);
+            prmstr:=Concatenation("(",String(srg.v),",",String(srg.k),",",String(srg.lambda),",",String(srg.mu),")");
+            if Length(srg.seidelspec)=2 then
+                Append(prmstr,"  (2-graph)");
+            fi;
+            if srg.mu*2=srg.k then
+                Append(prmstr,"  (2-graph\\*");
+            fi;
+            
             
             RegisterInfoCocoNode(node,rec(name:="srg:",
-                                          value:=Concatenation("(",String(srg.v),",",String(srg.k),",",String(srg.lambda),",",String(srg.mu),")")));
+                                          value:=prmstr));
             if srg.isPseudoGeometric then
                 if srg.psg.alpha=1 then
                     val:=Concatenation("GQ(",String(srg.psg.s),",",String(srg.psg.t),")");
