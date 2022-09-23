@@ -1,6 +1,6 @@
 # input: a matrix "mat", a vector "bound", a number "k"
 # output: all vector x, such that 
-#           x .mat = vec(k) 
+#           x * mat = vec(k) 
 # where vec(k) is the vecor whose every coordinate is equals to k,
 # subject to the condition that 0<=x[i]<=bound[i], for all i.
 MAX_SOLUTIONS@:=-1;
@@ -49,7 +49,7 @@ function(mat,bound,k)
     end;
     
     updatePSol:=function(pSol,currIdx,i)
-        Print(pSol.x,"\t", currIdx,"\t", i,"\n");
+#        Print(pSol.x,"\t", currIdx,"\t", i,"\n");
         
         pSol.partSum:=pSol.partSum+pSol.mat[currIdx]*(i-pSol.x[currIdx]);
         pSol.x[currIdx]:=i;
@@ -70,11 +70,11 @@ function(mat,bound,k)
         if MAX_SOLUTIONS@>=0 and Length(solutions)>MAX_SOLUTIONS@ then
           return;
         fi;
-        COCOPrint(pSol.x,"\n");
+#        COCOPrint(pSol.x,"\n");
         
         if isCompletePSol(pSol) then 
             Add(solutions, ShallowCopy(pSol.x));
-            COCOPrint("!!!", pSol.x,"\n");
+#            COCOPrint("!!!", pSol.x,"\n");
             
             if Length(solutions) mod 1000 =0 then
                Info(InfoSLDE,2,Length(solutions));
