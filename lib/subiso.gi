@@ -12,7 +12,7 @@
 # automorphism group of cgr1) that are color isomorphic to cgr2
 InstallMethod( OrbitsOfColorIsomorphicFusions,
         "for two homogeneous WL-stbale color graphs",
-        [IsColorGraph and IsWLStableColorGraph and IsHomogeneous, 
+        [IsColorGraph and IsWLStableColorGraph, 
          IsColorGraph and IsWLStableColorGraph and IsHomogeneous],
 function(cgr1,cgr2)
     local  lgs, t1, t2, sparams, aparams, c, lbd, k, llgs, p, lfus, 
