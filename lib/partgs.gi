@@ -78,7 +78,7 @@ function(cand)
 end);
 
 InstallMethod( ViewString,
-        "for partialgood sets in PartialGoodSetRep",
+        "for partial good sets in PartialGoodSetRep",
         [IsPartialGoodSet and IsPartialGoodSetRep],
 function(pgs)
     local t,s,res;
@@ -123,7 +123,7 @@ InstallMethod(GoodSetFromPartialGoodSet,
     "for symmetric partial good sets in PartialGoodSetRep",
     [IsSymPartialGoodSet and IsPartialGoodSetRep],
 function(cand)
-    local part,sqr,set;
+    local  part;
        
     part:=WLBuildSymGoodSetPartition(cand!.tensor,cand!.set);
     part:=WLStabil(cand!.tensor,part);
