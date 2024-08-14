@@ -121,7 +121,7 @@ function(grp,orb,func)
     ug:=UnderlyingGroupOfCocoOrbit(orb);
 
     if not IsSubgroup(ug,grp) then
-        Error("WithInvariantPropertyOfCocoOrbit: The given group is not a subgroup of the underlying group of the good set orbit!");
+        Error("SubOrbitsWithInvariantPropertyOfCocoOrbit: The given group is not a subgroup of the underlying group of the good set orbit!");
     fi;
 
     stab:=StabilizerOfCanonicalRepresentative(orb);
@@ -346,7 +346,7 @@ DeclareRepresentation( "IsPosetOfFusionOrbitsRep",
 
 InstallMethod(ComputationTime,
           "for posets of fusion orbits",
-          [IsPosetOfFusionOrbits],
+          [IsCocoPoset],
 function(cgr)
     return "unknown";
 end);
@@ -481,7 +481,7 @@ function(pos, indices)
         local  idx,nodes, str, outp,res, cgr, node, v, ninf, maxlength,
            index, algtwins, strictupperbounds, maxin,nonsch,long,scgr,
            sch,mrg,schfiss,i,cgrr,fvc,srg,onlyfvc,cisomap,MapReps,map,
-           cisorep,ord,filt,date,runtime;
+           cisorep,ord,filt,date,runtime,strucexp;
     
     
     MapReps:=function(i)
@@ -556,6 +556,10 @@ function(pos, indices)
         runtime:=false;
     fi;
     
+    strucexp:=ValueOption("strucexp");
+    if strucexp=fail then
+        strucexp:=12;
+    fi;
     
     
     for i in [1..Size(pos)] do
@@ -563,7 +567,7 @@ function(pos, indices)
         if Rank(cgrr)>2 and (Rank(cgrr)>3 or IsPrimitiveColorGraph(cgrr)) then
             ord:=PrimePowersInt(Size(AutomorphismGroup(cgrr)));
             ord:=ord{[2,4..Length(ord)]};
-            if ForAll(ord, x->x<=12) then
+            if ForAll(ord, x->x<=strucexp) then
 #            if RemInt(Size(AutomorphismGroup(cgrr)),2^12)<>0 then
                 StructureDescription(AutomorphismGroup(cgrr):short);
             fi;
@@ -677,6 +681,9 @@ function(pos, indices)
         
         AppendTo(res, NodeInfoString(node));
         algtwins:=Intersection(pos!.algTwins[index], indices);
+        if not IsUndirectedColorGraph(node!.cgr) then
+            AppendTo(res, String("asymm. mates: ",-maxlength), StringCocoPerm@(ColorMates(node!.cgr)));
+        fi;
         if algtwins<>[] then
             AppendTo(res, String("Algebraic Twins: ",-maxlength), algtwins,"\n");
         fi;
@@ -729,6 +736,21 @@ function(pos, indices)
 
     CloseStream(res);
     return outp;
+end);
+
+
+InstallMethod(ConstructorOfCocoOrbit,
+        "for all fusion orbits",
+        [IsFusionOrbit],
+function(orb)
+    return FusionOrbit;
+end);
+
+InstallMethod(ConstructorOfCocoOrbitNC,
+        "for all fusion orbits",
+        [IsFusionOrbit],
+function(orb)
+    return FusionOrbitNC;
 end);
 
 InstallMethod(DisplayString,

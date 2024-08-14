@@ -336,10 +336,24 @@ function(tensor,mode)
 end);
 
 InstallMethod(ActionOfCocoOrbit,
-        "for all fusion orbits",
+        "for all good set orbits",
         [IsGoodSetOrbit],
 function(orb)
     return OnGoodSets;
+end);
+
+InstallMethod(ConstructorOfCocoOrbit,
+        "for all good set orbits",
+        [IsGoodSetOrbit],
+function(orb)
+    return GoodSetOrbit;
+end);
+
+InstallMethod(ConstructorOfCocoOrbitNC,
+        "for all good set orbits",
+        [IsGoodSetOrbit],
+function(orb)
+    return GoodSetOrbitNC;
 end);
 
 InstallMethod(ViewString,

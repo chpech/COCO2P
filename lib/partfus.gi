@@ -257,8 +257,11 @@ function(iter)
                     continue;
                 fi;
                 nH:=StabilizerOfCanonicalRepresentative(gsorb);
-                xnorbits:=Filtered(state.orbits, x->Length(Representative(x))>=Length(gs));
-                norbits:=Union(List(xnorbits, x->SubOrbitsWithInvariantPropertyOfCocoOrbit(nH, x, y->IsCompatibleWithPart(npfus,y))));
+                xnorbits:=Filtered(state.orbits, 
+                                   x->Length(Representative(x))>=Length(gs));
+                norbits:=Union(List(xnorbits, 
+                        x->SubOrbitsWithInvariantPropertyOfCocoOrbit(nH, x, 
+                             y->IsCompatibleWithPart(npfus,y))));
 #                Assert(1,norbits=Union(List(xnorbits, x->Filtered(SubOrbitsOfCocoOrbit(nH,x),y->IsCompatibleWithPart(npfus,Representative(y))))));
                 
                 norbits:=Filtered(norbits, x->Representative(x)>gs);
@@ -284,8 +287,11 @@ function(iter)
                     continue;
                 fi;
                 nH:=StabilizerOfCanonicalRepresentative(gsorb);
-                xnorbits:=Filtered(state.orbits, x->Length(Representative(x))>=Length(gs));
-                norbits:=Union(List(xnorbits, x->SubOrbitsWithInvariantPropertyOfCocoOrbit(nH, x, y->IsCompatibleWithPart(npfus,y))));
+                xnorbits:=Filtered(state.orbits, 
+                                   x->Length(Representative(x))>=Length(gs));
+                norbits:=Union(List(xnorbits, 
+                         x->SubOrbitsWithInvariantPropertyOfCocoOrbit(nH, x, 
+                              y->IsCompatibleWithPart(npfus,y))));
 #                Assert(1, norbits=Union(List(xnorbits, x->Filtered(SubOrbitsOfCocoOrbit(nH,x), y->IsCompatibleWithPart(npfus,Representative(y))))));
                 
                 norbits:=Filtered(norbits, x->Representative(x)>gs);                
@@ -314,15 +320,21 @@ function(iter)
                     nH:=();
                     continue;
                 fi;
-                nH:=SetsSetsReducibilityTestOneCard(state.GS, StabilizerOfCanonicalRepresentative(gsorb),state.slice,AsSet(gs));
+                nH:=SetsSetsReducibilityTestOneCard(state.GS, 
+                     StabilizerOfCanonicalRepresentative(gsorb),state.slice,AsSet(gs));
                 if IsPerm(nH) then
                     continue;
                 fi;
-                norbits:=Union(List(state.orbits, x->SubOrbitsWithInvariantPropertyOfCocoOrbit(StabilizerOfCanonicalRepresentative(gsorb), x, y->IsCompatibleWithPart(npfus,y))));
+                norbits:=Union(List(state.orbits, 
+                         x->SubOrbitsWithInvariantPropertyOfCocoOrbit(
+                              StabilizerOfCanonicalRepresentative(gsorb), x,
+                                  y->IsCompatibleWithPart(npfus,y))));
 #                Assert(1,norbits=Union(List(state.orbits, x->Filtered(SubOrbitsOfCocoOrbit(StabilizerOfCanonicalRepresentative(gsorb),x),y->IsCompatibleWithPart(npfus,Representative(y))))));
 
-                norbits:=Set(norbits, x->GoodSetOrbit(nH, CanonicalRepresentativeOfCocoOrbit(x),
-                    ClosureGroup(StabilizerOfCanonicalRepresentative(x), Stabilizer(nH, AsSet(CanonicalRepresentativeOfCocoOrbit(x)),OnTuples))));
+                norbits:=Set(norbits, x->GoodSetOrbit(nH, 
+                   CanonicalRepresentativeOfCocoOrbit(x),
+                   ClosureGroup(StabilizerOfCanonicalRepresentative(x), 
+                      Stabilizer(nH, AsSet(CanonicalRepresentativeOfCocoOrbit(x)),OnTuples))));
                 norbits:=Filtered(norbits, x->Representative(x)>gs);               
 #                Assert(1,npfus!.varpart=[] or 2*Length(npfus!.varpart[1])>Order(npfus!.tensor) or npfus!.varpart[1] in Set(norbits, x->AsSet(Representative(x))));
 
@@ -476,3 +488,16 @@ function(newPart,gs)
     return res;
 end);
 
+# InstallMethod(ConstructorOfCocoOrbit,
+#         "for all partial fusion orbits",
+#         [IsPartialFusionOrbit],
+# function(orb)
+#     return PartialFusionOrbit;
+# end);
+
+InstallMethod(ConstructorOfCocoOrbitNC,
+        "for all partial fusion orbits",
+        [IsPartialFusionOrbit],
+function(orb)
+    return PartialFusionOrbitNC;
+end);
