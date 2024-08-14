@@ -43,7 +43,7 @@ Version := "0.20",
 ##  Release date of the current version in dd/mm/yyyy format.
 ##
 Date := "14/08/2024",
-License := "GPL-2.0-or-later",
+License := "GPL-3.0",
 ##  Optional: if the package manual uses GAPDoc, you may duplicate the
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
