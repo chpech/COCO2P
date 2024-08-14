@@ -99,12 +99,17 @@ function(node)
     local pos,i,str;
     
     for i in [1..Length(node!.nodeInfo.names)] do
+        
         str:=node!.nodeInfo.names[i];
         if node!.nodeInfo.values[i]="unknown" and 
            not str in infoOptions@.disabled then
             ComputeInfo(node,str);
+            
         fi;
+        
     od;
+    
+    
 end);
 
 StringMultiset@:=function(s)
@@ -354,6 +359,11 @@ function(node)
                                   getter:=node->OrderOfColorGraph(node!.cgr)));
     RegisterInfoCocoNode(node,rec(name:="rank:",
                                   getter:=node->RankOfColorGraph(node!.cgr)));
+    if not IsUndirectedColorGraph(cgr) then
+        RegisterInfoCocoNode(node,rec(name:="sym. rank:",
+                                      getter:=node->Length(Filtered([1..Rank(node!.cgr)], i->i<=i^ColorMates(node!.cgr)))));
+    fi;
+    
     if RankOfColorGraph(cgr)=3 then
         if Mates(tensor)=() then
             srg:=GetSrgParams@(tensor);
@@ -362,7 +372,7 @@ function(node)
                 Append(prmstr,"  (2-graph)");
             fi;
             if srg.mu*2=srg.k then
-                Append(prmstr,"  (2-graph\\*");
+                Append(prmstr,"  (2-graph\\*)");
             fi;
             
             

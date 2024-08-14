@@ -141,3 +141,4 @@ TodayString@:=function()
     return Chomp(res);
 end;
 
+COCORotorMod:=10000;

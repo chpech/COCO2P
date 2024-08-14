@@ -23,7 +23,10 @@ DeclareGlobalFunction("ColorGraphByMatrix");                                    
 DeclareGlobalFunction("CyclotomicColorGraph");                                                                  # documented
 DeclareGlobalFunction("ClassicalCompleteAffineScheme");                                                         # documented
 DeclareGlobalFunction("JohnsonScheme");                                                                         # documented
-DeclareGlobalFunction("ColorGraphByWLStabilization" );                                                          # documented
+
+DeclareAttribute("ColorGraphByWLStabilization", IsColorGraph ); 
+#DeclareGlobalFunction("ColorGraphByWLStabilization" );                                                          # documented
+
 DeclareGlobalFunction("WLStableColorGraphByMatrix" );                                                           # documented
 DeclareGlobalFunction("BIKColorGraph" );                                                                        # documented
 DeclareGlobalFunction("IvanovColorGraph" );                                                                     # documented

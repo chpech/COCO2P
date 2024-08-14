@@ -179,7 +179,7 @@ InstallGlobalFunction(ShallowCopyPbagObject,
 function(object)
     local rf,newobj,i;
 
-    rf:=RecFields(object);
+    rf:=RecNames(object);
     newobj:=ShallowCopy(object);
     newobj.fvc:=ShallowCopy(object.fvc);
     newobj.fcv:=List(newobj.fcv, ShallowCopy);
@@ -194,7 +194,7 @@ function(object,c, invariant)
     local cls, partition,j,inv,pos,f,
           ptarray, orbscls,i,hashtbl,fixed,newcolor;
 
-    Info(InfoPbag,2,"PbagSemiStep: enter.");
+#    Info(InfoPbag,2,"PbagSemiStep: enter.");
 
     hashtbl:=SparseHashTable@(invariant.hashinv);
     ptarray:=[];
@@ -221,7 +221,7 @@ function(object,c,invariant,hashtbl)
     local cls, partition,j,inv,pos,
           ptarray, orbscls,i,fixed,newcolor;
 
-    Info(InfoPbag,2, "PbagSemiStepWGHT: enter.");
+#    Info(InfoPbag,2, "PbagSemiStepWGHT: enter.");
 
     ptarray:=List([1..HashTableSize@(hashtbl)], x->[]);
 
@@ -232,7 +232,7 @@ function(object,c,invariant,hashtbl)
         inv:=invariant.finv(object, orbscls[i][1]);
         newcolor:=GetHashEntry@(hashtbl, inv);
         if newcolor=fail then
-              Info(InfoPbag,2, "PbagSemiStepWGHT: fail.");
+#              Info(InfoPbag,2, "PbagSemiStepWGHT: fail.");
               return fail;
         fi;
         UniteSet(ptarray[newcolor],Set(orbscls[i], x->PositionSet(cls,x)));
@@ -287,7 +287,7 @@ function(object, TInv,level,inst)
 
     i:=1;
 
-    Info(InfoPbag,2, "PbagStabilStep: enter.");
+#    Info(InfoPbag,2, "PbagStabilStep: enter.");
     while i <=object.ncp do
         if Length(object.fcv[i])<>1 then
             if pbagGlobalData.useCache then
@@ -328,7 +328,7 @@ function(t1,t2,TInv,level, instance)
 
     i:=1;
 
-    Info(InfoPbag,2,"PbagSimultaneousStabilStep: enter.");
+#    Info(InfoPbag,2,"PbagSimultaneousStabilStep: enter.");
     while i <= t1.ncp do
         if Length(t1.fcv[i])<>1 then
 
@@ -380,14 +380,14 @@ InstallGlobalFunction(PbagStabil,
 function(object, TInv,level)
     local ncp,nncp,inst;
 
-    Info(InfoPbag,2, "PbagStabil: enter.");
+#    Info(InfoPbag,2, "PbagStabil: enter.");
     ncp:=object.ncp;
     PbagStabilStep(object, TInv,level,1);
     nncp:=object.ncp;
     inst:=2;
 
     while nncp> ncp do
-        Info(InfoPbag,2, "Step.");
+#        Info(InfoPbag,2, "Step.");
         PbagStabilStep(object, TInv,level,inst);
         inst:=inst+1;
         ncp:=nncp;
@@ -399,7 +399,7 @@ InstallGlobalFunction(PbagSimultaneousStabil,
 function(t1, t2, TInv,level)
     local ncp, nncp,inst;
 
-    Info(InfoPbag, 2, "PbagSimultaneousStabil: enter.");
+#    Info(InfoPbag, 2, "PbagSimultaneousStabil: enter.");
     if t1.ncp<>t2.ncp then
         return false;
     fi;
@@ -413,7 +413,7 @@ function(t1, t2, TInv,level)
     nncp:=t1.ncp;
     inst:=2;
     while nncp>ncp do
-        Info(InfoPbag,2,"Step.");
+#        Info(InfoPbag,2,"Step.");
 
         if PbagSimultaneousStabilStep(t1,t2,TInv,level,inst)=false then
             return false;
@@ -494,7 +494,7 @@ InstallGlobalFunction(PbagFindCosetRep,
 function(t1,t2, TInv, level)
     local g,p1,p2,flag, color, point, class, i, nt1,nt2,NH,orb;
 
-    Info(InfoPbag,2,"PbagFindCosetRep: enter.");
+#    Info(InfoPbag,2,"PbagFindCosetRep: enter.");
     if not PbagSimultaneousStabil(t1, t2, TInv, level) then
         return false;
     fi;
@@ -516,14 +516,14 @@ function(t1,t2, TInv, level)
     class:=ShallowCopy(t2.fcv[color]);
 
     while class<>[] do
-        Info(InfoPbag,2,"next\t", Length(class), ".");
+#        Info(InfoPbag,2,"next\t", Length(class), ".");
 
         i:=class[1];
         nt1:=ShallowCopyPbagObject(t1);
         nt2:=ShallowCopyPbagObject(t2);
         RecolorPointOfPbagObject(nt1, point);
         RecolorPointOfPbagObject(nt2, i);
-        Info(InfoPbag,2, "TFindCoset: trying to map ", point," to ",i,".");
+#        Info(InfoPbag,2, "TFindCoset: trying to map ", point," to ",i,".");
         g:=PbagFindCosetRep(nt1, nt2, TInv,level+1);
         if g<> false then
             return g;
@@ -542,7 +542,7 @@ function(S,T)
     local rf,newobj,i;
 
 
-    rf:=RecFields(T);
+    rf:=RecNames(T);
     for i in rf do
         S.(i):=T.(i);
     od;
@@ -596,14 +596,14 @@ function(object, TInv,level)
 
     Info(InfoPbag,3,Set(object.fcv[color]), "\t", color, "\t", object.fvc[point], ".");
     while class<>[] do
-        Info(InfoPbag,2,"next coset\t", Length(class), ".");
+#        Info(InfoPbag,2,"next coset\t", Length(class), ".");
         i:=class[1];
         Add(done, i);
         nnobject:=ShallowCopyPbagObject(object);
         nimgobject:=ShallowCopyPbagObject(object);
         RecolorPointOfPbagObject(nnobject, point);
         RecolorPointOfPbagObject(nimgobject, i);
-        Info(InfoPbag,2,"Trying to map ", point, " to ", i,".");
+#        Info(InfoPbag,2,"Trying to map ", point, " to ", i,".");
         g:=PbagFindCosetRep(nnobject, nimgobject, TInv, level+1);
         if g <> false then
             Info(InfoPbag,2,g, ".");
@@ -632,6 +632,7 @@ function(object, imgobject, TInv, level)
 
 
     if Length(object.ST)=object.v then
+        
         p1:=PermList(object.fvc);
         p2:=PermList(imgobject.fvc);
         g:=p1*p2^-1;
@@ -746,8 +747,8 @@ function(object, H, TInv)
     t:=ShallowCopyPbagObject(object);
     PbagFindAutGroup(t,TInv,1);
     ReduceStabChain(t.stabChain);
-    return StbcGroup(CopyStabChain(t.stabChain));
-    # Group(ShallowCopy(t.stabChain.generators),());
+    # return StbcGroup(CopyStabChain(t.stabChain));
+    return Group(ShallowCopy(t.stabChain.generators),());
 end);
 
 InstallGlobalFunction(IsomorphismPbagObjects,

@@ -18,7 +18,7 @@ DeclareGlobalFunction("WLShallowCopyStablePartition");
 DeclareGlobalFunction("WLBuildFixedPartition");
 DeclareGlobalFunction("WLIsStablePartition");
 
-
+DeclareGlobalFunction("WLPartitionRank");
 DeclareGlobalFunction("WLPartitionClass");
 DeclareGlobalFunction("WLSetToTestFlag");
 DeclareGlobalFunction("WLClearToTestFlag");

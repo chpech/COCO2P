@@ -35,6 +35,6 @@ DeclareGlobalFunction( "ShortLexSorted" );                                # inte
 
 DeclareCategory("IsPosetOfFusionOrbits", IsCocoPoset);
 
-DeclareAttribute("ComputationTime", IsPosetOfFusionOrbits);
+DeclareAttribute("ComputationTime", IsCocoPoset);
 
 DeclareGlobalFunction( "PosetOfHomogeneousFusionOrbits" );                # undocumented 

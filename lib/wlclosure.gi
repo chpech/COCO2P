@@ -164,6 +164,11 @@ function(part,u)
     return part.classes[u];
 end);
 
+InstallGlobalFunction(WLPartitionRank,
+function(part)
+    return Length(part.classes);
+end);
+
 InstallGlobalFunction(WLSetToTestFlag,
 function(part,i)
     part.totestFlags[i]:=true;

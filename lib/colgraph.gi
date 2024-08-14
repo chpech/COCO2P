@@ -653,7 +653,7 @@ function(cgr,g)
 end);
 
 InstallMethod(SetKnownGroupOfColorAutomorphismsOnColorsNC,
-		"for WL-stable color graphs",
+		"for color graphs",
      	[IsColorGraph, IsPermGroup],
 function(cgr,g)
    local kg;
@@ -791,7 +791,7 @@ end);
 
 
 InstallMethod(IsUndirectedColorGraph,
-   "for color graphs in SchurianCCRep",
+   "for WL-stable color graphs",
    [IsColorGraph and IsWLStableColorGraph],
 function(cgr)
    return ColorMates(cgr)=();
@@ -1125,8 +1125,8 @@ function(cgr)
 end);
 
 InstallOtherMethod(IsPrimitive,
-        "for wl-stable color graphs",
-        [IsColorGraph and IsWLStableColorGraph],
+        "for  color graphs",
+        [IsColorGraph],
 function(cgr)
     return IsPrimitiveColorGraph(cgr);
 end);
@@ -1194,6 +1194,7 @@ function(cgr)
     aaut:=AutomorphismGroup(t);
     rc:=ReflexiveColors(t);
     dom:=Difference([1..Rank(cgr)], rc);
+    
     aaut:=Action(aaut,dom);
     o2:=CocoTwoSetOrbitRepresentatives(aaut,[1..Rank(cgr)-1]);
     o1:=Set(o2, x->[x[1]]);
@@ -1564,7 +1565,10 @@ function(cgr, set )
 end);
 
 
-InstallGlobalFunction(ColorGraphByWLStabilization,
+#InstallGlobalFunction(ColorGraphByWLStabilization,
+InstallMethod(ColorGraphByWLStabilization,
+              "for color graphs",
+              [IsColorGraph],
 function(cgr)
     local   aut,  scgr,  tor,  part,  i,  c,  h,  spart,  npart,  acl,
             ccounter,  colors,rpart,scl,rcgr;

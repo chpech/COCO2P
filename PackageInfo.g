@@ -42,7 +42,8 @@ Subtitle := "Computations in Coherent Configurations",
 Version := "0.20",
 ##  Release date of the current version in dd/mm/yyyy format.
 ##
-Date := "23/09/2022",
+Date := "14/08/2024",
+License := "GPL-2.0-or-later",
 ##  Optional: if the package manual uses GAPDoc, you may duplicate the
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
@@ -50,6 +51,11 @@ Date := "23/09/2022",
 ##  <!ENTITY VERSION "0.11">
 ##  <!ENTITY RELEASEDATE "29 September 2012">
 ##  <#/GAPDoc>
+IssueTrackerURL := "https://github.com/chpech/COCO2P/issues",
+SourceRepository := rec(
+    Type := "git",
+    URL := "https://github.com/chpech/COCO2P",
+),
 
 PackageWWWHome := "https://github.com/chpech/COCO2P/",
 
@@ -276,7 +282,7 @@ PackageDoc := rec(
 Dependencies := rec(
   # GAP version, use the version string for specifying a least version,
   # prepend a '=' for specifying an exact version.
-  GAP := "4.10.0",
+  GAP := "4.12.0",
 
   # list of pairs [package name, version], package name is case
   # insensitive, exact version denoted with '=' prepended to version string.

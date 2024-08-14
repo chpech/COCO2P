@@ -53,7 +53,7 @@ function(n)
     orders:=[1..15];
     
     if not n in orders then
-        Info(InfoCOCO,1, Concatenation("AllCoherentConfigurations: Only degrees ", orders," are availably."));
+        Info(InfoCOCO,1, Concatenation("AllCoherentConfigurations: Only degrees ", String(orders)," are available.\n"));
         return fail;
     fi;
     if n in [0..9] then 
