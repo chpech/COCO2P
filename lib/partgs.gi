@@ -107,7 +107,10 @@ function(pgs)
     if set = [] then
         return false;
     fi;
-    
+    if Length(pgs!.set)>pgs!.maxlength then
+      return false;
+   fi;
+
     sqr:=pgs!.square;
     if Length(set)>1 and ForAny([2..Length(set)], i->sqr[set[1]]<>sqr[set[i]]) then
         return false;
@@ -336,7 +339,10 @@ function(cand)
     if cand!.set=[] then
         return false;
     fi;
-    
+    if Length(cand!.set)>cand!.maxlength then
+      return false;
+   fi;
+
     if cand!.kIsForced then 
         return Length(cand!.fullrows)=Length(cand!.blocks);
     else
@@ -372,11 +378,12 @@ function(cand,i)
     
    # return true;
     
+    
     t:=cand!.tensor;
     clr:=cand!.imap[i][1];
    
     sb:=cand!.startBlock[clr];
-   
+       
     if sb-1>cand!.currentRow then
         return false;
     fi;
@@ -418,6 +425,7 @@ function(cand,pt)
         if sb>1 then
             npgs.kIsForced:=true;
             npgs.k:=cand!.rowdegs[1];
+            
             if npgs.k<cand!.rmaxdeg or npgs.k<cand!.cmaxdeg then
                 return nonext;
             fi;
@@ -529,6 +537,7 @@ function(cand,pt)
     bb:=sb/npgs.perm;
     bc:=fb/npgs.perm;
     bbl:=cand!.blocks[sb][sb];
+
     sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[color]][blkIdx[icolor]];
     
     if block<>[] then
@@ -539,14 +548,14 @@ function(cand,pt)
     fi;
 
     for b in cand!.ridx do      # c A*
-        if sb<=b then
+        if true or sb<=b then
             block:=bm[sb][b];
-            for j in cand!.blockingmat[fb][b] do
+            for j in cand!.blockingmat[b][fb] do
                 ba:=sb/npgs.perm;
                 bb:=b/npgs.perm;
                 bc:=fb/npgs.perm;
                 bbl:=cand!.blocks[sb][b];
-                sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[color]][blkIdx[j]];
+                sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[color]][blkIdx[j^Mates(t)]];
             od;
             if block<>[] then
                 npgs.maxlbd:=Maximum(npgs.maxlbd, Maximum(sq{block}));
@@ -619,7 +628,7 @@ function(cand,pt)
     #     od;
     # fi;
 
-    # Assert(1,sq=ComplexProduct(t,npgs.set,OnSets(npgs.set,Mates(t))));
+     Assert(1,sq=ComplexProduct(t,npgs.set,OnSets(npgs.set,Mates(t))));
     
     
     Objectify(NewType(GoodSetsFamily(t), IsAsymPartialGoodSet and IsAsymPartialGoodSetBlkRep), npgs);
@@ -747,6 +756,10 @@ function(cand)
     local a,b,block;
     
     if cand!.set=[] then
+        return false;
+    fi;
+    
+    if Length(cand!.set)>cand!.maxlength then
         return false;
     fi;
     
@@ -1031,13 +1044,15 @@ function(cand,pt)
             return fail;
         fi;
         for b in cand!.ridx do        # c* A*
-            if fb<=b then
+            if true or fb<=b then
                 block:=bm[fb][b];
                 for j in cand!.blockingmat[sb][b] do
                     ba:=fb/npgs.perm;
                     bb:=b/npgs.perm;
                     bc:=sb/npgs.perm;
                     bbl:=cand!.blocks[fb][b];
+                    
+                        
                     sq{bbl}:=sq{bbl}+ent[ba][bb][bc][blkIdx[icolor]][blkIdx[j]];
                 od;
                 if block<>[] then
@@ -1116,7 +1131,7 @@ function(cand,pt)
     fi;
         
     for b in cand!.ridx do      # c A*
-        if sb<=b then
+        if true or sb<=b then
             block:=bm[sb][b];
             for j in cand!.blockingmat[fb][b] do
                 ba:=sb/npgs.perm;
@@ -1218,7 +1233,7 @@ function(cand,pt)
     # fi;
     
                 
-    #Assert(1,sq=ComplexProduct(t,npgs.set,OnSets(npgs.set,Mates(t))));
+    Assert(1,sq=ComplexProduct(t,npgs.set,OnSets(npgs.set,Mates(t))));
     
     
             
@@ -1399,11 +1414,13 @@ function(iter)
             pt:=state.orbreps[state.orbidx];
             state.orbidx:=state.orbidx+1;
             if IsCompatiblePoint(state.cand,pt) then
+
                 ncand:=ExtendedPartialGoodSet(state.cand,pt);
                 if ncand=nonext then
                     ncand:=fail;
                     break;
                 fi;
+                
                 
                 if ncand<>fail then
                     SC:=CocoSetReducibilityTest(state.S,state.SM,state.M,pt);
@@ -1480,6 +1497,7 @@ function(iter)
             Info(InfoCOCO,1,iter!.state.M,"\n");
         fi;
         
+        
         if IsCompletePartialGoodSet(iter!.state.cand) then
             gs:=GoodSetFromPartialGoodSet(iter!.state.cand);
             if gs <> fail then 
@@ -1493,4 +1511,18 @@ function(iter)
         NextIterator(iter);
     od;
     return res;
+end);
+
+# InstallMethod(ConstructorOfCocoOrbit,
+#         "for all partial good set orbits",
+#         [IsPartialGoodSetOrbit],
+# function(orb)
+#     return PartialGoodSetOrbit;
+# end);
+
+InstallMethod(ConstructorOfCocoOrbitNC,
+        "for all partial good set orbits",
+        [IsPartialGoodSetOrbit],
+function(orb)
+    return PartialGoodSetOrbitNC;
 end);
