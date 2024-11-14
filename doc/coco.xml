@@ -56,7 +56,8 @@
 	isomorphisms have to preserve colors (as it is expected for
 	color graphs), color-automorphisms, and color-isomorphisms
 	only have to respect color classes, that is, they may map arcs
-	of one color to arcs of another color.
+	of one color to arcs of another color (however, if two arcs
+	have the same color then so will the image arcs).
 	<P/>
 
       </Section>
@@ -103,14 +104,14 @@ gap> cgr := ColorGraphByOrbitals(d7);
 	    <P/>
 	    <Example>
 <![CDATA[gap> d7 := Group( (1,2,3,4,5,6,7), (1,7)(2,6)(3,5));;
-gap> cgr := ColorGraph(d7, [1]);
+gap> cgr := ColorGraphByOrbitals(d7, [1]);
 <color graph of order 7 and rank 4>]]>
 	    </Example>
 	    <P/>
 	    In the third variant of <C>ColorGraphByOrbitals</C> an action can be
 	    given:
 	    <Example>
-<![CDATA[gap> cgr:=ColorGraph(SymmetricGroup(5), Combinations([1..5],2), OnSets);
+<![CDATA[gap> cgr:=ColorGraphByOrbitals(SymmetricGroup(5), Combinations([1..5],2), OnSets);
 <color graph of order 10 and rank 3>]]>
 	    </Example>
 	    <P/>
@@ -172,7 +173,7 @@ gap> cgr:=ColorGraphByMatrix(m);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Func Name="ColorGraphByWLStabilization"
+	  <Attr Name="ColorGraphByWLStabilization"
 		Arg="cgr"/>
 	  <Description>
 	    If <A>cgr</A> is WL-stable then the function returns
@@ -371,18 +372,23 @@ rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )]]>
 	  <Func Name="AllAssociationSchemes" Arg="n"/>
 	  <Description>
 	    This function creates an interface to the database of
-	    small association schemes by Akihide Hanaki and Izumi
+	    small non-thin association schemes by Akihide Hanaki and Izumi
 	    Miyamoto from
 	    <URL>http://math.shinshu-u.ac.jp/~hanaki/as/</URL> (further
 	    refered to as the Japanese catalogue)
 	    <P/>
-	    This function downloads the list of small association
-	    schemes of order <A>n</A>. Then it converts them to the
-	    internal format of &COCO; and returns the resulting
-	    list. Every color graph has a name of the shape
+	    This function used to download the list of small association
+	    schemes of order <A>n</A>. Then it converted them to the
+	    internal format of &COCO; and returned the resulting
+	    list. As
+	    <URL>http://math.shinshu-u.ac.jp/~hanaki/as/</URL> is
+	    going offline starting from the beginning of 2025, the
+	    Japanese catalogue has been integreted into &COCO; 
+
+	    Every association scheme from the Japanese catalogue has a
+	    name of the shape
 	    <C>AS(n,k)</C> where <C>k</C> is the index of the scheme
-	    in the list of schemes of order <A>n</A> in the Japanese
-	    catalogue.
+	    in the list of schemes of order <A>n</A> in the catalogue.
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -509,7 +515,8 @@ gap> Neighbors(cgr,1,[1,2]);
 	</ManSection>
 	<ManSection>
 	  <Meth Name="AdjacencyMatrix" Arg="cgr" Label="first variant"/>
-      <Meth Name="AdjacencyMatrix" Arg="cgr,colors" Label="second variant"/>
+	  <Meth Name="AdjacencyMatrix" Arg="cgr,colors" Label="second variant"/>
+	  <Meth Name="AdjacencyMatrix" Arg="cgr,color"  Label="third variant"/>
 	  <Description>
 	    Returns the adjacency matrix of <A>cgr</A>. If <M>A</M> is
 	    the adjacency matrix of <A>cgr</A>, then <M>A(i,j)</M> is
@@ -541,6 +548,8 @@ gap> ColorNames(cgr)
   [  0,  0,  0,  1,  1 ],
   [  1,  0,  0,  0,  1 ] ]]]>
         </Example>
+	The third variant <C>AdjacencyMatrix(cgr,color)</C> is
+	equivalent to <C>AdjacencyMatrix(cgr,[color])</C>.
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -1158,7 +1167,7 @@ true]]>
 	    The algebraic automorphism group of a WL-stable color
 	    graph is nothing but the automorphism group of its tensor
 	    of structure constants. The color automorphism group in
-	    its action on colors embeds naturally into the algebraic
+	    its action on colors forms a subgroups of the algebraic
 	    automorphism group.
 	  </Description>
 	</ManSection>

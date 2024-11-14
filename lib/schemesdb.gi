@@ -1,6 +1,45 @@
+InstallGlobalFunction(ReadG7File@,
+function(name)
+    local  path, ing7, s;
+    
+    path:=PackageInfo("coco2p")[1].InstallationPath;
+    
+    ing7:=InputTextFile(Concatenation(path,"as/",name,".g7.gz"));
+
+    s:=ReadAll(ing7);
+    CloseStream(ing7);
+
+    s:=SplitString(s,"\n");
+    s:=List(s, Chomp);
+    return s;
+end);
+
+InstallGlobalFunction(MatrixFromCode@,
+function(code)
+    local  n, mat;
+    
+    n:=Sqrt(Length(code));
+    if not IsInt(n) then
+        ErrorNoReturn("MatrixFromCode: Length of code must be a square.");
+    fi;
+    mat:=List([0..n-1],i->code{[i*n+1..i*n+n]});
+    mat:=List(mat, x->List(x, y->IntChar(y)-33));
+    return mat;
+end);
+
+InstallGlobalFunction(CodeFromMatrix@,
+function(mat)
+    local  code;
+    
+    code:=Concatenation(mat+33);
+    
+    Apply(code,CharInt);
+    return code;
+end);
+
 InstallGlobalFunction(AllAssociationSchemes,
 function(n)
-    local   orders,  suff,  name, nameshort,res,tempvar,fnameshortreadonly;
+    local  orders, suff, nameshort, lcode, lmat, res;
     
     orders:=Difference([1..40],[1,2,35,36,37,39,40]);
     
@@ -15,35 +54,14 @@ function(n)
     fi;
     
     nameshort:=Concatenation("as",suff);
-    name:=Concatenation(nameshort,"@COCO2P");
+    lcode:=ReadG7File@(nameshort);
+    lmat:=List(lcode, MatrixFromCode@);
     
-    
-    if not IsBoundGlobal(name) then
-        if IsBoundGlobal(nameshort) then
-            fnameshortreadonly:=IsReadOnlyGlobal(nameshort);
-            tempvar:=ValueGlobal(nameshort);
-            UnbindGlobal(nameshort);
-            ReadWeb(Concatenation("http://math.shinshu-u.ac.jp/~hanaki/as/data/as", suff));
-            BindGlobal(name, ValueGlobal(nameshort));
-            UnbindGlobal(nameshort);
-            BindGlobal(nameshort, tempvar);
-            if not fnameshortreadonly then
-                MakeReadWriteGlobal(nameshort);
-            fi;
-        else
-            ReadWeb(Concatenation("http://math.shinshu-u.ac.jp/~hanaki/as/data/as", suff));
-            BindGlobal(name, ValueGlobal(nameshort));
-            UnbindGlobal(nameshort);
-        fi;
-#        MakeReadOnlyGlobal(name);
-    fi;
-    
-    res:= List(ValueGlobal(name), ColorGraphByMatrix);
+    res:= List(lmat, ColorGraphByMatrix);
     Perform(res, function(x) SetIsWLStableColorGraph(x,true); end);
     Perform(res, function(x) SetIsHomogeneous(x,true); end);
     Perform([1..Length(res)], function(i) SetName(res[i], Concatenation("AS(", String(n),",", String(i),")")); end);
-    return res;
-    
+    return res;    
 end);
 
 InstallGlobalFunction(AllCoherentConfigurations,

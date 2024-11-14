@@ -17,28 +17,28 @@ DeclareCategory( "IsColorGraph", IsCocoObject );
 ### Constructors
 ###
 
-DeclareGlobalFunction("ColorGraphByOrbitals");									# documented
-DeclareGlobalFunction("ColorGraph");                                                                            # documented
-DeclareGlobalFunction("ColorGraphByMatrix");                                                                    # documented
-DeclareGlobalFunction("CyclotomicColorGraph");                                                                  # documented
-DeclareGlobalFunction("ClassicalCompleteAffineScheme");                                                         # documented
-DeclareGlobalFunction("JohnsonScheme");                                                                         # documented
+DeclareGlobalFunction("ColorGraphByOrbitals");                    # documented
+DeclareGlobalFunction("ColorGraph");                              # documented
+DeclareGlobalFunction("ColorGraphByMatrix");                      # documented
+DeclareGlobalFunction("CyclotomicColorGraph");                    # documented
+DeclareGlobalFunction("ClassicalCompleteAffineScheme");           # documented
+DeclareGlobalFunction("JohnsonScheme");                           # documented
 
 DeclareAttribute("ColorGraphByWLStabilization", IsColorGraph ); 
-#DeclareGlobalFunction("ColorGraphByWLStabilization" );                                                          # documented
+#DeclareGlobalFunction("ColorGraphByWLStabilization" );           # documented
 
-DeclareGlobalFunction("WLStableColorGraphByMatrix" );                                                           # documented
-DeclareGlobalFunction("BIKColorGraph" );                                                                        # documented
-DeclareGlobalFunction("IvanovColorGraph" );                                                                     # documented
+DeclareGlobalFunction("WLStableColorGraphByMatrix" );             # documented
+DeclareGlobalFunction("BIKColorGraph" );                          # documented
+DeclareGlobalFunction("IvanovColorGraph" );                       # documented
 
-DeclareGlobalFunction("SrgFromCgr");                                                                            # undocumented
+DeclareGlobalFunction("SrgFromCgr");                              # undocumented                                                                       # undocumented
 
 
 ###
 ### Properties
 ###
 
-DeclareProperty( "IsWLStableColorGraph",   IsColorGraph );                                                           # documented
+DeclareProperty( "IsWLStableColorGraph",   IsColorGraph );                          # documented
 DeclareProperty( "IsHomogeneous",          IsColorGraph );                                                           # documented
 DeclareProperty( "IsSchurian",             IsColorGraph and IsWLStableColorGraph );                                  # documented
 DeclareProperty( "IsUndirectedColorGraph", IsColorGraph );                                                           # documented
@@ -54,19 +54,19 @@ DeclareProperty( "IsAmorphicColorGraph", IsColorGraph );
 #### Operations
 ####
 
-DeclareOperation( "ColorGraphByFusion",                      [IsColorGraph, IsFusionOfTensor] );                     # documented
-DeclareOperation( "ArcColorOfColorGraph",                    [IsColorGraph, IsPosInt, IsPosInt] );                   # documented
-DeclareOperation( "RowOfColorGraph",                         [IsColorGraph, IsPosInt] );                             # documented
-DeclareOperation( "ColumnOfColorGraph",                      [IsColorGraph, IsPosInt] );                             # documented
-DeclareOperation( "Fibres",                                  [IsColorGraph] );                                       # documented
-DeclareOperation( "Neighbors",                               [IsColorGraph, IsPosInt, IsList] );                     # documented
-DeclareOperation( "ColorRepresentative",                     [IsColorGraph, IsPosInt] );                             # documented
-DeclareOperation( "LocalIntersectionArray",                  [IsColorGraph, IsPosInt, IsPosInt] );                   # documented
-DeclareOperation( "QuotientColorGraph",                      [IsColorGraph, IsList] );                                # documented
-DeclareOperation( "ColorNames",                              [IsColorGraph] );                                       # documented
-DeclareOperation( "InducedSubColorGraph",                    [IsColorGraph, IsList] );                               # documented
-DeclareOperation( "DirectProductColorGraphs",                [IsColorGraph, IsColorGraph] );                         # documented
-DeclareOperation( "WreathProductColorGraphs",                [IsColorGraph, IsColorGraph] );                         # documented
+DeclareOperation( "ColorGraphByFusion",       [IsColorGraph, IsFusionOfTensor] );   # documented
+DeclareOperation( "ArcColorOfColorGraph",     [IsColorGraph, IsPosInt, IsPosInt] );                   # documented
+DeclareOperation( "RowOfColorGraph",          [IsColorGraph, IsPosInt] );                             # documented
+DeclareOperation( "ColumnOfColorGraph",       [IsColorGraph, IsPosInt] );                             # documented
+DeclareOperation( "Fibres",                   [IsColorGraph] );                                       # documented
+DeclareOperation( "Neighbors",                [IsColorGraph, IsPosInt, IsList] );                     # documented
+DeclareOperation( "ColorRepresentative",      [IsColorGraph, IsPosInt] );                             # documented
+DeclareOperation( "LocalIntersectionArray",   [IsColorGraph, IsPosInt, IsPosInt] );                   # documented
+DeclareOperation( "QuotientColorGraph",       [IsColorGraph, IsList] );                                # documented
+DeclareOperation( "ColorNames",               [IsColorGraph] );                                       # documented
+DeclareOperation( "InducedSubColorGraph",     [IsColorGraph, IsList] );                               # documented
+DeclareOperation( "DirectProductColorGraphs", [IsColorGraph, IsColorGraph] );                         # documented
+DeclareOperation( "WreathProductColorGraphs", [IsColorGraph, IsColorGraph] );                         # documented
 
 
 DeclareOperation( "PartitionClosedSet",                      [IsColorGraph and IsWLStableColorGraph and IsHomogeneous, IsList] ); # documented
