@@ -1,5 +1,3 @@
-
-
 CocoNodesFam := NewFamily("CocoNodesFam", IsCocoNode);
 
 DeclareRepresentation("IsCocoNodeRep",
@@ -609,7 +607,9 @@ function(node)
     ninf:=node!.nodeInfo;
     maxlength:=Maximum(ninf.maxlength, 20);
     for i in [1..Length(ninf.names)] do
-        if ninf.values[i]="unknown" and not ninf.names[i] in infoOptions@.disabled or node!.nodeInfo.testers[i](node) then
+        
+        if ninf.values[i]="unknown" and not ninf.names[i] in infoOptions@.disabled 
+                                            or node!.nodeInfo.testers[i](node) then
             
             val:=ninf.getters[i](node);
             if val <> fail then

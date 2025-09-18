@@ -11,30 +11,30 @@
 
 DeclareCategory( "IsFusionOfTensor", IsObject );
 
-DeclareGlobalFunction( "FusionFromPartition" );                          # documented
-DeclareGlobalFunction( "FusionFromPartitionNC" );                        # undocumented
-DeclareGlobalFunction( "FusionOrbitsFromGoodSetOrbits" );  # undocumented ?
+DeclareGlobalFunction( "FusionFromPartition" );## documented
+DeclareGlobalFunction( "FusionFromPartitionNC" ); ## documented
+DeclareGlobalFunction( "FusionOrbitsFromGoodSetOrbits" ); ## undocumented ?
 
 
-DeclareOperation( "PartitionOfFusion", [IsFusionOfTensor] );              # documented
-DeclareOperation( "TensorOfFusion", [IsFusionOfTensor] );                 # documented
+DeclareOperation( "PartitionOfFusion", [IsFusionOfTensor] ); ## documented
+DeclareOperation( "TensorOfFusion", [IsFusionOfTensor] ); ## documented
 DeclareOperation( "OnFusions", [IsFusionOfTensor, IsPerm] );              # undocumented
 
-DeclareAttribute("RankOfFusion", IsFusionOfTensor);                       # documented
-DeclareAttribute("OrderOfFusion", IsFusionOfTensor);                      # undocumented
+DeclareAttribute( "RankOfFusion", IsFusionOfTensor); ## documented
+DeclareAttribute( "OrderOfFusion", IsFusionOfTensor); ## documented
  
-DeclareAttribute("AsPartition", IsFusionOfTensor);                        # documented
-DeclareAttribute( "HomogeneousFusionOrbits", IsTensor and IsTensorOfCC ); # documented
+DeclareAttribute( "AsPartition", IsFusionOfTensor); ## documented
+DeclareAttribute( "HomogeneousFusionOrbits", IsTensor and IsTensorOfCC ); ## documented
 
 DeclareCategory( "IsFusionOrbit", IsPartitionOrbit );
-DeclareGlobalFunction( "FusionOrbitNC" );                                 # undocumented
-DeclareGlobalFunction( "FusionOrbit" );                                   # documented
+DeclareGlobalFunction( "FusionOrbitNC" ); ## undocumented
+DeclareGlobalFunction( "FusionOrbit" );   ## documented
 
 
-DeclareGlobalFunction( "ShortLexSorted" );                                # internal
+DeclareGlobalFunction( "ShortLexSorted" ); ## internal
 
-DeclareCategory("IsPosetOfFusionOrbits", IsCocoPoset);
+DeclareCategory("IsPosetOfFusionOrbits", IsCocoPoset); ## undocumented
 
-DeclareAttribute("ComputationTime", IsCocoPoset);
+DeclareAttribute("ComputationTime", IsCocoPoset); ## undocumented
 
-DeclareGlobalFunction( "PosetOfHomogeneousFusionOrbits" );                # undocumented 
+DeclareGlobalFunction( "PosetOfHomogeneousFusionOrbits" ); ## undocumented 

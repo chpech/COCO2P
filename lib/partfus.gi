@@ -211,7 +211,7 @@ function(gsorb)
                     GS:=aaut,        # the SetsSetsStabilizer of the finished slices
                     H:=aaut,         # the SetsSetsStabilizer of the current slice
                     slice:=[],       # the current slice
-                    orbits:=Set(gsorb),   # compatible H-orbit representatives of good sets
+                    orbits:=Set(gsorb), # compatible H-orbit representatives of good sets
                     orbidx:=1,
                     linkback:=fail
                     );

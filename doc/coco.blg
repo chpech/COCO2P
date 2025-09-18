@@ -1,46 +1,46 @@
-This is BibTeX, Version 0.99d (TeX Live 2019)
+This is BibTeX, Version 0.99d (TeX Live 2025)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: coco.aux
 The style file: alpha.bst
 Database file #1: coco.bib
-You've used 9 entries,
+You've used 11 entries,
             2543 wiz_defined-function locations,
-            620 strings with 5462 characters,
-and the built_in function-call counts, 3008 in all, are:
-= -- 294
-> -- 100
-< -- 9
-+ -- 31
-- -- 29
-* -- 208
-:= -- 504
-add.period$ -- 29
-call.type$ -- 9
-change.case$ -- 44
-chr.to.int$ -- 9
-cite$ -- 9
-duplicate$ -- 135
-empty$ -- 246
-format.name$ -- 45
-if$ -- 606
+            637 strings with 5835 characters,
+and the built_in function-call counts, 3877 in all, are:
+= -- 383
+> -- 133
+< -- 12
++ -- 43
+- -- 40
+* -- 272
+:= -- 640
+add.period$ -- 36
+call.type$ -- 11
+change.case$ -- 56
+chr.to.int$ -- 11
+cite$ -- 11
+duplicate$ -- 174
+empty$ -- 314
+format.name$ -- 59
+if$ -- 790
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 12
-newline$ -- 49
-num.names$ -- 27
-pop$ -- 50
+missing$ -- 14
+newline$ -- 59
+num.names$ -- 33
+pop$ -- 61
 preamble$ -- 1
-purify$ -- 57
+purify$ -- 71
 quote$ -- 0
-skip$ -- 96
+skip$ -- 124
 stack$ -- 0
-substring$ -- 159
-swap$ -- 13
-text.length$ -- 9
-text.prefix$ -- 7
+substring$ -- 211
+swap$ -- 22
+text.length$ -- 12
+text.prefix$ -- 8
 top$ -- 0
-type$ -- 56
+type$ -- 72
 warning$ -- 0
-while$ -- 28
-width$ -- 13
-write$ -- 123
+while$ -- 37
+width$ -- 15
+write$ -- 151

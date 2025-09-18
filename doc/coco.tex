@@ -95,7 +95,7 @@
 
 \hypersetup{pdftitle=The \textsf{coco2p} Package}
 \markright{\scriptsize \mbox{}\hfill The \textsf{coco2p} Package \hfill\mbox{}}
-{\Huge Version 0.17\mbox{}}\\[1cm]
+{\Huge Version 0.21\mbox{}}\\[1cm]
 \mbox{}\\[2cm]
 {\Large \textbf{Mikhail Klin  \mbox{}}}\\
 {\Large \textbf{Christian Pech  \mbox{}}}\\
@@ -107,16 +107,16 @@
 {\mbox{}\\
 \small \noindent \textbf{Mikhail Klin  }  Email: \href{mailto://klin@math.bgu.ac.il } {\texttt{klin@math.bgu.ac.il }}}\\
 {\mbox{}\\
-\small \noindent \textbf{Christian Pech  }  Email: \href{mailto://christian.pech@tu-dresden.de} {\texttt{christian.pech@tu-dresden.de}}}\\
+\small \noindent \textbf{Christian Pech  }  Email: \href{mailto://christian.pech@tu-dresden.de} {\texttt{christian.pech@tu\texttt{\symbol{45}}dresden.de}}}\\
 {\mbox{}\\
-\small \noindent \textbf{Sven Reichard  }  Email: \href{mailto://sven.reichard@tu-dresden.de} {\texttt{sven.reichard@tu-dresden.de}}}\\
+\small \noindent \textbf{Sven Reichard  }  Email: \href{mailto://sven.reichard@tu-dresden.de} {\texttt{sven.reichard@tu\texttt{\symbol{45}}dresden.de}}}\\
 \end{titlepage}
 
 \newpage\setcounter{page}{2}
 {\small 
 \section*{Copyright}
 \logpage{[ 0, 0, 1 ]}
- {\copyright} 2012, 2014, 2018, 2019, 2020 by the authors
+ {\copyright} 2012, 2014, 2018, 2019, 2020, 2025 by the authors
 
  This package may be distributed under the terms and conditions of the GNU
 Public License Version v3.0 or higher. \mbox{}}\\[1cm]
@@ -136,21 +136,23 @@ Public License Version v3.0 or higher. \mbox{}}\\[1cm]
 \logpage{[ 1, 1, 0 ]}
 \hyperdef{L}{X8729B87B848E3F89}{}
 {
-  A color graph (cgr) in \textsf{coco2p} is a triple $(V,C,f)$, where $V$ is a set of vertices, $C$ is set of colors, and $f : V \times V \to C$ assigns to every arc its color. \textsf{coco2p} does not know the concept of non-arcs. However, this is not an essential
-restriction, since non-arcs may be simulated by introducing a special
-distinguished color. 
+  A color graph (cgr) in \textsf{coco2p} is a triple $(V,C,f)$, where $V$ is a set of vertices, $C$ is set of colors, and $f : V \times V \to C$ assigns to every arc its color. \textsf{coco2p} does not know the concept of non\texttt{\symbol{45}}arcs. However, this is not
+an essential restriction, since non\texttt{\symbol{45}}arcs may be simulated
+by introducing a special distinguished color. 
 
- Of special interrest in \textsf{coco2p} are WL-stable color graphs (that is cgrs that are stable under the
-Weisfeiler-Leman algorithm \cite{WeiL68}, \cite{Wei76}). In the frames of \textsf{coco2p} the maximal monochromatic sets of arcs of a WL-stable color graph will always
-form a \emph{coherent configuration}. On the other hand, from every coherent configuration we can obtain a
-WL-stable cgr (every pair of vertices is colored by the relation it belongs
-to). 
+ Of special interrest in \textsf{coco2p} are WL\texttt{\symbol{45}}stable color graphs (that is cgrs that are stable
+under the Weisfeiler\texttt{\symbol{45}}Leman algorithm \cite{WeiL68}, \cite{Wei76}). In the frames of \textsf{coco2p} the maximal monochromatic sets of arcs of a WL\texttt{\symbol{45}}stable color
+graph will always form a \emph{coherent configuration}. On the other hand, from every coherent configuration we can obtain a
+WL\texttt{\symbol{45}}stable cgr (every pair of vertices is colored by the
+relation it belongs to). 
 
  For historical reasons, \textsf{coco2p} uses the nomenclature of color graphs. However, this is only of importance for
 concepts like automorphisms and isomorphisms. While both, automorphisms and
 isomorphisms have to preserve colors (as it is expected for color graphs),
-color-automorphisms, and color-isomorphisms only have to respect color
-classes, that is, they may map arcs of one color to arcs of another color. 
+color\texttt{\symbol{45}}automorphisms, and
+color\texttt{\symbol{45}}isomorphisms only have to respect color classes, that
+is, they may map arcs of one color to arcs of another color (however, if two
+arcs have the same color then so will the image arcs). 
 
  }
 
@@ -161,11 +163,12 @@ classes, that is, they may map arcs of one color to arcs of another color.
 {
   For a color graph, the set of vertices as well as the set of colors may be any
 finite set representable in \textsf{GAP}. For performance reasons, \textsf{coco2p} does not use these sets inside its algorithms (except when constructing color
-graphs). Instead, \textsf{coco2p} refers to vertices and colors by their position in the vertex-set and
-color-set, respectively. In fact vertices and colors are identified with these
-indices. In order not to loose information, every color graph in \textsf{coco2p} keeps a list of names of vertices and a list of names of colors. The set of
-vertex-names is equal to the original set of vertices, and the set of color
-names is equal to the original set of colors. }
+graphs). Instead, \textsf{coco2p} refers to vertices and colors by their position in the
+vertex\texttt{\symbol{45}}set and color\texttt{\symbol{45}}set, respectively.
+In fact vertices and colors are identified with these indices. In order not to
+loose information, every color graph in \textsf{coco2p} keeps a list of names of vertices and a list of names of colors. The set of
+vertex\texttt{\symbol{45}}names is equal to the original set of vertices, and
+the set of color names is equal to the original set of colors. }
 
  
 \section{\textcolor{Chapter }{Functions for the construction of color graphs}}\label{sec:cgr-constructors}
@@ -201,7 +204,7 @@ permutation group \mbox{\texttt{\mdseries\slshape grp}} in its natural action (i
  
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@d7 := Group( (1,2,3,4,5,6,7), (1,7)(2,6)(3,5));;|
-  !gapprompt@gap>| !gapinput@cgr := ColorGraph(d7, [1]);|
+  !gapprompt@gap>| !gapinput@cgr := ColorGraphByOrbitals(d7, [1]);|
   <color graph of order 7 and rank 4>
   	    
 \end{Verbatim}
@@ -209,13 +212,13 @@ permutation group \mbox{\texttt{\mdseries\slshape grp}} in its natural action (i
 
  In the third variant of \texttt{ColorGraphByOrbitals} an action can be given: 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@cgr:=ColorGraph(SymmetricGroup(5), Combinations([1..5],2), OnSets);|
+  !gapprompt@gap>| !gapinput@cgr:=ColorGraphByOrbitals(SymmetricGroup(5), Combinations([1..5],2), OnSets);|
   <color graph of order 10 and rank 3>
   	    
 \end{Verbatim}
  
 
- The optional fourth argument \mbox{\texttt{\mdseries\slshape completeDom}} is a boolean. If it is \texttt{True}, then the function assumes that \mbox{\texttt{\mdseries\slshape domain}} is closed under \mbox{\texttt{\mdseries\slshape action}} of \mbox{\texttt{\mdseries\slshape grp}}. This has the effect, that the function dows not try to complete it. The
+ The optional fourth argument \mbox{\texttt{\mdseries\slshape completeDom}} is a boolean. If it is \texttt{true}, then the function assumes that \mbox{\texttt{\mdseries\slshape domain}} is closed under \mbox{\texttt{\mdseries\slshape action}} of \mbox{\texttt{\mdseries\slshape grp}}. This has the effect, that the function does not try to complete it. The
 effect is that in the resulting color graph it is guaranteed that the vertex
 with number \texttt{i} corresponds exactly to \texttt{domain[i]}. }
 
@@ -232,8 +235,8 @@ with number \texttt{i} corresponds exactly to \texttt{domain[i]}. }
  This is the most general function for the construction of color graphs. When
 called with less than $5$ arguments, it is identical with the function \texttt{ColorGraphByOrbitals} (\ref{ColorGraphByOrbitals}) 
 
- The optional fifth argument \mbox{\texttt{\mdseries\slshape coloring}} is a coloring-function. It takes as input two vertices (elements of the acting
-domain) $u, v$, and it has to return the color of the arc $(u, v)$. In principle, the color can be any \textsf{GAP} object. However, it should be possible to compare colors and to form sets of
+ The optional fifth argument \mbox{\texttt{\mdseries\slshape coloring}} is a coloring\texttt{\symbol{45}}function. It takes as input two vertices
+(elements of the acting domain) $u, v$, and it has to return the color of the arc $(u, v)$. In principle, the color can be any \textsf{GAP} object. However, it should be possible to compare colors and to form sets of
 them. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=ColorGraph(SymmetricGroup(8),|
@@ -255,7 +258,8 @@ them.
 }\hfill{\scriptsize (function)}}\\
 
 
- This function constructs a color graph from its adjacency matrix. The argument \mbox{\texttt{\mdseries\slshape mat}} is a list of $n$ lists of length $n$. The vertex-set of the resulting color graph is $\{1,\dots,n\}$, while the color of the arc $(i,j)$ is \texttt{mat[i][j]}. The entries can be any kind of \textsf{GAP}-objects that can be compared and that can be organized in a set. 
+ This function constructs a color graph from its adjacency matrix. The argument \mbox{\texttt{\mdseries\slshape mat}} is a list of $n$ lists of length $n$. The vertex\texttt{\symbol{45}}set of the resulting color graph is $\{1,\dots,n\}$, while the color of the arc $(i,j)$ is \texttt{mat[i][j]}. The entries can be any kind of \textsf{GAP}\texttt{\symbol{45}}objects that can be compared and that can be organized in
+a set. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@m:=[["black","red"  ,"blue" ,"blue" ,"blue" ],|
   !gapprompt@>| !gapinput@       ["blue" ,"black","red"  ,"blue" ,"blue" ],|
@@ -275,13 +279,14 @@ them.
 \hyperdef{L}{X85EAC9AD7F1758E6}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ColorGraphByWLStabilization({\mdseries\slshape cgr})\index{ColorGraphByWLStabilization@\texttt{ColorGraphByWLStabilization}}
 \label{ColorGraphByWLStabilization}
-}\hfill{\scriptsize (function)}}\\
+}\hfill{\scriptsize (attribute)}}\\
 
 
- If \mbox{\texttt{\mdseries\slshape cgr}} is WL-stable then the function returns \mbox{\texttt{\mdseries\slshape cgr}}. Otherwise, the WL-stabilization of \mbox{\texttt{\mdseries\slshape cgr}} is returned. The colors of the stabilization have names of the shape \texttt{[c,i]} where \texttt{c} is a color of \mbox{\texttt{\mdseries\slshape cgr}} and \texttt{i} is the index of a fragment of color \texttt{c}. 
+ If \mbox{\texttt{\mdseries\slshape cgr}} is WL\texttt{\symbol{45}}stable then the function returns \mbox{\texttt{\mdseries\slshape cgr}}. Otherwise, the WL\texttt{\symbol{45}}stabilization of \mbox{\texttt{\mdseries\slshape cgr}} is returned. The colors of the stabilization have names of the shape \texttt{[c,i]} where \texttt{c} is a color of \mbox{\texttt{\mdseries\slshape cgr}} and \texttt{i} is the index of a fragment of color \texttt{c}. 
 
- This function does not really implement the Weisfeiler-Leman algorithm. Rather
-it does a stabilization inside of a Schurian WL-stable fission of \mbox{\texttt{\mdseries\slshape cgr}}. The performance depends mainly on the order of the group of known
+ This function does not really implement the
+Weisfeiler\texttt{\symbol{45}}Leman algorithm. Rather it does a stabilization
+inside of a Schurian WL\texttt{\symbol{45}}stable fission of \mbox{\texttt{\mdseries\slshape cgr}}. The performance depends mainly on the order of the group of known
 automorphisms of \mbox{\texttt{\mdseries\slshape cgr}} (cf \texttt{KnownGroupOfAutomorphisms} (\ref{KnownGroupOfAutomorphisms:for color graphs})). }
 
  
@@ -294,8 +299,9 @@ automorphisms of \mbox{\texttt{\mdseries\slshape cgr}} (cf \texttt{KnownGroupOfA
 }\hfill{\scriptsize (function)}}\\
 
 
- This function gets as input a square matrix \mbox{\texttt{\mdseries\slshape mat}} and returns the color graph of the Weisfeiler-Leman- stabilization of \mbox{\texttt{\mdseries\slshape Mat}}. The entries of \mbox{\texttt{\mdseries\slshape mat}} can be any kind of \textsf{GAP}-objects that can be compared and that can be organized in a set. The
-vertex-set of the resulting color graph is $\{1,\dots,n\}$, while the color of the arc $(i,j)$ is \texttt{[mat[i][j],k]}, where \texttt{k} is a positive integer. 
+ This function gets as input a square matrix \mbox{\texttt{\mdseries\slshape mat}} and returns the color graph of the
+Weisfeiler\texttt{\symbol{45}}Leman\texttt{\symbol{45}} stabilization of \mbox{\texttt{\mdseries\slshape Mat}}. The entries of \mbox{\texttt{\mdseries\slshape mat}} can be any kind of \textsf{GAP}\texttt{\symbol{45}}objects that can be compared and that can be organized in
+a set. The vertex\texttt{\symbol{45}}set of the resulting color graph is $\{1,\dots,n\}$, while the color of the arc $(i,j)$ is \texttt{[mat[i][j],k]}, where \texttt{k} is a positive integer. 
 
  This constructor works usually much faster then the combination of \texttt{ColorGraphByMatrix} (\ref{ColorGraphByMatrix}) and \texttt{ColorGraphByWLStabilization} (\ref{ColorGraphByWLStabilization}). 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
@@ -354,8 +360,9 @@ vertex-set of the resulting color graph is $\{1,\dots,n\}$, while the color of t
 }\hfill{\scriptsize (function)}}\\
 
 
- The classical complete affine scheme is a WL-stable, Schurian, amorphic color
-graph defined on the set of points of the affine plane over $GF(q)$. The reflexive closure of every irreflexive color class is an equivalence
+ The classical complete affine scheme is a WL\texttt{\symbol{45}}stable,
+Schurian, amorphic color graph defined on the set of points of the affine
+plane over $GF(q)$. The reflexive closure of every irreflexive color class is an equivalence
 relation whose equivalence classes form a complete parallel class of lines.
 Moreover, to every parallel class there corresponds a color class. 
 
@@ -371,7 +378,7 @@ Moreover, to every parallel class there corresponds a color class.
 }\hfill{\scriptsize (function)}}\\
 
 
- The Johnson scheme $J(n,k)$ is a WL-stable, Schurian color graph. Its vertices are the \mbox{\texttt{\mdseries\slshape k}}-element subsets of $\{1,\dots,n\}$. The colors are elements of $\{0,\dots,k\}$. The color of an arc $(M,N)$ is the cardinality of the intersection of $M$ and $N$. 
+ The Johnson scheme $J(n,k)$ is a WL\texttt{\symbol{45}}stable, Schurian color graph. Its vertices are the \mbox{\texttt{\mdseries\slshape k}}\texttt{\symbol{45}}element subsets of $\{1,\dots,n\}$. The colors are elements of $\{0,\dots,k\}$. The color of an arc $(M,N)$ is the cardinality of the intersection of $M$ and $N$. 
 
  This function returns the Johnson scheme $J(n,k)$. }
 
@@ -399,15 +406,15 @@ Moreover, to every parallel class there corresponds a color class.
 }\hfill{\scriptsize (function)}}\\
 
 
- This function generates the color graphs described in the paper \cite{BroIvaKli89}. These color graphs are interesting because they may be used to construct $3$-isoregular strongly regular graphs with the $5$-vertex condition. The vertex set of \texttt{BIKColorGraph(m)} is $V=GF(2)^{2m}$. For the description of colors of the arcs consider a quadratic form $q$ of Witt-index $m$ on $V$. Let $Q$ be the quadric defined by $q$, and let $S$ be a maximal singular subspace of $q$. A pair of vectors $(v,w)$ is colored by 
+ This function generates the color graphs described in the paper \cite{BroIvaKli89}. These color graphs are interesting because they may be used to construct $3$\texttt{\symbol{45}}isoregular strongly regular graphs with the $5$\texttt{\symbol{45}}vertex condition. The vertex set of \texttt{BIKColorGraph(m)} is $V=GF(2)^{2m}$. For the description of colors of the arcs consider a quadratic form $q$ of Witt\texttt{\symbol{45}}index $m$ on $V$. Let $Q$ be the quadric defined by $q$, and let $S$ be a maximal singular subspace of $q$. A pair of vectors $(v,w)$ is colored by 
 \begin{description}
 \item[{\texttt{"=":}}] if $v = w$,
 \item[{\texttt{"Q+S+":}}]  if $v + w \in S$,
-\item[{\texttt{"Q+S-":}}] if $v + w \in Q \setminus S$,
-\item[{\texttt{"Q-":}}] if $v + w \notin Q$.
+\item[{\texttt{"Q+S\texttt{\symbol{45}}":}}] if $v + w \in Q \setminus S$,
+\item[{\texttt{"Q\texttt{\symbol{45}}":}}] if $v + w \notin Q$.
 \end{description}
- The following code constructs the Ivanov-graph on $256$ vertices. This was historically the first strongly regular graph to be found
-that is non-rank-$3$ and that satisfies the $5$-vertex condition (cf. \cite{Iva89}). 
+ The following code constructs the Ivanov\texttt{\symbol{45}}graph on $256$ vertices. This was historically the first strongly regular graph to be found
+that is non\texttt{\symbol{45}}rank\texttt{\symbol{45}}$3$ and that satisfies the $5$\texttt{\symbol{45}}vertex condition (cf. \cite{Iva89}). 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=BIKColorGraph(4);|
   <color graph of order 256 and rank 4>
@@ -432,14 +439,13 @@ that is non-rank-$3$ and that satisfies the $5$-vertex condition (cf. \cite{Iva8
 }\hfill{\scriptsize (function)}}\\
 
 
- This function generates a series of color graphs described in \cite{Iva94}. These color graphs may be used to construct $3$-isoregular strongly regular graphs with the $5$-vertex condition. These color graphs are interesting because they may be used
-to construct $3$-isoregular strongly regular graphs with the $5$-vertex condition. The vertex set of \texttt{IvanovColorGraph(m)} is $V=GF(2)^{2m}$. For the description of colors of the arcs consider a quadratic form $q$ of Witt-index $m-1$ on $V$. Let $Q$ be the quadric defined by $q$, let $S$ be a maximal singular subspace of $q$, and let $O$ be the orthogonal complement of $S$. A pair of vectors $(v,w)$ is colored by 
+ This function generates a series of color graphs described in \cite{Iva94}. These color graphs are interesting because they may be used to construct $3$\texttt{\symbol{45}}isoregular strongly regular graphs with the $5$\texttt{\symbol{45}}vertex condition. The vertex set of \texttt{IvanovColorGraph(m)} is $V=GF(2)^{2m}$. For the description of colors of the arcs consider a quadratic form $q$ of Witt\texttt{\symbol{45}}index $m-1$ on $V$. Let $Q$ be the quadric defined by $q$, let $S$ be a maximal singular subspace of $q$, and let $O$ be the orthogonal complement of $S$. A pair of vectors $(v,w)$ is colored by 
 \begin{description}
 \item[{\texttt{"=":}}] if $v = w$,
 \item[{\texttt{"Q+S+":}}]  if $v + w \in S$,
-\item[{\texttt{"Q+S-":}}] if $v + w \in Q \setminus S$,
-\item[{\texttt{"Q-O+":}}] if $v + w \in O$.
-\item[{\texttt{"Q-O-":}}] if $v + w \notin O \cup Q$.
+\item[{\texttt{"Q+S\texttt{\symbol{45}}":}}] if $v + w \in Q \setminus S$,
+\item[{\texttt{"Q\texttt{\symbol{45}}O+":}}] if $v + w \in O$.
+\item[{\texttt{"Q\texttt{\symbol{45}}O\texttt{\symbol{45}}":}}] if $v + w \notin O \cup Q$.
 \end{description}
  
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
@@ -465,15 +471,61 @@ to construct $3$-isoregular strongly regular graphs with the $5$-vertex conditio
 }\hfill{\scriptsize (function)}}\\
 
 
- This function creates an interface to the database of small association
-schemes by Akihide Hanaki and Izumi Miyamoto from \href{http://math.shinshu-u.ac.jp/~hanaki/as/} {\texttt{http://math.shinshu-u.ac.jp/\texttt{\symbol{126}}hanaki/as/}} (further refered to as the Japanese catalogue) 
+ This function creates an interface to the database of small
+non\texttt{\symbol{45}}thin association schemes by Akihide Hanaki and Izumi
+Miyamoto from \href{http://math.shinshu-u.ac.jp/~hanaki/as/} {\texttt{http://math.shinshu\texttt{\symbol{45}}u.ac.jp/\texttt{\symbol{126}}hanaki/as/}} (further refered to as the Japanese catalogue) 
 
- This function downloads the list of small association schemes of order \mbox{\texttt{\mdseries\slshape n}}. Then it converts them to the internal format of \textsf{coco2p} and returns the resulting list. Every color graph has a name of the shape \texttt{AS(n,k)} where \texttt{k} is the index of the scheme in the list of schemes of order \mbox{\texttt{\mdseries\slshape n}} in the Japanese catalogue. }
+ This function used to download the list of small non\texttt{\symbol{45}}thin
+association schemes of order \mbox{\texttt{\mdseries\slshape n}}. Then it converted them to the internal format of \textsf{coco2p} and returned the resulting list. As \href{http://math.shinshu-u.ac.jp/~hanaki/as/} {\texttt{http://math.shinshu\texttt{\symbol{45}}u.ac.jp/\texttt{\symbol{126}}hanaki/as/}} is going offline starting from the beginning of 2025, the Japanese catalogue
+has been integreted into \textsf{coco2p} Every association scheme from the Japanese catalogue has a name of the shape \texttt{AS(n,k)} where \texttt{k} is the index of the scheme in the list of schemes of order \mbox{\texttt{\mdseries\slshape n}} in the catalogue. }
+
+ 
+
+\subsection{\textcolor{Chapter }{SmallAssociationScheme}}
+\logpage{[ 1, 3, 12 ]}\nobreak
+\hyperdef{L}{X860D2E0386144099}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SmallAssociationScheme({\mdseries\slshape n, k})\index{SmallAssociationScheme@\texttt{SmallAssociationScheme}}
+\label{SmallAssociationScheme}
+}\hfill{\scriptsize (function)}}\\
+
+
+ This function returns the association scheme \texttt{AS(n,k)} from the japanese catalogue. }
+
+ 
+
+\subsection{\textcolor{Chapter }{NumberAssociationSchemes}}
+\logpage{[ 1, 3, 13 ]}\nobreak
+\hyperdef{L}{X8015E67A81FB98F1}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{NumberAssociationSchemes({\mdseries\slshape n})\index{NumberAssociationSchemes@\texttt{NumberAssociationSchemes}}
+\label{NumberAssociationSchemes}
+}\hfill{\scriptsize (function)}}\\
+
+
+ This function returns the number of non\texttt{\symbol{45}}thin association
+schemes of order \mbox{\texttt{\mdseries\slshape n}}. If the Japanese catalogue does not contain the list of all such association
+schemes, then \texttt{fail} is returned. }
+
+ 
+
+\subsection{\textcolor{Chapter }{SmallAssociationSchemesAvailable}}
+\logpage{[ 1, 3, 14 ]}\nobreak
+\hyperdef{L}{X7C3B3B0E8696F48B}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SmallAssociationSchemesAvailable({\mdseries\slshape [n]})\index{SmallAssociationSchemesAvailable@\texttt{SmallAssociationSchemesAvailable}}
+\label{SmallAssociationSchemesAvailable}
+}\hfill{\scriptsize (function)}}\\
+
+
+ When called without arguments, this function returns a list of orders for
+which the Japanese catalogue contains all non\texttt{\symbol{45}}thin
+association schemes. 
+
+ When called with argument \mbox{\texttt{\mdseries\slshape n}}, it returns \texttt{true} if the Japanese catalogue contains all non\texttt{\symbol{45}}thin association
+schemes of order $n$, otherwise \texttt{false}. }
 
  
 
 \subsection{\textcolor{Chapter }{AllCoherentConfigurations}}
-\logpage{[ 1, 3, 12 ]}\nobreak
+\logpage{[ 1, 3, 15 ]}\nobreak
 \hyperdef{L}{X867455368202CEE9}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AllCoherentConfigurations({\mdseries\slshape n})\index{AllCoherentConfigurations@\texttt{AllCoherentConfigurations}}
 \label{AllCoherentConfigurations}
@@ -481,8 +533,70 @@ schemes by Akihide Hanaki and Izumi Miyamoto from \href{http://math.shinshu-u.ac
 
 
  This function creates an interface to the database of small coherent
-configurations on at most 15 vertices by Matan Ziv-Av This function downloads
-the list of small coherent configurations of order \mbox{\texttt{\mdseries\slshape n}}. Then it converts them to the internal format of \textsf{coco2p} and returns the resulting list. Every color graph has a name of the shape \texttt{CC(n,k)} where \texttt{k} is the index of the scheme in the list of schemes of order \mbox{\texttt{\mdseries\slshape n}} in Matan's catalogue. }
+configurations on at most $15$ vertices by Matan Ziv\texttt{\symbol{45}}Av This function returns the list of
+all coherent configurations of degree downloads the list of small coherent
+configurations of order \mbox{\texttt{\mdseries\slshape n}}. Every color graph has a name of the shape \texttt{CC(n,k)} where \texttt{k} is the index of the graph in the list of coherent configurations of degree \mbox{\texttt{\mdseries\slshape n}} in Matan's catalogue. }
+
+ 
+
+\subsection{\textcolor{Chapter }{SmallCoherentConfiguration}}
+\logpage{[ 1, 3, 16 ]}\nobreak
+\hyperdef{L}{X784109C17E69E242}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SmallCoherentConfiguration({\mdseries\slshape n, k})\index{SmallCoherentConfiguration@\texttt{SmallCoherentConfiguration}}
+\label{SmallCoherentConfiguration}
+}\hfill{\scriptsize (function)}}\\
+
+
+ This function returns the coherent configuration \texttt{CC(n,k)} from the catalogue of small coherent configurations. }
+
+ 
+
+\subsection{\textcolor{Chapter }{NumberCoherentConfigurations}}
+\logpage{[ 1, 3, 17 ]}\nobreak
+\hyperdef{L}{X7FA2B07A7960B956}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{NumberCoherentConfigurations({\mdseries\slshape n})\index{NumberCoherentConfigurations@\texttt{NumberCoherentConfigurations}}
+\label{NumberCoherentConfigurations}
+}\hfill{\scriptsize (function)}}\\
+
+
+ This function returns the number of coherent configurations schemes of degree \mbox{\texttt{\mdseries\slshape n}}. If the catalogue of small coherent configurations does not contain the list
+of all such CCs, then \texttt{fail} is returned. }
+
+ 
+
+\subsection{\textcolor{Chapter }{SmallCoherentConfigurationsAvailable}}
+\logpage{[ 1, 3, 18 ]}\nobreak
+\hyperdef{L}{X84BDC7107985E9EB}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SmallCoherentConfigurationsAvailable({\mdseries\slshape [n]})\index{SmallCoherentConfigurationsAvailable@\texttt{Small}\-\texttt{Coherent}\-\texttt{Configurations}\-\texttt{Available}}
+\label{SmallCoherentConfigurationsAvailable}
+}\hfill{\scriptsize (function)}}\\
+
+
+ When called without arguments, this function returns a list of degrees for
+which the catalogue of small coherent configurations contains all CCs. 
+
+ When called with argument \mbox{\texttt{\mdseries\slshape n}}, it returns \texttt{true} if the catalogue of small coherent configurations contains all CCs of degree $n$, otherwise \texttt{false}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{IdentificationOfColorGraph}}
+\logpage{[ 1, 3, 19 ]}\nobreak
+\hyperdef{L}{X85B8783F7D311BA1}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IdentificationOfColorGraph({\mdseries\slshape cgr})\index{IdentificationOfColorGraph@\texttt{IdentificationOfColorGraph}}
+\label{IdentificationOfColorGraph}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ In the current implementation the function expects a
+WL\texttt{\symbol{45}}stable color graph \mbox{\texttt{\mdseries\slshape cgr}}. It tries first to identify \mbox{\texttt{\mdseries\slshape cgr}} in the japanese catalogue. If successful, it returns a name of the shape \texttt{"AS(n,k)"}. 
+
+ If \mbox{\texttt{\mdseries\slshape cgr}} is not in the japanese catalogue, it is searched for in Matan's catalogue of
+small coherent configurations. If it is found there, a name of the shape \texttt{"CC(n,k)"} is returned. 
+
+ In both cases $n$ refers to the order of \mbox{\texttt{\mdseries\slshape cgr}} and $k$ refers to the index in the list of association schemes or coherent
+configurations of order $n$, respectively. 
+
+ If \mbox{\texttt{\mdseries\slshape cgr}} is in neither of the catalogues, the string \texttt{"unknown"} is returned. }
 
  }
 
@@ -526,14 +640,14 @@ the list of small coherent configurations of order \mbox{\texttt{\mdseries\slsha
 
  
 
-\subsection{\textcolor{Chapter }{VertexNamesOfCocoObject (for color graphs)}}
+\subsection{\textcolor{Chapter }{VertexNamesOfColorGraph}}
 \logpage{[ 1, 4, 3 ]}\nobreak
-\hyperdef{L}{X83F7E42D834CCF92}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{VertexNamesOfCocoObject({\mdseries\slshape cgr})\index{VertexNamesOfCocoObject@\texttt{VertexNamesOfCocoObject}!for color graphs}
-\label{VertexNamesOfCocoObject:for color graphs}
+\hyperdef{L}{X7EBA5B037AC63D55}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{VertexNamesOfColorGraph({\mdseries\slshape cgr})\index{VertexNamesOfColorGraph@\texttt{VertexNamesOfColorGraph}}
+\label{VertexNamesOfColorGraph}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{VertexNamesOfColorGraph({\mdseries\slshape cgr})\index{VertexNamesOfColorGraph@\texttt{VertexNamesOfColorGraph}!for color graphs}
-\label{VertexNamesOfColorGraph:for color graphs}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{VertexNamesOfCocoObject({\mdseries\slshape cgr})\index{VertexNamesOfCocoObject@\texttt{VertexNamesOfCocoObject}!for color graphs}
+\label{VertexNamesOfCocoObject:for color graphs}
 }\hfill{\scriptsize (operation)}}\\
 
 
@@ -558,7 +672,7 @@ the list of small coherent configurations of order \mbox{\texttt{\mdseries\slsha
 
 
  Returns the list of names of the colors of \mbox{\texttt{\mdseries\slshape cgr}}. In the following example, the color names of the Johnson scheme are the
-possible cardinalities of the intersection of two $2$-element subsets of $\{1,2,3,4,5\}$. Thus loobs will get colored by $1$, since the intersection of a $2$-element set with itself will have cardinality $2$. 
+possible cardinalities of the intersection of two $2$\texttt{\symbol{45}}element subsets of $\{1,2,3,4,5\}$. Thus loobs will get colored by $1$, since the intersection of a $2$\texttt{\symbol{45}}element set with itself will have cardinality $2$. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=JohnsonScheme(5,2);;|
   !gapprompt@gap>| !gapinput@ColorNames(cgr);|
@@ -657,6 +771,9 @@ vertex and a single color..
 \noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AdjacencyMatrix({\mdseries\slshape cgr, colors})\index{AdjacencyMatrix@\texttt{AdjacencyMatrix}!second variant}
 \label{AdjacencyMatrix:second variant}
 }\hfill{\scriptsize (method)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AdjacencyMatrix({\mdseries\slshape cgr, color})\index{AdjacencyMatrix@\texttt{AdjacencyMatrix}!third variant}
+\label{AdjacencyMatrix:third variant}
+}\hfill{\scriptsize (method)}}\\
 
 
  Returns the adjacency matrix of \mbox{\texttt{\mdseries\slshape cgr}}. If $A$ is the adjacency matrix of \mbox{\texttt{\mdseries\slshape cgr}}, then $A(i,j)$ is equal to the color (not to the color name!) of the arc $(i,j)$. 
@@ -678,7 +795,7 @@ vertex and a single color..
   [ "black", "blue", "red" ]
   	    
 \end{Verbatim}
- In the second form \texttt{AdjacencyMatrix(cgr,colors)} returns a 0/1-matrix $A(i,j)$, that has entry 1 at $(i,j)$ iff the entry of \texttt{AdjacencyMatrix(cgr)} at $(i,j)$ is an element of the list \mbox{\texttt{\mdseries\slshape colors}}. 
+ In the second form \texttt{AdjacencyMatrix(cgr,colors)} returns a 0/1\texttt{\symbol{45}}matrix $A(i,j)$, that has entry 1 at $(i,j)$ iff the entry of \texttt{AdjacencyMatrix(cgr)} at $(i,j)$ is an element of the list \mbox{\texttt{\mdseries\slshape colors}}. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@Display(AdjacencyMatrix(cgr, [1,3]));|
   [ [  1,  1,  0,  0,  0 ],
@@ -688,7 +805,7 @@ vertex and a single color..
     [  1,  0,  0,  0,  1 ] ]
           
 \end{Verbatim}
- }
+ The third variant \texttt{AdjacencyMatrix(cgr,color)} is equivalent to \texttt{AdjacencyMatrix(cgr,[color])}. }
 
  
 
@@ -700,7 +817,7 @@ vertex and a single color..
 }\hfill{\scriptsize (operation)}}\\
 
 
- Returns the $i$-th row of the adjacency matrix of \mbox{\texttt{\mdseries\slshape cgr}} (\texttt{AdjacencyMatrix} (\ref{AdjacencyMatrix:first variant})). }
+ Returns the $i$\texttt{\symbol{45}}th row of the adjacency matrix of \mbox{\texttt{\mdseries\slshape cgr}} (\texttt{AdjacencyMatrix} (\ref{AdjacencyMatrix:first variant})). }
 
  
 
@@ -712,7 +829,7 @@ vertex and a single color..
 }\hfill{\scriptsize (operation)}}\\
 
 
- Returns the $j$-th column of the adjacency matrix of \mbox{\texttt{\mdseries\slshape cgr}} (\texttt{AdjacencyMatrix} (\ref{AdjacencyMatrix:first variant})). }
+ Returns the $j$\texttt{\symbol{45}}th column of the adjacency matrix of \mbox{\texttt{\mdseries\slshape cgr}} (\texttt{AdjacencyMatrix} (\ref{AdjacencyMatrix:first variant})). }
 
  
 
@@ -801,7 +918,7 @@ all have the same color.
 }\hfill{\scriptsize (attribute)}}\\
 
 
- In a WL-stable color graph for every color $i$ there exists a color $i'$ such that whenever an arc $(u,v)$ has color $i$, then the opposite arc $(v,u)$ has color $i'$. The mapping from $i$ to $i'$ is a permutation of the colors. The function \texttt{ColorMates} returns this permutation. 
+ In a WL\texttt{\symbol{45}}stable color graph for every color $i$ there exists a color $i'$ such that whenever an arc $(u,v)$ has color $i$, then the opposite arc $(v,u)$ has color $i'$. The mapping from $i$ to $i'$ is a permutation of the colors. The function \texttt{ColorMates} returns this permutation. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=ColorGraph(Group((1,2,3,4,5)));;|
   !gapprompt@gap>| !gapinput@Display(AdjacencyMatrix(cgr));|
@@ -840,8 +957,8 @@ all have the same color.
 }\hfill{\scriptsize (method)}}\\
 
 
- This function returns the list of all reflexive colors of the WL-stable color
-graph \mbox{\texttt{\mdseries\slshape cgr}}. }
+ This function returns the list of all reflexive colors of the
+WL\texttt{\symbol{45}}stable color graph \mbox{\texttt{\mdseries\slshape cgr}}. }
 
  }
 
@@ -861,11 +978,11 @@ graph \mbox{\texttt{\mdseries\slshape cgr}}. }
 
 
  The function takes as arguments a color graph \mbox{\texttt{\mdseries\slshape cgr}} and a fusion. The fusion can be either a list of sets of colors, or it belongs
-to the category \texttt{IsFusionOfTensor} and more concretely to the family \texttt{FusionFamily(StructureConstantsOfColorGraph(cgr))}. In the latter case, \mbox{\texttt{\mdseries\slshape cgr}} has to be WL-stable. 
+to the category \texttt{IsFusionOfTensor} and more concretely to the family \texttt{FusionFamily(StructureConstantsOfColorGraph(cgr))}. In the latter case, \mbox{\texttt{\mdseries\slshape cgr}} has to be WL\texttt{\symbol{45}}stable. 
 
- The fusion-color graph has the same order like \mbox{\texttt{\mdseries\slshape cgr}}. The color of an arc $(i,j)$ in the fusion color graph is the list of all classes of \mbox{\texttt{\mdseries\slshape fusion}} to which \texttt{ArcColorOfColorGraph(cgr,i,j)} belongs. If \mbox{\texttt{\mdseries\slshape fusion}} is a partition, then the effect is that all colors in one class are fused into
-the same new color. If \mbox{\texttt{\mdseries\slshape fusion}} is not a partition, then the resulting color graph will be color-isomorphic to
-the fusion color graph of \mbox{\texttt{\mdseries\slshape cgr}} with respect to the coarsest partition that allows to obtain every element of \mbox{\texttt{\mdseries\slshape fusion}} as a union of classes. 
+ The fusion\texttt{\symbol{45}}color graph has the same order like \mbox{\texttt{\mdseries\slshape cgr}}. The color of an arc $(i,j)$ in the fusion color graph is the list of all classes of \mbox{\texttt{\mdseries\slshape fusion}} to which \texttt{ArcColorOfColorGraph(cgr,i,j)} belongs. If \mbox{\texttt{\mdseries\slshape fusion}} is a partition, then the effect is that all colors in one class are fused into
+the same new color. If \mbox{\texttt{\mdseries\slshape fusion}} is not a partition, then the resulting color graph will be
+color\texttt{\symbol{45}}isomorphic to the fusion color graph of \mbox{\texttt{\mdseries\slshape cgr}} with respect to the coarsest partition that allows to obtain every element of \mbox{\texttt{\mdseries\slshape fusion}} as a union of classes. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=ColorGraph(Group((1,2,3,4,5)));|
   <color graph of order 5 and rank 5>
@@ -901,7 +1018,7 @@ the fusion color graph of \mbox{\texttt{\mdseries\slshape cgr}} with respect to 
 
  \mbox{\texttt{\mdseries\slshape part}} is a partition of the vertex set of the color graph \mbox{\texttt{\mdseries\slshape cgr}} (it has to be a set of sets of vertices). The quotient graph of \mbox{\texttt{\mdseries\slshape cgr}} with respect to \mbox{\texttt{\mdseries\slshape part}} has as vertex set the classes of \mbox{\texttt{\mdseries\slshape part}}. the color of the arc $([u], [v])$ the quotient graph is the set of all colors $i$ of \mbox{\texttt{\mdseries\slshape cgr}} such that there are vertices $u'\in [u]$ and $v'\in [v]$ such that the arc $(u', v')$ has color $i$. 
 
- The above described color graph is also well-defined, if \mbox{\texttt{\mdseries\slshape part}} is not a partition but any set of sets of vertices of \mbox{\texttt{\mdseries\slshape cgr}}. In fact, \texttt{QuotientColorGraph} does not check, whether \mbox{\texttt{\mdseries\slshape part}} is indeed a partition. 
+ The above described color graph is also well\texttt{\symbol{45}}defined, if \mbox{\texttt{\mdseries\slshape part}} is not a partition but any set of sets of vertices of \mbox{\texttt{\mdseries\slshape cgr}}. In fact, \texttt{QuotientColorGraph} does not check, whether \mbox{\texttt{\mdseries\slshape part}} is indeed a partition. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@s5:=SymmetricGroup(5);;|
   !gapprompt@gap>| !gapinput@cgr:=ColorGraph(s5, Arrangements([1..5],2), OnPairs,true);|
@@ -998,8 +1115,9 @@ of colors of \mbox{\texttt{\mdseries\slshape cgr}}. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- A set \mbox{\texttt{\mdseries\slshape cset}} of colors of \mbox{\texttt{\mdseries\slshape cgr}} is closed if the collections of all arcs whose color is from \mbox{\texttt{\mdseries\slshape cset}} forms an equivalence relation. This function returns the vertex-partition
-corresponding to this equivalence relation. It is not tested, whether \mbox{\texttt{\mdseries\slshape cset}} is indeed closed. It is required that \mbox{\texttt{\mdseries\slshape cgr}} is a homogeneous WL-stable color graph. 
+ A set \mbox{\texttt{\mdseries\slshape cset}} of colors of \mbox{\texttt{\mdseries\slshape cgr}} is closed if the collections of all arcs whose color is from \mbox{\texttt{\mdseries\slshape cset}} forms an equivalence relation. This function returns the
+vertex\texttt{\symbol{45}}partition corresponding to this equivalence
+relation. It is not tested, whether \mbox{\texttt{\mdseries\slshape cset}} is indeed closed. It is required that \mbox{\texttt{\mdseries\slshape cgr}} is a homogeneous WL\texttt{\symbol{45}}stable color graph. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@s5:=SymmetricGroup(5);;|
   !gapprompt@gap>| !gapinput@d6:=Subgroup(s5, [(1,2),(1,2,3)(4,5)]);;|
@@ -1034,8 +1152,8 @@ corresponding to this equivalence relation. It is not tested, whether \mbox{\tex
  This function extracts graphs from a color graph. In the first variant, the
 second argument is one color. In this case the digraph with vertex set \texttt{[1..OrderOfColorGraph(cgr)]} and with all arcs of color \mbox{\texttt{\mdseries\slshape color}} from \mbox{\texttt{\mdseries\slshape cgr}}. 
 
- In the second case the arc-set of the result consists of all arcs with color
-from \mbox{\texttt{\mdseries\slshape cset}} of \mbox{\texttt{\mdseries\slshape cgr}}. 
+ In the second case the arc\texttt{\symbol{45}}set of the result consists of
+all arcs with color from \mbox{\texttt{\mdseries\slshape cset}} of \mbox{\texttt{\mdseries\slshape cgr}}. 
 
  This function is available only if \textsf{Grape} is loaded. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
@@ -1092,17 +1210,29 @@ from \mbox{\texttt{\mdseries\slshape cset}} of \mbox{\texttt{\mdseries\slshape c
 
  
 
-\subsection{\textcolor{Chapter }{IsHomogeneous}}
+\subsection{\textcolor{Chapter }{IsRegularColorGraph}}
 \logpage{[ 1, 6, 2 ]}\nobreak
+\hyperdef{L}{X859CFE2C87D977E4}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsRegularColorGraph({\mdseries\slshape cgr})\index{IsRegularColorGraph@\texttt{IsRegularColorGraph}}
+\label{IsRegularColorGraph}
+}\hfill{\scriptsize (property)}}\\
+
+
+ A color graph is called \emph{regular} if for every color $c$ there is a number $n_c$ such that for every vertex $v$ the set of arcs of color $c$ starting at $v$ has size $n_c$. The function tests this property for \mbox{\texttt{\mdseries\slshape cgr}}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{IsHomogeneous}}
+\logpage{[ 1, 6, 3 ]}\nobreak
 \hyperdef{L}{X7D8EA4528082A74D}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsHomogeneous({\mdseries\slshape cgr})\index{IsHomogeneous@\texttt{IsHomogeneous}}
 \label{IsHomogeneous}
 }\hfill{\scriptsize (property)}}\\
 
 
- A color graph is homogeneous if it has just one fibre. For a WL-stable color
-graph this means that it has just one reflexive color. For a WL-stable color
-graph this means that it correspond to an association scheme. 
+ A color graph is homogeneous if all loops are of the same color. For a
+WL\texttt{\symbol{45}}stable color graph this means that it has just one
+reflexive color, in other words, it is an association scheme. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@e8:=ElementaryAbelianGroup(8);|
   <pc group of size 8 with 3 generators>
@@ -1119,15 +1249,15 @@ graph this means that it correspond to an association scheme.
  
 
 \subsection{\textcolor{Chapter }{IsWLStableColorGraph}}
-\logpage{[ 1, 6, 3 ]}\nobreak
+\logpage{[ 1, 6, 4 ]}\nobreak
 \hyperdef{L}{X82B217447E358C43}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsWLStableColorGraph({\mdseries\slshape cgr})\index{IsWLStableColorGraph@\texttt{IsWLStableColorGraph}}
 \label{IsWLStableColorGraph}
 }\hfill{\scriptsize (property)}}\\
 
 
- This function returns true if \mbox{\texttt{\mdseries\slshape cgr}} is stable under the Weisfeiler-Leman algorithm, that is, whether it is the
-color graph of a coherent configuration. 
+ This function returns true if \mbox{\texttt{\mdseries\slshape cgr}} is stable under the Weisfeiler\texttt{\symbol{45}}Leman algorithm, that is,
+whether it is the color graph of a coherent configuration. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=ColorGraph(Center(GL(2,7)), GF(7)^2, OnRight, true,|
   !gapprompt@>| !gapinput@function(a,b) return NormedRowVector(a-b);end);|
@@ -1141,7 +1271,7 @@ color graph of a coherent configuration.
  
 
 \subsection{\textcolor{Chapter }{IsSchurian}}
-\logpage{[ 1, 6, 4 ]}\nobreak
+\logpage{[ 1, 6, 5 ]}\nobreak
 \hyperdef{L}{X7EC0451D798802B9}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsSchurian({\mdseries\slshape cgr})\index{IsSchurian@\texttt{IsSchurian}}
 \label{IsSchurian}
@@ -1161,7 +1291,7 @@ group.
  
 
 \subsection{\textcolor{Chapter }{IsPrimitiveColorGraph (for WL-stable color graphs)}}
-\logpage{[ 1, 6, 5 ]}\nobreak
+\logpage{[ 1, 6, 6 ]}\nobreak
 \hyperdef{L}{X7D0C85B4786C9CEA}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsPrimitiveColorGraph({\mdseries\slshape cgr})\index{IsPrimitiveColorGraph@\texttt{IsPrimitiveColorGraph}!for WL-stable color graphs}
 \label{IsPrimitiveColorGraph:for WL-stable color graphs}
@@ -1171,8 +1301,8 @@ group.
 }\hfill{\scriptsize (method)}}\\
 
 
- A WL-stable color graph is primitive if all its loopless base graphs are
-strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGraph:first variant})). This function tests, whether \mbox{\texttt{\mdseries\slshape cgr}} is primitive or not. 
+ A WL\texttt{\symbol{45}}stable color graph is primitive if all its loopless
+base graphs are strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGraph:first variant})). This function tests, whether \mbox{\texttt{\mdseries\slshape cgr}} is primitive or not. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=ColorGraph(Group((1,2,3,4)));|
   <color graph of order 4 and rank 4>
@@ -1189,6 +1319,55 @@ strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGra
   	    
 \end{Verbatim}
  }
+
+ 
+
+\subsection{\textcolor{Chapter }{IsMetricColorGraph}}
+\logpage{[ 1, 6, 7 ]}\nobreak
+\hyperdef{L}{X80C18524857C1986}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsMetricColorGraph({\mdseries\slshape cgr})\index{IsMetricColorGraph@\texttt{IsMetricColorGraph}}
+\label{IsMetricColorGraph}
+}\hfill{\scriptsize (property)}}\\
+
+
+ This function returns true if the color graph \mbox{\texttt{\mdseries\slshape cgr}} is metric. 
+
+ If \mbox{\texttt{\mdseries\slshape cgr}} is a color graph of rank $r$, then \mbox{\texttt{\mdseries\slshape cgr}} is called \emph{metric} if for $i \in \{1,\dots,r\}$ the graph \texttt{BaseGraphOfColorGraph(cgr,i)} is distance regular of diameter $r-1$. 
+
+ Metric color graphs are also known under the name \emph{metric association schemes} or \emph{P\texttt{\symbol{45}}polynomial association schemes}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{IsCoMetricColorGraph}}
+\logpage{[ 1, 6, 8 ]}\nobreak
+\hyperdef{L}{X8408C61C7F34C2FE}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsCoMetricColorGraph({\mdseries\slshape cgr})\index{IsCoMetricColorGraph@\texttt{IsCoMetricColorGraph}}
+\label{IsCoMetricColorGraph}
+}\hfill{\scriptsize (property)}}\\
+
+
+ This function returns true if the color graph \mbox{\texttt{\mdseries\slshape cgr}} is cometric. 
+
+ If \mbox{\texttt{\mdseries\slshape cgr}} is a color graph of rank $r$, then \mbox{\texttt{\mdseries\slshape cgr}} is called \emph{cometric} its adjaceny algebra is commutative and if its primitive idempotents (wrt
+matrix multiplication) has a cometric ordering. 
+
+ cometric color graphs are also known under the name \emph{cometric association schemes} or \emph{Q\texttt{\symbol{45}}polynomial association schemes}. See \cite{Del73} for a precise definition of this property. }
+
+ 
+
+\subsection{\textcolor{Chapter }{IsAmorphicColorGraph}}
+\logpage{[ 1, 6, 9 ]}\nobreak
+\hyperdef{L}{X85E53605827E65BB}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsAmorphicColorGraph({\mdseries\slshape cgr})\index{IsAmorphicColorGraph@\texttt{IsAmorphicColorGraph}}
+\label{IsAmorphicColorGraph}
+}\hfill{\scriptsize (property)}}\\
+
+
+ This function returns true if the color graph \mbox{\texttt{\mdseries\slshape cgr}} is amorphic. 
+
+ \mbox{\texttt{\mdseries\slshape cgr}} is called \emph{amorphic} if each of its fusion\texttt{\symbol{45}}color graphs is
+WL\texttt{\symbol{45}}stable. In particular, if \mbox{\texttt{\mdseries\slshape cgr}} is amorphic, then it is undirected, WL\texttt{\symbol{45}}stable, and each of
+its basic graphs is strongly regular. See \cite{FarKliMuz94} for more details. }
 
  }
 
@@ -1210,29 +1389,29 @@ strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGra
 
  
 
-\subsection{\textcolor{Chapter }{AutGroupOfCocoObject (for color graphs)}}
+\subsection{\textcolor{Chapter }{AutomorphismGroup (for color graphs)}}
 \logpage{[ 1, 7, 2 ]}\nobreak
-\hyperdef{L}{X7ED15B0F7C276AEB}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AutGroupOfCocoObject({\mdseries\slshape cgr})\index{AutGroupOfCocoObject@\texttt{AutGroupOfCocoObject}!for color graphs}
-\label{AutGroupOfCocoObject:for color graphs}
-}\hfill{\scriptsize (attribute)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AutomorphismGroup({\mdseries\slshape cgr})\index{AutomorphismGroup@\texttt{AutomorphismGroup}!for color graphs}
+\hyperdef{L}{X81D24CFA84F05A32}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AutomorphismGroup({\mdseries\slshape cgr})\index{AutomorphismGroup@\texttt{AutomorphismGroup}!for color graphs}
 \label{AutomorphismGroup:for color graphs}
 }\hfill{\scriptsize (method)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AutGroupOfCocoObject({\mdseries\slshape cgr})\index{AutGroupOfCocoObject@\texttt{AutGroupOfCocoObject}!for color graphs}
+\label{AutGroupOfCocoObject:for color graphs}
+}\hfill{\scriptsize (attribute)}}\\
 
 
  Returns the group of all permutations of the vertices of \mbox{\texttt{\mdseries\slshape cgr}} that preserve the color of all arcs. }
 
  
 
-\subsection{\textcolor{Chapter }{IsAutomorphismOfObject (for color graphs)}}
+\subsection{\textcolor{Chapter }{IsAutomorphismOfColorGraph}}
 \logpage{[ 1, 7, 3 ]}\nobreak
-\hyperdef{L}{X7FEA59547C68E12D}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsAutomorphismOfObject({\mdseries\slshape cgr, perm})\index{IsAutomorphismOfObject@\texttt{IsAutomorphismOfObject}!for color graphs}
-\label{IsAutomorphismOfObject:for color graphs}
+\hyperdef{L}{X86BF53B87C15528B}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsAutomorphismOfColorGraph({\mdseries\slshape cgr, perm})\index{IsAutomorphismOfColorGraph@\texttt{IsAutomorphismOfColorGraph}}
+\label{IsAutomorphismOfColorGraph}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsAutomorphismOfColorGraph({\mdseries\slshape cgr, perm})\index{IsAutomorphismOfColorGraph@\texttt{IsAutomorphismOfColorGraph}!for color graphs}
-\label{IsAutomorphismOfColorGraph:for color graphs}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsAutomorphismOfObject({\mdseries\slshape cgr, perm})\index{IsAutomorphismOfObject@\texttt{IsAutomorphismOfObject}!for color graphs}
+\label{IsAutomorphismOfObject:for color graphs}
 }\hfill{\scriptsize (operation)}}\\
 
 
@@ -1240,14 +1419,14 @@ strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGra
 
  
 
-\subsection{\textcolor{Chapter }{IsomorphismCocoObjects (for color graphs)}}
+\subsection{\textcolor{Chapter }{IsomorphismColorGraphs}}
 \logpage{[ 1, 7, 4 ]}\nobreak
-\hyperdef{L}{X7E72DC9C81E1FC86}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsomorphismCocoObjects({\mdseries\slshape cgr1, cgr2})\index{IsomorphismCocoObjects@\texttt{IsomorphismCocoObjects}!for color graphs}
-\label{IsomorphismCocoObjects:for color graphs}
+\hyperdef{L}{X81C9D35C85022122}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsomorphismColorGraphs({\mdseries\slshape cgr1, cgr2})\index{IsomorphismColorGraphs@\texttt{IsomorphismColorGraphs}}
+\label{IsomorphismColorGraphs}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsomorphismColorGraphs({\mdseries\slshape cgr1, cgr2})\index{IsomorphismColorGraphs@\texttt{IsomorphismColorGraphs}!for color graphs}
-\label{IsomorphismColorGraphs:for color graphs}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsomorphismCocoObjects({\mdseries\slshape cgr1, cgr2})\index{IsomorphismCocoObjects@\texttt{IsomorphismCocoObjects}!for color graphs}
+\label{IsomorphismCocoObjects:for color graphs}
 }\hfill{\scriptsize (operation)}}\\
 
 
@@ -1258,14 +1437,14 @@ strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGra
 
  
 
-\subsection{\textcolor{Chapter }{IsIsomorphicCocoObject (for color graphs)}}
+\subsection{\textcolor{Chapter }{IsIsomorphicColorGraph}}
 \logpage{[ 1, 7, 5 ]}\nobreak
-\hyperdef{L}{X848658A983BFE358}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphicCocoObject({\mdseries\slshape cgr1, cgr2})\index{IsIsomorphicCocoObject@\texttt{IsIsomorphicCocoObject}!for color graphs}
-\label{IsIsomorphicCocoObject:for color graphs}
+\hyperdef{L}{X81AC4B80846F2F7C}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphicColorGraph({\mdseries\slshape cgr1, cgr2})\index{IsIsomorphicColorGraph@\texttt{IsIsomorphicColorGraph}}
+\label{IsIsomorphicColorGraph}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphicColorGraph({\mdseries\slshape cgr1, cgr2})\index{IsIsomorphicColorGraph@\texttt{IsIsomorphicColorGraph}!for color graphs}
-\label{IsIsomorphicColorGraph:for color graphs}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphicCocoObject({\mdseries\slshape cgr1, cgr2})\index{IsIsomorphicCocoObject@\texttt{IsIsomorphicCocoObject}!for color graphs}
+\label{IsIsomorphicCocoObject:for color graphs}
 }\hfill{\scriptsize (operation)}}\\
 
 
@@ -1273,14 +1452,14 @@ strongly connected (cf. \texttt{BaseGraphOfColorGraph} (\ref{BaseGraphOfColorGra
 
  
 
-\subsection{\textcolor{Chapter }{IsIsomorphismOfObjects (for color graphs)}}
+\subsection{\textcolor{Chapter }{IsIsomorphismOfColorGraphs}}
 \logpage{[ 1, 7, 6 ]}\nobreak
-\hyperdef{L}{X821668C487B0EC6B}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphismOfObjects({\mdseries\slshape cgr1, cgr2, g})\index{IsIsomorphismOfObjects@\texttt{IsIsomorphismOfObjects}!for color graphs}
-\label{IsIsomorphismOfObjects:for color graphs}
+\hyperdef{L}{X8289C21A80071BF3}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphismOfColorGraphs({\mdseries\slshape cgr1, cgr2, g})\index{IsIsomorphismOfColorGraphs@\texttt{IsIsomorphismOfColorGraphs}}
+\label{IsIsomorphismOfColorGraphs}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphismOfColorGraphs({\mdseries\slshape cgr1, cgr2, g})\index{IsIsomorphismOfColorGraphs@\texttt{IsIsomorphismOfColorGraphs}!for color graphs}
-\label{IsIsomorphismOfColorGraphs:for color graphs}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphismOfObjects({\mdseries\slshape cgr1, cgr2, g})\index{IsIsomorphismOfObjects@\texttt{IsIsomorphismOfObjects}!for color graphs}
+\label{IsIsomorphismOfObjects:for color graphs}
 }\hfill{\scriptsize (operation)}}\\
 
 
@@ -1353,7 +1532,8 @@ color automorphisms of \mbox{\texttt{\mdseries\slshape cgr}}. }
  Here a color isomorphism is an ordered pair \texttt{[f,g]}, where \texttt{f} is a bijection from \texttt{[1..Order(cgr1)]} to \texttt{[1..Order(cgr2)]} and where \texttt{g} is a bijection from \texttt{[1..Rank(cgr1)]} to \texttt{[1..Rank(cgr2)]}, such that \texttt{ArcColorOfColorGraph(cgr1,u,v)\texttt{\symbol{94}}g =
 ArcColorOfColorGraph(cgr2,u\texttt{\symbol{94}}f,v\texttt{\symbol{94}}v)}, for all \texttt{u} and \texttt{v} from \texttt{[1..Order(cgr1)]}. 
 
- At the moment, this operation is implemented only for WL-stable color graphs. }
+ At the moment, this operation is implemented only for
+WL\texttt{\symbol{45}}stable color graphs. }
 
  
 
@@ -1367,15 +1547,16 @@ ArcColorOfColorGraph(cgr2,u\texttt{\symbol{94}}f,v\texttt{\symbol{94}}v)}, for a
 
  This operation returns \texttt{true} if \mbox{\texttt{\mdseries\slshape cgr1}} and \mbox{\texttt{\mdseries\slshape cgr2}} are color isomorphic, and \texttt{false} otherwise. 
 
- At the moment, this operation is implemented only from WL-stable color graphs. }
+ At the moment, this operation is implemented only from
+WL\texttt{\symbol{45}}stable color graphs. }
 
  
 
-\subsection{\textcolor{Chapter }{IsColorIsomorphismOfColorGraphs (for color graphs)}}
+\subsection{\textcolor{Chapter }{IsColorIsomorphismOfColorGraphs}}
 \logpage{[ 1, 7, 13 ]}\nobreak
-\hyperdef{L}{X878BF5EA8388B9D9}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsColorIsomorphismOfColorGraphs({\mdseries\slshape cgr1, cgr2, g, h})\index{IsColorIsomorphismOfColorGraphs@\texttt{IsColorIsomorphismOfColorGraphs}!for color graphs}
-\label{IsColorIsomorphismOfColorGraphs:for color graphs}
+\hyperdef{L}{X7B3650B878957955}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsColorIsomorphismOfColorGraphs({\mdseries\slshape cgr1, cgr2, g, h})\index{IsColorIsomorphismOfColorGraphs@\texttt{IsColorIsomorphismOfColorGraphs}}
+\label{IsColorIsomorphismOfColorGraphs}
 }\hfill{\scriptsize (operation)}}\\
 \noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsColorIsomorphismOfColorGraphs({\mdseries\slshape cgr1, cgr2[, g, h]})\index{IsColorIsomorphismOfColorGraphs@\texttt{IsColorIsomorphismOfColorGraphs}}
 \label{IsColorIsomorphismOfColorGraphs}
@@ -1396,14 +1577,15 @@ ArcColorOfColorGraph(cgr2,u\texttt{\symbol{94}}f,v\texttt{\symbol{94}}v)}, for a
 
  This function computes and returns the color automorphism group of \mbox{\texttt{\mdseries\slshape cgr}}. This group consists of all permutations of the vertices of the color graph,
 that map arcs of the same color to arcs of the same color. In particular, it
-may act non-trivially on the colors of \mbox{\texttt{\mdseries\slshape cgr}}. 
+may act non\texttt{\symbol{45}}trivially on the colors of \mbox{\texttt{\mdseries\slshape cgr}}. 
 
- If \mbox{\texttt{\mdseries\slshape cgr}} is a Schurian WL-stable color graph, then its color automorphism group is
-equal to the normalizer of its automorphism group in the full symmetric group
-of the vertices of \mbox{\texttt{\mdseries\slshape cgr}}. In some (rare) cases, this way to compute normalizers can be quicker than
-the built-in gap-functions. 
+ If \mbox{\texttt{\mdseries\slshape cgr}} is a Schurian WL\texttt{\symbol{45}}stable color graph, then its color
+automorphism group is equal to the normalizer of its automorphism group in the
+full symmetric group of the vertices of \mbox{\texttt{\mdseries\slshape cgr}}. In some (rare) cases, this way to compute normalizers can be quicker than
+the built\texttt{\symbol{45}}in gap\texttt{\symbol{45}}functions. 
 
- At the moment, this function is implemented only for WL-stable color graphs. }
+ At the moment, this function is implemented only for
+WL\texttt{\symbol{45}}stable color graphs. }
 
  
 
@@ -1417,7 +1599,8 @@ the built-in gap-functions.
 
  The color automorphism of \mbox{\texttt{\mdseries\slshape cgr}} acts on the colors of \mbox{\texttt{\mdseries\slshape cgr}} with the automorphism group of \mbox{\texttt{\mdseries\slshape cgr}} as kernel. This function computes and returns this action. 
 
- At the moment, this function is implemented only for WL-stable color graphs. }
+ At the moment, this function is implemented only for
+WL\texttt{\symbol{45}}stable color graphs. }
 
  
 
@@ -1439,12 +1622,34 @@ the built-in gap-functions.
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AlgebraicAutomorphismGroup({\mdseries\slshape cgr})\index{AlgebraicAutomorphismGroup@\texttt{AlgebraicAutomorphismGroup}}
 \label{AlgebraicAutomorphismGroup}
 }\hfill{\scriptsize (attribute)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AAut({\mdseries\slshape cgr})\index{AAut@\texttt{AAut}}
+\label{AAut}
+}\hfill{\scriptsize (attribute)}}\\
 
 
- The algebraic automorphism group of a WL-stable color graph is nothing but the
-automorphism group of its tensor of structure constants. The color
-automorphism group in its action on colors embeds naturally into the algebraic
-automorphism group. }
+ The algebraic automorphism group of a WL\texttt{\symbol{45}}stable color graph
+is nothing but the automorphism group of its tensor of structure constants.
+The color automorphism group in its action on colors forms a subgroups of the
+algebraic automorphism group. }
+
+ 
+
+\subsection{\textcolor{Chapter }{Display (for WL-stable color graphs)}}
+\logpage{[ 1, 7, 18 ]}\nobreak
+\hyperdef{L}{X8664BE9C8442F2FA}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Display({\mdseries\slshape cgr})\index{Display@\texttt{Display}!for WL-stable color graphs}
+\label{Display:for WL-stable color graphs}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ This function ceates an overview of interesting data concerning \mbox{\texttt{\mdseries\slshape cgr}} and prints on the screen. If invoked with the option \texttt{:long}, this information is expanded, e.g., by the generating sets of the
+automorphism group and the algebraic automorphism group of \mbox{\texttt{\mdseries\slshape cgr}}. 
+
+ Another option is \texttt{:fvc}. This is meant for the case that cgr is symmetric and of rank $3$. In this case it adds information about the four\texttt{\symbol{45}}vertex
+condition (this option may disappear in the future). 
+
+ \texttt{Display} may also be called for non WL\texttt{\symbol{45}}stable color graphs. However,
+in this case it just displays the adjacency matrix of \mbox{\texttt{\mdseries\slshape cgr}}. }
 
  }
 
@@ -1458,8 +1663,8 @@ automorphism group. }
 \section{\textcolor{Chapter }{Introduction}}\logpage{[ 2, 1, 0 ]}
 \hyperdef{L}{X7DFB63A97E67C0A1}{}
 {
-  \textsf{coco2p} introduces its own data-type for structure constants tensors of coherent
-algebras. The methods provided by \textsf{coco2p} are tailored for this use. The emphasis lies on symmetries, quotients (by
+  \textsf{coco2p} introduces its own data\texttt{\symbol{45}}type for structure constants
+tensors of coherent algebras. The methods provided by \textsf{coco2p} are tailored for this use. The emphasis lies on symmetries, quotients (by
 closed sets) and mergings (fusions). }
 
  
@@ -1476,8 +1681,8 @@ closed sets) and mergings (fusions). }
 }\hfill{\scriptsize (attribute)}}\\
 
 
- This function expects a WL-stable color graph \mbox{\texttt{\mdseries\slshape cgr}}, and computes its tensor of structure constants. The result is the structure
-constants tensor $T$ of \mbox{\texttt{\mdseries\slshape cgr}}. This object encodes a third-order tensor. For every color $k$ of \mbox{\texttt{\mdseries\slshape cgr}}, the matrix $T(i,j,k)$ is equal to the \texttt{LocalIntersectionArray} (\ref{LocalIntersectionArray}) of any arc of color $k$ in \mbox{\texttt{\mdseries\slshape cgr}}. }
+ This function expects a WL\texttt{\symbol{45}}stable color graph \mbox{\texttt{\mdseries\slshape cgr}}, and computes its tensor of structure constants. The result is the structure
+constants tensor $T$ of \mbox{\texttt{\mdseries\slshape cgr}}. This object encodes a third\texttt{\symbol{45}}order tensor. For every color $k$ of \mbox{\texttt{\mdseries\slshape cgr}}, the matrix $T(i,j,k)$ is equal to the \texttt{LocalIntersectionArray} (\ref{LocalIntersectionArray}) of any arc of color $k$ in \mbox{\texttt{\mdseries\slshape cgr}}. }
 
  
 
@@ -1491,11 +1696,12 @@ constants tensor $T$ of \mbox{\texttt{\mdseries\slshape cgr}}. This object encod
 
  The argument \mbox{\texttt{\mdseries\slshape entries}} is a list of lists of lists of integers. There has to be a number $n$ such that \texttt{Length(entries)=n}, for all $1\le i,j \le n$ \texttt{Length(entries[i])=n}, and \texttt{Length(entries[i][j]=n}. Otherwise there are no restrictions. 
 
- The function returns the tensor-object for \mbox{\texttt{\mdseries\slshape entries}}. 
+ The function returns the tensor\texttt{\symbol{45}}object for \mbox{\texttt{\mdseries\slshape entries}}. 
 
  Note that this function does not check, whether the entries are integers or
 even numbers. One can also view the datatype of tensors as a type that encodes
-complete colored hyper-graphs with hyper-arcs of length $3$. Even though there is not much infrastructure implemented in \textsf{coco2p} for such objects, at least it is possible to check isomorphism and to compute
+complete colored hyper\texttt{\symbol{45}}graphs with
+hyper\texttt{\symbol{45}}arcs of length $3$. Even though there is not much infrastructure implemented in \textsf{coco2p} for such objects, at least it is possible to check isomorphism and to compute
 automorphism groups. }
 
  }
@@ -1514,24 +1720,24 @@ automorphism groups. }
 }\hfill{\scriptsize (attribute)}}\\
 \noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{OrderOfCocoObject({\mdseries\slshape tensor})\index{OrderOfCocoObject@\texttt{OrderOfCocoObject}!for tensors}
 \label{OrderOfCocoObject:for tensors}
-}\hfill{\scriptsize (attribute)}}\\
+}\hfill{\scriptsize (method)}}\\
 \noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Order({\mdseries\slshape tensor})\index{Order@\texttt{Order}!for tensors}
 \label{Order:for tensors}
-}\hfill{\scriptsize (attribute)}}\\
+}\hfill{\scriptsize (method)}}\\
 
 
- Returns the order of the tensor. If it is equal to $n$ then this means that \mbox{\texttt{\mdseries\slshape tensor}} is an $n\times n \times n$-array. }
+ Returns the order of the tensor. If it is equal to $n$ then this means that \mbox{\texttt{\mdseries\slshape tensor}} is an $n\times n \times n$\texttt{\symbol{45}}array. }
 
  
 
-\subsection{\textcolor{Chapter }{VertexNamesOfCocoObject (for tensors)}}
+\subsection{\textcolor{Chapter }{VertexNamesOfTensor}}
 \logpage{[ 2, 3, 2 ]}\nobreak
-\hyperdef{L}{X79CBAB5483A0BD8A}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{VertexNamesOfCocoObject({\mdseries\slshape tensor})\index{VertexNamesOfCocoObject@\texttt{VertexNamesOfCocoObject}!for tensors}
-\label{VertexNamesOfCocoObject:for tensors}
+\hyperdef{L}{X7E69D1FA81B44123}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{VertexNamesOfTensor({\mdseries\slshape tensor})\index{VertexNamesOfTensor@\texttt{VertexNamesOfTensor}}
+\label{VertexNamesOfTensor}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{VertexNamesOfTensor({\mdseries\slshape tensor})\index{VertexNamesOfTensor@\texttt{VertexNamesOfTensor}!for tensors}
-\label{VertexNamesOfTensor:for tensors}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{VertexNamesOfCocoObject({\mdseries\slshape tensor})\index{VertexNamesOfCocoObject@\texttt{VertexNamesOfCocoObject}!for tensors}
+\label{VertexNamesOfCocoObject:for tensors}
 }\hfill{\scriptsize (operation)}}\\
 
 
@@ -1547,7 +1753,7 @@ automorphism groups. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- Returns the entry at index $(i,j,k)$ of \mbox{\texttt{\mdseries\slshape tensor}}. }
+ Returns the entry at index $(i,j,k)$ of \mbox{\texttt{\mdseries\slshape tensor}}. A shorthand for \texttt{EntryOfTensor(tensor,i,j,k)} is \texttt{tensor[[i,j,k]]}. }
 
  
 
@@ -1559,7 +1765,8 @@ automorphism groups. }
 }\hfill{\scriptsize (attribute)}}\\
 
 
- If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL-stable color graph \texttt{cgr}, then \texttt{ReflexiveColors(tensor)} return the list of all reflexive colors of \texttt{cgr}. 
+ If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL\texttt{\symbol{45}}stable color
+graph \texttt{cgr}, then \texttt{ReflexiveColors(tensor)} return the list of all reflexive colors of \texttt{cgr}. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@e8:=Action(e8,AsList(e8), OnRight);|
   Group([ (1,2)(3,5)(4,6)(7,8), (1,3)(2,5)(4,7)(6,8), (1,4)(2,6)(3,7)(5,8) ])
@@ -1595,7 +1802,8 @@ automorphism groups. }
 }\hfill{\scriptsize (attribute)}}\\
 
 
- If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL-stable color graph \texttt{cgr}, then \texttt{FibreLengths(tensor)} returns the list of lengths of all fibres of \texttt{cgr}. The order corresponds to the result of \texttt{ReflexiveColors(T)}. 
+ If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL\texttt{\symbol{45}}stable color
+graph \texttt{cgr}, then \texttt{FibreLengths(tensor)} returns the list of lengths of all fibres of \texttt{cgr}. The order corresponds to the result of \texttt{ReflexiveColors(T)}. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@a5:=AlternatingGroup(5);|
   Alt( [ 1 .. 5 ] )
@@ -1627,7 +1835,8 @@ automorphism groups. }
 }\hfill{\scriptsize (attribute)}}\\
 
 
- If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL-stable color graph \texttt{cgr}, then \texttt{OutValencies(tensor)} returns the \texttt{OutValencies} (\ref{OutValencies:for WL-stable color graphs}) of \mbox{\texttt{\mdseries\slshape cgr}}. }
+ If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL\texttt{\symbol{45}}stable color
+graph \texttt{cgr}, then \texttt{OutValencies(tensor)} returns the \texttt{OutValencies} (\ref{OutValencies:for WL-stable color graphs}) of \mbox{\texttt{\mdseries\slshape cgr}}. }
 
  
 
@@ -1639,7 +1848,8 @@ automorphism groups. }
 }\hfill{\scriptsize (attribute)}}\\
 
 
- If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL-stable color graph \texttt{cgr}, then \texttt{OutValencies(tensor)} returns the permutation \texttt{ColorMates(cgr)} (\texttt{ColorMates} (\ref{ColorMates})). }
+ If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL\texttt{\symbol{45}}stable color
+graph \texttt{cgr}, then \texttt{OutValencies(tensor)} returns the permutation \texttt{ColorMates(cgr)} (\texttt{ColorMates} (\ref{ColorMates})). }
 
  
 
@@ -1651,7 +1861,8 @@ automorphism groups. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL-stable color graph \texttt{cgr}, then in particular, the vertices of \mbox{\texttt{\mdseries\slshape tensor}} are the colors of \texttt{cgr}. All arcs of color \mbox{\texttt{\mdseries\slshape i}} have their starting vertex in the same fibre of \texttt{cgr}. Moreover, the loops over the vertices of one fibre all have the same color. 
+ If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL\texttt{\symbol{45}}stable color
+graph \texttt{cgr}, then in particular, the vertices of \mbox{\texttt{\mdseries\slshape tensor}} are the colors of \texttt{cgr}. All arcs of color \mbox{\texttt{\mdseries\slshape i}} have their starting vertex in the same fibre of \texttt{cgr}. Moreover, the loops over the vertices of one fibre all have the same color. 
 
  This function returns the index $j$ into \texttt{ReflexiveColors(T)} (cf. \texttt{ReflexiveColors} (\ref{ReflexiveColors:for structure constants tensors})) such that at the start of every arc of color \mbox{\texttt{\mdseries\slshape i}} there is a loop to color \texttt{ReflexiveColors(T)[j]}. }
 
@@ -1665,42 +1876,70 @@ automorphism groups. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL-stable color graph \texttt{cgr}, then in particular, the vertices of \mbox{\texttt{\mdseries\slshape tensor}} are the colors of \texttt{cgr}. All arcs of color \mbox{\texttt{\mdseries\slshape i}} have their finishing vertex in the same fibre of \texttt{cgr}. Moreover, the loops over the vertices of one fibre all have the same color. 
+ If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL\texttt{\symbol{45}}stable color
+graph \texttt{cgr}, then in particular, the vertices of \mbox{\texttt{\mdseries\slshape tensor}} are the colors of \texttt{cgr}. All arcs of color \mbox{\texttt{\mdseries\slshape i}} have their finishing vertex in the same fibre of \texttt{cgr}. Moreover, the loops over the vertices of one fibre all have the same color. 
 
  This function returns the index $j$ into \texttt{ReflexiveColors(T)} (cf. \texttt{ReflexiveColors} (\ref{ReflexiveColors:for structure constants tensors})) such that at the end of every arc of color \mbox{\texttt{\mdseries\slshape i}} there is a loop to color \texttt{ReflexiveColors(T)[j]}. }
 
  
 
-\subsection{\textcolor{Chapter }{ClosedSets}}
+\subsection{\textcolor{Chapter }{BlockOfTensor (for structure constants tensors)}}
 \logpage{[ 2, 3, 11 ]}\nobreak
+\hyperdef{L}{X8219B3CC7B9E1870}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{BlockOfTensor({\mdseries\slshape tensor, a, b})\index{BlockOfTensor@\texttt{BlockOfTensor}!for structure constants tensors}
+\label{BlockOfTensor:for structure constants tensors}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Returns the set of all colors whose start block is \mbox{\texttt{\mdseries\slshape a}} and whose finish block is \mbox{\texttt{\mdseries\slshape b}}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{ClosedSets}}
+\logpage{[ 2, 3, 12 ]}\nobreak
 \hyperdef{L}{X7C09E4D3805EFC78}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ClosedSets({\mdseries\slshape tensor})\index{ClosedSets@\texttt{ClosedSets}}
 \label{ClosedSets}
 }\hfill{\scriptsize (operation)}}\\
 
 
- A set $M$ of vertices of \mbox{\texttt{\mdseries\slshape tensor}} is called \emph{closed} if whenever $i,j$ are in $M$, then also all such $k$ are in $M$ for which \texttt{EntryOfTensor(tensor,i,j,k)} is non-zero. 
+ A set $M$ of vertices of \mbox{\texttt{\mdseries\slshape tensor}} is called \emph{closed} if whenever $i,j$ are in $M$, then also all such $k$ are in $M$ for which \texttt{EntryOfTensor(tensor,i,j,k)} is non\texttt{\symbol{45}}zero. 
 
  This function returns all closed sets of \mbox{\texttt{\mdseries\slshape tensor}}. }
 
  
 
+\subsection{\textcolor{Chapter }{IsClosedSet}}
+\logpage{[ 2, 3, 13 ]}\nobreak
+\hyperdef{L}{X8656E5B481D556F9}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsClosedSet({\mdseries\slshape tensor, set})\index{IsClosedSet@\texttt{IsClosedSet}}
+\label{IsClosedSet}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ \mbox{\texttt{\mdseries\slshape set}} is a set of vertices of \mbox{\texttt{\mdseries\slshape tensor}}. The operation returns \texttt{true} if \mbox{\texttt{\mdseries\slshape set}} is a closed set of \mbox{\texttt{\mdseries\slshape tensor}}, otherwise \texttt{false}. }
+
+ 
+
 \subsection{\textcolor{Chapter }{ComplexProduct (for structure constants tensors)}}
-\logpage{[ 2, 3, 12 ]}\nobreak
+\logpage{[ 2, 3, 14 ]}\nobreak
 \hyperdef{L}{X79AB86E382D3F69D}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ComplexProduct({\mdseries\slshape tensor, set1, set2})\index{ComplexProduct@\texttt{ComplexProduct}!for structure constants tensors}
 \label{ComplexProduct:for structure constants tensors}
 }\hfill{\scriptsize (operation)}}\\
 
 
- Suppose that \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL-stale color graph \texttt{cgr}. the colors of \texttt{cgr} canonically correspond to the standard-basis elements of the coherent algebra $W$ that is associated with \mbox{\texttt{\mdseries\slshape cgr}}. The elements of $W$ can naturally be encoded as vectors of length \texttt{Rank(cgr)}. The arguments \mbox{\texttt{\mdseries\slshape set1}} and \mbox{\texttt{\mdseries\slshape set2}} are sets of colors of \texttt{cgr} (i.e. vertices of \mbox{\texttt{\mdseries\slshape tensor}}). Their characteristic vectors, can hence be understood as elements of $W$. 
+ Suppose that \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL\texttt{\symbol{45}}stale color
+graph \texttt{cgr}. the colors of \texttt{cgr} canonically correspond to the standard\texttt{\symbol{45}}basis elements of
+the coherent algebra $W$ that is associated with \mbox{\texttt{\mdseries\slshape cgr}}. The elements of $W$ can naturally be encoded as vectors of length \texttt{Rank(cgr)}. The arguments \mbox{\texttt{\mdseries\slshape set1}} and \mbox{\texttt{\mdseries\slshape set2}} are sets of colors of \texttt{cgr} (i.e. vertices of \mbox{\texttt{\mdseries\slshape tensor}}). Their characteristic vectors, can hence be understood as elements of $W$. 
 
- The operation \texttt{ComplexProduct} returns the coefficient-vector of the product of the characteristic vector of \mbox{\texttt{\mdseries\slshape set1}} with the characteristic vector of \mbox{\texttt{\mdseries\slshape set2}} in $W$. }
+ The operation \texttt{ComplexProduct} returns the coefficient\texttt{\symbol{45}}vector of the product of the
+characteristic vector of \mbox{\texttt{\mdseries\slshape set1}} with the characteristic vector of \mbox{\texttt{\mdseries\slshape set2}} in $W$. }
 
  
 
 \subsection{\textcolor{Chapter }{ClosureSet}}
-\logpage{[ 2, 3, 13 ]}\nobreak
+\logpage{[ 2, 3, 15 ]}\nobreak
 \hyperdef{L}{X78C8C4CB8573D6D9}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ClosureSet({\mdseries\slshape tensor, set})\index{ClosureSet@\texttt{ClosureSet}}
 \label{ClosureSet}
@@ -1708,6 +1947,31 @@ automorphism groups. }
 
 
  \mbox{\texttt{\mdseries\slshape set}} is a set of vertices of \mbox{\texttt{\mdseries\slshape tensor}}. The function returns the smallest closed set of \mbox{\texttt{\mdseries\slshape tensor}} that contains \mbox{\texttt{\mdseries\slshape set}} (cf. \texttt{ClosedSets} (\ref{ClosedSets})) }
+
+ 
+
+\subsection{\textcolor{Chapter }{PPolynomialOrdering (for structure constants tensors)}}
+\logpage{[ 2, 3, 16 ]}\nobreak
+\hyperdef{L}{X834D58288267888D}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{PPolynomialOrdering({\mdseries\slshape tensor, i})\index{PPolynomialOrdering@\texttt{PPolynomialOrdering}!for structure constants tensors}
+\label{PPolynomialOrdering:for structure constants tensors}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Returns a P\texttt{\symbol{45}}polynomial ordering of the vertices of \mbox{\texttt{\mdseries\slshape tensor}} whose second element is \mbox{\texttt{\mdseries\slshape i}}, if such an ordering exists, and \texttt{fail} otherwise. }
+
+ 
+
+\subsection{\textcolor{Chapter }{PPolynomialOrderings (for structure constants tensors)}}
+\logpage{[ 2, 3, 17 ]}\nobreak
+\hyperdef{L}{X78F439DB86FB9271}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{PPolynomialOrderings({\mdseries\slshape tensor})\index{PPolynomialOrderings@\texttt{PPolynomialOrderings}!for structure constants tensors}
+\label{PPolynomialOrderings:for structure constants tensors}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ Returns a list of all P\texttt{\symbol{45}}polynomial orderings of the
+vertices of \mbox{\texttt{\mdseries\slshape tensor}}. }
 
  }
 
@@ -1725,10 +1989,11 @@ automorphism groups. }
 }\hfill{\scriptsize (property)}}\\
 
 
- If \mbox{\texttt{\mdseries\slshape tensor}} has this property, then this means that \textsf{coco2p} knows, that it is the structure constants tensor of a WL-stable color graph.
-There is no method installed for this property, as it is in general hard to
-prove that a given tensor belongs to a WL-stable color graph. The property is
-set by the constructor that created \mbox{\texttt{\mdseries\slshape tensor}}. }
+ If \mbox{\texttt{\mdseries\slshape tensor}} has this property, then this means that \textsf{coco2p} knows, that it is the structure constants tensor of a
+WL\texttt{\symbol{45}}stable color graph. There is no method installed for
+this property, as it is in general hard to prove that a given tensor belongs
+to a WL\texttt{\symbol{45}}stable color graph. The property is set by the
+constructor that created \mbox{\texttt{\mdseries\slshape tensor}}. }
 
  
 
@@ -1744,20 +2009,37 @@ set by the constructor that created \mbox{\texttt{\mdseries\slshape tensor}}. }
 
  
 
-\subsection{\textcolor{Chapter }{IsHomogeneous (for structure constants tensors)}}
+\subsection{\textcolor{Chapter }{IsHomogeneousTensor}}
 \logpage{[ 2, 4, 3 ]}\nobreak
-\hyperdef{L}{X82E7A3EC7D036D9B}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsHomogeneous({\mdseries\slshape tensor})\index{IsHomogeneous@\texttt{IsHomogeneous}!for structure constants tensors}
+\hyperdef{L}{X84CF023A7F16A147}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsHomogeneousTensor({\mdseries\slshape tensor})\index{IsHomogeneousTensor@\texttt{IsHomogeneousTensor}}
+\label{IsHomogeneousTensor}
+}\hfill{\scriptsize (property)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsHomogeneous({\mdseries\slshape tensor})\index{IsHomogeneous@\texttt{IsHomogeneous}!for structure constants tensors}
 \label{IsHomogeneous:for structure constants tensors}
+}\hfill{\scriptsize (method)}}\\
+
+
+ \mbox{\texttt{\mdseries\slshape tensor}} has this property, if it has exactly one fibre. In other words, it has exactly
+one idempotent, that is, there exists exactly one $i$, such that \texttt{EntryOfTensor(tensor,i,i,i) = 1} and for all $k \neq i $ holds \texttt{EntryOfTensor(tensor,i,i,k) = 0}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{IsPPolynomial}}
+\logpage{[ 2, 4, 4 ]}\nobreak
+\hyperdef{L}{X7B8DA25B7F4CA204}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsPPolynomial({\mdseries\slshape tensor})\index{IsPPolynomial@\texttt{IsPPolynomial}}
+\label{IsPPolynomial}
 }\hfill{\scriptsize (property)}}\\
 
 
- Returns whether \mbox{\texttt{\mdseries\slshape tensor}} has just one reflexive color. }
+ Returns \texttt{true} if \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of a metric color graph (or, in other words,
+a P\texttt{\symbol{45}}polynomial association scheme). Otherwise it returns \texttt{false}. }
 
  
 
 \subsection{\textcolor{Chapter }{IsPrimitive (for structure constants tensors)}}
-\logpage{[ 2, 4, 4 ]}\nobreak
+\logpage{[ 2, 4, 5 ]}\nobreak
 \hyperdef{L}{X799D354A7A3C382D}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsPrimitive({\mdseries\slshape tensor})\index{IsPrimitive@\texttt{IsPrimitive}!for structure constants tensors}
 \label{IsPrimitive:for structure constants tensors}
@@ -1789,29 +2071,29 @@ singleton of the unique reflexive color and the set of all colors).
 
  
 
-\subsection{\textcolor{Chapter }{AutGroupOfCocoObject (for tensors)}}
+\subsection{\textcolor{Chapter }{AutomorphismGroup (for tensors)}}
 \logpage{[ 2, 5, 2 ]}\nobreak
-\hyperdef{L}{X7A1AAC707A327410}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AutGroupOfCocoObject({\mdseries\slshape tensor})\index{AutGroupOfCocoObject@\texttt{AutGroupOfCocoObject}!for tensors}
-\label{AutGroupOfCocoObject:for tensors}
-}\hfill{\scriptsize (attribute)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AutomorphismGroup({\mdseries\slshape tensor})\index{AutomorphismGroup@\texttt{AutomorphismGroup}!for tensors}
+\hyperdef{L}{X85EC3AB487FA0A90}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AutomorphismGroup({\mdseries\slshape tensor})\index{AutomorphismGroup@\texttt{AutomorphismGroup}!for tensors}
 \label{AutomorphismGroup:for tensors}
 }\hfill{\scriptsize (method)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AutGroupOfCocoObject({\mdseries\slshape tensor})\index{AutGroupOfCocoObject@\texttt{AutGroupOfCocoObject}!for tensors}
+\label{AutGroupOfCocoObject:for tensors}
+}\hfill{\scriptsize (attribute)}}\\
 
 
  Returns the group of all automorphisms of \mbox{\texttt{\mdseries\slshape tensor}}. }
 
  
 
-\subsection{\textcolor{Chapter }{IsAutomorphismOfObject (for tensors)}}
+\subsection{\textcolor{Chapter }{IsAutomorphismOfTensor}}
 \logpage{[ 2, 5, 3 ]}\nobreak
-\hyperdef{L}{X7B5F5D7A7DA27A8D}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsAutomorphismOfObject({\mdseries\slshape tensor, perm})\index{IsAutomorphismOfObject@\texttt{IsAutomorphismOfObject}!for tensors}
-\label{IsAutomorphismOfObject:for tensors}
+\hyperdef{L}{X7DFA48437AD7C014}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsAutomorphismOfTensor({\mdseries\slshape tensor, perm})\index{IsAutomorphismOfTensor@\texttt{IsAutomorphismOfTensor}}
+\label{IsAutomorphismOfTensor}
 }\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsAutomorphismOfTensor({\mdseries\slshape tensor, perm})\index{IsAutomorphismOfTensor@\texttt{IsAutomorphismOfTensor}!for tensors}
-\label{IsAutomorphismOfTensor:for tensors}
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsAutomorphismOfObject({\mdseries\slshape tensor, perm})\index{IsAutomorphismOfObject@\texttt{IsAutomorphismOfObject}!for tensors}
+\label{IsAutomorphismOfObject:for tensors}
 }\hfill{\scriptsize (operation)}}\\
 
 
@@ -1819,45 +2101,45 @@ singleton of the unique reflexive color and the set of all colors).
 
  
 
-\subsection{\textcolor{Chapter }{IsomorphismCocoObjects (for tensors)}}
+\subsection{\textcolor{Chapter }{IsomorphismTensors}}
 \logpage{[ 2, 5, 4 ]}\nobreak
-\hyperdef{L}{X7EE1D367802B6726}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsomorphismCocoObjects({\mdseries\slshape tensor1, tensor2})\index{IsomorphismCocoObjects@\texttt{IsomorphismCocoObjects}!for tensors}
+\hyperdef{L}{X8323CB457C446B7C}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsomorphismTensors({\mdseries\slshape tensor1, tensor2})\index{IsomorphismTensors@\texttt{IsomorphismTensors}}
+\label{IsomorphismTensors}
+}\hfill{\scriptsize (operation)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsomorphismCocoObjects({\mdseries\slshape tensor1, tensor2})\index{IsomorphismCocoObjects@\texttt{IsomorphismCocoObjects}!for tensors}
 \label{IsomorphismCocoObjects:for tensors}
-}\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsomorphismTensors({\mdseries\slshape tensor1, tensor2})\index{IsomorphismTensors@\texttt{IsomorphismTensors}!for tensors}
-\label{IsomorphismTensors:for tensors}
-}\hfill{\scriptsize (operation)}}\\
+}\hfill{\scriptsize (method)}}\\
 
 
  This operation returns an isomorphism from \mbox{\texttt{\mdseries\slshape tensor1}} to \mbox{\texttt{\mdseries\slshape tensor2}} if it exists, and \texttt{fail} if it does not exists. }
 
  
 
-\subsection{\textcolor{Chapter }{IsIsomorphicCocoObject (for tensors)}}
+\subsection{\textcolor{Chapter }{IsIsomorphicTensor}}
 \logpage{[ 2, 5, 5 ]}\nobreak
-\hyperdef{L}{X867CF32F827578F8}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphicCocoObject({\mdseries\slshape tensor1, tensor2})\index{IsIsomorphicCocoObject@\texttt{IsIsomorphicCocoObject}!for tensors}
+\hyperdef{L}{X83A7D7467DC69ABB}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphicTensor({\mdseries\slshape tensor1, tensor2})\index{IsIsomorphicTensor@\texttt{IsIsomorphicTensor}}
+\label{IsIsomorphicTensor}
+}\hfill{\scriptsize (operation)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphicCocoObject({\mdseries\slshape tensor1, tensor2})\index{IsIsomorphicCocoObject@\texttt{IsIsomorphicCocoObject}!for tensors}
 \label{IsIsomorphicCocoObject:for tensors}
-}\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphicTensor({\mdseries\slshape tensor1, tensor2})\index{IsIsomorphicTensor@\texttt{IsIsomorphicTensor}!for tensors}
-\label{IsIsomorphicTensor:for tensors}
-}\hfill{\scriptsize (operation)}}\\
+}\hfill{\scriptsize (method)}}\\
 
 
  Returns \texttt{true} if \mbox{\texttt{\mdseries\slshape tensor1}} and \mbox{\texttt{\mdseries\slshape tensor2}} are isomorphic, and \texttt{false} otherwise. }
 
  
 
-\subsection{\textcolor{Chapter }{IsIsomorphismOfObjects (for tensors)}}
+\subsection{\textcolor{Chapter }{IsIsomorphismOfTensors}}
 \logpage{[ 2, 5, 6 ]}\nobreak
-\hyperdef{L}{X84122BB6867A77CB}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphismOfObjects({\mdseries\slshape tensor1, tensor2, g})\index{IsIsomorphismOfObjects@\texttt{IsIsomorphismOfObjects}!for tensors}
+\hyperdef{L}{X8475029D7A72D882}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphismOfTensors({\mdseries\slshape tensor1, tensor2, g})\index{IsIsomorphismOfTensors@\texttt{IsIsomorphismOfTensors}}
+\label{IsIsomorphismOfTensors}
+}\hfill{\scriptsize (operation)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphismOfObjects({\mdseries\slshape tensor1, tensor2, g})\index{IsIsomorphismOfObjects@\texttt{IsIsomorphismOfObjects}!for tensors}
 \label{IsIsomorphismOfObjects:for tensors}
-}\hfill{\scriptsize (operation)}}\\
-\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsIsomorphismOfTensors({\mdseries\slshape tensor1, tensor2, g})\index{IsIsomorphismOfTensors@\texttt{IsIsomorphismOfTensors}!for tensors}
-\label{IsIsomorphismOfTensors:for tensors}
-}\hfill{\scriptsize (operation)}}\\
+}\hfill{\scriptsize (method)}}\\
 
 
  Returns \texttt{true} if \mbox{\texttt{\mdseries\slshape g}} is an isomorphism fro \mbox{\texttt{\mdseries\slshape tensor1}} to \mbox{\texttt{\mdseries\slshape tensor2}}, and \texttt{false} otherwise. }
@@ -1868,12 +2150,13 @@ singleton of the unique reflexive color and the set of all colors).
 \section{\textcolor{Chapter }{Character tables of structure constants tensors}}\logpage{[ 2, 6, 0 ]}
 \hyperdef{L}{X7AC08470842F62FB}{}
 {
-  The structure constants tensor of a WL-stable color graph encodes the
-structure of the associated coherent algebra. If this algebra is commutative,
-then \textsf{coco2p} is able to compute its character table provided, the irrationalities occuring
-are representable in \textsf{GAP}. The algorithm that computes the character tables involves Gr{\"o}bner-bases.
-The computation of the Gr{\"o}bner bases defines the overall performance of
-the algorithm for the computation of character tables. 
+  The structure constants tensor of a WL\texttt{\symbol{45}}stable color graph
+encodes the structure of the associated coherent algebra. If this algebra is
+commutative, then \textsf{coco2p} is able to compute its character table provided, the irrationalities occuring
+are representable in \textsf{GAP}. The algorithm that computes the character tables involves
+Gr{\"o}bner\texttt{\symbol{45}}bases. The computation of the Gr{\"o}bner bases
+defines the overall performance of the algorithm for the computation of
+character tables. 
 
 \subsection{\textcolor{Chapter }{CharacterTableOfTensor (for commutative structure constants tensors)}}
 \logpage{[ 2, 6, 1 ]}\nobreak
@@ -1883,7 +2166,8 @@ the algorithm for the computation of character tables.
 }\hfill{\scriptsize (attribute)}}\\
 
 
- This function returns a record with two components: \texttt{characters} and \texttt{multiplicities}. If \texttt{ct} is the character table of \mbox{\texttt{\mdseries\slshape tensor}}, then \texttt{ct.characters[i][j]} is the value of the $i$-th irreducible character of the standard-basis element corresponding to color $j$ of \mbox{\texttt{\mdseries\slshape tensor}}. Moreover, \texttt{ct.multiplicities[i]} is the multiplicity of the $i$-th irreducible character. 
+ This function returns a record with two components: \texttt{characters} and \texttt{multiplicities}. If \texttt{ct} is the character table of \mbox{\texttt{\mdseries\slshape tensor}}, then \texttt{ct.characters[i][j]} is the value of the $i$\texttt{\symbol{45}}th irreducible character of the
+standard\texttt{\symbol{45}}basis element corresponding to color $j$ of \mbox{\texttt{\mdseries\slshape tensor}}. Moreover, \texttt{ct.multiplicities[i]} is the multiplicity of the $i$\texttt{\symbol{45}}th irreducible character. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=JohnsonScheme(6,3);|
   <color graph of order 20 and rank 4>
@@ -1898,12 +2182,97 @@ the algorithm for the computation of character tables.
 \end{Verbatim}
  }
 
+ 
+
+\subsection{\textcolor{Chapter }{QPolynomialOrdering (for commutative structure constants tensors)}}
+\logpage{[ 2, 6, 2 ]}\nobreak
+\hyperdef{L}{X87211C3684207A00}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{QPolynomialOrdering({\mdseries\slshape tensor, i})\index{QPolynomialOrdering@\texttt{QPolynomialOrdering}!for commutative structure constants tensors}
+\label{QPolynomialOrdering:for commutative structure constants tensors}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ Returns a Q\texttt{\symbol{45}}polynomial ordering of \mbox{\texttt{\mdseries\slshape tensor}} whose second entry is \mbox{\texttt{\mdseries\slshape i}}, if such an ordering exists. Otherwise it returns \texttt{false}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{QPolynomialOrderings (for commutative structure constants tensors)}}
+\logpage{[ 2, 6, 3 ]}\nobreak
+\hyperdef{L}{X7823424C78EA4C71}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{QPolynomialOrderings({\mdseries\slshape tensor})\index{QPolynomialOrderings@\texttt{QPolynomialOrderings}!for commutative structure constants tensors}
+\label{QPolynomialOrderings:for commutative structure constants tensors}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ Returns a list of all Q\texttt{\symbol{45}}polynomial orderings of \mbox{\texttt{\mdseries\slshape tensor}}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{IsQPolynomial (for commutative structure constants tensors)}}
+\logpage{[ 2, 6, 4 ]}\nobreak
+\hyperdef{L}{X7EB38B147AFADB3D}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IsQPolynomial({\mdseries\slshape tensor})\index{IsQPolynomial@\texttt{IsQPolynomial}!for commutative structure constants tensors}
+\label{IsQPolynomial:for commutative structure constants tensors}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ Returns \texttt{true} if \mbox{\texttt{\mdseries\slshape tensor}} is Q\texttt{\symbol{45}}polynomial and \texttt{false} otherwise. }
+
+ 
+
+\subsection{\textcolor{Chapter }{FirstEigenmatrix (for commutative structure constants tensors)}}
+\logpage{[ 2, 6, 5 ]}\nobreak
+\hyperdef{L}{X83D123C7866BAB00}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{FirstEigenmatrix({\mdseries\slshape tensor})\index{FirstEigenmatrix@\texttt{FirstEigenmatrix}!for commutative structure constants tensors}
+\label{FirstEigenmatrix:for commutative structure constants tensors}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ Returns the first eingenmatrix $P$ of \mbox{\texttt{\mdseries\slshape tensor}}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{SecondEigenmatrix (for commutative structure constants tensors)}}
+\logpage{[ 2, 6, 6 ]}\nobreak
+\hyperdef{L}{X7A25A9BD7A8B4EE7}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SecondEigenmatrix({\mdseries\slshape tensor})\index{SecondEigenmatrix@\texttt{SecondEigenmatrix}!for commutative structure constants tensors}
+\label{SecondEigenmatrix:for commutative structure constants tensors}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ Returns the second eingenmatrix $Q$ of \mbox{\texttt{\mdseries\slshape tensor}}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{TensorOfKreinNumbers (for commutative structure constants tensors)}}
+\logpage{[ 2, 6, 7 ]}\nobreak
+\hyperdef{L}{X7D9F1AF27C5B21F7}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{TensorOfKreinNumbers({\mdseries\slshape tensor})\index{TensorOfKreinNumbers@\texttt{TensorOfKreinNumbers}!for commutative structure constants tensors}
+\label{TensorOfKreinNumbers:for commutative structure constants tensors}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ Returns the tensor $(q_{i,j}^k)$ of Krein\texttt{\symbol{45}}numbers of \mbox{\texttt{\mdseries\slshape tensor}}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{IndexOfPrincipalCharacter (for commutative structure constants tensors)}}
+\logpage{[ 2, 6, 8 ]}\nobreak
+\hyperdef{L}{X7A4525C680AFF8F4}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IndexOfPrincipalCharacter({\mdseries\slshape tensor})\index{IndexOfPrincipalCharacter@\texttt{IndexOfPrincipalCharacter}!for commutative structure constants tensors}
+\label{IndexOfPrincipalCharacter:for commutative structure constants tensors}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ The principal character of \mbox{\texttt{\mdseries\slshape tensor}} maps every color $i$ of \mbox{\texttt{\mdseries\slshape tensor}} to the out\texttt{\symbol{45}}valency of its corresponding relation in the
+color graph of which \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor. }
+
  }
 
  }
 
  
-\chapter{\textcolor{Chapter }{WL-Stable Fusions of Color Graphs}}\logpage{[ 3, 0, 0 ]}
+\chapter{\textcolor{Chapter }{WL\texttt{\symbol{45}}Stable Fusions of Color Graphs}}\logpage{[ 3, 0, 0 ]}
 \hyperdef{L}{X80CC7E628273B08B}{}
 {
   
@@ -1911,21 +2280,21 @@ the algorithm for the computation of character tables.
 \hyperdef{L}{X7DFB63A97E67C0A1}{}
 {
   One of the fundamental methods how to derive new color graphs from a color
-graph $\Gamma$, is to \emph{fuse} (i.e identify) colors. Color graphs that are derived from $\Gamma$ in this way are called \emph{fusion color graphs}. Every fusion color graph $\Delta$ of $\Gamma$ defines a partition on the colors of $\Gamma$. This partition is called the \emph{fusion} associated with the fusion color graph $\Delta$ of $\Gamma$. If $\Delta$ is WL-stable, then its fusion is called a \emph{stable fusion}. 
+graph $\Gamma$, is to \emph{fuse} (i.e identify) colors. Color graphs that are derived from $\Gamma$ in this way are called \emph{fusion color graphs}. Every fusion color graph $\Delta$ of $\Gamma$ defines a partition on the colors of $\Gamma$. This partition is called the \emph{fusion} associated with the fusion color graph $\Delta$ of $\Gamma$. If $\Delta$ is WL\texttt{\symbol{45}}stable, then its fusion is called a \emph{stable fusion}. 
 
  One of the fundamental algorithmical problems in algebraic combinatorics is to
-enumerate all WL-stable fusion color graphs of a given color graph. At the
-moment \textsf{coco2p} can solve a part of this problem {\textendash} namely starting from any
-WL-stable color graph $\Gamma$ it can enumerate (orbits of) stable fusions that lead to homogeneous WL-stable
-fusion color graphs. Such fusions we will call \emph{homogeneous}. 
+enumerate all WL\texttt{\symbol{45}}stable fusion color graphs of a given
+color graph. At the moment \textsf{coco2p} can solve a part of this problem {\textendash} namely starting from any
+WL\texttt{\symbol{45}}stable color graph $\Gamma$ it can enumerate (orbits of) stable fusions that lead to homogeneous
+WL\texttt{\symbol{45}}stable fusion color graphs. Such fusions we will call \emph{homogeneous}. 
 
- Computing stable fusions, in \textsf{coco2p} is a two-stages process: 
+ Computing stable fusions, in \textsf{coco2p} is a two\texttt{\symbol{45}}stages process: 
 \begin{enumerate}
 \item Computation of good sets of colors,
 \item Fitting together good sets to stable fusions.
 \end{enumerate}
  Good sets are the building blocks of stable fusions. A set of colors of a
-WL-stable color graph is called a \emph{good set} if there exists a stable fusion of the cgr in which the set appears as a
+WL\texttt{\symbol{45}}stable color graph is called a \emph{good set} if there exists a stable fusion of the cgr in which the set appears as a
 class. It is called a \emph{homogeneous good set} if it is part of a homogeneous stable fusion. Note that the property to be a
 (homogeneous) good set does only depend on the structure constants of the
 color graph. }
@@ -1944,8 +2313,9 @@ color graph. }
 }\hfill{\scriptsize (function)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of a WL-stable color graph \texttt{cgr}. \mbox{\texttt{\mdseries\slshape set}} is a set of colors of \texttt{cgr} (i.e. of vertices of \mbox{\texttt{\mdseries\slshape tensor}}). \mbox{\texttt{\mdseries\slshape part}} is supposed to be the coarsest stable partition of the colors of \texttt{cgr} that contains \mbox{\texttt{\mdseries\slshape set}} as a class (the stability is not checked by the function). The function
-returns the corresponding good-set object. 
+ \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of a WL\texttt{\symbol{45}}stable color
+graph \texttt{cgr}. \mbox{\texttt{\mdseries\slshape set}} is a set of colors of \texttt{cgr} (i.e. of vertices of \mbox{\texttt{\mdseries\slshape tensor}}). \mbox{\texttt{\mdseries\slshape part}} is supposed to be the coarsest stable partition of the colors of \texttt{cgr} that contains \mbox{\texttt{\mdseries\slshape set}} as a class (the stability is not checked by the function). The function
+returns the corresponding good\texttt{\symbol{45}}set object. 
 
  If \mbox{\texttt{\mdseries\slshape part}} is not given, then it is computed. If this computation fails (because \mbox{\texttt{\mdseries\slshape set}} is not a good set), then \texttt{fail} is returned. }
 
@@ -1956,15 +2326,30 @@ returns the corresponding good-set object.
 \hyperdef{L}{X7DC2B6E27A050E8F}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AsSet({\mdseries\slshape gs})\index{AsSet@\texttt{AsSet}!for good sets}
 \label{AsSet:for good sets}
-}\hfill{\scriptsize (operation)}}\\
+}\hfill{\scriptsize (attribute)}}\\
 
 
  Converts the good set object \mbox{\texttt{\mdseries\slshape gs}} into a usual set. }
 
  
 
-\subsection{\textcolor{Chapter }{TensorOfGoodSet}}
+\subsection{\textcolor{Chapter }{Length (for good sets)}}
 \logpage{[ 3, 2, 3 ]}\nobreak
+\hyperdef{L}{X7D317CA07E100531}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Length({\mdseries\slshape gs})\index{Length@\texttt{Length}!for good sets}
+\label{Length:for good sets}
+}\hfill{\scriptsize (attribute)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Size({\mdseries\slshape gs})\index{Size@\texttt{Size}!for good sets}
+\label{Size:for good sets}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ Returns the number of elements of \mbox{\texttt{\mdseries\slshape gs}}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{TensorOfGoodSet}}
+\logpage{[ 3, 2, 4 ]}\nobreak
 \hyperdef{L}{X7B76EDA4800DAB0F}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{TensorOfGoodSet({\mdseries\slshape gs})\index{TensorOfGoodSet@\texttt{TensorOfGoodSet}}
 \label{TensorOfGoodSet}
@@ -1976,7 +2361,7 @@ returns the corresponding good-set object.
  
 
 \subsection{\textcolor{Chapter }{PartitionOfGoodSet}}
-\logpage{[ 3, 2, 4 ]}\nobreak
+\logpage{[ 3, 2, 5 ]}\nobreak
 \hyperdef{L}{X866BB45B7AE2320B}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{PartitionOfGoodSet({\mdseries\slshape gs})\index{PartitionOfGoodSet@\texttt{PartitionOfGoodSet}}
 \label{PartitionOfGoodSet}
@@ -1994,46 +2379,75 @@ of sets of colors), that contains \mbox{\texttt{\mdseries\slshape gs}} as a clas
 {
   \textsf{coco2p} implements a datatype for orbits of combinatorial objects. This section
 describes the functions that deal with orbits of good sets. For every orbit of
-good sets, only the lexicographically smallest representative and its set-wise
-stabilizer is saved. This allows to deal with good sets of color graphs of
-comparatively high rank, provided they have many algebraic automorphisms. 
+good sets, only the lexicographically smallest representative and its
+set\texttt{\symbol{45}}wise stabilizer is saved. This allows to deal with good
+sets of color graphs of comparatively high rank, provided they have many
+algebraic automorphisms. 
 
 \subsection{\textcolor{Chapter }{HomogeneousGoodSetOrbits (for structure constants tensors)}}
 \logpage{[ 3, 3, 1 ]}\nobreak
 \hyperdef{L}{X86ACF5D278B008B0}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{HomogeneousGoodSetOrbits({\mdseries\slshape tensor})\index{HomogeneousGoodSetOrbits@\texttt{HomogeneousGoodSetOrbits}!for structure constants tensors}
 \label{HomogeneousGoodSetOrbits:for structure constants tensors}
-}\hfill{\scriptsize (attribute)}}\\
+}\hfill{\scriptsize (operation)}}\\
 \noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{HomogeneousGoodSetOrbits({\mdseries\slshape group, tensor[, mode]})\index{HomogeneousGoodSetOrbits@\texttt{HomogeneousGoodSetOrbits}!for structure constants tensors, alternative}
 \label{HomogeneousGoodSetOrbits:for structure constants tensors, alternative}
-}\hfill{\scriptsize (method)}}\\
+}\hfill{\scriptsize (operation)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape group}} is supposed to consist only of automorphisms of \mbox{\texttt{\mdseries\slshape tensor}}. \textsf{coco2p} learns new automorphisms by checking this property. If group is not given,
-then the full automorphism group of \mbox{\texttt{\mdseries\slshape tensor}} is taken for \mbox{\texttt{\mdseries\slshape group}}. 
+ Let $G$ be the automorphism group of \mbox{\texttt{\mdseries\slshape tensor}}. This function returns all $G$\texttt{\symbol{45}}orbits of homogeneous good sets of \mbox{\texttt{\mdseries\slshape tensor}}. 
 
- This function returns all \mbox{\texttt{\mdseries\slshape group}}-orbits of homogeneous good sets. 
+ \texttt{HomogeneousGoodSetOrbits} recognizes the option \texttt{:sym} or \texttt{:prim}. With the former option it returns only orbits of symmetric good sets and
+with the latter option only orbits of primitive good sets. It is possible to
+combine these options to \texttt{:sym,prim}. }
 
- If \mbox{\texttt{\mdseries\slshape mode}} is equal to \texttt{"s"}, then only orbits of symmetric good sets are returned. If \mbox{\texttt{\mdseries\slshape mode}} is equal to \texttt{"a"}, then only orbits of asymmetric good sets are returned. }
+ 
+
+\subsection{\textcolor{Chapter }{HomogeneousSymGoodSetOrbits (for structure constants tensors)}}
+\logpage{[ 3, 3, 2 ]}\nobreak
+\hyperdef{L}{X8637C2E17A3E7711}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{HomogeneousSymGoodSetOrbits({\mdseries\slshape tensor})\index{HomogeneousSymGoodSetOrbits@\texttt{HomogeneousSymGoodSetOrbits}!for structure constants tensors}
+\label{HomogeneousSymGoodSetOrbits:for structure constants tensors}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ This function returns all orbits of orbits of symmetric good sets with respect
+to the automorphism group of \mbox{\texttt{\mdseries\slshape tensor}}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{HomogeneousASymGoodSetOrbits (for structure constants tensors)}}
+\logpage{[ 3, 3, 3 ]}\nobreak
+\hyperdef{L}{X7B85B9A37AE59451}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{HomogeneousASymGoodSetOrbits({\mdseries\slshape tensor})\index{HomogeneousASymGoodSetOrbits@\texttt{HomogeneousASymGoodSetOrbits}!for structure constants tensors}
+\label{HomogeneousASymGoodSetOrbits:for structure constants tensors}
+}\hfill{\scriptsize (attribute)}}\\
+
+
+ This function returns all orbits of orbits of asymmetric good sets with
+respect to the automorphism group of \mbox{\texttt{\mdseries\slshape tensor}}. }
 
  
 
 \subsection{\textcolor{Chapter }{GoodSetOrbit}}
-\logpage{[ 3, 3, 2 ]}\nobreak
+\logpage{[ 3, 3, 4 ]}\nobreak
 \hyperdef{L}{X7F6548818672AA8F}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{GoodSetOrbit({\mdseries\slshape group, gs[, stab]})\index{GoodSetOrbit@\texttt{GoodSetOrbit}}
 \label{GoodSetOrbit}
 }\hfill{\scriptsize (operation)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{GoodSetOrbitNC({\mdseries\slshape group, gs[, stab]})\index{GoodSetOrbitNC@\texttt{GoodSetOrbitNC}}
+\label{GoodSetOrbitNC}
+}\hfill{\scriptsize (operation)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape gs}} is a good set. \mbox{\texttt{\mdseries\slshape group}} has to be a subgroup of the automorphism group of \texttt{TensorOfGoodSet(gs)}. \mbox{\texttt{\mdseries\slshape stab}} (if given) has to be the full set-wise stabilizer of \mbox{\texttt{\mdseries\slshape gs}} in \mbox{\texttt{\mdseries\slshape group}}. 
+ \mbox{\texttt{\mdseries\slshape gs}} is a good set. \mbox{\texttt{\mdseries\slshape group}} has to be a subgroup of the automorphism group of \texttt{TensorOfGoodSet(gs)}. \mbox{\texttt{\mdseries\slshape stab}} (if given) has to be the full set\texttt{\symbol{45}}wise stabilizer of \mbox{\texttt{\mdseries\slshape gs}} in \mbox{\texttt{\mdseries\slshape group}}. 
 
- The function constructs a \textsf{coco2p}-orbit object of the setwise orbit of \mbox{\texttt{\mdseries\slshape gs}} under \mbox{\texttt{\mdseries\slshape group}}. }
+ The function constructs a \textsf{coco2p}\texttt{\symbol{45}}orbit object of the setwise orbit of \mbox{\texttt{\mdseries\slshape gs}} under \mbox{\texttt{\mdseries\slshape group}}. In the second variant \textsf{coco2p} makes no efforts to check the consistency of the input data. }
 
  
 
 \subsection{\textcolor{Chapter }{CanonicalRepresentativeOfCocoOrbit (for orbits of good sets)}}
-\logpage{[ 3, 3, 3 ]}\nobreak
+\logpage{[ 3, 3, 5 ]}\nobreak
 \hyperdef{L}{X86574C0C8000226E}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CanonicalRepresentativeOfCocoOrbit({\mdseries\slshape gsorb})\index{CanonicalRepresentativeOfCocoOrbit@\texttt{CanonicalRepresentativeOfCocoOrbit}!for orbits of good sets}
 \label{CanonicalRepresentativeOfCocoOrbit:for orbits of good sets}
@@ -2046,7 +2460,7 @@ good sets \mbox{\texttt{\mdseries\slshape gsorb}}. }
  
 
 \subsection{\textcolor{Chapter }{Representative (for orbits of good sets)}}
-\logpage{[ 3, 3, 4 ]}\nobreak
+\logpage{[ 3, 3, 6 ]}\nobreak
 \hyperdef{L}{X7ADE295E7CB04AF7}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Representative({\mdseries\slshape gsorb})\index{Representative@\texttt{Representative}!for orbits of good sets}
 \label{Representative:for orbits of good sets}
@@ -2058,7 +2472,7 @@ good sets \mbox{\texttt{\mdseries\slshape gsorb}}. }
  
 
 \subsection{\textcolor{Chapter }{UnderlyingGroupOfCocoOrbit (for orbits of good sets)}}
-\logpage{[ 3, 3, 5 ]}\nobreak
+\logpage{[ 3, 3, 7 ]}\nobreak
 \hyperdef{L}{X7B8CEEE08351083F}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{UnderlyingGroupOfCocoOrbit({\mdseries\slshape gsorb})\index{UnderlyingGroupOfCocoOrbit@\texttt{UnderlyingGroupOfCocoOrbit}!for orbits of good sets}
 \label{UnderlyingGroupOfCocoOrbit:for orbits of good sets}
@@ -2070,7 +2484,7 @@ good sets \mbox{\texttt{\mdseries\slshape gsorb}}. }
  
 
 \subsection{\textcolor{Chapter }{StabilizerOfCanonicalRepresentative (for orbits of good sets)}}
-\logpage{[ 3, 3, 6 ]}\nobreak
+\logpage{[ 3, 3, 8 ]}\nobreak
 \hyperdef{L}{X7EACF062833AF3FF}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{StabilizerOfCanonicalRepresentative({\mdseries\slshape gsorb})\index{StabilizerOfCanonicalRepresentative@\texttt{StabilizerOfCanonicalRepresentative}!for orbits of good sets}
 \label{StabilizerOfCanonicalRepresentative:for orbits of good sets}
@@ -2082,7 +2496,7 @@ good sets \mbox{\texttt{\mdseries\slshape gsorb}}. }
  
 
 \subsection{\textcolor{Chapter }{Size (for orbits of good sets)}}
-\logpage{[ 3, 3, 7 ]}\nobreak
+\logpage{[ 3, 3, 9 ]}\nobreak
 \hyperdef{L}{X79AE3E387AB90F45}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Size({\mdseries\slshape gsorb})\index{Size@\texttt{Size}!for orbits of good sets}
 \label{Size:for orbits of good sets}
@@ -2094,31 +2508,31 @@ good sets \mbox{\texttt{\mdseries\slshape gsorb}}. }
  
 
 \subsection{\textcolor{Chapter }{AsList (for orbits of good sets)}}
-\logpage{[ 3, 3, 8 ]}\nobreak
+\logpage{[ 3, 3, 10 ]}\nobreak
 \hyperdef{L}{X8334694B7EC2CEC3}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AsList({\mdseries\slshape gsorb})\index{AsList@\texttt{AsList}!for orbits of good sets}
 \label{AsList:for orbits of good sets}
 }\hfill{\scriptsize (method)}}\\
 
 
- expands the \textsf{coco2p}-orbit object \mbox{\texttt{\mdseries\slshape gsorb}} into a list of good sets. }
+ expands the \textsf{coco2p}\texttt{\symbol{45}}orbit object \mbox{\texttt{\mdseries\slshape gsorb}} into a list of good sets. }
 
  
 
 \subsection{\textcolor{Chapter }{AsSet (for orbits of good sets)}}
-\logpage{[ 3, 3, 9 ]}\nobreak
+\logpage{[ 3, 3, 11 ]}\nobreak
 \hyperdef{L}{X7CFBE61D8153E4F9}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AsSet({\mdseries\slshape gsorb})\index{AsSet@\texttt{AsSet}!for orbits of good sets}
 \label{AsSet:for orbits of good sets}
 }\hfill{\scriptsize (method)}}\\
 
 
- expands the \textsf{coco2p}-orbit object \mbox{\texttt{\mdseries\slshape gsorb}} into a set of good sets. }
+ expands the \textsf{coco2p}\texttt{\symbol{45}}orbit object \mbox{\texttt{\mdseries\slshape gsorb}} into a set of good sets. }
 
  
 
 \subsection{\textcolor{Chapter }{SubOrbitsOfCocoOrbit (for orbits of good sets)}}
-\logpage{[ 3, 3, 10 ]}\nobreak
+\logpage{[ 3, 3, 12 ]}\nobreak
 \hyperdef{L}{X85280FDF86123458}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SubOrbitsOfCocoOrbit({\mdseries\slshape group, gsorb})\index{SubOrbitsOfCocoOrbit@\texttt{SubOrbitsOfCocoOrbit}!for orbits of good sets}
 \label{SubOrbitsOfCocoOrbit:for orbits of good sets}
@@ -2131,21 +2545,21 @@ a list of these suborbits. }
  
 
 \subsection{\textcolor{Chapter }{SubOrbitsWithInvariantPropertyOfCocoOrbit (for orbits of good sets)}}
-\logpage{[ 3, 3, 11 ]}\nobreak
+\logpage{[ 3, 3, 13 ]}\nobreak
 \hyperdef{L}{X79370B047C27512A}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SubOrbitsWithInvariantPropertyOfCocoOrbit({\mdseries\slshape group, gsorb, prop})\index{SubOrbitsWithInvariantPropertyOfCocoOrbit@\texttt{Sub}\-\texttt{Orbits}\-\texttt{With}\-\texttt{Invariant}\-\texttt{Property}\-\texttt{Of}\-\texttt{Coco}\-\texttt{Orbit}!for orbits of good sets}
 \label{SubOrbitsWithInvariantPropertyOfCocoOrbit:for orbits of good sets}
 }\hfill{\scriptsize (operation)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape prop}} is a function that takes a single good set as argument and returns \texttt{true} or \texttt{false}. It has to be invariant under the set-wise action of \mbox{\texttt{\mdseries\slshape group}}. Note that this property is not checked by the function. 
+ \mbox{\texttt{\mdseries\slshape prop}} is a function that takes a single good set as argument and returns \texttt{true} or \texttt{false}. It has to be invariant under the set\texttt{\symbol{45}}wise action of \mbox{\texttt{\mdseries\slshape group}}. Note that this property is not checked by the function. 
 
  This function does the same as 
-\begin{Verbatim}[fontsize=\small,frame=single,label=]
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=]
   Filtered(SubOrbitsOfCocoOrbit(group,gsorb), x->prop(Representative(x)));
 \end{Verbatim}
  However, the former code is generally much less efficient than calling 
-\begin{Verbatim}[fontsize=\small,frame=single,label=]
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=]
   SubOrbitsWithInvariantPropertyOfCocoOrbit(group,gsorb,prop);
 \end{Verbatim}
  }
@@ -2164,9 +2578,16 @@ a list of these suborbits. }
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{FusionFromPartition({\mdseries\slshape tensor, part})\index{FusionFromPartition@\texttt{FusionFromPartition}!for structure constant tensors}
 \label{FusionFromPartition:for structure constant tensors}
 }\hfill{\scriptsize (function)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{FusionFromPartitionNC({\mdseries\slshape tensor, part})\index{FusionFromPartitionNC@\texttt{FusionFromPartitionNC}!for structure constant tensors}
+\label{FusionFromPartitionNC:for structure constant tensors}
+}\hfill{\scriptsize (function)}}\\
 
 
- if \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL-stable color graph \texttt{cgr}, and if \mbox{\texttt{\mdseries\slshape part}} is a partition of the colors of \texttt{cgr} (a set of sets of colors), then this function returns a fusion-object, or \texttt{fail} if \mbox{\texttt{\mdseries\slshape part}} is not a fusion of \texttt{cgr}. }
+ If \mbox{\texttt{\mdseries\slshape tensor}} is the structure constants tensor of the WL\texttt{\symbol{45}}stable color
+graph \texttt{cgr}, and if \mbox{\texttt{\mdseries\slshape part}} is a partition of the colors of \texttt{cgr} (a set of sets of colors), then this function returns a
+fusion\texttt{\symbol{45}}object, or \texttt{fail} if \mbox{\texttt{\mdseries\slshape part}} is not a fusion of \texttt{cgr}. 
+
+ The second variant \texttt{FusionFromPartitionNC} does not test whether \mbox{\texttt{\mdseries\slshape part}} is a fusion of \texttt{cgr}. }
 
  
 
@@ -2178,7 +2599,7 @@ a list of these suborbits. }
 }\hfill{\scriptsize (attribute)}}\\
 
 
- Converts the fusion-object \mbox{\texttt{\mdseries\slshape fusion}} into a set of sets of colors. }
+ Converts the fusion\texttt{\symbol{45}}object \mbox{\texttt{\mdseries\slshape fusion}} into a set of sets of colors. }
 
  
 
@@ -2190,9 +2611,10 @@ a list of these suborbits. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- Converts the fusion object \mbox{\texttt{\mdseries\slshape fusion}} into a list of sets. In contrast to te result of \texttt{AsPartition(fusion)}, the resulting list of classes is sorted in short-lex order. This means that
-first it is sorted by cardinality of classes, and then the classes of equal
-size are sorted lexicographically. }
+ Converts the fusion object \mbox{\texttt{\mdseries\slshape fusion}} into a list of sets. In contrast to te result of \texttt{AsPartition(fusion)}, the resulting list of classes is sorted in short\texttt{\symbol{45}}lex
+order. This means that first it is sorted by cardinality of classes, and then
+the classes of equal size are sorted lexicographically. It should be mentioned
+that the result of \texttt{PartitionOfFusion} is immutable. }
 
  
 
@@ -2208,27 +2630,15 @@ size are sorted lexicographically. }
 
  
 
-\subsection{\textcolor{Chapter }{BaseOfFusion}}
-\logpage{[ 3, 4, 5 ]}\nobreak
-\hyperdef{L}{X8770B6517FBFCC4C}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{BaseOfFusion({\mdseries\slshape fusion})\index{BaseOfFusion@\texttt{BaseOfFusion}}
-\label{BaseOfFusion}
-}\hfill{\scriptsize (attribute)}}\\
-
-
- The base of a fusion is the smallest list of classes of \mbox{\texttt{\mdseries\slshape fusion}} (in the short lex order) that generates \mbox{\texttt{\mdseries\slshape fusion}} in the sense that there is no coarser stable fusion that contains the classes
-of the base. 
-
- This function returns the base of \mbox{\texttt{\mdseries\slshape fusion}} if \textsf{coco2p} knows it. At the moment there is no method for computing the base. }
-
- 
-
 \subsection{\textcolor{Chapter }{RankOfFusion}}
-\logpage{[ 3, 4, 6 ]}\nobreak
+\logpage{[ 3, 4, 5 ]}\nobreak
 \hyperdef{L}{X861815928126A93B}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{RankOfFusion({\mdseries\slshape fusion})\index{RankOfFusion@\texttt{RankOfFusion}}
 \label{RankOfFusion}
 }\hfill{\scriptsize (attribute)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Rank({\mdseries\slshape fusion})\index{Rank@\texttt{Rank}!for fusions of structure constants tensors}
+\label{Rank:for fusions of structure constants tensors}
+}\hfill{\scriptsize (method)}}\\
 
 
  returns the number of classes of \mbox{\texttt{\mdseries\slshape fusion}}. }
@@ -2236,11 +2646,14 @@ of the base.
  
 
 \subsection{\textcolor{Chapter }{OrderOfFusion}}
-\logpage{[ 3, 4, 7 ]}\nobreak
+\logpage{[ 3, 4, 6 ]}\nobreak
 \hyperdef{L}{X818EC6447AD29D1D}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{OrderOfFusion({\mdseries\slshape fusion})\index{OrderOfFusion@\texttt{OrderOfFusion}}
 \label{OrderOfFusion}
 }\hfill{\scriptsize (attribute)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Order({\mdseries\slshape fusion})\index{Order@\texttt{Order}!for fusions of structure constant tensors}
+\label{Order:for fusions of structure constant tensors}
+}\hfill{\scriptsize (method)}}\\
 
 
  returns the order of the underlying tensor of \mbox{\texttt{\mdseries\slshape fusion}}. }
@@ -2252,10 +2665,11 @@ of the base.
 \hyperdef{L}{X79E3348682BC2376}{}
 {
   \textsf{coco2p} implements a datatype for orbits of combinatorial objects. This section
-describes the functions that deal with orbits of stable fusion. For every
-orbit of fusions, only the smallest representative in the short-lex order and
-its partition-wise stabilizer is saved. This allows to deal with fusions of
-color graphs of comparatively high rank. 
+describes the functions that deal with orbits of stable fusions. For every
+orbit of fusions, only the smallest representative in the
+short\texttt{\symbol{45}}lex order and its partition\texttt{\symbol{45}}wise
+stabilizer is saved. This allows to deal with fusions of color graphs of
+comparatively high rank. 
 
 \subsection{\textcolor{Chapter }{HomogeneousFusionOrbits (for structure constants tensors)}}
 \logpage{[ 3, 5, 1 ]}\nobreak
@@ -2271,7 +2685,7 @@ color graphs of comparatively high rank.
  \mbox{\texttt{\mdseries\slshape group}} is supposed to consist only of automorphisms of \mbox{\texttt{\mdseries\slshape tensor}}. \textsf{coco2p} learns new automorphisms by checking this property. If group is not given,
 then the full automorphism group of \mbox{\texttt{\mdseries\slshape tensor}} is taken for \mbox{\texttt{\mdseries\slshape group}}. 
 
- This function returns all \mbox{\texttt{\mdseries\slshape group}}-orbits of homogeneous stable fusions. }
+ This function returns all \mbox{\texttt{\mdseries\slshape group}}\texttt{\symbol{45}}orbits of homogeneous stable fusions. }
 
  
 
@@ -2283,8 +2697,12 @@ then the full automorphism group of \mbox{\texttt{\mdseries\slshape tensor}} is 
 }\hfill{\scriptsize (function)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape cgr}} is a WL-stable color graph. The function creates a poset of orbits of fusions
-of the tensor of structure constants of \mbox{\texttt{\mdseries\slshape cgr}} under the color automorphism group of \mbox{\texttt{\mdseries\slshape cgr}}. An orbit $o1$ is below an orbit $o2$ if every element of $o1$ is coarser than some element $o2$. }
+ \mbox{\texttt{\mdseries\slshape cgr}} is a WL\texttt{\symbol{45}}stable color graph. The function creates a poset of
+orbits of fusions of the tensor of structure constants of \mbox{\texttt{\mdseries\slshape cgr}} under the color automorphism group of \mbox{\texttt{\mdseries\slshape cgr}}. An orbit $o1$ is below an orbit $o2$ if every element of $o1$ is coarser than some element $o2$. 
+
+ This function accepts the option \texttt{:runtime}. If it is given, then the time taken for the comutation of the poset is
+stored as an attribute of the resulting poset. When displaying this poset, the
+runtime becomes part of the output. }
 
  
 
@@ -2296,16 +2714,16 @@ of the tensor of structure constants of \mbox{\texttt{\mdseries\slshape cgr}} un
 }\hfill{\scriptsize (method)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape poset}} is a \textsf{coco2p}-poset of fusion orbits, obtained, e.g., by \texttt{PosetOfHomogeneousFusionOrbits} (\ref{PosetOfHomogeneousFusionOrbits:for WL-stable color graphs}). This function creates a graphical representation of this poset. The labels
+ \mbox{\texttt{\mdseries\slshape poset}} is a \textsf{coco2p}\texttt{\symbol{45}}poset of fusion orbits, obtained, e.g., by \texttt{PosetOfHomogeneousFusionOrbits} (\ref{PosetOfHomogeneousFusionOrbits:for WL-stable color graphs}). This function creates a graphical representation of this poset. The labels
 of the nodes of the graphical poset correspond to the indices in the given
-poset.When invoked in \textsf{XGAP}, the context-menu of each node gives additional information about the node.
-If for some node it is known whether the underlying color graph is surian or
-not, then this is made visible in the graphical poset. Nodes for which it is
-not known whether the cgr is Schurian, are represented by squares. Schurian
-nodes are represented by circles, and non-Schurian nodes are represented by
-diamonds. 
+poset. When invoked in \textsf{XGAP}, the context\texttt{\symbol{45}}menu of each node gives additional
+information about the node. If for some node it is known whether the
+underlying color graph is Schurian or not, then this is made visible in the
+graphical poset. Nodes for which it is not known whether the cgr is Schurian,
+are represented by squares. Schurian nodes are represented by circles, and
+non\texttt{\symbol{45}}Schurian nodes are represented by diamonds. 
 
- This function is available only from \textsf{XGAP} or within \textsf{Jupyter-GAP} when the package \textsf{Francy} was loaded before \textsf{coco2p}. 
+ This function is available only from \textsf{XGAP} or within \textsf{Jupyter\texttt{\symbol{45}}GAP} when the package \textsf{Francy} was loaded before \textsf{coco2p}. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@pos:=PosetOfHomogeneousFusionOrbits(BIKColorGraph(4));|
   <poset of fusion orbits with with 5 elements>
@@ -2318,35 +2736,82 @@ diamonds.
 
  
 
-\subsection{\textcolor{Chapter }{FusionOrbit}}
+\subsection{\textcolor{Chapter }{Display (for posets of fusion orbits)}}
 \logpage{[ 3, 5, 4 ]}\nobreak
+\hyperdef{L}{X7F656CEC7A3A7B32}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Display({\mdseries\slshape poset})\index{Display@\texttt{Display}!for posets of fusion orbits}
+\label{Display:for posets of fusion orbits}
+}\hfill{\scriptsize (method)}}\\
+
+
+ This function prints information about a representative from each element of \mbox{\texttt{\mdseries\slshape poset}}, together with information of how the elements are contained in eachother. 
+
+ This function recognizes a number of options: 
+\begin{description}
+\item[{\texttt{:filter:=func}}]  func is a function which gets as argument a color graph and returns \texttt{true} or \texttt{false}. If this option is given, only those orbit\texttt{\symbol{45}}representatives \texttt{cgr} from \mbox{\texttt{\mdseries\slshape poset}} are displayed for which \texttt{func(cgr)} returns \texttt{true}. 
+\item[{\texttt{:nonschurian}}]  If this option is given, only orbit representatives of
+non\texttt{\symbol{45}}Schurian color graphs from \mbox{\texttt{\mdseries\slshape poset}} are displayed. 
+\item[{\texttt{:long}}]  If this option is given, more information about symmetries of the
+representatives of the orbits in \mbox{\texttt{\mdseries\slshape poset}}, like the generators of the automorphism group, is added to the output. 
+\item[{\texttt{:schurianfission}}]  If this option is given, foe each element of \mbox{\texttt{\mdseries\slshape poset}} the Schurian fission of its representative is computed. In case that this
+color graph is contained in any of the orbit from \mbox{\texttt{\mdseries\slshape poset}}, the index of this orbit is indicated in the output. 
+\item[{\texttt{:fvc}}]  The effect of this option is that for every orbit representative that is
+corresponding to a strongly regular graph, it is computed whether or not this
+graph satisfies the four\texttt{\symbol{45}}vertex condition. In case that
+this is true, the parameters $(\alpha,\beta)$ are added to the output. 
+\item[{\texttt{:onlyfvc}}]  If this option is given, then only information of such orbit representatives
+is given that correspond to strongly regular graphs with the
+four\texttt{\symbol{45}}vertex condition. 
+\item[{\texttt{:cisomap}}]  If this option is given, then for each orbit representative of \mbox{\texttt{\mdseries\slshape poset}} the smallest index in \mbox{\texttt{\mdseries\slshape poset}} to a color isomorphic orbit representative is computed and displayed. 
+\item[{\texttt{:date}}]  When this option is given, then the actual date is added to the output. 
+\item[{\texttt{:runtime}}]  If this option is given, then the time it took to compute \mbox{\texttt{\mdseries\slshape poset}} is added to the output (if this time is known). 
+\item[{\texttt{:strucexp:=n}}]  This option creates a heuristic condition whether or not the structure
+description of some symetry\texttt{\symbol{45}}group should be computed. The
+command \texttt{StructureDescription(group)} tends to be slow whenever the exponent of prime\texttt{\symbol{45}}divisor of
+the order of \texttt{group} is large. If the exponent of such a prime divisor is greated than \texttt{n} then the structure description of \texttt{group} is not computed. If the structure description of \texttt{group} was known before, then it is still displayed in the output. 
+
+ The standard value for \texttt{n} is $12$. 
+\end{description}
+ }
+
+ 
+
+\subsection{\textcolor{Chapter }{FusionOrbit}}
+\logpage{[ 3, 5, 5 ]}\nobreak
 \hyperdef{L}{X82E731437F02346D}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{FusionOrbit({\mdseries\slshape group, fusion[, stab]})\index{FusionOrbit@\texttt{FusionOrbit}}
 \label{FusionOrbit}
 }\hfill{\scriptsize (operation)}}\\
+\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{FusionOrbitNC({\mdseries\slshape group, fusion[, stab]})\index{FusionOrbitNC@\texttt{FusionOrbitNC}}
+\label{FusionOrbitNC}
+}\hfill{\scriptsize (operation)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape fusion}} is a fusion object. \mbox{\texttt{\mdseries\slshape group}} has to be a subgroup of the automorphism group of \texttt{TensorOfFusion(fusion)}. \mbox{\texttt{\mdseries\slshape stab}} (if given) has to be the full partition-wise stabilizer of \mbox{\texttt{\mdseries\slshape fusion}} in \mbox{\texttt{\mdseries\slshape group}}. 
+ \mbox{\texttt{\mdseries\slshape fusion}} is a fusion object. \mbox{\texttt{\mdseries\slshape group}} has to be a subgroup of the automorphism group of \texttt{TensorOfFusion(fusion)}. \mbox{\texttt{\mdseries\slshape stab}} (if given) has to be the full partition\texttt{\symbol{45}}wise stabilizer of \mbox{\texttt{\mdseries\slshape fusion}} in \mbox{\texttt{\mdseries\slshape group}}. 
 
- The function constructs a \textsf{coco2p}-orbit object of the partition-wise orbit of \mbox{\texttt{\mdseries\slshape fusion}} under \mbox{\texttt{\mdseries\slshape group}}. }
+ The function constructs a \textsf{coco2p}\texttt{\symbol{45}}orbit object of the partition\texttt{\symbol{45}}wise
+orbit of \mbox{\texttt{\mdseries\slshape fusion}} under \mbox{\texttt{\mdseries\slshape group}}. 
+
+ In the second variant no checks of consistency of the input parameters are
+done. }
 
  
 
 \subsection{\textcolor{Chapter }{CanonicalRepresentativeOfCocoOrbit (for orbits of fusions)}}
-\logpage{[ 3, 5, 5 ]}\nobreak
+\logpage{[ 3, 5, 6 ]}\nobreak
 \hyperdef{L}{X85B7C08285E5B799}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CanonicalRepresentativeOfCocoOrbit({\mdseries\slshape fusionorb})\index{CanonicalRepresentativeOfCocoOrbit@\texttt{CanonicalRepresentativeOfCocoOrbit}!for orbits of fusions}
 \label{CanonicalRepresentativeOfCocoOrbit:for orbits of fusions}
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function returns the smallest element (in the short-lex order) of the
-orbit of fusions \mbox{\texttt{\mdseries\slshape fusionorb}}. }
+ This function returns the smallest element (in the
+short\texttt{\symbol{45}}lex order) of the orbit of fusions \mbox{\texttt{\mdseries\slshape fusionorb}}. }
 
  
 
 \subsection{\textcolor{Chapter }{Representative (for orbits of fusions)}}
-\logpage{[ 3, 5, 6 ]}\nobreak
+\logpage{[ 3, 5, 7 ]}\nobreak
 \hyperdef{L}{X85BAA5A87BA76215}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Representative({\mdseries\slshape fusionorb})\index{Representative@\texttt{Representative}!for orbits of fusions}
 \label{Representative:for orbits of fusions}
@@ -2358,7 +2823,7 @@ orbit of fusions \mbox{\texttt{\mdseries\slshape fusionorb}}. }
  
 
 \subsection{\textcolor{Chapter }{UnderlyingGroupOfCocoOrbit (for orbits of fusions)}}
-\logpage{[ 3, 5, 7 ]}\nobreak
+\logpage{[ 3, 5, 8 ]}\nobreak
 \hyperdef{L}{X7B4255C57867788C}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{UnderlyingGroupOfCocoOrbit({\mdseries\slshape fusionorb})\index{UnderlyingGroupOfCocoOrbit@\texttt{UnderlyingGroupOfCocoOrbit}!for orbits of fusions}
 \label{UnderlyingGroupOfCocoOrbit:for orbits of fusions}
@@ -2370,19 +2835,19 @@ orbit of fusions \mbox{\texttt{\mdseries\slshape fusionorb}}. }
  
 
 \subsection{\textcolor{Chapter }{StabilizerOfCanonicalRepresentative (for orbits of fusions)}}
-\logpage{[ 3, 5, 8 ]}\nobreak
+\logpage{[ 3, 5, 9 ]}\nobreak
 \hyperdef{L}{X7B8F411C863F4179}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{StabilizerOfCanonicalRepresentative({\mdseries\slshape fusion})\index{StabilizerOfCanonicalRepresentative@\texttt{StabilizerOfCanonicalRepresentative}!for orbits of fusions}
 \label{StabilizerOfCanonicalRepresentative:for orbits of fusions}
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function returns the partition-wise stabilizer of \texttt{CanonicalRepresentativeOfCocoOrbit(fusionorb)} in \texttt{UnderlyingGroupOfCocoOrbit(fusionorb)}. }
+ This function returns the partition\texttt{\symbol{45}}wise stabilizer of \texttt{CanonicalRepresentativeOfCocoOrbit(fusionorb)} in \texttt{UnderlyingGroupOfCocoOrbit(fusionorb)}. }
 
  
 
 \subsection{\textcolor{Chapter }{Size (for orbits of fusions)}}
-\logpage{[ 3, 5, 9 ]}\nobreak
+\logpage{[ 3, 5, 10 ]}\nobreak
 \hyperdef{L}{X7C0606D6878E1F35}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Size({\mdseries\slshape fusionorb})\index{Size@\texttt{Size}!for orbits of fusions}
 \label{Size:for orbits of fusions}
@@ -2394,31 +2859,31 @@ orbit of fusions \mbox{\texttt{\mdseries\slshape fusionorb}}. }
  
 
 \subsection{\textcolor{Chapter }{AsList (for orbits of fusions)}}
-\logpage{[ 3, 5, 10 ]}\nobreak
+\logpage{[ 3, 5, 11 ]}\nobreak
 \hyperdef{L}{X87538F0F86B539BA}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AsList({\mdseries\slshape fusionorb})\index{AsList@\texttt{AsList}!for orbits of fusions}
 \label{AsList:for orbits of fusions}
 }\hfill{\scriptsize (method)}}\\
 
 
-s expands the \textsf{coco2p}-orbit object \mbox{\texttt{\mdseries\slshape fusionorb}} into a list of fusions. }
+s expands the \textsf{coco2p}\texttt{\symbol{45}}orbit object \mbox{\texttt{\mdseries\slshape fusionorb}} into a list of fusions. }
 
  
 
 \subsection{\textcolor{Chapter }{AsSet (for orbits of fusions)}}
-\logpage{[ 3, 5, 11 ]}\nobreak
+\logpage{[ 3, 5, 12 ]}\nobreak
 \hyperdef{L}{X80C57CB5862EA0E0}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AsSet({\mdseries\slshape fusionorb})\index{AsSet@\texttt{AsSet}!for orbits of fusions}
 \label{AsSet:for orbits of fusions}
 }\hfill{\scriptsize (method)}}\\
 
 
- expands the \textsf{coco2p}-orbit object \mbox{\texttt{\mdseries\slshape fusionorb}} into a set of fusions. }
+ expands the \textsf{coco2p}\texttt{\symbol{45}}orbit object \mbox{\texttt{\mdseries\slshape fusionorb}} into a set of fusions. }
 
  
 
 \subsection{\textcolor{Chapter }{SubOrbitsOfCocoOrbit (for orbits of fusions)}}
-\logpage{[ 3, 5, 12 ]}\nobreak
+\logpage{[ 3, 5, 13 ]}\nobreak
 \hyperdef{L}{X7842968983700F79}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SubOrbitsOfCocoOrbit({\mdseries\slshape group, fusion})\index{SubOrbitsOfCocoOrbit@\texttt{SubOrbitsOfCocoOrbit}!for orbits of fusions}
 \label{SubOrbitsOfCocoOrbit:for orbits of fusions}
@@ -2431,21 +2896,21 @@ a list of these suborbits. }
  
 
 \subsection{\textcolor{Chapter }{SubOrbitsWithInvariantPropertyOfCocoOrbit (for orbits of fusions)}}
-\logpage{[ 3, 5, 13 ]}\nobreak
+\logpage{[ 3, 5, 14 ]}\nobreak
 \hyperdef{L}{X7B053C1D7CD14AD8}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SubOrbitsWithInvariantPropertyOfCocoOrbit({\mdseries\slshape group, fusionorb, prop})\index{SubOrbitsWithInvariantPropertyOfCocoOrbit@\texttt{Sub}\-\texttt{Orbits}\-\texttt{With}\-\texttt{Invariant}\-\texttt{Property}\-\texttt{Of}\-\texttt{Coco}\-\texttt{Orbit}!for orbits of fusions}
 \label{SubOrbitsWithInvariantPropertyOfCocoOrbit:for orbits of fusions}
 }\hfill{\scriptsize (operation)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape prop}} is a function that takes a single fusion as argument and returns \texttt{true} or \texttt{false}. It has to be invariant under the partition-wise action of \mbox{\texttt{\mdseries\slshape group}}. Note that the invariance is not checked by the function. 
+ \mbox{\texttt{\mdseries\slshape prop}} is a function that takes a single fusion as argument and returns \texttt{true} or \texttt{false}. It has to be invariant under the partition\texttt{\symbol{45}}wise action of \mbox{\texttt{\mdseries\slshape group}}. Note that the invariance is not checked by the function. 
 
  This function does the same as 
-\begin{Verbatim}[fontsize=\small,frame=single,label=]
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=]
   Filtered(SubOrbitsOfCocoOrbit(group,fusionorb), x->prop(Representative(x)));
 \end{Verbatim}
  However, the former code is generally much less efficient than calling 
-\begin{Verbatim}[fontsize=\small,frame=single,label=]
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=]
   SubOrbitsWithInvariantPropertyOfCocoOrbit(group,fusion,prop);
 \end{Verbatim}
  }
@@ -2462,8 +2927,9 @@ a list of these suborbits. }
 \section{\textcolor{Chapter }{Introduction}}\logpage{[ 4, 1, 0 ]}
 \hyperdef{L}{X7DFB63A97E67C0A1}{}
 {
-  \textsf{coco2p} implements a data-type for partially ordered sets. The reason is, that for the
-posets of interest in \textsf{coco2p} the test whether two elements are in order-relation is rather expensive, and \textsf{coco2p} takes care to minimize the necessary tests. The other reason is, that this
+  \textsf{coco2p} implements a data\texttt{\symbol{45}}type for partially ordered sets. The
+reason is, that for the posets of interest in \textsf{coco2p} the test whether two elements are in order\texttt{\symbol{45}}relation is
+rather expensive, and \textsf{coco2p} takes care to minimize the necessary tests. The other reason is, that this
 approach allows a nice and unified interface to \textsf{XGAP} for all kinds of posets that are introduced in \textsf{coco2p} (i.e. posets of color graphs, posets of fusion orbits, lattices of fusions,
 lattices of closed sets, for now). 
 
@@ -2473,7 +2939,7 @@ to the elements: \texttt{CocoPosetByFunctions} (\ref{CocoPosetByFunctions}) and 
 the element. }
 
  
-\section{\textcolor{Chapter }{General functions for \textsf{coco2p}-posets}}\logpage{[ 4, 2, 0 ]}
+\section{\textcolor{Chapter }{General functions for \textsf{coco2p}\texttt{\symbol{45}}posets}}\logpage{[ 4, 2, 0 ]}
 \hyperdef{L}{X7A784E58852BAB12}{}
 {
   
@@ -2495,10 +2961,11 @@ the element. }
  \mbox{\texttt{\mdseries\slshape linpreorder}} is a binary boolean function that defines a linear preorder (reflexive,
 transitive, total relation) on \mbox{\texttt{\mdseries\slshape elements}}, that extends the partial order relation defined by \mbox{\texttt{\mdseries\slshape order}} such that the strict order of elements is preserved. That is, if $y$ is strictly above $x$ in \mbox{\texttt{\mdseries\slshape order}}, then so it is in \mbox{\texttt{\mdseries\slshape linpreorder}}. 
 
- The function \mbox{\texttt{\mdseries\slshape linpreorder}} is used to speed up the computations of the successor-relation of the goal
-poset. It should be much quicker than \mbox{\texttt{\mdseries\slshape order}} in order to really lead to a speedup. E.g., when computing a poset of sets, \mbox{\texttt{\mdseries\slshape order}} may be the inclusion order, and \mbox{\texttt{\mdseries\slshape linpreorder}} may be the function that compares cardinalities. 
+ The function \mbox{\texttt{\mdseries\slshape linpreorder}} is used to speed up the computations of the
+successor\texttt{\symbol{45}}relation of the goal poset. It should be much
+quicker than \mbox{\texttt{\mdseries\slshape order}} in order to really lead to a speedup. E.g., when computing a poset of sets, \mbox{\texttt{\mdseries\slshape order}} may be the inclusion order, and \mbox{\texttt{\mdseries\slshape linpreorder}} may be the function that compares cardinalities. 
 
- The function returns a \textsf{coco2p}-poset object that encodes the poset defined by \mbox{\texttt{\mdseries\slshape order}}. }
+ The function returns a \textsf{coco2p}\texttt{\symbol{45}}poset object that encodes the poset defined by \mbox{\texttt{\mdseries\slshape order}}. }
 
  
 
@@ -2629,7 +3096,20 @@ list. }
 }\hfill{\scriptsize (operation)}}\\
 
 
- This function creates a graphical representation of \mbox{\texttt{\mdseries\slshape poset}} using \textsf{XGAP} or \textsf{Francy} under \textsf{Jupyter-GAP}. }
+ This function creates a graphical representation of \mbox{\texttt{\mdseries\slshape poset}} using \textsf{XGAP} or \textsf{Francy} under \textsf{Jupyter\texttt{\symbol{45}}GAP}. }
+
+ 
+
+\subsection{\textcolor{Chapter }{SelectedElements}}
+\logpage{[ 4, 2, 12 ]}\nobreak
+\hyperdef{L}{X852CA17485DCFBDB}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SelectedElements({\mdseries\slshape graphic, poset})\index{SelectedElements@\texttt{SelectedElements}}
+\label{SelectedElements}
+}\hfill{\scriptsize (operation)}}\\
+
+
+ This operation is avaylable if \textsf{XGAP} is loaded. It takes a graphic poset as input and returns the indices to the
+selected elements in the underlying poset of \mbox{\texttt{\mdseries\slshape graphic poset}}. }
 
  }
 
@@ -2641,7 +3121,8 @@ list. }
 relation): We say that a color graph \texttt{cgr1} is sub color isomorphic to another color graph \texttt{cgr2} if there is a fusion color graph \texttt{cgr3} of \texttt{cgr2} that is color isomorphic to \texttt{cgr1}. 
 
  Restricted to a set of mutually non color isomorphic color graphs, the
-relation of sub color isomorphism induces a partial order. \textsf{coco2p} is able to compute this induced order for lists of WL-stable color graphs. 
+relation of sub color isomorphism induces a partial order. \textsf{coco2p} is able to compute this induced order for lists of
+WL\texttt{\symbol{45}}stable color graphs. 
 
 \subsection{\textcolor{Chapter }{OrbitsOfColorIsomorphicFusions}}
 \logpage{[ 4, 3, 1 ]}\nobreak
@@ -2654,7 +3135,8 @@ relation of sub color isomorphism induces a partial order. \textsf{coco2p} is ab
  This function returns a list of all fusion orbits under the color automorphism
 group of \mbox{\texttt{\mdseries\slshape cgr1}} whose representatives induce a color graph that is color isomorphic to \mbox{\texttt{\mdseries\slshape cgr2}}. 
 
- At the moment this function is implemented only for WL-stable color graphs \mbox{\texttt{\mdseries\slshape cgr1}} and \mbox{\texttt{\mdseries\slshape cgr2}}. }
+ At the moment this function is implemented only for
+WL\texttt{\symbol{45}}stable color graphs \mbox{\texttt{\mdseries\slshape cgr1}} and homogeneous WL\texttt{\symbol{45}}stable homogeneous \mbox{\texttt{\mdseries\slshape cgr2}}. }
 
  
 
@@ -2666,8 +3148,8 @@ group of \mbox{\texttt{\mdseries\slshape cgr1}} whose representatives induce a c
 }\hfill{\scriptsize (function)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape cgrlist}} is a list of WL-stable color graphs all of the same order and no two of them
-color isomorphic. The function returns a \textsf{coco2p}-poset of \mbox{\texttt{\mdseries\slshape cgrlist}} ordered by sub color isomorphism. }
+ \mbox{\texttt{\mdseries\slshape cgrlist}} is a list of WL\texttt{\symbol{45}}stable color graphs all of the same order
+and no two of them color isomorphic. The function returns a \textsf{coco2p}\texttt{\symbol{45}}poset of \mbox{\texttt{\mdseries\slshape cgrlist}} ordered by sub color isomorphism. }
 
  
 
@@ -2679,16 +3161,16 @@ color isomorphic. The function returns a \textsf{coco2p}-poset of \mbox{\texttt{
 }\hfill{\scriptsize (method)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape poset}} is a \textsf{coco2p}-poset of colored graphs. This function creates a graphical representation of
-this poset. The labels of the nodes of the graphical poset correspond to the
-indices in the given poset. When invoked from \textsf{XGAP}, the context-menu of each node gives additional information about the node.
-If for some node it is known whether the underlying color graph is surian or
-not, then this is made visible in the graphical poset. Nodes for which it is
-not known whether the cgr is Schurian, are represented by squares. Schurian
-nodes are represented by circles, and non-Schurian nodes are represented by
-diamonds. 
+ \mbox{\texttt{\mdseries\slshape poset}} is a \textsf{coco2p}\texttt{\symbol{45}}poset of colored graphs. This function creates a graphical
+representation of this poset. The labels of the nodes of the graphical poset
+correspond to the indices in the given poset. When invoked from \textsf{XGAP}, the context\texttt{\symbol{45}}menu of each node gives additional
+information about the node. If for some node it is known whether the
+underlying color graph is surian or not, then this is made visible in the
+graphical poset. Nodes for which it is not known whether the cgr is Schurian,
+are represented by squares. Schurian nodes are represented by circles, and
+non\texttt{\symbol{45}}Schurian nodes are represented by diamonds. 
 
- This function is available only from \textsf{XGAP} or within \textsf{Jupyter-GAP} when the package \textsf{Francy} was loaded before \textsf{coco2p}. 
+ This function is available only from \textsf{XGAP} or within \textsf{Jupyter\texttt{\symbol{45}}GAP} when the package \textsf{Francy} was loaded before \textsf{coco2p}. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@lcgr:=AllAssociationSchemes(15);|
   [ AS(15,1), AS(15,2), AS(15,3), AS(15,4), AS(15,5), AS(15,6), AS(15,7),
@@ -2717,11 +3199,13 @@ diamonds.
 \hyperdef{L}{X7DFB63A97E67C0A1}{}
 {
   Color semirings are an experimental feature that give an alternate interface
-to WL-stable color graphs, in the style of \cite{Zie96} and \cite{Zie05}. 
+to WL\texttt{\symbol{45}}stable color graphs, in the style of \cite{Zie96} and \cite{Zie05}. 
 
  In the center stands the observation that the complexes (i.e., subsets of
-colors) of WL-stable color graphs can be endowed with a multiplication: Let $\Gamma=(V,C,f)$ be a WL-stable color graph with structure constants tensor $T$, and let $M,N$ be subsets of the color set $C$. Then the product $M \cdot N$ is defined as the set of all colors $k$ such that there exists $i\in M$, and $j\in N$ such that $T(i,j,k)>0$. It is not hard to see that this operation is associative and that the set $I$ of all reflexive colors is a neutral element. Moreover, this product-operation
-is distributive over the operation of union of complexes. Thus $(P(C), \cup, \cdot, \emptyset, I)$ forms a so-called semiring (cf. \cite{Gol99}, \cite{wiki:semiring}). 
+colors) of WL\texttt{\symbol{45}}stable color graphs can be endowed with a
+multiplication: Let $\Gamma=(V,C,f)$ be a WL\texttt{\symbol{45}}stable color graph with structure constants tensor $T$, and let $M,N$ be subsets of the color set $C$. Then the product $M \cdot N$ is defined as the set of all colors $k$ such that there exists $i\in M$, and $j\in N$ such that $T(i,j,k)>0$. It is not hard to see that this operation is associative and that the set $I$ of all reflexive colors is a neutral element. Moreover, this
+product\texttt{\symbol{45}}operation is distributive over the operation of
+union of complexes. Thus $(P(C), \cup, \cdot, \emptyset, I)$ forms a so\texttt{\symbol{45}}called semiring (cf. \cite{Gol99}, \cite{wiki:semiring}). 
 
  The color semiring of $\Gamma$ acts naturally on the powerset $P(V)$ of the vertex set of $\Gamma$ from the left and from the right. Let $C$ be an element of the color semiring, and let $M$ be a set of vertices of $\Gamma$. Then 
 \[ C \cdot M := \{ v\in V \mid \exists w \in M : f(v,w) \in C\}, \]
@@ -2729,14 +3213,14 @@ is distributive over the operation of union of complexes. Thus $(P(C), \cup, \cd
 \[ M \cdot C := \{ w\in V \mid \exists v \in M : f(v,w) \in C\}. \]
  
 
- \textsf{GAP} has one operation symbold \texttt{+} for addition-like operations and one operation symbol \texttt{*} for multiplication-like operations. Thus in color semirings, the operation of
-union of complexes is denoted by \texttt{+}, and the operation of the product of complexes is denoted by \texttt{*}. 
+ \textsf{GAP} has one operation symbold \texttt{+} for addition\texttt{\symbol{45}}like operations and one operation symbol \texttt{*} for multiplication\texttt{\symbol{45}}like operations. Thus in color
+semirings, the operation of union of complexes is denoted by \texttt{+}, and the operation of the product of complexes is denoted by \texttt{*}. 
 
  Since in \textsf{coco2p} both, colors and vertices of a color graph are represented by positive
 integers, in order to distinguish complexes of colors and subsets of vertices,
 one of the two has to get its own type. The elements of color semirings (i.e.,
 complexes of colors) all belong to the category \texttt{IsElementOfColorSemiring}. On the other hand, sets of vertices are simple sets of positive integers (no
-special category is created for them). In the \textsf{GAP}-output, complexes are denoted like \texttt{{\textless}[ a,b,c ]{\textgreater}}. The conversion of sets of colors to complexes is handled by the function \texttt{AsElementOfColorSemiring} (\ref{AsElementOfColorSemiring}), while the conversion of a complex to a set is done by the function \texttt{AsSet} (\textbf{Reference: AsSet}). 
+special category is created for them). In the \textsf{GAP}\texttt{\symbol{45}}output, complexes are denoted like \texttt{{\textless}[ a,b,c ]{\textgreater}}. The conversion of sets of colors to complexes is handled by the function \texttt{AsElementOfColorSemiring} (\ref{AsElementOfColorSemiring}), while the conversion of a complex to a set is done by the function \texttt{AsSet} (\textbf{Reference: AsSet}). 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=JohnsonScheme(6,3);|
   <color graph of order 20 and rank 4>
@@ -2799,8 +3283,8 @@ multiplication is distributive over the addition.
 }\hfill{\scriptsize (function)}}\\
 
 
- \mbox{\texttt{\mdseries\slshape cgr}} is a WL-stable color graph. The function returns an object, representing the
-color semiring of \mbox{\texttt{\mdseries\slshape cgr}} 
+ \mbox{\texttt{\mdseries\slshape cgr}} is a WL\texttt{\symbol{45}}stable color graph. The function returns an object,
+representing the color semiring of \mbox{\texttt{\mdseries\slshape cgr}} 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@cgr:=JohnsonScheme(6,3);|
   <color graph of order 20 and rank 4>

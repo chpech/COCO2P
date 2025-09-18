@@ -177,9 +177,8 @@ SetInfoLevel(InfoPbag,0);
 
 InstallGlobalFunction(ShallowCopyPbagObject,
 function(object)
-    local rf,newobj,i;
+    local newobj,i;
 
-    rf:=RecNames(object);
     newobj:=ShallowCopy(object);
     newobj.fvc:=ShallowCopy(object.fvc);
     newobj.fcv:=List(newobj.fcv, ShallowCopy);
@@ -743,8 +742,8 @@ end);
 InstallGlobalFunction(AutGroupOfPbagObject,
 function(object, H, TInv)
     local t,s,h;
-    PbagInitialize();
-    t:=ShallowCopyPbagObject(object);
+    PbagInitialize();                                       # flush the cache
+    t:=ShallowCopyPbagObject(object);  
     PbagFindAutGroup(t,TInv,1);
     ReduceStabChain(t.stabChain);
     # return StbcGroup(CopyStabChain(t.stabChain));

@@ -119,6 +119,23 @@ StringCocoMerging@:=function(mrg)
     return res;
 end;
 
+StringCocoList@:=function(s)
+    local str,res,i;
+    res:="";
+    str:=OutputTextString(res,true);
+    SetPrintFormattingStatus(str,false);
+
+    for i in [1..Length(s)] do
+        PrintTo(str,s[i]);
+        if i<Length(s) then
+            PrintTo(str,",");
+        fi;
+    od;
+    CloseStream(str);
+    return res;
+end;
+
+
 TodayString@:=function()
     local  path, date, stdin, res, str, dir,v;
     path:=DirectoriesSystemPrograms();;

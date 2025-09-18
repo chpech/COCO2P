@@ -11,5 +11,5 @@
 
 
 DeclareCategory("IsSubColorIsomorphismPoset", IsCocoPoset);
-DeclareOperation( "OrbitsOfColorIsomorphicFusions", [IsColorGraph, IsColorGraph] );   # was ColorIsomorphicFusions
-DeclareGlobalFunction( "SubColorIsomorphismPoset" );
+DeclareOperation( "OrbitsOfColorIsomorphicFusions", [IsColorGraph, IsColorGraph] ); ## documented
+DeclareGlobalFunction( "SubColorIsomorphismPoset" ); ## documented

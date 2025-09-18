@@ -10,7 +10,7 @@
 <Book Name="coco2p">
   <TitlePage>
     <Title>The  &COCO; Package</Title>
-    <Version>Version 0.17</Version>
+    <Version>Version 0.21</Version>
     <Author>Mikhail Klin
     <Email>klin@math.bgu.ac.il
     </Email>
@@ -21,7 +21,7 @@
     <Author>Sven Reichard
     <Email>sven.reichard@tu-dresden.de</Email>
     </Author>
-    <Copyright>  &copyright; 2012, 2014, 2018, 2019, 2020 by the authors<P/>
+    <Copyright>  &copyright; 2012, 2014, 2018, 2019, 2020, 2025 by the authors<P/>
     This package may be distributed under the terms and conditions of the
     GNU Public License Version v3.0 or higher.
     </Copyright>
@@ -116,9 +116,9 @@ gap> cgr := ColorGraphByOrbitals(d7, [1]);
 	    </Example>
 	    <P/>
 	    The optional fourth argument <A>completeDom</A> is a
-	    boolean. If it is <K>True</K>, then the function
+	    boolean. If it is <K>true</K>, then the function
 	    assumes that <A>domain</A> is closed under <A>action</A>
-	    of <A>grp</A>. This has the effect, that the function dows
+	    of <A>grp</A>. This has the effect, that the function does
 	    not try to complete it. The effect is that in the
 	    resulting color graph it is guaranteed that the vertex
 	    with number <C>i</C> corresponds exactly to
@@ -337,9 +337,7 @@ rec( k := 120, lambda := 56, mu := 56, r := 8, s := -8, v := 256 )]]>
 	  <Func Name="IvanovColorGraph" Arg="m"/>
       <Description>
           This function generates a series  of color graphs described in
-          <Cite Key="Iva94"/>. These color graphs may be used to construct
-          <M>3</M>-isoregular strongly
-          regular graphs with the <M>5</M>-vertex condition. These color graphs
+          <Cite Key="Iva94"/>.  These color graphs
           are interesting because they may be used to construct
           <M>3</M>-isoregular strongly regular graphs with the <M>5</M>-vertex
           condition.  The vertex set of  <C>IvanovColorGraph(m)</C> is
@@ -377,7 +375,7 @@ rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )]]>
 	    <URL>http://math.shinshu-u.ac.jp/~hanaki/as/</URL> (further
 	    refered to as the Japanese catalogue)
 	    <P/>
-	    This function used to download the list of small association
+	    This function used to download the list of small non-thin association
 	    schemes of order <A>n</A>. Then it converted them to the
 	    internal format of &COCO; and returned the resulting
 	    list. As
@@ -392,19 +390,102 @@ rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Func Name="SmallAssociationScheme" Arg="n,k"/>
+	  <Description>
+	    This function returns the association scheme
+	    <C>AS(n,k)</C> from the japanese catalogue. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="NumberAssociationSchemes" Arg="n"/>
+	  <Description>
+	    This function returns the number of non-thin association
+	    schemes of order <A>n</A>. If the Japanese catalogue does
+	    not contain the list of all such association schemes, then
+	    <C>fail</C> is returned.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="SmallAssociationSchemesAvailable" Arg="[n]"/>
+	  <Description>
+	    When called without arguments, this function returns a list
+	    of orders for which the Japanese catalogue contains all
+	    non-thin association schemes.
+	    <P/>
+	    When called with argument
+	    <A>n</A>, it returns <C>true</C> if the Japanese catalogue contains
+	    all non-thin association schemes of order <M>n</M>,
+	    otherwise <C>false</C>.
+	  </Description>
+	</ManSection>
+	<ManSection>
 	  <Func Name="AllCoherentConfigurations" Arg="n"/>
 	  <Description>
 	    This function creates an interface to the database of
-	    small coherent configurations on at most 15 vertices by Matan Ziv-Av
+	    small coherent configurations on at most <M>15</M> vertices by Matan Ziv-Av
 
-	    This function downloads the list of small coherent
-	    configurations of order
-	    <A>n</A>. Then it converts them to the
-	    internal format of &COCO; and returns the resulting
-	    list. Every color graph has a name of the shape
-	    <C>CC(n,k)</C> where <C>k</C> is the index of the scheme
-	    in the list of schemes of order <A>n</A> in Matan's
+	    This function returns the list of all coherent
+	    configurations of degree downloads the list of small coherent
+	    configurations of order <A>n</A>. Every color graph has a name of the shape
+	    <C>CC(n,k)</C> where <C>k</C> is the index of the graph
+	    in the list of coherent configurations of degree <A>n</A> in Matan's
 	    catalogue.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="SmallCoherentConfiguration" Arg="n,k"/>
+	  <Description>
+	    This function returns the coherent configuration 
+	    <C>CC(n,k)</C> from the catalogue of small coherent
+	    configurations. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="NumberCoherentConfigurations" Arg="n"/>
+	  <Description>
+	    This function returns the number of coherent configurations
+	    schemes of degree <A>n</A>. If the catalogue of small
+	    coherent configurations does
+	    not contain the list of all such CCs, then
+	    <C>fail</C> is returned.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Func Name="SmallCoherentConfigurationsAvailable" Arg="[n]"/>
+	  <Description>
+	    When called without arguments, this function returns a list
+	    of degrees for which the catalogue of small coherent
+	    configurations contains all
+	    CCs.
+	    <P/>
+	    When called with argument
+	    <A>n</A>, it returns <C>true</C> if the catalogue of small
+	    coherent configurations contains
+	    all CCs of degree <M>n</M>,
+	    otherwise <C>false</C>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="IdentificationOfColorGraph" Arg="cgr"/>
+	  <Description>
+	    In the current implementation the function expects a
+	    WL-stable color graph <A>cgr</A>. It tries first to
+	    identify <A>cgr</A> in the japanese catalogue. If
+	    successful, it returns a name of the shape
+	    <C>"AS(n,k)"</C>.
+	    <P/>
+	    If <A>cgr</A> is not in the japanese
+	    catalogue, it is searched for in Matan's catalogue of
+	    small coherent configurations. If it is found there, a
+	    name of the shape <C>"CC(n,k)"</C> is returned.
+	    <P/>
+	    In both cases <M>n</M> refers to the order of <A>cgr</A>
+	    and <M>k</M> refers to the index in the list of
+	    association schemes or coherent configurations of order
+	    <M>n</M>, respectively.
+	    <P/>
+	    If <A>cgr</A> is in neither of the catalogues, the string
+	    <C>"unknown"</C> is returned.
 	  </Description>
 	</ManSection>
       </Section>
@@ -427,8 +508,8 @@ rec( k := 495, lambda := 238, mu := 240, r := 15, s := -17, v := 1024 )]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Oper Name="VertexNamesOfColorGraph" Arg="cgr"/>
 	  <Oper Name="VertexNamesOfCocoObject" Arg="cgr" Label="for color graphs"/>
-      <Oper Name="VertexNamesOfColorGraph" Arg="cgr" Label="for color graphs"/>
 	  <Description>
 	    Returns the list of names of the vertices of
 	    <A>cgr</A>. Unfortunately, the more elegant  name
@@ -489,8 +570,8 @@ gap> ArcColorOfColorGraph(cgr,[2,9]);
 	<ManSection>
 	  <Meth Name="Neighbors" Arg="cgr,vertices,colors" Label="first variant"/>
 	  <Meth Name="Neighbors" Arg="cgr,v,colors" Label="second variant"/>
-      <Meth Name="Neighbors" Arg="cgr,vertices,color" Label="third variant"/>
-      <Meth Name="Neighbors" Arg="cgr,v,color" Label="fourth variant"/>
+	  <Meth Name="Neighbors" Arg="cgr,vertices,color" Label="third variant"/>
+	  <Meth Name="Neighbors" Arg="cgr,v,color" Label="fourth variant"/>
 	  <Description>
 	    The first variant returns the set of all vertices <M>w</M>
 	    of <A>cgr</A> such that the color of the arc <M>(v,w)</M>
@@ -907,12 +988,21 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Prop Name="IsRegularColorGraph" Arg="cgr"/>
+	  <Description>
+	    A color graph is called <E>regular</E> if for every color
+	    <M>c</M> there is a number <M>n_c</M> such that for every
+	    vertex <M>v</M> the set of arcs of color <M>c</M> starting
+	    at <M>v</M> has size <M>n_c</M>. The function tests
+	    this property for <A>cgr</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
 	  <Prop Name="IsHomogeneous" Arg="cgr"/>
 	  <Description>
-	    A color graph is homogeneous if it has just one fibre. For
+	    A color graph is homogeneous if all loops are of the same color. For
 	    a WL-stable color graph this means that it has just one
-	    reflexive color. For a WL-stable color graph this means
-	    that it correspond to an association scheme.
+	    reflexive color, in other words, it is an association scheme.
 	    <Example>
 <![CDATA[gap> e8:=ElementaryAbelianGroup(8);
 <pc group of size 8 with 3 generators>
@@ -955,9 +1045,7 @@ gap> lcgr:=Filtered(lcgr, x->not IsSchurian(x));
 	</ManSection>
 	<ManSection>
 	  <Prop Name="IsPrimitiveColorGraph" Arg="cgr" Label="for WL-stable color graphs"/>
-	  <Meth Name="IsPrimitive"
-		Arg="cgr"
-		Label="for WL-stable color graphs"/>
+	  <Meth Name="IsPrimitive" Arg="cgr" Label="for WL-stable color graphs"/>
 	  <Description>
 	    A WL-stable color graph is primitive if all its
 	    loopless base graphs are strongly connected (cf. <Ref
@@ -980,7 +1068,54 @@ true]]>
 	    </Example>
 	  </Description>
 	</ManSection>
-      </Section>
+	<ManSection>
+	  <Prop Name="IsMetricColorGraph" Arg="cgr"/>
+	  <Description>
+	    This function returns true if the color graph <A>cgr</A>
+	    is metric.
+	    <P/>
+	    If <A>cgr</A> is a color graph of rank <M>r</M>, then
+	    <A>cgr</A> is called <E>metric</E> if for <M>i \in
+	    \{1,\dots,r\}</M> the graph
+	    <C>BaseGraphOfColorGraph(cgr,i)</C> is distance regular of
+	    diameter <M>r-1</M>.
+	    <P/>
+	    Metric color graphs are also known under the name
+	    <E>metric association schemes</E> or <E>P-polynomial
+	    association schemes</E>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Prop Name="IsCoMetricColorGraph" Arg="cgr"/>
+	  <Description>
+	    This function returns true if the color graph <A>cgr</A>
+	    is cometric.
+	    <P/>
+	    If <A>cgr</A> is a color graph of rank <M>r</M>, then
+	    <A>cgr</A> is called <E>cometric</E> its adjaceny algebra
+	    is commutative and if its primitive idempotents (wrt
+	    matrix multiplication) has a cometric ordering.
+	    <P/>
+	    cometric color graphs are also known under the name 
+	    <E>cometric association schemes</E> or <E>Q-polynomial
+	    association schemes</E>. See <Cite Key="Del73"/> for a
+	    precise definition of this property.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Prop Name="IsAmorphicColorGraph" Arg="cgr"/>
+	  <Description>
+	    This function returns true if the color graph <A>cgr</A>
+	    is amorphic.
+	    <P/>
+	    <A>cgr</A> is called <E>amorphic</E> if each of its
+	    fusion-color graphs is WL-stable. In particular, if
+	    <A>cgr</A> is amorphic, then it is undirected, WL-stable,
+	    and each of its basic graphs is strongly regular. See
+	    <Cite Key="FarKliMuz94"/> for more details.
+	  </Description>
+	</ManSection>
+	</Section>
       <Section>
 	<Heading>Symmetries of color graphs</Heading>
 	<ManSection>
@@ -991,16 +1126,16 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Attr Name="AutGroupOfCocoObject" Arg="cgr" Label="for color graphs"/>
 	  <Meth Name="AutomorphismGroup" Arg="cgr" Label="for color graphs"/>
+	  <Attr Name="AutGroupOfCocoObject" Arg="cgr" Label="for color graphs"/>
 	  <Description>
 	    Returns the group of all permutations of the vertices of
 	    <A>cgr</A> that preserve the color of all arcs.
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Oper Name="IsAutomorphismOfColorGraph" Arg="cgr, perm"/>
 	  <Oper Name="IsAutomorphismOfObject" Arg="cgr, perm" Label="for color graphs"/>
-      <Oper Name="IsAutomorphismOfColorGraph" Arg="cgr, perm" Label="for color graphs"/>
 	  <Description>
 	    Returns <C>true</C>, if <A>perm</A> is an automorphism of
 	    <A>cgr</A>. In that case &COCO; adds <A>perm</A> to the
@@ -1008,8 +1143,8 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Oper Name="IsomorphismColorGraphs" Arg="cgr1,cgr2"/>
 	  <Oper Name="IsomorphismCocoObjects" Arg="cgr1,cgr2" Label="for color graphs"/>
-      <Oper Name="IsomorphismColorGraphs" Arg="cgr1,cgr2" Label="for color graphs"/>
 	  <Description>
 	    An isomorphism from <A>cgr1</A> to <A>cgr2</A> is a bijection between
 	    the vertex sets that preserves the color of arcs
@@ -1021,8 +1156,8 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Oper Name="IsIsomorphicColorGraph" Arg="cgr1,cgr2"/>
 	  <Oper Name="IsIsomorphicCocoObject" Arg="cgr1,cgr2" Label="for color graphs"/>
-      <Oper Name="IsIsomorphicColorGraph" Arg="cgr1,cgr2" Label="for color graphs"/>
 	  <Description>
 	    Returns <C>true</C> if <A>cgr1</A> and <A>cgr2</A> are
 	    isomorphic, and <C>false</C> otherwise (cf. <Ref
@@ -1031,8 +1166,8 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsIsomorphismOfObjects" Arg="cgr1,cgr2,g"	Label="for color graphs"/>
-      <Oper Name="IsIsomorphismOfColorGraphs" Arg="cgr1,cgr2,g"    Label="for color graphs"/>
+	  <Oper Name="IsIsomorphismOfColorGraphs" Arg="cgr1,cgr2,g"/>
+	  <Oper Name="IsIsomorphismOfObjects" Arg="cgr1,cgr2,g" Label="for color graphs"/>
 	  <Description>
 	    Returns <C>true</C> if <A>g</A> is an isomorphism fro
 	    <A>cgr1</A> to <A>cgr2</A>, and <C>false</C> otherwise (cf. <Ref
@@ -1112,7 +1247,7 @@ true]]>
 	</ManSection>
 	<ManSection>
 	  <Oper Name="IsColorIsomorphismOfColorGraphs"
-		Arg="cgr1,cgr2,g,h" Label="for color graphs"/>
+		Arg="cgr1,cgr2,g,h"/>
 	  <Oper Name="IsColorIsomorphismOfColorGraphs"
 		Arg="cgr1,cgr2,[g,h]"/>
 	  <Description>
@@ -1163,12 +1298,33 @@ true]]>
 	</ManSection>
 	<ManSection>
 	  <Attr Name="AlgebraicAutomorphismGroup" Arg="cgr"/>
+	  <Attr Name="AAut" Arg="cgr"/>
 	  <Description>
 	    The algebraic automorphism group of a WL-stable color
 	    graph is nothing but the automorphism group of its tensor
 	    of structure constants. The color automorphism group in
 	    its action on colors forms a subgroups of the algebraic
-	    automorphism group.
+	    automorphism group. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="Display" Arg="cgr" Label="for WL-stable color graphs"/>
+	  <Description>
+	    This function ceates an overview of interesting data
+	    concerning <A>cgr</A> and prints on the screen. If invoked
+	    with the option <C>:long</C>, this information is
+	    expanded, e.g., 
+	    by the generating sets of the automorphism group and the
+	    algebraic automorphism group of <A>cgr</A>.
+	    <P/>
+	    Another option is <C>:fvc</C>. This is meant for the case
+	    that cgr is symmetric and of rank <M>3</M>. In this case
+	    it adds information about the four-vertex condition (this
+	    option may disappear in the future).
+	    <P/>
+	    <C>Display</C> may also be called for non WL-stable color
+	    graphs. However, in this case it just displays the
+	    adjacency matrix of <A>cgr</A>.
 	  </Description>
 	</ManSection>
       </Section>
@@ -1223,8 +1379,8 @@ true]]>
 	<Heading>Functions for the inspection of tensors</Heading>
 	<ManSection>
 	  <Attr Name="OrderOfTensor" Arg="tensor"/>
-	  <Attr Name="OrderOfCocoObject" Arg="tensor" Label="for tensors"/>
-	  <Attr Name="Order" Arg="tensor" Label="for tensors"/>
+	  <Meth Name="OrderOfCocoObject" Arg="tensor" Label="for tensors"/>
+	  <Meth Name="Order" Arg="tensor" Label="for tensors"/>
 	  <Description>
 	    Returns the order of the tensor. If it is equal to
 	    <M>n</M> then this means that <A>tensor</A> is  an <M>n\times n
@@ -1232,8 +1388,8 @@ true]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Oper Name="VertexNamesOfTensor" Arg="tensor"/>
 	  <Oper Name="VertexNamesOfCocoObject" Arg="tensor" Label="for tensors"/>
-      <Oper Name="VertexNamesOfTensor" Arg="tensor" Label="for tensors"/>
 	  <Description>
 	    Returns the list of names of the vertices of
 	    <A>tensor</A>.
@@ -1242,7 +1398,9 @@ true]]>
 	<ManSection>
 	  <Oper Name="EntryOfTensor" Arg="tensor, i, j, k"/>
 	  <Description>
-   	    Returns the entry at index <M>(i,j,k)</M> of <A>tensor</A>.
+   	    Returns the entry at index <M>(i,j,k)</M> of
+	    <A>tensor</A>. A shorthand for
+	    <C>EntryOfTensor(tensor,i,j,k)</C> is <C>tensor[[i,j,k]]</C>.
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -1252,7 +1410,7 @@ true]]>
 	    If <A>tensor</A> is the structure constants tensor of the
 	    WL-stable color graph <C>cgr</C>, then
 	    <C>ReflexiveColors(tensor)</C> return the list of all
-	    reflexive colors of <C>cgr</C>.
+	    reflexive colors of <C>cgr</C>. 
 	    <Example>
 <![CDATA[gap> e8:=Action(e8,AsList(e8), OnRight);
 Group([ (1,2)(3,5)(4,6)(7,8), (1,3)(2,5)(4,7)(6,8), (1,4)(2,6)(3,7)(5,8) ])
@@ -1266,9 +1424,7 @@ gap> ReflexiveColors(T);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Attr Name="NumberOfFibres"
-		Arg="tensor"
-		Label="for structure constants tensors"/>
+	  <Attr Name="NumberOfFibres" Arg="tensor" Label="for structure constants tensors"/>
 	  <Description>
 	    Returns the number of reflexive colors of <A>tensor</A>.
 	  </Description>
@@ -1324,8 +1480,7 @@ gap> Fibres(cgr);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="StartBlock" Arg="tensor, i"
-		Label="for structure constants tensors"/>
+	  <Oper Name="StartBlock" Arg="tensor, i" Label="for structure constants tensors"/>
 	  <Description>
 	    If <A>tensor</A> is the structure constants tensor of the
 	    WL-stable color graph <C>cgr</C>, then in particular, the
@@ -1365,6 +1520,13 @@ gap> Fibres(cgr);
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Oper Name= "BlockOfTensor" Arg="tensor, a, b" Label="for structure constants tensors"/>
+	  <Description>
+	    Returns the set of all colors whose start block is
+	    <A>a</A> and whose finish block is <A>b</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
 	  <Oper Name="ClosedSets" Arg="tensor"/>
 	  <Description>
 	    A set <M>M</M> of vertices of <A>tensor</A> is called <E>closed</E>
@@ -1373,6 +1535,14 @@ gap> Fibres(cgr);
 	    <C>EntryOfTensor(tensor,i,j,k)</C> is non-zero.
 	    <P/>
 	    This function returns all closed sets of <A>tensor</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="IsClosedSet" Arg="tensor, set"/>
+	  <Description>
+	    <A>set</A> is a set of vertices of <A>tensor</A>. The
+	    operation returns <C>true</C> if <A>set</A> is a closed
+	    set of <A>tensor</A>, otherwise <C>false</C>.
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -1406,6 +1576,21 @@ gap> Fibres(cgr);
 	    that contains <A>set</A> (cf. <Ref Oper="ClosedSets"/>)
 	  </Description>
 	</ManSection>
+	<ManSection>
+	  <Oper Name="PPolynomialOrdering" Arg="tensor, i" Label="for structure constants tensors"/>
+	  <Description>
+	    Returns a P-polynomial ordering of the vertices of
+	    <A>tensor</A> whose second element is <A>i</A>, if such an
+	    ordering exists, and <C>fail</C> otherwise.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Oper Name="PPolynomialOrderings" Arg="tensor" Label="for structure constants tensors"/>
+	  <Description>
+	    Returns a list of all  P-polynomial orderings of the vertices of
+	    <A>tensor</A>.
+	  </Description>
+	</ManSection>
       </Section>
       <Section>
 	<Heading>
@@ -1431,12 +1616,23 @@ gap> Fibres(cgr);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Prop Name="IsHomogeneous"
-		Arg="tensor"
-		Label="for structure constants tensors"/>
+	  <Prop Name="IsHomogeneousTensor" Arg="tensor"/>
+	  <Meth Name="IsHomogeneous" Arg="tensor" Label="for structure constants tensors"/>
 	  <Description>
-	    Returns whether <A>tensor</A> has just one reflexive
-	    color.
+	    <A>tensor</A> has this property, if it has exactly one
+	    fibre. In other words, it has exactly one idempotent, that
+	    is, there exists exactly one <M>i</M>, such that
+	    <C>EntryOfTensor(tensor,i,i,i) = 1</C> and for all
+	    <M>k \neq i </M> holds <C>EntryOfTensor(tensor,i,i,k) = 0</C>. 
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Prop Name="IsPPolynomial" Arg="tensor"/>
+	  <Description>
+	    Returns <C>true</C> if <A>tensor</A> is the structure
+	    constants tensor of a metric color graph (or, in other
+	    words, a P-polynomial association scheme). Otherwise it
+	    returns <C>false</C>. 
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -1466,16 +1662,16 @@ gap> Fibres(cgr);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Attr Name="AutGroupOfCocoObject" Arg="tensor" Label="for tensors"/>
 	  <Meth Name="AutomorphismGroup" Arg="tensor" Label="for tensors"/>
+	  <Attr Name="AutGroupOfCocoObject" Arg="tensor" Label="for tensors"/>
 	  <Description>
 	    Returns the group of all automorphisms of
 	    <A>tensor</A>.
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Oper Name="IsAutomorphismOfTensor" Arg="tensor, perm"/>
 	  <Oper Name="IsAutomorphismOfObject" Arg="tensor, perm" Label="for tensors"/>
-      <Oper Name="IsAutomorphismOfTensor" Arg="tensor, perm" Label="for tensors"/>
 	  <Description>
 	    Returns <C>true</C>, if <A>perm</A> is an automorphism of
 	    <A>tensor</A>. In that case &COCO; adds <A>perm</A> to the
@@ -1483,8 +1679,8 @@ gap> Fibres(cgr);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsomorphismCocoObjects" Arg="tensor1,tensor2"	Label="for tensors"/>
-      <Oper Name="IsomorphismTensors" Arg="tensor1,tensor2"    Label="for tensors"/>
+	  <Oper Name="IsomorphismTensors" Arg="tensor1,tensor2"/>
+	  <Meth Name="IsomorphismCocoObjects" Arg="tensor1,tensor2" Label="for tensors"/>
 	  <Description>
 	    This operation returns an isomorphism from <A>tensor1</A>
 	    to <A>tensor2</A> if it exists, and <C>fail</C> if it does
@@ -1492,23 +1688,23 @@ gap> Fibres(cgr);
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsIsomorphicCocoObject" Arg="tensor1,tensor2"	Label="for tensors"/>
-      <Oper Name="IsIsomorphicTensor" Arg="tensor1,tensor2"    Label="for tensors"/>
+	  <Oper Name="IsIsomorphicTensor" Arg="tensor1,tensor2"/>
+	  <Meth Name="IsIsomorphicCocoObject" Arg="tensor1,tensor2" Label="for tensors"/>
 	  <Description>
 	    Returns <C>true</C> if <A>tensor1</A> and <A>tensor2</A> are
 	    isomorphic, and <C>false</C> otherwise.
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="IsIsomorphismOfObjects" Arg="tensor1,tensor2,g" Label="for tensors"/>
-      <Oper Name="IsIsomorphismOfTensors" Arg="tensor1,tensor2,g" Label="for tensors"/>
+	  <Oper Name="IsIsomorphismOfTensors" Arg="tensor1,tensor2,g"/>
+	  <Meth Name="IsIsomorphismOfObjects" Arg="tensor1,tensor2,g" Label="for tensors"/>
 	  <Description>
 	    Returns <C>true</C> if <A>g</A> is an isomorphism fro
 	    <A>tensor1</A> to <A>tensor2</A>, and <C>false</C> otherwise.
 	  </Description>
 	</ManSection>
-  </Section>
-  <Section>
+      </Section>
+      <Section>
 	<Heading>Character tables of structure constants
 	tensors</Heading>
 	The structure constants tensor of a WL-stable color graph encodes
@@ -1543,6 +1739,56 @@ gap> CharacterTable(T);
 rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
       [ 1, 3, -3, -1 ] ], multiplicities := [ 1, 9, 5, 5 ] )]]>
 	    </Example>
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="QPolynomialOrdering" Arg="tensor, i" Label="for commutative structure constants tensors"/>
+	  <Description>
+	    Returns a Q-polynomial ordering of <A>tensor</A> whose
+	    second entry is <A>i</A>, if such an ordering
+	    exists. Otherwise it returns <C>false</C>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="QPolynomialOrderings" Arg="tensor" Label="for commutative structure constants tensors"/>
+	  <Description>
+	    Returns a list of all Q-polynomial orderings of <A>tensor</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="IsQPolynomial" Arg="tensor" Label="for commutative structure constants tensors"/>
+	  <Description>
+	    Returns <C>true</C> if <A>tensor</A> is Q-polynomial and
+	    <C>false</C> otherwise.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="FirstEigenmatrix" Arg="tensor" Label="for commutative structure constants tensors"/>
+	  <Description>
+	    Returns the first eingenmatrix <M>P</M> of
+	    <A>tensor</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="SecondEigenmatrix" Arg="tensor" Label="for commutative structure constants tensors"/>
+	  <Description>
+	    Returns the second eingenmatrix <M>Q</M> of
+	    <A>tensor</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="TensorOfKreinNumbers" Arg="tensor" Label="for commutative structure constants tensors"/>
+	  <Description>
+	    Returns the tensor <M>(q_{i,j}^k)</M> of Krein-numbers of <A>tensor</A>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="IndexOfPrincipalCharacter" Arg="tensor" Label="for commutative structure constants tensors"/>
+	  <Description>
+	    The principal character of <A>tensor</A> maps every color
+	    <M>i</M> of <A>tensor</A> to the out-valency of its
+	    corresponding relation in the color graph of which
+	    <A>tensor</A> is the structure constants tensor.
 	  </Description>
 	</ManSection>
       </Section>
@@ -1603,9 +1849,16 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Oper Name="AsSet" Arg="gs" Label="for good sets"/>
+	  <Attr Name="AsSet" Arg="gs" Label="for good sets"/>
 	  <Description>
 	    Converts the good set object <A>gs</A> into a usual set.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="Length" Arg="gs" Label="for good sets"/>
+	  <Attr Name="Size" Arg="gs" Label="for good sets"/>
+	  <Description>
+	    Returns the number of elements of <A>gs</A>.
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -1634,30 +1887,47 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	color graphs of comparatively high rank, provided they have
 	many algebraic automorphisms.
 	<ManSection>
-	  <Attr Name="HomogeneousGoodSetOrbits"
+	  <Oper Name="HomogeneousGoodSetOrbits"
 		Arg="tensor"
 		Label="for structure constants tensors"/>
-	  <Meth Name="HomogeneousGoodSetOrbits"
+	  <Oper Name="HomogeneousGoodSetOrbits"
 		Arg="group,tensor,[mode]"
 		Label="for structure constants tensors, alternative"/>
 	  <Description>
-	    <A>group</A> is supposed to consist only of automorphisms
-	    of <A>tensor</A>. &COCO; learns new automorphisms by
-	    checking this property. If group is not given, then the
-	    full automorphism group of <A>tensor</A> is taken for
-	    <A>group</A>.
-	    <P/>
+	    Let <M>G</M> be the automorphism group of <A>tensor</A>.
 	    This function returns all
-	    <A>group</A>-orbits of homogeneous good sets.
+	    <M>G</M>-orbits of homogeneous good sets of <A>tensor</A>.
 	    <P/>
-	    If <A>mode</A> is equal to <C>"s"</C>, then only orbits of
-	    symmetric good sets are returned.
-	    If <A>mode</A> is equal to <C>"a"</C>, then only orbits of
-	    asymmetric good sets are returned.
+	    <C>HomogeneousGoodSetOrbits</C> recognizes the option <C>:sym</C>
+	    or <C>:prim</C>. With the former option it
+	    returns only orbits of symmetric good sets and with the
+	    latter option only orbits of primitive good sets. It is possible
+	    to combine these options to <C>:sym,prim</C>.
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="HomogeneousSymGoodSetOrbits"
+		Arg="tensor"
+		Label="for structure constants tensors"/>
+	  <Description>
+	    This function returns all orbits of orbits of symmetric
+	    good sets with respect to the automorphism group of
+	    <A>tensor</A>.  
+	  </Description>
+	</ManSection>
+	<ManSection>
+	  <Attr Name="HomogeneousASymGoodSetOrbits"
+		Arg="tensor"
+		Label="for structure constants tensors"/>
+	  <Description>
+	    This function returns all orbits of orbits of asymmetric
+	    good sets with respect to the automorphism group of
+	    <A>tensor</A>.  
 	  </Description>
 	</ManSection>
 	<ManSection>
 	  <Oper Name="GoodSetOrbit" Arg="group, gs[, stab]"/>
+	  <Oper Name="GoodSetOrbitNC" Arg="group, gs[, stab]"/>
 	  <Description>
 	    <A>gs</A> is a good set. <A>group</A> has to be a subgroup
 	    of the automorphism group of
@@ -1666,7 +1936,9 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	    <A>group</A>.
 	    <P/>
 	    The function constructs a &COCO;-orbit object of the
-	    setwise orbit of <A>gs</A> under <A>group</A>.
+	    setwise orbit of <A>gs</A> under <A>group</A>. In the
+	    second variant &COCO; makes no efforts to check the
+	    consistency of the input data.
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -1764,19 +2036,25 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
       </Section>
       <Section>
 	<Heading>Fusions</Heading>
-      <ManSection>
-	<Func Name="FusionFromPartition"
-	      Arg="tensor,part"
-	      Label="for structure constant tensors"/>
-	<Description>
-	  if <A>tensor</A> is the structure constants tensor of the
-	  WL-stable color graph <C>cgr</C>, and if <A>part</A> is a
-	  partition of the colors of <C>cgr</C> (a set of sets of
-	  colors), then this function returns a fusion-object, or
-	  <C>fail</C> if <A>part</A> is not a fusion of <C>cgr</C>.
-	</Description>
-      </ManSection>
-      <ManSection>
+	<ManSection>
+	  <Func Name="FusionFromPartition"
+		Arg="tensor,part"
+		Label="for structure constant tensors"/>
+	  <Func Name="FusionFromPartitionNC"
+		Arg="tensor,part"
+		Label="for structure constant tensors"/>
+	  <Description>
+	    If <A>tensor</A> is the structure constants tensor of the
+	    WL-stable color graph <C>cgr</C>, and if <A>part</A> is a
+	    partition of the colors of <C>cgr</C> (a set of sets of
+	    colors), then this function returns a fusion-object, or
+	    <C>fail</C> if <A>part</A> is not a fusion of <C>cgr</C>.
+	    <P/>
+	    The second variant <C>FusionFromPartitionNC</C> does not
+	    test whether <A>part</A> is a fusion of <C>cgr</C>.
+	  </Description>
+	</ManSection>
+	<ManSection>
 	  <Attr Name="AsPartition"
 		Arg="fusion"/>
 	  <Description>
@@ -1793,7 +2071,9 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	    <C>AsPartition(fusion)</C>, the resulting list of classes
 	    is sorted in short-lex order. This means that first it is
 	    sorted by cardinality of classes, and then the classes of
-	    equal size are sorted lexicographically.
+	    equal size are sorted lexicographically. It should be
+	    mentioned that the result of <C>PartitionOfFusion</C> is
+	    immutable.
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -1805,22 +2085,11 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	  </Description>
 	</ManSection>
 	<ManSection>
-	  <Attr Name="BaseOfFusion"
-		Arg="fusion"/>
-	  <Description>
-	    The base of a fusion is the smallest list of classes of
-	    <A>fusion</A> (in the short lex order) that generates
-	    <A>fusion</A> in the sense that there is no coarser stable
-	    fusion that contains the classes of the base.
-	    <P/>
-	    This function returns the base of <A>fusion</A> if &COCO;
-	    knows it. At the moment there is no method for computing
-	    the base.
-	  </Description>
-	</ManSection>
-	<ManSection>
 	  <Attr Name="RankOfFusion"
 		Arg="fusion"/>
+	  <Meth Name="Rank"
+		Arg="fusion"
+		Label="for fusions of structure constants tensors"/>
 	  <Description>
 	    returns the number of classes of <A>fusion</A>.
 	  </Description>
@@ -1828,6 +2097,9 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	<ManSection>
 	  <Attr Name="OrderOfFusion"
 		Arg="fusion"/>
+	  <Meth Name="Order"
+		Arg="fusion"
+		Label="for fusions of structure constant tensors"/>
 	  <Description>
 	    returns the order of the underlying tensor of <A>fusion</A>.
 	  </Description>
@@ -1837,7 +2109,7 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	<Heading> Orbits of fusions</Heading>
 	&COCO; implements a datatype for orbits of combinatorial
 	objects. This section describes the functions that deal with
-	orbits of stable fusion. For every orbit of fusions, only the
+	orbits of stable fusions. For every orbit of fusions, only the
 	smallest representative in the short-lex order and its
 	partition-wise stabilizer is saved. This allows to deal with fusions of
 	color graphs of comparatively high rank.
@@ -1869,6 +2141,11 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	    the color automorphism group of <A>cgr</A>. An orbit
 	    <M>o1</M> is below an orbit <M>o2</M> if every element of
 	    <M>o1</M> is coarser than some element <M>o2</M>.
+	    <P/>
+	    This function accepts the option <C>:runtime</C>. If it is
+	    given, then the time taken for the comutation of the poset
+	    is stored as an attribute of the resulting poset. When
+	    displaying this poset, the runtime becomes part of the output.
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -1880,10 +2157,10 @@ rec( characters := [ [ 1, 9, 9, 1 ], [ 1, -1, -1, 1 ], [ 1, -3, 3, -1 ],
 	    Label="for WL-stable color graphs" />. This
 	    function creates a graphical representation of this
 	    poset. The labels  of the nodes of the graphical poset
-	    correspond to the indices in the given poset.When invoked
+	    correspond to the indices in the given poset. When invoked
 	    in &XGAP;, the context-menu of each node gives additional information
 	    about the node. If for some node it is known whether the
-	    underlying color graph is surian or not, then this is made
+	    underlying color graph is Schurian or not, then this is made
 	    visible in the graphical poset. Nodes for which it is not
 	    known whether the cgr is Schurian, are represented by
 	    squares. Schurian nodes are represented by circles, and
@@ -1901,7 +2178,102 @@ gap> ]]>
 	  </Description>
 	</ManSection>
 	<ManSection>
+	  <Meth Name="Display"
+		Arg="poset"
+		Label="for posets of fusion orbits"/>
+	  <Description>
+	    This function prints information about a representative
+	    from each element of <A>poset</A>, together with information of how the
+	    elements are contained in eachother.
+	    <P/>
+	    This function recognizes a number of options:
+	    <List>
+	      <Mark><C>:filter:=func</C></Mark>
+	      <Item>
+		func is a
+		function which gets as argument a color graph and
+		returns <C>true</C> or <C>false</C>. If this option is
+		given, only those orbit-representatives <C>cgr</C> from
+		<A>poset</A> are displayed for which <C>func(cgr)</C>
+		returns <C>true</C>.
+	      </Item>
+	      <Mark><C>:nonschurian</C></Mark>
+	      <Item>
+		If this option is
+		given, only orbit representatives of non-Schurian color
+		graphs from <A>poset</A> are displayed.
+	      </Item>
+	      <Mark><C>:long</C></Mark>
+	      <Item>
+		If this option is given,
+		more information about symmetries of the 
+		representatives of the orbits in <A>poset</A>, like the generators of the
+		automorphism group, is added to the output.
+	      </Item>
+	      <Mark><C>:schurianfission</C></Mark>
+	      <Item>
+		If this option is
+		given, foe each element of <A>poset</A> the Schurian
+		fission of its representative is computed. In case that
+		this color graph is contained in any of the orbit from
+		<A>poset</A>, the index of this orbit is indicated in
+		the output.
+	      </Item>
+	      <Mark><C>:fvc</C></Mark>
+	      <Item>
+		The effect of this option is that for every orbit
+		representative that is corresponding to a strongly
+		regular graph, it is computed whether or not this
+		graph satisfies the four-vertex condition. In case
+		that this is true, the parameters
+		<M>(\alpha,\beta)</M> are added to the output.
+	      </Item>
+	      <Mark><C>:onlyfvc</C></Mark>
+	      <Item>
+		If this option is given, then only information of such 
+		orbit representatives is given that correspond to
+		strongly regular graphs with the four-vertex condition.
+	      </Item>
+	      <Mark><C>:cisomap</C></Mark>
+	      <Item>
+		If this option is given, then for each orbit
+		representative of <A>poset</A> the smallest index in
+		<A>poset</A> to a color isomorphic orbit representative is
+		computed and displayed.
+	      </Item>
+	      <Mark><C>:date</C></Mark>
+	      <Item>
+		When this option is given, then the
+		actual date is added to the
+		output.
+	      </Item>
+	      <Mark><C>:runtime</C></Mark>
+	      <Item>
+		If this option is given, then the time it took to
+		compute <A>poset</A> is added to the output (if this
+		time is known).
+	      </Item>
+	      <Mark><C>:strucexp:=n</C></Mark>
+	      <Item>
+		This option creates a heuristic condition whether or not the
+		structure description of some symetry-group should be
+		computed. The command <C>StructureDescription(group)</C>
+		tends to be slow whenever the exponent of 
+		prime-divisor of the order of <C>group</C> is
+		large. If the exponent of such a prime divisor is
+		greated than <C>n</C> then the structure description
+		of <C>group</C> is not computed. If the structure
+		description of <C>group</C> was known before, then it
+		is still displayed in the output.
+		<P/>
+		The standard value for <C>n</C> is <M>12</M>.
+	      </Item>
+	    </List>
+	  </Description>
+	</ManSection>
+	<ManSection>
 	  <Oper Name="FusionOrbit" Arg="group, fusion[, stab]"/>
+	  <Oper Name="FusionOrbitNC" Arg="group, fusion[, stab]"/>
 	  <Description>
 	    <A>fusion</A> is a fusion object. <A>group</A> has to be a subgroup
 	    of the automorphism group of
@@ -1911,6 +2283,9 @@ gap> ]]>
 	    <P/>
 	    The function constructs a &COCO;-orbit object of the
 	    partition-wise orbit of <A>fusion</A> under <A>group</A>.
+	    <P/>
+	    In the second variant no checks of consistency of the
+	    input parameters are done. 
 	  </Description>
 	</ManSection>
 	<ManSection>
@@ -2159,6 +2534,14 @@ gap> ]]>
 	    <A>poset</A> using &XGAP; or &FRANCY; under &JUPYTERGAP;.
 	  </Description>
 	</ManSection>
+	<ManSection>
+	  <Oper Name="SelectedElements" Arg="graphic poset"/>
+	  <Description>
+	    This operation is avaylable if &XGAP; is loaded. It takes
+	    a graphic poset as input and returns the indices to the
+	    selected elements in the underlying poset of <A>graphic poset</A>.
+	  </Description>
+	</ManSection>
       </Section>
       <Section>
 	<Heading>Posets of color graphs</Heading>
@@ -2183,7 +2566,9 @@ gap> ]]>
 	    <A>cgr2</A>.
 	    <P/>
 	    At the moment this function is implemented
-	    only for WL-stable color graphs <A>cgr1</A> and <A>cgr2</A>.
+	    only for WL-stable color graphs <A>cgr1</A> and
+	    homogeneous WL-stable
+	    homogeneous <A>cgr2</A>.
 	  </Description>
 	</ManSection>
 	<ManSection>

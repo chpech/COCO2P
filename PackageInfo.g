@@ -39,10 +39,10 @@ Subtitle := "Computations in Coherent Configurations",
 ##  See '?Extending: Version Numbers' in GAP help for an explanation
 ##  of valid version numbers. For an automatic package distribution update
 ##  you must provide a new version number even after small changes.
-Version := "0.20",
+Version := "0.21",
 ##  Release date of the current version in dd/mm/yyyy format.
 ##
-Date := "14/08/2024",
+Date := "17/04/2025",
 License := "GPL-3.0",
 ##  Optional: if the package manual uses GAPDoc, you may duplicate the
 ##  version and the release date as shown below to read them while building
@@ -169,8 +169,8 @@ Persons := [
     Email         := "cpech@freenet.de",
     WWWHome       := "https://www.researchgate.net/profile/Christian_Pech2",
     PostalAddress := "",
-    Place         := "Prague",
-    Institution   := "IMCAS"
+    Place         := "",
+    Institution   := ""
   ),
   rec(
     LastName      := "Reichard",

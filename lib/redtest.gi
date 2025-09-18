@@ -11,6 +11,9 @@
 #############################################################################
 
 
+
+
+
 # xS: The stabilizer chain of a group
 # M: a set of points
 # SM: a stabilizer chain of the set-stabilizer of M in xS
@@ -54,7 +57,8 @@ function(xS,SM,M,x)
        cands:=Filtered(cands, x->x[2]{[lev..len]}=sMM{[lev..len]} and x[3]<>());
        cands:=List(cands, x->x[3]);
        AddGeneratorsExtendSchreierTree(newSM,cands);
-       return newSM;
+       Assert(1,IsConsistentStabChain(newSM));
+       return CopyStabChain(newSM);
      fi;
      OI:=StbcEmptyOrbitInformation(S,max);
      for c in cands do
@@ -90,7 +94,6 @@ function(xS,SM,M,x)
        od;
      od;
      cands:=newcands;
-#     COCOPrint(Length(cands),"\n");
 
      if S.orbit[1]=sMM[lev] then
        S:=S.stabilizer;
@@ -99,7 +102,10 @@ function(xS,SM,M,x)
    cands:=Filtered(cands, x->x[3]<>());
    cands:=List(cands, x->x[3]);
    AddGeneratorsExtendSchreierTree(newSM,cands);
-   return newSM;
+   ReduceStabChain(newSM);
+   
+   Assert(1,IsConsistentStabChain(newSM));
+   return CopyStabChain(newSM);
 end);
 
 InstallGlobalFunction(CocoTwoSetOrbitRepresentatives,
@@ -131,26 +137,15 @@ function(G, bd)
     return res;
 end);
 
-
-# SetStabilizerStabChainOfCurrentSetOrbitRep:=function(sor)
-#     local iter;
-
-#     if not IsBound(sor!.iterator) then
-#         Error("There is no current set orbit representative (no iterator)!");
-#     fi;
-#     iter:=sor!.iterator;
-#     if iter!.depth=0 then
-#         Error("There is no current set orbit representative (iterator not active)!");
-#     fi;
-
-#     return StbcCopy(iter!.stack[iter!.depth].stabilizer);
-# end;
-
-
 SetCanonifiers:=function(xS,SM,M)
-    local   S,len,  m,  max,  cM,  cands,  lev,  newcands,  minSet,  c,
+    local   testMin,  S,  len,  m,  max,  cM,  cands,  lev,  newcands,  minSet,  c,
             cosReps,  OI,  orN,  y,  minoy,  h,  newSoN,  newN;
 
+    testMin:=ValueOption("failIfNotCanonical");
+    if testMin = fail then
+        testMin := false;
+    fi;
+    
     if xS.generators=[] then
         return [()];
     fi;
@@ -176,6 +171,10 @@ SetCanonifiers:=function(xS,SM,M)
             cosReps:=[];
             for c in cands do
                 if c[2]<minSet then
+                    if testMin then
+                        return fail;
+                    fi;
+                    
                     minSet:=c[2];
                     cosReps:=[c[3]];
                 elif c[2]=minSet then
@@ -206,6 +205,13 @@ SetCanonifiers:=function(xS,SM,M)
                         cM[lev]:=minoy;
                     fi;
 
+                    if testMin then
+                        
+                        if cM[lev] < M[lev] then
+                            return fail;
+                        fi;
+                    fi;
+                    
                     ChangeStabChain(S,[minoy]);
                     if S.orbit[1]=cM[lev] then
                         h:=InverseRepresentative(S,y);
@@ -233,88 +239,8 @@ SetCanonifiers:=function(xS,SM,M)
     return cosReps;
 end;
 
-IsCanonicalSetOrbitRep:=function(xS,SM,M)
-   local S, len, MM, sMM, newSM,max,cands,lev,newcands, minOrbRepsS,c,orN,minoy,h,newSoN,newN,OI,y,m;
-
-   if xS.generators=[] then
-      return CopyStabChain(SM);
-   fi;
-   S:=CopyStabChain(xS);
-   len:=Length(M);
-   ChangeStabChain(S,M);
-   newSM:=CopyStabChain(SM);
-   if M<>[] then
-      m:=Maximum(M);
-   else
-      m:=0;
-   fi;
-   max:=Maximum(StbcMaximumMovedPoint(S),m);
-   cands:=[[SM,M,()]];
-   for lev in [1..len] do
-     newcands:=[];
-     if S.generators=[] then
-       cands:=Filtered(cands, x->x[2]{[lev..len]}=M{[lev..len]} and x[3]<>());
-       cands:=List(cands, x->x[3]);
-       if cands<>[] then
-           if StbcIsTrivialStabChainNode(newSM) then
-               if M<>[] then
-                   StabChainForcePoint(newSM,M[1]);
-               else
-                   StabChainForcePoint(newSM,1);
-               fi;
-           fi;
-           AddGeneratorsExtendSchreierTree(newSM,cands);
-       fi;
 
 
-       return newSM;
-     fi;
-     OI:=StbcEmptyOrbitInformation(S,max);
-     for c in cands do
-       if c[1].generators<>[] then
-         orN:=StbcMinimalOrbitRepsCon(c[1],c[2]{[lev..len]},c[3]);
-       else
-         orN:=c[2]{[lev..len]};
-       fi;
-       for y in orN do
-         if not OI[3][y] then
-            ExtendOrbitInformation(OI,y);
-         fi;
-         minoy:=OI[4][y];
-         if minoy<M[lev] then
-             ChangeStabChain(S,[minoy]);
-             h:=InverseRepresentative(S,y);
-             return c[3]*h;
-         fi;
-         if minoy=M[lev] then
-           if S.orbit[1]=M[lev] then
-             h:=InverseRepresentative(S,y);
-           else
-             h:=();
-           fi;
-           newSoN:=CopyStabChain(c[1]);
-           newSoN:=StbcStabilizer(newSoN,y/c[3]);
-           newN:=OnSets(c[2],h);
-           if newN{[lev+1..len]}<M{[lev+1..len]} then
-             return c[3]*h;
-           fi;
-           Add(newcands,[newSoN,newN,c[3]*h]);
-         fi;
-       od;
-     od;
-     cands:=newcands;
-     if S.orbit[1]=M[lev] then
-       S:=S.stabilizer;
-     fi;
-   od;
-   cands:=Filtered(cands, x->x[3]<>());
-   cands:=List(cands, x->x[3]);
-   if cands<>[] then
-       AddGeneratorsExtendSchreierTree(newSM,cands);
-   fi;
-
-   return newSM;
-end;
 
 
 
@@ -353,7 +279,7 @@ SetsSetsReducibilityTestOneCard:=function(G,xGMM,MM,x)
         fi;
         for c in cands do
             if not IsTrivial(c[1]) then
-                orNN:=Filtered(c[2]{[lev..len]}, x->not IsPerm(IsCanonicalSetOrbitRep(Stbc(c[1]),Stbc(Stabilizer(c[1],x,OnSets)),x)));
+                orNN:=Filtered(c[2]{[lev..len]}, x->SetCanonifiers(Stbc(c[1]),Stbc(Stabilizer(c[1],x,OnSets)),x:failIfNotCanonical)<>fail);
             else
                 orNN:=c[2]{[lev..len]};
             fi;
@@ -424,7 +350,7 @@ SetsSetsCanonifiers:=function(G,GM,M)
             fi;
             for c in cands do
                 if not IsTrivial(c[1]) then
-                    orNN:=Filtered(c[2]{[lev..len]}, x->not IsPerm(IsCanonicalSetOrbitRep(Stbc(c[1]),Stbc(Stabilizer(c[1],x,OnSets)),x)));
+                    orNN:=Filtered(c[2]{[lev..len]}, x->SetCanonifiers(Stbc(c[1]),Stbc(Stabilizer(c[1],x,OnSets)),x:failIfNotCanonical)<>fail);
                 else
                     orNN:=c[2]{[lev..len]};
                 fi;
@@ -441,18 +367,11 @@ SetsSetsCanonifiers:=function(G,GM,M)
                             cMM[lev]:=minoy;
                         fi;
 
-
-                        #     return c[3]*minreps[1];
-                        # fi;
-                        # if minoy=sxMM[lev] then
                         h:=minreps[1];
 
                         newcandGroup:=c[1]^h;
                         newcandGroup:=Stabilizer(newcandGroup,minoy,OnSets);
                         newN:=OnSetsSets(c[2],h);
-                        #                    if newN{[lev+1..len]}<sxMM{[lev+1..len]} then
-                        #                        return c[3]*h;
-                        #                    fi;
                         Add(newcands,[newcandGroup,newN,c[3]*h]);
                     fi;
                 od;

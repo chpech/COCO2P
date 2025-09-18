@@ -49,17 +49,24 @@
   
   [1X3.2-2 AsSet[101X
   
-  [33X[1;0Y[29X[2XAsSet[102X( [3Xgs[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XAsSet[102X( [3Xgs[103X ) [32X attribute[133X
   
   [33X[0;0YConverts the good set object [3Xgs[103X into a usual set.[133X
   
-  [1X3.2-3 TensorOfGoodSet[101X
+  [1X3.2-3 Length[101X
+  
+  [33X[1;0Y[29X[2XLength[102X( [3Xgs[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XSize[102X( [3Xgs[103X ) [32X attribute[133X
+  
+  [33X[0;0YReturns the number of elements of [3Xgs[103X.[133X
+  
+  [1X3.2-4 TensorOfGoodSet[101X
   
   [33X[1;0Y[29X[2XTensorOfGoodSet[102X( [3Xgs[103X ) [32X operation[133X
   
   [33X[0;0YReturns the structure constants tensor over which the good set [3Xgs[103X is [21Xgood[121X.[133X
   
-  [1X3.2-4 PartitionOfGoodSet[101X
+  [1X3.2-5 PartitionOfGoodSet[101X
   
   [33X[1;0Y[29X[2XPartitionOfGoodSet[102X( [3Xgs[103X ) [32X operation[133X
   
@@ -78,51 +85,65 @@
   
   [1X3.3-1 HomogeneousGoodSetOrbits[101X
   
-  [33X[1;0Y[29X[2XHomogeneousGoodSetOrbits[102X( [3Xtensor[103X ) [32X attribute[133X
-  [33X[1;0Y[29X[2XHomogeneousGoodSetOrbits[102X( [3Xgroup[103X, [3Xtensor[103X[, [3Xmode[103X] ) [32X method[133X
+  [33X[1;0Y[29X[2XHomogeneousGoodSetOrbits[102X( [3Xtensor[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XHomogeneousGoodSetOrbits[102X( [3Xgroup[103X, [3Xtensor[103X[, [3Xmode[103X] ) [32X operation[133X
   
-  [33X[0;0Y[3Xgroup[103X  is supposed to consist only of automorphisms of [3Xtensor[103X. [5Xcoco2p[105X learns
-  new automorphisms by checking this property. If group is not given, then the
-  full automorphism group of [3Xtensor[103X is taken for [3Xgroup[103X.[133X
+  [33X[0;0YLet  [22XG[122X  be  the  automorphism  group  of  [3Xtensor[103X.  This function returns all
+  [22XG[122X-orbits of homogeneous good sets of [3Xtensor[103X.[133X
   
-  [33X[0;0YThis function returns all [3Xgroup[103X-orbits of homogeneous good sets.[133X
+  [33X[0;0Y[10XHomogeneousGoodSetOrbits[110X  recognizes  the  option  [10X:sym[110X  or  [10X:prim[110X. With the
+  former  option  it  returns  only orbits of symmetric good sets and with the
+  latter  option only orbits of primitive good sets. It is possible to combine
+  these options to [10X:sym,prim[110X.[133X
   
-  [33X[0;0YIf  [3Xmode[103X  is  equal  to  [10X"s"[110X,  then  only  orbits of symmetric good sets are
-  returned.  If [3Xmode[103X is equal to [10X"a"[110X, then only orbits of asymmetric good sets
-  are returned.[133X
+  [1X3.3-2 HomogeneousSymGoodSetOrbits[101X
   
-  [1X3.3-2 GoodSetOrbit[101X
+  [33X[1;0Y[29X[2XHomogeneousSymGoodSetOrbits[102X( [3Xtensor[103X ) [32X attribute[133X
+  
+  [33X[0;0YThis  function  returns  all  orbits  of  orbits of symmetric good sets with
+  respect to the automorphism group of [3Xtensor[103X.[133X
+  
+  [1X3.3-3 HomogeneousASymGoodSetOrbits[101X
+  
+  [33X[1;0Y[29X[2XHomogeneousASymGoodSetOrbits[102X( [3Xtensor[103X ) [32X attribute[133X
+  
+  [33X[0;0YThis  function  returns  all  orbits  of orbits of asymmetric good sets with
+  respect to the automorphism group of [3Xtensor[103X.[133X
+  
+  [1X3.3-4 GoodSetOrbit[101X
   
   [33X[1;0Y[29X[2XGoodSetOrbit[102X( [3Xgroup[103X, [3Xgs[103X[, [3Xstab[103X] ) [32X operation[133X
+  [33X[1;0Y[29X[2XGoodSetOrbitNC[102X( [3Xgroup[103X, [3Xgs[103X[, [3Xstab[103X] ) [32X operation[133X
   
   [33X[0;0Y[3Xgs[103X  is  a  good set. [3Xgroup[103X has to be a subgroup of the automorphism group of
   [10XTensorOfGoodSet(gs)[110X.  [3Xstab[103X (if given) has to be the full set-wise stabilizer
   of [3Xgs[103X in [3Xgroup[103X.[133X
   
   [33X[0;0YThe  function  constructs  a  [5Xcoco2p[105X-orbit object of the setwise orbit of [3Xgs[103X
-  under [3Xgroup[103X.[133X
+  under  [3Xgroup[103X.  In  the  second  variant [5Xcoco2p[105X makes no efforts to check the
+  consistency of the input data.[133X
   
-  [1X3.3-3 CanonicalRepresentativeOfCocoOrbit[101X
+  [1X3.3-5 CanonicalRepresentativeOfCocoOrbit[101X
   
   [33X[1;0Y[29X[2XCanonicalRepresentativeOfCocoOrbit[102X( [3Xgsorb[103X ) [32X operation[133X
   
   [33X[0;0YThis function returns the lexicographically smallest element of the orbit of
   good sets [3Xgsorb[103X.[133X
   
-  [1X3.3-4 Representative[101X
+  [1X3.3-6 Representative[101X
   
   [33X[1;0Y[29X[2XRepresentative[102X( [3Xgsorb[103X ) [32X operation[133X
   
   [33X[0;0YThis  function  returns  any element of the orbit of good sets [3Xgsorb[103X. At the
   moment it in fact returns the lexicographically smallest element.[133X
   
-  [1X3.3-5 UnderlyingGroupOfCocoOrbit[101X
+  [1X3.3-7 UnderlyingGroupOfCocoOrbit[101X
   
   [33X[1;0Y[29X[2XUnderlyingGroupOfCocoOrbit[102X( [3Xgsorb[103X ) [32X operation[133X
   
   [33X[0;0YThis function returns the group under which [3Xgsorb[103X is an orbit.[133X
   
-  [1X3.3-6 StabilizerOfCanonicalRepresentative[101X
+  [1X3.3-8 StabilizerOfCanonicalRepresentative[101X
   
   [33X[1;0Y[29X[2XStabilizerOfCanonicalRepresentative[102X( [3Xgsorb[103X ) [32X operation[133X
   
@@ -130,25 +151,25 @@
   [10XCanonicalRepresentativeOfCocoOrbit(gsorb)[110X                                 in
   [10XUnderlyingGroupOfCocoOrbit(gsorb)[110X.[133X
   
-  [1X3.3-7 Size[101X
+  [1X3.3-9 Size[101X
   
   [33X[1;0Y[29X[2XSize[102X( [3Xgsorb[103X ) [32X method[133X
   
   [33X[0;0Yreturns the size of [3Xgsorb[103X.[133X
   
-  [1X3.3-8 AsList[101X
+  [1X3.3-10 AsList[101X
   
   [33X[1;0Y[29X[2XAsList[102X( [3Xgsorb[103X ) [32X method[133X
   
   [33X[0;0Yexpands the [5Xcoco2p[105X-orbit object [3Xgsorb[103X into a list of good sets.[133X
   
-  [1X3.3-9 AsSet[101X
+  [1X3.3-11 AsSet[101X
   
   [33X[1;0Y[29X[2XAsSet[102X( [3Xgsorb[103X ) [32X method[133X
   
   [33X[0;0Yexpands the [5Xcoco2p[105X-orbit object [3Xgsorb[103X into a set of good sets.[133X
   
-  [1X3.3-10 SubOrbitsOfCocoOrbit[101X
+  [1X3.3-12 SubOrbitsOfCocoOrbit[101X
   
   [33X[1;0Y[29X[2XSubOrbitsOfCocoOrbit[102X( [3Xgroup[103X, [3Xgsorb[103X ) [32X operation[133X
   
@@ -156,7 +177,7 @@
   The given orbit splits into suborbits under this group. The function returns
   a list of these suborbits.[133X
   
-  [1X3.3-11 SubOrbitsWithInvariantPropertyOfCocoOrbit[101X
+  [1X3.3-13 SubOrbitsWithInvariantPropertyOfCocoOrbit[101X
   
   [33X[1;0Y[29X[2XSubOrbitsWithInvariantPropertyOfCocoOrbit[102X( [3Xgroup[103X, [3Xgsorb[103X, [3Xprop[103X ) [32X operation[133X
   
@@ -182,11 +203,15 @@
   [1X3.4-1 FusionFromPartition[101X
   
   [33X[1;0Y[29X[2XFusionFromPartition[102X( [3Xtensor[103X, [3Xpart[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XFusionFromPartitionNC[102X( [3Xtensor[103X, [3Xpart[103X ) [32X function[133X
   
-  [33X[0;0Yif  [3Xtensor[103X  is  the  structure constants tensor of the WL-stable color graph
+  [33X[0;0YIf  [3Xtensor[103X  is  the  structure constants tensor of the WL-stable color graph
   [10Xcgr[110X,  and  if  [3Xpart[103X  is  a  partition of the colors of [10Xcgr[110X (a set of sets of
   colors),  then this function returns a fusion-object, or [10Xfail[110X if [3Xpart[103X is not
   a fusion of [10Xcgr[110X.[133X
+  
+  [33X[0;0YThe  second  variant  [10XFusionFromPartitionNC[110X  does not test whether [3Xpart[103X is a
+  fusion of [10Xcgr[110X.[133X
   
   [1X3.4-2 AsPartition[101X
   
@@ -201,7 +226,8 @@
   [33X[0;0YConverts  the  fusion  object  [3Xfusion[103X into a list of sets. In contrast to te
   result  of  [10XAsPartition(fusion)[110X,  the resulting list of classes is sorted in
   short-lex  order.  This  means  that  first  it  is sorted by cardinality of
-  classes, and then the classes of equal size are sorted lexicographically.[133X
+  classes, and then the classes of equal size are sorted lexicographically. It
+  should be mentioned that the result of [10XPartitionOfFusion[110X is immutable.[133X
   
   [1X3.4-4 TensorOfFusion[101X
   
@@ -210,26 +236,17 @@
   [33X[0;0Yreturns  the  structure  constants tensor, over which the fusion [3Xfusion[103X is a
   stable fusion.[133X
   
-  [1X3.4-5 BaseOfFusion[101X
-  
-  [33X[1;0Y[29X[2XBaseOfFusion[102X( [3Xfusion[103X ) [32X attribute[133X
-  
-  [33X[0;0YThe base of a fusion is the smallest list of classes of [3Xfusion[103X (in the short
-  lex  order)  that  generates  [3Xfusion[103X  in  the sense that there is no coarser
-  stable fusion that contains the classes of the base.[133X
-  
-  [33X[0;0YThis  function  returns the base of [3Xfusion[103X if [5Xcoco2p[105X knows it. At the moment
-  there is no method for computing the base.[133X
-  
-  [1X3.4-6 RankOfFusion[101X
+  [1X3.4-5 RankOfFusion[101X
   
   [33X[1;0Y[29X[2XRankOfFusion[102X( [3Xfusion[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XRank[102X( [3Xfusion[103X ) [32X method[133X
   
   [33X[0;0Yreturns the number of classes of [3Xfusion[103X.[133X
   
-  [1X3.4-7 OrderOfFusion[101X
+  [1X3.4-6 OrderOfFusion[101X
   
   [33X[1;0Y[29X[2XOrderOfFusion[102X( [3Xfusion[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XOrder[102X( [3Xfusion[103X ) [32X method[133X
   
   [33X[0;0Yreturns the order of the underlying tensor of [3Xfusion[103X.[133X
   
@@ -237,7 +254,7 @@
   [1X3.5 [33X[0;0YOrbits of fusions[133X[101X
   
   [33X[0;0Y[5Xcoco2p[105X  implements  a  datatype  for  orbits  of combinatorial objects. This
-  section  describes the functions that deal with orbits of stable fusion. For
+  section describes the functions that deal with orbits of stable fusions. For
   every  orbit  of  fusions, only the smallest representative in the short-lex
   order  and  its partition-wise stabilizer is saved. This allows to deal with
   fusions of color graphs of comparatively high rank.[133X
@@ -262,6 +279,11 @@
   automorphism group of [3Xcgr[103X. An orbit [22Xo1[122X is below an orbit [22Xo2[122X if every element
   of [22Xo1[122X is coarser than some element [22Xo2[122X.[133X
   
+  [33X[0;0YThis  function  accepts  the  option [10X:runtime[110X. If it is given, then the time
+  taken  for  the  comutation  of  the  poset is stored as an attribute of the
+  resulting poset. When displaying this poset, the runtime becomes part of the
+  output.[133X
+  
   [1X3.5-3 GraphicCocoPoset[101X
   
   [33X[1;0Y[29X[2XGraphicCocoPoset[102X( [3Xposet[103X ) [32X method[133X
@@ -269,9 +291,9 @@
   [33X[0;0Y[3Xposet[103X   is   a   [5Xcoco2p[105X-poset   of   fusion   orbits,   obtained,  e.g.,  by
   [2XPosetOfHomogeneousFusionOrbits[102X  ([14X3.5-2[114X).  This  function creates a graphical
   representation of this poset. The labels of the nodes of the graphical poset
-  correspond  to  the  indices  in  the  given poset.When invoked in [5XXGAP[105X, the
+  correspond  to  the  indices  in  the given poset. When invoked in [5XXGAP[105X, the
   context-menu  of  each  node gives additional information about the node. If
-  for  some  node  it is known whether the underlying color graph is surian or
+  for  some node it is known whether the underlying color graph is Schurian or
   not, then this is made visible in the graphical poset. Nodes for which it is
   not  known whether the cgr is Schurian, are represented by squares. Schurian
   nodes  are represented by circles, and non-Schurian nodes are represented by
@@ -289,9 +311,76 @@
     [4X[28X	    [128X[104X
   [4X[32X[104X
   
-  [1X3.5-4 FusionOrbit[101X
+  [1X3.5-4 Display[101X
+  
+  [33X[1;0Y[29X[2XDisplay[102X( [3Xposet[103X ) [32X method[133X
+  
+  [33X[0;0YThis function prints information about a representative from each element of
+  [3Xposet[103X,  together  with  information  of  how  the  elements are contained in
+  eachother.[133X
+  
+  [33X[0;0YThis function recognizes a number of options:[133X
+  
+  [8X[10X:filter:=func[110X[8X[108X
+        [33X[0;6Yfunc  is  a  function which gets as argument a color graph and returns
+        [10Xtrue[110X    or    [10Xfalse[110X.   If   this   option   is   given,   only   those
+        orbit-representatives [10Xcgr[110X from [3Xposet[103X are displayed for which [10Xfunc(cgr)[110X
+        returns [10Xtrue[110X.[133X
+  
+  [8X[10X:nonschurian[110X[8X[108X
+        [33X[0;6YIf  this  option  is given, only orbit representatives of non-Schurian
+        color graphs from [3Xposet[103X are displayed.[133X
+  
+  [8X[10X:long[110X[8X[108X
+        [33X[0;6YIf  this  option  is  given,  more information about symmetries of the
+        representatives  of  the  orbits  in [3Xposet[103X, like the generators of the
+        automorphism group, is added to the output.[133X
+  
+  [8X[10X:schurianfission[110X[8X[108X
+        [33X[0;6YIf  this  option  is  given,  foe  each  element of [3Xposet[103X the Schurian
+        fission  of  its  representative  is computed. In case that this color
+        graph  is  contained in any of the orbit from [3Xposet[103X, the index of this
+        orbit is indicated in the output.[133X
+  
+  [8X[10X:fvc[110X[8X[108X
+        [33X[0;6YThe  effect of this option is that for every orbit representative that
+        is  corresponding  to a strongly regular graph, it is computed whether
+        or  not  this  graph satisfies the four-vertex condition. In case that
+        this is true, the parameters [22X(α,β)[122X are added to the output.[133X
+  
+  [8X[10X:onlyfvc[110X[8X[108X
+        [33X[0;6YIf  this  option  is  given,  then  only  information  of  such  orbit
+        representatives  is  given  that correspond to strongly regular graphs
+        with the four-vertex condition.[133X
+  
+  [8X[10X:cisomap[110X[8X[108X
+        [33X[0;6YIf  this  option is given, then for each orbit representative of [3Xposet[103X
+        the smallest index in [3Xposet[103X to a color isomorphic orbit representative
+        is computed and displayed.[133X
+  
+  [8X[10X:date[110X[8X[108X
+        [33X[0;6YWhen  this  option  is  given,  then  the  actual date is added to the
+        output.[133X
+  
+  [8X[10X:runtime[110X[8X[108X
+        [33X[0;6YIf  this  option  is  given, then the time it took to compute [3Xposet[103X is
+        added to the output (if this time is known).[133X
+  
+  [8X[10X:strucexp:=n[110X[8X[108X
+        [33X[0;6YThis option creates a heuristic condition whether or not the structure
+        description  of  some  symetry-group  should  be computed. The command
+        [10XStructureDescription(group)[110X  tends to be slow whenever the exponent of
+        prime-divisor  of the order of [10Xgroup[110X is large. If the exponent of such
+        a  prime  divisor  is greated than [10Xn[110X then the structure description of
+        [10Xgroup[110X is not computed. If the structure description of [10Xgroup[110X was known
+        before, then it is still displayed in the output.[133X
+  
+        [33X[0;6YThe standard value for [10Xn[110X is [22X12[122X.[133X
+  
+  [1X3.5-5 FusionOrbit[101X
   
   [33X[1;0Y[29X[2XFusionOrbit[102X( [3Xgroup[103X, [3Xfusion[103X[, [3Xstab[103X] ) [32X operation[133X
+  [33X[1;0Y[29X[2XFusionOrbitNC[102X( [3Xgroup[103X, [3Xfusion[103X[, [3Xstab[103X] ) [32X operation[133X
   
   [33X[0;0Y[3Xfusion[103X  is  a  fusion object. [3Xgroup[103X has to be a subgroup of the automorphism
   group  of  [10XTensorOfFusion(fusion)[110X.  [3Xstab[103X  (if  given)  has  to  be  the full
@@ -300,27 +389,30 @@
   [33X[0;0YThe function constructs a [5Xcoco2p[105X-orbit object of the partition-wise orbit of
   [3Xfusion[103X under [3Xgroup[103X.[133X
   
-  [1X3.5-5 CanonicalRepresentativeOfCocoOrbit[101X
+  [33X[0;0YIn  the  second variant no checks of consistency of the input parameters are
+  done.[133X
+  
+  [1X3.5-6 CanonicalRepresentativeOfCocoOrbit[101X
   
   [33X[1;0Y[29X[2XCanonicalRepresentativeOfCocoOrbit[102X( [3Xfusionorb[103X ) [32X operation[133X
   
   [33X[0;0YThis  function  returns the smallest element (in the short-lex order) of the
   orbit of fusions [3Xfusionorb[103X.[133X
   
-  [1X3.5-6 Representative[101X
+  [1X3.5-7 Representative[101X
   
   [33X[1;0Y[29X[2XRepresentative[102X( [3Xfusionorb[103X ) [32X operation[133X
   
   [33X[0;0YThis function returns any element of the orbit of fusions sets [3Xfusionorb[103X. At
   the moment it in fact returns the canonical representative.[133X
   
-  [1X3.5-7 UnderlyingGroupOfCocoOrbit[101X
+  [1X3.5-8 UnderlyingGroupOfCocoOrbit[101X
   
   [33X[1;0Y[29X[2XUnderlyingGroupOfCocoOrbit[102X( [3Xfusionorb[103X ) [32X operation[133X
   
   [33X[0;0YThis function returns the group under which [3Xfusionorb[103X is an orbit.[133X
   
-  [1X3.5-8 StabilizerOfCanonicalRepresentative[101X
+  [1X3.5-9 StabilizerOfCanonicalRepresentative[101X
   
   [33X[1;0Y[29X[2XStabilizerOfCanonicalRepresentative[102X( [3Xfusion[103X ) [32X operation[133X
   
@@ -328,25 +420,25 @@
   [10XCanonicalRepresentativeOfCocoOrbit(fusionorb)[110X                             in
   [10XUnderlyingGroupOfCocoOrbit(fusionorb)[110X.[133X
   
-  [1X3.5-9 Size[101X
+  [1X3.5-10 Size[101X
   
   [33X[1;0Y[29X[2XSize[102X( [3Xfusionorb[103X ) [32X method[133X
   
   [33X[0;0Yreturns the size of [3Xfusionorb[103X.[133X
   
-  [1X3.5-10 AsList[101X
+  [1X3.5-11 AsList[101X
   
   [33X[1;0Y[29X[2XAsList[102X( [3Xfusionorb[103X ) [32X method[133X
   
   [33X[0;0Ys expands the [5Xcoco2p[105X-orbit object [3Xfusionorb[103X into a list of fusions.[133X
   
-  [1X3.5-11 AsSet[101X
+  [1X3.5-12 AsSet[101X
   
   [33X[1;0Y[29X[2XAsSet[102X( [3Xfusionorb[103X ) [32X method[133X
   
   [33X[0;0Yexpands the [5Xcoco2p[105X-orbit object [3Xfusionorb[103X into a set of fusions.[133X
   
-  [1X3.5-12 SubOrbitsOfCocoOrbit[101X
+  [1X3.5-13 SubOrbitsOfCocoOrbit[101X
   
   [33X[1;0Y[29X[2XSubOrbitsOfCocoOrbit[102X( [3Xgroup[103X, [3Xfusion[103X ) [32X operation[133X
   
@@ -354,7 +446,7 @@
   [3Xfusionorb[103X.  The  given  orbit  splits  into  suborbits under this group. The
   function returns a list of these suborbits.[133X
   
-  [1X3.5-13 SubOrbitsWithInvariantPropertyOfCocoOrbit[101X
+  [1X3.5-14 SubOrbitsWithInvariantPropertyOfCocoOrbit[101X
   
   [33X[1;0Y[29X[2XSubOrbitsWithInvariantPropertyOfCocoOrbit[102X( [3Xgroup[103X, [3Xfusionorb[103X, [3Xprop[103X ) [32X operation[133X
   

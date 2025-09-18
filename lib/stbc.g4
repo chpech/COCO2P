@@ -1,3 +1,78 @@
+
+IsOverlappingStabChains:=function(S1,S2)
+    local  nS1, nS2;
+    
+    nS1:=S1;
+    nS2:=S2;
+                 
+    while true do 
+        while true do
+            if IsIdenticalObj(nS1,nS2) then
+                Info(InfoCOCO,1, "S1 and S2 have a non-trivial overlap!");
+                return true;
+            fi;
+            if not IsBound(nS2.stabilizer) then
+                break;
+            fi;
+            nS2:=nS2.stabilizer;
+        od;
+        if not IsBound(nS1.stabilizer) then
+            break;
+        fi;
+        nS1:=nS1.stabilizer;
+    od;
+    return false;
+end;
+
+            
+IsReducedStabChain:=function(S)
+    if IsBound(S.orbi) and (S.generators = [] or S.generators = [()]) then
+        Info(InfoCOCO,1,"S is not reduced");
+        Error("tst");
+            
+        return false;
+    fi;
+    if IsBound(S.stabilizer) then
+        return IsReducedStabChain(S.stabilizer);
+    fi;
+    return true;
+end;
+
+
+IsConsistentStabChain:=function(S)
+    local  g, h, stab;
+    if not IsBound(S.orbit) then
+        if S.generators <> [] then
+            Info(InfoCOCO,1,"S has generators but no orbit!");
+            return false;
+        elif S.genlabels <> [] then
+            Info(InfoCOCO,1,"S has no generators but genlabels!");
+            return false;
+        fi;
+    else
+        if not IsBound(S.stabilizer) then
+            Info(InfoCOCO,1,"S has an orbit but no stabilizer!");
+            return false;
+        fi;
+    
+        
+        g:=Group(S.generators,());
+        h:=Stabilizer(g,S.orbit[1]);
+        stab:=Group(S.stabilizer.generators,());
+        if h <> stab then
+            Info(InfoCOCO,1,"S.stabilizer is not the stabilizer of S.orbit[1] in S!");
+            
+            return false;
+        fi;
+    fi;
+    
+    if not IsBound(S.stabilizer) then
+        return true;
+    fi;
+    
+    return IsConsistentStabChain(S.stabilizer);
+end;
+
 Stbc:=StabChainMutable;
 
 StbcCopy:=CopyStabChain;
@@ -14,8 +89,75 @@ StbcConjugate:=function(S,g)
    ConjugateStabChain(S,S,g,g);
 end;
 
+
+# still problematic
+# StbcAugmentByNewGenerators:=function(S,lg)
+#     local  M, sM,AppendStabChain,Augment,tS;
+    
+#     if lg <> [] then
+#         StabChainStrong(S,lg,rec(base:=[]));
+#     fi;
+#     return;
+    
+#     # AppendStabChain:=function(S,sS)
+#     #     local lS,lsS;
+        
+#     #     Assert(1, S.generators=[]);
+        
+#     #     lS:=S;
+#     #     lsS:=sS;
+        
+#     #     while lsS.generators <> [] do
+#     #         InsertTrivialStabilizer(lS, lsS.orbit[1]);
+#     #         AddGeneratorsExtendSchreierTree(lS,lsS.generators);
+#     #         lS:=lS.stabilizer;
+#     #         lsS:=lsS.stabilizer;
+#     #     od;
+#     # end;
+    
+#     # Augment:=function(S,alg)
+#     #     M:=Filtered(alg, g->g<>());
+#     #     Assert(1,IsConsistentStabChain(S));
+    
+#     #     if M=[]  then
+#     #         return;
+#     #     fi;
+        
+#     #     if IsBound(S.orbit) then
+#     #         AddGeneratorsExtendSchreierTree(S,M);
+#     #         sM:=Filtered(M, g->S.orbit[1]^g = S.orbit[1]);
+#     #         if sM <> [] then
+#     #             if S.stabilizer.generators=[] then
+#     #                 AppendStabChain(S.stabilizer,StabChain(Group(sM)));
+#     #                 AddGeneratorsExtendSchreierTree(S,M);
+#     #                 Assert(1,IsConsistentStabChain(S));
+#     #             else
+#     #                 Augment(S.stabilizer,sM);
+#     #                 AddGeneratorsExtendSchreierTree(S,M);
+#     #                 Assert(1,IsConsistentStabChain(S));
+#     #             fi;
+#     #         fi;
+#     #     else
+#     #         InsertTrivialStabilizer(S, SmallestMovedPointPerms(M));
+#     #         AddGeneratorsExtendSchreierTree(S,M);
+#     #     fi;
+    
+#     #     Assert(1,IsConsistentStabChain(S));
+#     #     return;
+#     # end;
+    
+#     # tS:=CopyStabChain(S);
+    
+#     # Augment(S, Set(lg, g->SiftedPermutation(S,g)));
+#     # Assert(1,IsSubset(Group(S.generators,()),lg));
+    
+#     # return;
+# end;
+
+
 StbcAddGensExtOrb:=AddGeneratorsExtendSchreierTree;
 
+    
 StbcInvCosRep:=InverseRepresentative;
 
 StbcSize:=SizeStabChain;
@@ -180,12 +322,12 @@ end;
 StbcChange:=ChangeStabChain;
 
 StbcStabilizer:=function(S,x)
-  StbcChange(S,[x]);
-  if IsBound(S.orbit) and S.orbit[1]=x then
-     return S.stabilizer;
-  else
-     return S;
-  fi;
+    StbcChange(S,[x]);
+    if IsBound(S.orbit) and S.orbit[1]=x then
+        return S.stabilizer;
+    else
+        return S;
+    fi;
 end;
 
 
@@ -278,7 +420,6 @@ StbcExtend:=function(S,l,i)
   StabChainForcePoint(S,i);
   AddGeneratorsExtendSchreierTree(S,l);
 end;
-
 
 
 StbcIntersection:=function(S1,S2)

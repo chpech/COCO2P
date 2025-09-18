@@ -1,5 +1,5 @@
 
-InstallGlobalFunction(MyValue,
+BindGlobal("MyValue",
 function(poly, indet, value)
     if not IsPolynomial(poly) then
         return poly;
@@ -63,10 +63,10 @@ if TestPackageAvailability("alnuth","3")=true and AL_EXECUTABLE<>fail then
 
         return roots;
     end;
-    InstallGlobalFunction(MyRootsOfPoly,
-            function(poly)
+    BindGlobal("MyRootsOfPoly",
+     function(lconds,poly)
         local  roots, indet, F, lpolys, p, discriminant, 
-               factors, degrees, f, n, rtp, i;
+               factors, degrees, f, n, rtp, i, c;
 
         if Degree(poly)<=1 then 
             return RootsOfUPol(poly);
@@ -93,13 +93,14 @@ if TestPackageAvailability("alnuth","3")=true and AL_EXECUTABLE<>fail then
                 continue;
             fi;
             
-            factors := Filtered(DivisorsInt(Sqrt(discriminant*ComplexConjugate(discriminant))), IsPrimePowerInt);
-            Info(InfoTensor, 2, "factors of discriminant: ", factors);
-            #        degrees := Concatenation(factors, Difference(degrees, factors));
             f:=FieldOfPolynomial(p)=Rationals;
 
-            for n in factors do
+            for n in lconds do
                 Info(InfoTensor, 2, "looking in CF(", n, ")");
+                c:=Conductor(CoefficientsOfUnivariatePolynomial(p));
+                if n mod c <> 0 then 
+                    continue;
+                fi;
                 if f then
                     Info(InfoTensor,2, "roots of rational poly ", p);
 
@@ -123,9 +124,11 @@ if TestPackageAvailability("alnuth","3")=true and AL_EXECUTABLE<>fail then
         return roots;
     end);
 else
-    InstallGlobalFunction(MyRootsOfPoly,
-            function(poly)
-        local   F, roots,  indet,  i,  n, degrees,  factors, discriminant,coeffs;
+    
+    BindGlobal("MyRootsOfPoly",
+    function(lconds, poly)
+        local  roots, indet, i, n, c;
+        
         roots := [];
         indet := IndeterminateOfUnivariateRationalFunction(poly);
         Info(InfoTensor, 1, "finding roots of polynomial ", poly);
@@ -137,28 +140,24 @@ else
             Info(InfoTensor, 1, "done");
             return roots;
         fi;
-#        degrees := [2..20];
-#        discriminant := Discriminant(poly);
-#        Info(InfoTensor, 2, "discriminant: ", discriminant);
-#        factors := Filtered(DivisorsInt(Sqrt(discriminant*ComplexConjugate(discriminant))), IsPrimePowerInt);
-#        factors := DivisorsInt(Sqrt(discriminant*ComplexConjugate(discriminant)));
-#        Info(InfoTensor, 2, "factors of discriminant: ", factors);
-#        degrees := Concatenation(factors, Difference(degrees, factors));
-        n:=1;
-        while true do
-#        for n in degrees do
+        #        degrees := [2..20];
+        #        discriminant := Discriminant(poly);
+        #        Info(InfoTensor, 2, "discriminant: ", discriminant);
+        #        factors := Filtered(DivisorsInt(Sqrt(discriminant*ComplexConjugate(discriminant))), IsPrimePowerInt);
+        #        factors := DivisorsInt(Sqrt(discriminant*ComplexConjugate(discriminant)));
+        #        Info(InfoTensor, 2, "factors of discriminant: ", factors);
+        #        degrees := Concatenation(factors, Difference(degrees, factors));
+        for n in lconds do
+            #        for n in degrees do
             Info(InfoTensor, 2, "looking in CF(", n, ")");
-            coeffs:=CoefficientsOfLaurentPolynomial(poly)[1];
-            if ForAny(coeffs, x->not x in CF(n)) then
-                n:=n+1;
-                
+            c:=Conductor(CoefficientsOfUnivariatePolynomial(poly)[1]);
+            if n mod c <> 0 then 
                 continue;
             fi;
             
-            
             for i in RootsOfUPol(CF(n), poly) do
                 Add(roots, i);
-
+                
                 poly := poly/(indet-i);
             od;
             if DegreeOfLaurentPolynomial(poly) <= 0 then
@@ -176,7 +175,7 @@ else
 fi;
 
 
-InstallGlobalFunction(CharacteristicSystem,
+BindGlobal("CharacteristicSystem",
 function(tensor)
     local   system,  ring,  indets,  i,  j,  poly,  result;
 
@@ -197,8 +196,8 @@ function(tensor)
     return result;
 end);
 
-InstallGlobalFunction(SolutionsOfSystem,
-function(system)
+BindGlobal("SolutionsOfSystem",
+function(lconds, system)
     local   eqn,  roots,  x,  i,  newSystem,  sols,  j, solutions;
     
     for i in [1..Length(system)] do # work around
@@ -216,12 +215,12 @@ function(system)
         return [];
     fi;
     solutions := [];
-    roots := MyRootsOfPoly( eqn);
+    roots := MyRootsOfPoly(lconds, eqn);
     #Print("roots of ", eqn, ": ", roots, "\n");
     x := IndeterminateOfUnivariateRationalFunction(eqn);
     for i in roots do
         newSystem := List(system, poly -> MyValue(poly, x, i));
-        sols := SolutionsOfSystem(newSystem);
+        sols := SolutionsOfSystem(lconds,newSystem);
         for j in sols do
             Add(solutions, Concatenation(j, [i]));
         od;
@@ -244,13 +243,53 @@ end);
 # end);
 
 
+ConductorsOfSplittingExtensionPoly:=function(poly)
+    local  factors, lc, fac, gg, disc;
+    
+    factors:=Factors(poly);
+    lc:=[];
+    
+    for fac in factors do
+        gg:=GaloisGroupOnRoots(fac);
+                
+        if not IsAbelian(gg) then
+            return fail;
+        fi;
+        disc:=Discriminant(fac);
+        AddSet(lc,AbsoluteValue(disc));
+    od;
+    return lc;
+end;
+
+ConductorsOfSplittingExtensionTensor:=function( T)
+    local  lcharpoly, colors, i, A, lc, factors, fac, gg, disc;
+    
+    lcharpoly:=[];
+    
+    colors:=Difference([1..OrderOfTensor(T)], ReflexiveColors(T));
+    
+    for i in colors do
+        A:=List([1..OrderOfTensor(T)], j->List([1..OrderOfTensor(T)], k->T[[i,j,k]]));
+        Add(lcharpoly,MinimalPolynomial(Rationals,A));
+    od;
+    
+    lc:=[];
+    
+    return Union(List(lcharpoly, ConductorsOfSplittingExtensionPoly));
+end;
+
+
 InstallMethod( FirstEigenmatrix,
         "for commutative structure constants tensors",
         [IsTensor and IsCommutativeTensor and IsTensorOfCC],
 function(t)
-    local  system, solutions;
+    local  system, lconds, solutions;
     system := CharacteristicSystem(t);
-    solutions := SolutionsOfSystem(system);
+    
+    lconds:= ConductorsOfSplittingExtensionTensor(t);
+    lconds:=Union(Set(lconds, DivisorsInt));
+    
+    solutions := SolutionsOfSystem(lconds,system);
     solutions := Filtered(solutions, x -> ForAny(x, y -> y <> 0));
     MakeImmutable(solutions);
     return solutions;

@@ -3,7 +3,7 @@
                                [1XThe [5Xcoco2p[105X Package[101X
   
   
-                                  Version 0.17
+                                  Version 0.21
   
   
                                   Mikhail Klin
@@ -23,7 +23,7 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 2012, 2014, 2018, 2019, 2020 by the authors[133X
+  [33X[0;0Y© 2012, 2014, 2018, 2019, 2020, 2025 by the authors[133X
   
   [33X[0;0YThis  package  may  be distributed under the terms and conditions of the GNU
   Public License Version v3.0 or higher.[133X
@@ -49,11 +49,18 @@
       1.3-9 BIKColorGraph
       1.3-10 IvanovColorGraph
       1.3-11 AllAssociationSchemes
-      1.3-12 AllCoherentConfigurations
+      1.3-12 SmallAssociationScheme
+      1.3-13 NumberAssociationSchemes
+      1.3-14 SmallAssociationSchemesAvailable
+      1.3-15 AllCoherentConfigurations
+      1.3-16 SmallCoherentConfiguration
+      1.3-17 NumberCoherentConfigurations
+      1.3-18 SmallCoherentConfigurationsAvailable
+      1.3-19 IdentificationOfColorGraph
     1.4 [33X[0;0YFunctions for the inspection of color graphs[133X
       1.4-1 OrderOfColorGraph
       1.4-2 RankOfColorGraph
-      1.4-3 VertexNamesOfCocoObject
+      1.4-3 VertexNamesOfColorGraph
       1.4-4 ColorNames
       1.4-5 ArcColorOfColorGraph
       1.4-6 ColorRepresentative
@@ -78,17 +85,21 @@
       1.5-8 BaseGraphOfColorGraph
     1.6 [33X[0;0YTesting properties of color graphs[133X
       1.6-1 IsUndirectedColorGraph
-      1.6-2 IsHomogeneous
-      1.6-3 IsWLStableColorGraph
-      1.6-4 IsSchurian
-      1.6-5 IsPrimitiveColorGraph
+      1.6-2 IsRegularColorGraph
+      1.6-3 IsHomogeneous
+      1.6-4 IsWLStableColorGraph
+      1.6-5 IsSchurian
+      1.6-6 IsPrimitiveColorGraph
+      1.6-7 IsMetricColorGraph
+      1.6-8 IsCoMetricColorGraph
+      1.6-9 IsAmorphicColorGraph
     1.7 [33X[0;0YSymmetries of color graphs[133X
       1.7-1 KnownGroupOfAutomorphisms
-      1.7-2 AutGroupOfCocoObject
-      1.7-3 IsAutomorphismOfObject
-      1.7-4 IsomorphismCocoObjects
-      1.7-5 IsIsomorphicCocoObject
-      1.7-6 IsIsomorphismOfObjects
+      1.7-2 AutomorphismGroup
+      1.7-3 IsAutomorphismOfColorGraph
+      1.7-4 IsomorphismColorGraphs
+      1.7-5 IsIsomorphicColorGraph
+      1.7-6 IsIsomorphismOfColorGraphs
       1.7-7 KnownGroupOfColorAutomorphisms
       1.7-8 KnownGroupOfColorAutomorphismsOnColors
       1.7-9 LiftToColorAutomorphism
@@ -100,6 +111,7 @@
       1.7-15 ColorAutomorphismGroupOnColors
       1.7-16 KnownGroupOfAlgebraicAutomorphisms
       1.7-17 AlgebraicAutomorphismGroup
+      1.7-18 Display
   2 [33X[0;0YStructure Constants Tensors[133X
     2.1 [33X[0;0YIntroduction[133X
     2.2 [33X[0;0YFunctions for the construction of tensors[133X
@@ -107,7 +119,7 @@
       2.2-2 DenseTensorFromEntries
     2.3 [33X[0;0YFunctions for the inspection of tensors[133X
       2.3-1 OrderOfTensor
-      2.3-2 VertexNamesOfCocoObject
+      2.3-2 VertexNamesOfTensor
       2.3-3 EntryOfTensor
       2.3-4 ReflexiveColors
       2.3-5 NumberOfFibres
@@ -116,64 +128,79 @@
       2.3-8 Mates
       2.3-9 StartBlock
       2.3-10 FinishBlock
-      2.3-11 ClosedSets
-      2.3-12 ComplexProduct
-      2.3-13 ClosureSet
+      2.3-11 BlockOfTensor
+      2.3-12 ClosedSets
+      2.3-13 IsClosedSet
+      2.3-14 ComplexProduct
+      2.3-15 ClosureSet
+      2.3-16 PPolynomialOrdering
+      2.3-17 PPolynomialOrderings
     2.4 [33X[0;0YTesting properties of tensors[133X
       2.4-1 IsTensorOfCC
       2.4-2 IsCommutativeTensor
-      2.4-3 IsHomogeneous
-      2.4-4 IsPrimitive
+      2.4-3 IsHomogeneousTensor
+      2.4-4 IsPPolynomial
+      2.4-5 IsPrimitive
     2.5 [33X[0;0YSymmetries of tensors[133X
       2.5-1 KnownGroupOfAutomorphisms
-      2.5-2 AutGroupOfCocoObject
-      2.5-3 IsAutomorphismOfObject
-      2.5-4 IsomorphismCocoObjects
-      2.5-5 IsIsomorphicCocoObject
-      2.5-6 IsIsomorphismOfObjects
+      2.5-2 AutomorphismGroup
+      2.5-3 IsAutomorphismOfTensor
+      2.5-4 IsomorphismTensors
+      2.5-5 IsIsomorphicTensor
+      2.5-6 IsIsomorphismOfTensors
     2.6 [33X[0;0YCharacter tables of structure constants tensors[133X
       2.6-1 CharacterTableOfTensor
+      2.6-2 QPolynomialOrdering
+      2.6-3 QPolynomialOrderings
+      2.6-4 IsQPolynomial
+      2.6-5 FirstEigenmatrix
+      2.6-6 SecondEigenmatrix
+      2.6-7 TensorOfKreinNumbers
+      2.6-8 IndexOfPrincipalCharacter
   3 [33X[0;0YWL-Stable Fusions of Color Graphs[133X
     3.1 [33X[0;0YIntroduction[133X
     3.2 [33X[0;0YGood sets[133X
       3.2-1 BuildGoodSet
       3.2-2 AsSet
-      3.2-3 TensorOfGoodSet
-      3.2-4 PartitionOfGoodSet
+      3.2-3 Length
+      3.2-4 TensorOfGoodSet
+      3.2-5 PartitionOfGoodSet
     3.3 [33X[0;0YOrbits of good sets[133X
       3.3-1 HomogeneousGoodSetOrbits
-      3.3-2 GoodSetOrbit
-      3.3-3 CanonicalRepresentativeOfCocoOrbit
-      3.3-4 Representative
-      3.3-5 UnderlyingGroupOfCocoOrbit
-      3.3-6 StabilizerOfCanonicalRepresentative
-      3.3-7 Size
-      3.3-8 AsList
-      3.3-9 AsSet
-      3.3-10 SubOrbitsOfCocoOrbit
-      3.3-11 SubOrbitsWithInvariantPropertyOfCocoOrbit
+      3.3-2 HomogeneousSymGoodSetOrbits
+      3.3-3 HomogeneousASymGoodSetOrbits
+      3.3-4 GoodSetOrbit
+      3.3-5 CanonicalRepresentativeOfCocoOrbit
+      3.3-6 Representative
+      3.3-7 UnderlyingGroupOfCocoOrbit
+      3.3-8 StabilizerOfCanonicalRepresentative
+      3.3-9 Size
+      3.3-10 AsList
+      3.3-11 AsSet
+      3.3-12 SubOrbitsOfCocoOrbit
+      3.3-13 SubOrbitsWithInvariantPropertyOfCocoOrbit
     3.4 [33X[0;0YFusions[133X
       3.4-1 FusionFromPartition
       3.4-2 AsPartition
       3.4-3 PartitionOfFusion
       3.4-4 TensorOfFusion
-      3.4-5 BaseOfFusion
-      3.4-6 RankOfFusion
-      3.4-7 OrderOfFusion
+      3.4-5 RankOfFusion
+      3.4-6 OrderOfFusion
     3.5 [33X[0;0YOrbits of fusions[133X
       3.5-1 HomogeneousFusionOrbits
       3.5-2 PosetOfHomogeneousFusionOrbits
       3.5-3 GraphicCocoPoset
-      3.5-4 FusionOrbit
-      3.5-5 CanonicalRepresentativeOfCocoOrbit
-      3.5-6 Representative
-      3.5-7 UnderlyingGroupOfCocoOrbit
-      3.5-8 StabilizerOfCanonicalRepresentative
-      3.5-9 Size
-      3.5-10 AsList
-      3.5-11 AsSet
-      3.5-12 SubOrbitsOfCocoOrbit
-      3.5-13 SubOrbitsWithInvariantPropertyOfCocoOrbit
+      3.5-4 Display
+      3.5-5 FusionOrbit
+      3.5-6 CanonicalRepresentativeOfCocoOrbit
+      3.5-7 Representative
+      3.5-8 UnderlyingGroupOfCocoOrbit
+      3.5-9 StabilizerOfCanonicalRepresentative
+      3.5-10 Size
+      3.5-11 AsList
+      3.5-12 AsSet
+      3.5-13 SubOrbitsOfCocoOrbit
+      3.5-14 SubOrbitsWithInvariantPropertyOfCocoOrbit
   4 [33X[0;0YPartially ordered sets[133X
     4.1 [33X[0;0YIntroduction[133X
     4.2 [33X[0;0YGeneral functions for [5Xcoco2p[105X-posets[133X
@@ -188,6 +215,7 @@
       4.2-9 MaximalElementsInCocoPoset
       4.2-10 InducedCocoPoset
       4.2-11 GraphicCocoPoset
+      4.2-12 SelectedElements
     4.3 [33X[0;0YPosets of color graphs[133X
       4.3-1 OrbitsOfColorIsomorphicFusions
       4.3-2 SubColorIsomorphismPoset

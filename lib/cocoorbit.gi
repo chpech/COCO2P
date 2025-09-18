@@ -124,9 +124,9 @@ function(grp,gsorb,func)
     
     
     if Length(res)>0 then
-        Info(InfoCOCO,2,"+++\t",Size(gsorb),"\t",Size(grp),"\t",Length(res),"\n");
+        Info(InfoCOCO,3,"+++\t",Size(gsorb),"\t",Size(grp),"\t",Length(res),"\n");
     else
-        Info(InfoCOCO, 2,"-\c");
+        Info(InfoCOCO, 3,"-\c");
     fi;
     
     return Set(res);

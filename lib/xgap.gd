@@ -11,6 +11,6 @@
 
 DeclareFilter( "IsGraphicCocoPoset" );
 
-DeclareOperation( "GraphicCocoPoset", [IsCocoPoset] );
+DeclareOperation( "GraphicCocoPoset", [IsCocoPoset] ); ## documented
 
-DeclareOperation( "SelectedElements", [ IsGraphicCocoPoset ] );
+DeclareOperation( "SelectedElements", [ IsGraphicCocoPoset ] ); ## documented

@@ -1,9 +1,21 @@
-\begin{thebibliography}{BIK89}
+\begin{thebibliography}{FKM94}
 
 \bibitem[BIK89]{BroIvaKli89}
 A.~E. Brouwer, A.~V. Ivanov, and M.~H. Klin.
 \newblock Some new strongly regular graphs.
 \newblock {\em Combinatorica}, 9(4):339--344, 1989.
+
+\bibitem[Del73]{Del73}
+P.~Delsarte.
+\newblock An algebraic approach to the association schemes of coding theory.
+\newblock {\em Philips Res. Rep. Suppl.}, 10:vi+97, 1973.
+
+\bibitem[FKM94]{FarKliMuz94}
+I.~A. Farad{\v z}ev, M.~H. Klin, and M.~E. Muzichuk.
+\newblock Cellular rings and groups of automorphisms of graphs.
+\newblock In {\em Investigations in algebraic theory of combinatorial objects},
+  volume~84 of {\em Math. Appl. (Soviet Ser.)}, pages 1--152. Kluwer Acad.
+  Publ., Dordrecht, 1994.
 
 \bibitem[Gol99]{Gol99}
 Jonathan~S. Golan.

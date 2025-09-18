@@ -273,7 +273,7 @@ if TestPackageAvailability("grape","0")=true then
         return gamma;
     end);
     
-    InstallGlobalFunction(SrgFromCgr,
+    InstallGlobalFunction(SrgFromCgr@,
     function(cgr)
         local  ov, k, i;
         
@@ -407,6 +407,24 @@ InstallMethod( IsHomogeneous,
 function(cgr)
     return NumberOfFibres(cgr)=1;
 end);
+
+InstallMethod( IsRegularColorGraph,
+        "for a color graph",
+        [IsColorGraph],
+function(cgr)
+    local vals;
+    
+    vals:=List([1..RankOfColorGraph(cgr)],
+               i->Length(Filtered([1..OrderOfColorGraph(cgr)], 
+                                  v->ArcColorOfColorGraph(cgr,[1,v])=i)));
+    return ForAll([1..RankOfColorGraph(cgr)], 
+                  i->ForAll([2..OrderOfColorGraph(cgr)], 
+                            u->Length(Filtered([1..OrderOfColorGraph(cgr)], 
+                                               v->ArcColorOfColorGraph(cgr,[u,v])=i))=vals[i]));
+end);
+
+                                                                                     
+InstallTrueMethod( IsRegularColorGraph, IsColorGraph and IsWLStableColorGraph and IsHomogeneous );
 
 InstallImmediateMethod( IsHomogeneous,
         "for a WL-stable color graph",
@@ -719,8 +737,8 @@ function(W)
     result:=[];
     subH:=CheckGroup(xcgr1,xcgr2, S, rec(orbits:=[[1..RankOfColorGraph(W)]], map:=ListWithIdenticalEntries(RankOfColorGraph(W),1)),result);
 
-    wautv:=Group(Concatenation(GeneratorsOfGroup(AutomorphismGroup(W)), result),());
-    wautc:=Group(subH.generators,());
+    wautv:=Group(Concatenation(GeneratorsOfGroup(AutomorphismGroup(W)), ShallowCopy(result)),());
+    wautc:=Group(ShallowCopy(subH.generators),());
     SetColorAutomorphismGroupOnColors(W, wautc);
     SetKnownGroupOfColorAutomorphismsNC(W,wautv);
     SetKnownGroupOfColorAutomorphismsOnColorsNC(W,wautc);
@@ -1673,7 +1691,7 @@ function(cgr)
     local names;
 
     names:=ColorNames(cgr);
-    DisplayString(List(AdjacencyMatrix(cgr),r->List(r, e->names[e])));
+    return DisplayString(List(AdjacencyMatrix(cgr),r->List(r, e->names[e])));
 end);
 
 InstallMethod( DisplayString,
@@ -1701,7 +1719,7 @@ function(cgr)
     
     if fvc then
         if Rank(node!.cgr)=3 and IsSymmetricColorGraph(node!.cgr) and not IsSchurian(node!.cgr) then
-            srg:=SrgFromCgr(node!.cgr);
+            srg:=SrgFromCgr@(node!.cgr);
             RegisterInfoCocoNode(node, rec(name:="4-vc:",
                                            value:=String(IsHighlyRegularGraph(srg,2,4))));
         fi;

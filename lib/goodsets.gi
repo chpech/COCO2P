@@ -317,23 +317,6 @@ function(tensor)
     return lgs;
 end);
 
-InstallOtherMethod(HomogeneousGoodSetOrbits,
-        "for structure constants tensors",
-        [IsTensor and IsTensorOfCC, IsString],
-function(tensor,mode)
-    local   lgsorb;
-
-    lgsorb:=[];
-
-    if 'a' in mode then
-        lgsorb:=HomogeneousAsymGoodSetOrbits(tensor);
-    fi;
-    if 's' in mode then
-        lgsorb:=Union(lgsorb,HomogeneousSymGoodSetOrbits(tensor));
-    fi;
-
-    return lgsorb;
-end);
 
 InstallMethod(ActionOfCocoOrbit,
         "for all good set orbits",

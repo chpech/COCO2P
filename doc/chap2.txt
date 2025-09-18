@@ -27,7 +27,7 @@
   [33X[1;0Y[29X[2XDenseTensorFromEntries[102X( [3Xentries[103X ) [32X function[133X
   
   [33X[0;0YThe  argument  [3Xentries[103X is a list of lists of lists of integers. There has to
-  be   a  number  [22Xn[122X  such  that  [10XLength(entries)=n[110X,  for  all  [22X1le  i,j  le  n[122X
+  be   a   number   [22Xn[122X  such  that  [10XLength(entries)=n[110X,  for  all  [22X1≤  i,j  ≤  n[122X
   [10XLength(entries[i])=n[110X,  and  [10XLength(entries[i][j]=n[110X.  Otherwise  there are no
   restrictions.[133X
   
@@ -46,16 +46,16 @@
   [1X2.3-1 OrderOfTensor[101X
   
   [33X[1;0Y[29X[2XOrderOfTensor[102X( [3Xtensor[103X ) [32X attribute[133X
-  [33X[1;0Y[29X[2XOrderOfCocoObject[102X( [3Xtensor[103X ) [32X attribute[133X
-  [33X[1;0Y[29X[2XOrder[102X( [3Xtensor[103X ) [32X attribute[133X
+  [33X[1;0Y[29X[2XOrderOfCocoObject[102X( [3Xtensor[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XOrder[102X( [3Xtensor[103X ) [32X method[133X
   
   [33X[0;0YReturns  the  order  of the tensor. If it is equal to [22Xn[122X then this means that
   [3Xtensor[103X is an [22Xn× n × n[122X-array.[133X
   
-  [1X2.3-2 VertexNamesOfCocoObject[101X
+  [1X2.3-2 VertexNamesOfTensor[101X
   
-  [33X[1;0Y[29X[2XVertexNamesOfCocoObject[102X( [3Xtensor[103X ) [32X operation[133X
   [33X[1;0Y[29X[2XVertexNamesOfTensor[102X( [3Xtensor[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XVertexNamesOfCocoObject[102X( [3Xtensor[103X ) [32X operation[133X
   
   [33X[0;0YReturns the list of names of the vertices of [3Xtensor[103X.[133X
   
@@ -63,7 +63,8 @@
   
   [33X[1;0Y[29X[2XEntryOfTensor[102X( [3Xtensor[103X, [3Xi[103X, [3Xj[103X, [3Xk[103X ) [32X operation[133X
   
-  [33X[0;0YReturns the entry at index [22X(i,j,k)[122X of [3Xtensor[103X.[133X
+  [33X[0;0YReturns   the   entry   at   index   [22X(i,j,k)[122X  of  [3Xtensor[103X.  A  shorthand  for
+  [10XEntryOfTensor(tensor,i,j,k)[110X is [10Xtensor[[i,j,k]][110X.[133X
   
   [1X2.3-4 ReflexiveColors[101X
   
@@ -160,7 +161,14 @@
   [2XReflexiveColors[102X  ([14X2.3-4[114X)) such that at the end of every arc of color [3Xi[103X there
   is a loop to color [10XReflexiveColors(T)[j][110X.[133X
   
-  [1X2.3-11 ClosedSets[101X
+  [1X2.3-11 BlockOfTensor[101X
+  
+  [33X[1;0Y[29X[2XBlockOfTensor[102X( [3Xtensor[103X, [3Xa[103X, [3Xb[103X ) [32X operation[133X
+  
+  [33X[0;0YReturns  the set of all colors whose start block is [3Xa[103X and whose finish block
+  is [3Xb[103X.[133X
+  
+  [1X2.3-12 ClosedSets[101X
   
   [33X[1;0Y[29X[2XClosedSets[102X( [3Xtensor[103X ) [32X operation[133X
   
@@ -170,7 +178,14 @@
   
   [33X[0;0YThis function returns all closed sets of [3Xtensor[103X.[133X
   
-  [1X2.3-12 ComplexProduct[101X
+  [1X2.3-13 IsClosedSet[101X
+  
+  [33X[1;0Y[29X[2XIsClosedSet[102X( [3Xtensor[103X, [3Xset[103X ) [32X operation[133X
+  
+  [33X[0;0Y[3Xset[103X  is  a set of vertices of [3Xtensor[103X. The operation returns [10Xtrue[110X if [3Xset[103X is a
+  closed set of [3Xtensor[103X, otherwise [10Xfalse[110X.[133X
+  
+  [1X2.3-14 ComplexProduct[101X
   
   [33X[1;0Y[29X[2XComplexProduct[102X( [3Xtensor[103X, [3Xset1[103X, [3Xset2[103X ) [32X operation[133X
   
@@ -185,12 +200,25 @@
   of  the characteristic vector of [3Xset1[103X with the characteristic vector of [3Xset2[103X
   in [22XW[122X.[133X
   
-  [1X2.3-13 ClosureSet[101X
+  [1X2.3-15 ClosureSet[101X
   
   [33X[1;0Y[29X[2XClosureSet[102X( [3Xtensor[103X, [3Xset[103X ) [32X function[133X
   
   [33X[0;0Y[3Xset[103X is a set of vertices of [3Xtensor[103X. The function returns the smallest closed
-  set of [3Xtensor[103X that contains [3Xset[103X (cf. [2XClosedSets[102X ([14X2.3-11[114X))[133X
+  set of [3Xtensor[103X that contains [3Xset[103X (cf. [2XClosedSets[102X ([14X2.3-12[114X))[133X
+  
+  [1X2.3-16 PPolynomialOrdering[101X
+  
+  [33X[1;0Y[29X[2XPPolynomialOrdering[102X( [3Xtensor[103X, [3Xi[103X ) [32X operation[133X
+  
+  [33X[0;0YReturns  a  P-polynomial  ordering  of  the  vertices of [3Xtensor[103X whose second
+  element is [3Xi[103X, if such an ordering exists, and [10Xfail[110X otherwise.[133X
+  
+  [1X2.3-17 PPolynomialOrderings[101X
+  
+  [33X[1;0Y[29X[2XPPolynomialOrderings[102X( [3Xtensor[103X ) [32X operation[133X
+  
+  [33X[0;0YReturns a list of all P-polynomial orderings of the vertices of [3Xtensor[103X.[133X
   
   
   [1X2.4 [33X[0;0YTesting properties of tensors[133X[101X
@@ -212,13 +240,25 @@
   [33X[0;0Y[3Xtensor[103X     has     this     property,     if    for    all    [22Xi,j,k[122X    holds
   [10XEntryOfTensor(tensor,i,j,k)=[110X [10XEntryOfTensor(tensor,j,i,k)[110X.[133X
   
-  [1X2.4-3 IsHomogeneous[101X
+  [1X2.4-3 IsHomogeneousTensor[101X
   
-  [33X[1;0Y[29X[2XIsHomogeneous[102X( [3Xtensor[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XIsHomogeneousTensor[102X( [3Xtensor[103X ) [32X property[133X
+  [33X[1;0Y[29X[2XIsHomogeneous[102X( [3Xtensor[103X ) [32X method[133X
   
-  [33X[0;0YReturns whether [3Xtensor[103X has just one reflexive color.[133X
+  [33X[0;0Y[3Xtensor[103X  has  this  property, if it has exactly one fibre. In other words, it
+  has  exactly  one idempotent, that is, there exists exactly one [22Xi[122X, such that
+  [10XEntryOfTensor(tensor,i,i,i)    =    1[110X    and   for   all   [22Xk   ≠   i[122X   holds
+  [10XEntryOfTensor(tensor,i,i,k) = 0[110X.[133X
   
-  [1X2.4-4 IsPrimitive[101X
+  [1X2.4-4 IsPPolynomial[101X
+  
+  [33X[1;0Y[29X[2XIsPPolynomial[102X( [3Xtensor[103X ) [32X property[133X
+  
+  [33X[0;0YReturns  [10Xtrue[110X  if [3Xtensor[103X is the structure constants tensor of a metric color
+  graph  (or, in other words, a P-polynomial association scheme). Otherwise it
+  returns [10Xfalse[110X.[133X
+  
+  [1X2.4-5 IsPrimitive[101X
   
   [33X[1;0Y[29X[2XIsPrimitive[102X( [3Xtensor[103X ) [32X property[133X
   
@@ -228,7 +268,7 @@
   
   [33X[0;0YIf  [3Xtensor[103X  is  the  structure constants tensor of the color graph [10Xcgr[110X, then
   [3Xtensor[103X  is  primitive  if  and  only  if  [10Xcgr[110X  is primitive (cf. [2XIsPrimitive[102X
-  ([14X1.6-5[114X)).[133X
+  ([14X1.6-6[114X)).[133X
   
   
   [1X2.5 [33X[0;0YSymmetries of tensors[133X[101X
@@ -240,40 +280,40 @@
   [33X[0;0YThis  function  returns the group of all automorphisms of [3Xtensor[103X that [5Xcoco2p[105X
   knows at the given moment.[133X
   
-  [1X2.5-2 AutGroupOfCocoObject[101X
+  [1X2.5-2 AutomorphismGroup[101X
   
-  [33X[1;0Y[29X[2XAutGroupOfCocoObject[102X( [3Xtensor[103X ) [32X attribute[133X
   [33X[1;0Y[29X[2XAutomorphismGroup[102X( [3Xtensor[103X ) [32X method[133X
+  [33X[1;0Y[29X[2XAutGroupOfCocoObject[102X( [3Xtensor[103X ) [32X attribute[133X
   
   [33X[0;0YReturns the group of all automorphisms of [3Xtensor[103X.[133X
   
-  [1X2.5-3 IsAutomorphismOfObject[101X
+  [1X2.5-3 IsAutomorphismOfTensor[101X
   
-  [33X[1;0Y[29X[2XIsAutomorphismOfObject[102X( [3Xtensor[103X, [3Xperm[103X ) [32X operation[133X
   [33X[1;0Y[29X[2XIsAutomorphismOfTensor[102X( [3Xtensor[103X, [3Xperm[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsAutomorphismOfObject[102X( [3Xtensor[103X, [3Xperm[103X ) [32X operation[133X
   
   [33X[0;0YReturns [10Xtrue[110X, if [3Xperm[103X is an automorphism of [3Xtensor[103X. In that case [5Xcoco2p[105X adds
   [3Xperm[103X to the known automorphisms of [3Xtensor[103X.[133X
   
-  [1X2.5-4 IsomorphismCocoObjects[101X
+  [1X2.5-4 IsomorphismTensors[101X
   
-  [33X[1;0Y[29X[2XIsomorphismCocoObjects[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X operation[133X
   [33X[1;0Y[29X[2XIsomorphismTensors[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsomorphismCocoObjects[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X method[133X
   
   [33X[0;0YThis  operation returns an isomorphism from [3Xtensor1[103X to [3Xtensor2[103X if it exists,
   and [10Xfail[110X if it does not exists.[133X
   
-  [1X2.5-5 IsIsomorphicCocoObject[101X
+  [1X2.5-5 IsIsomorphicTensor[101X
   
-  [33X[1;0Y[29X[2XIsIsomorphicCocoObject[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X operation[133X
   [33X[1;0Y[29X[2XIsIsomorphicTensor[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsIsomorphicCocoObject[102X( [3Xtensor1[103X, [3Xtensor2[103X ) [32X method[133X
   
   [33X[0;0YReturns [10Xtrue[110X if [3Xtensor1[103X and [3Xtensor2[103X are isomorphic, and [10Xfalse[110X otherwise.[133X
   
-  [1X2.5-6 IsIsomorphismOfObjects[101X
+  [1X2.5-6 IsIsomorphismOfTensors[101X
   
-  [33X[1;0Y[29X[2XIsIsomorphismOfObjects[102X( [3Xtensor1[103X, [3Xtensor2[103X, [3Xg[103X ) [32X operation[133X
   [33X[1;0Y[29X[2XIsIsomorphismOfTensors[102X( [3Xtensor1[103X, [3Xtensor2[103X, [3Xg[103X ) [32X operation[133X
+  [33X[1;0Y[29X[2XIsIsomorphismOfObjects[102X( [3Xtensor1[103X, [3Xtensor2[103X, [3Xg[103X ) [32X method[133X
   
   [33X[0;0YReturns  [10Xtrue[110X  if  [3Xg[103X  is  an  isomorphism  fro [3Xtensor1[103X to [3Xtensor2[103X, and [10Xfalse[110X
   otherwise.[133X
@@ -311,4 +351,49 @@
     [4X[28X      [ 1, 3, -3, -1 ] ], multiplicities := [ 1, 9, 5, 5 ] )[128X[104X
     [4X[28X	    [128X[104X
   [4X[32X[104X
+  
+  [1X2.6-2 QPolynomialOrdering[101X
+  
+  [33X[1;0Y[29X[2XQPolynomialOrdering[102X( [3Xtensor[103X, [3Xi[103X ) [32X attribute[133X
+  
+  [33X[0;0YReturns  a  Q-polynomial ordering of [3Xtensor[103X whose second entry is [3Xi[103X, if such
+  an ordering exists. Otherwise it returns [10Xfalse[110X.[133X
+  
+  [1X2.6-3 QPolynomialOrderings[101X
+  
+  [33X[1;0Y[29X[2XQPolynomialOrderings[102X( [3Xtensor[103X ) [32X attribute[133X
+  
+  [33X[0;0YReturns a list of all Q-polynomial orderings of [3Xtensor[103X.[133X
+  
+  [1X2.6-4 IsQPolynomial[101X
+  
+  [33X[1;0Y[29X[2XIsQPolynomial[102X( [3Xtensor[103X ) [32X attribute[133X
+  
+  [33X[0;0YReturns [10Xtrue[110X if [3Xtensor[103X is Q-polynomial and [10Xfalse[110X otherwise.[133X
+  
+  [1X2.6-5 FirstEigenmatrix[101X
+  
+  [33X[1;0Y[29X[2XFirstEigenmatrix[102X( [3Xtensor[103X ) [32X attribute[133X
+  
+  [33X[0;0YReturns the first eingenmatrix [22XP[122X of [3Xtensor[103X.[133X
+  
+  [1X2.6-6 SecondEigenmatrix[101X
+  
+  [33X[1;0Y[29X[2XSecondEigenmatrix[102X( [3Xtensor[103X ) [32X attribute[133X
+  
+  [33X[0;0YReturns the second eingenmatrix [22XQ[122X of [3Xtensor[103X.[133X
+  
+  [1X2.6-7 TensorOfKreinNumbers[101X
+  
+  [33X[1;0Y[29X[2XTensorOfKreinNumbers[102X( [3Xtensor[103X ) [32X attribute[133X
+  
+  [33X[0;0YReturns the tensor [22X(q_i,j^k)[122X of Krein-numbers of [3Xtensor[103X.[133X
+  
+  [1X2.6-8 IndexOfPrincipalCharacter[101X
+  
+  [33X[1;0Y[29X[2XIndexOfPrincipalCharacter[102X( [3Xtensor[103X ) [32X attribute[133X
+  
+  [33X[0;0YThe  principal  character  of  [3Xtensor[103X  maps  every  color [22Xi[122X of [3Xtensor[103X to the
+  out-valency of its corresponding relation in the color graph of which [3Xtensor[103X
+  is the structure constants tensor.[133X
   

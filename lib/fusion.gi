@@ -584,7 +584,7 @@ function(pos, indices)
         RegisterStandardInfo@COCO2P(node);
         if fvc then
             if Rank(node!.cgr)=3 and IsSymmetricColorGraph(node!.cgr) and not IsSchurian(node!.cgr) then
-                srg:=SrgFromCgr(node!.cgr);
+                srg:=SrgFromCgr@(node!.cgr);
                 RegisterInfoCocoNode(node, rec(name:="4-vc:",
                                                value:=String(IsHighlyRegularGraph(srg,2,4))));
             fi;
@@ -660,7 +660,7 @@ function(pos, indices)
             if Rank(node!.cgr)>3 or 
                not IsSymmetricColorGraph(node!.cgr) or 
                    IsSchurian(node!.cgr) or 
-                   not IsHighlyRegularGraph(SrgFromCgr(node!.cgr),2,4) 
+                   not IsHighlyRegularGraph(SrgFromCgr@(node!.cgr),2,4) 
             then
                 continue;
             fi;

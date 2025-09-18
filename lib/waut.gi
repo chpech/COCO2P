@@ -123,7 +123,7 @@ function(xcgr1, xcgr2, S, part, result)
 
        if y <> false then
            Info(InfoCOCO,1,".");
-           StbcAddGensExtOrb(resH, [y]);
+           AddGeneratorsExtendSchreierTree(resH, [y]);
        fi;
    od;
    resH.part:=StbcRefineOrbits(resH, S.part,RankOfColorGraph(xcgr1.T));

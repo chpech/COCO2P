@@ -122,6 +122,14 @@
   [33X[0;0YThis  function  creates  a  graphical  representation of [3Xposet[103X using [5XXGAP[105X or
   [5XFrancy[105X under [5XJupyter-GAP[105X.[133X
   
+  [1X4.2-12 SelectedElements[101X
+  
+  [33X[1;0Y[29X[2XSelectedElements[102X( [3Xgraphic[103X, [3Xposet[103X ) [32X operation[133X
+  
+  [33X[0;0YThis  operation  is avaylable if [5XXGAP[105X is loaded. It takes a graphic poset as
+  input  and  returns  the  indices to the selected elements in the underlying
+  poset of [3Xgraphic poset[103X.[133X
+  
   
   [1X4.3 [33X[0;0YPosets of color graphs[133X[101X
   
@@ -143,7 +151,7 @@
   is color isomorphic to [3Xcgr2[103X.[133X
   
   [33X[0;0YAt  the  moment this function is implemented only for WL-stable color graphs
-  [3Xcgr1[103X and [3Xcgr2[103X.[133X
+  [3Xcgr1[103X and homogeneous WL-stable homogeneous [3Xcgr2[103X.[133X
   
   [1X4.3-2 SubColorIsomorphismPoset[101X
   
