@@ -1482,14 +1482,13 @@ InstallMethod(AllGoodSetOrbits,
         "for iterators of good set candidates",
         [IsIteratorOfPartialGoodSetOrbits and IsPartialGoodSetOrbitIterRep],
 function(iter)
-    local res,T,gens,stab,grp,gs;
+    local res,gens,stab,grp,gs;
     
     if IsDoneIterator(iter) then
         return [];
     fi;
     
     res:=[];
-    T:=TensorOfPartialGoodSet(iter!.state.cand);
     grp:=Source(iter!.state.act);
     
     while not IsDoneIterator(iter) do

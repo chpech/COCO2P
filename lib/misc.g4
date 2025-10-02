@@ -90,15 +90,17 @@ StringCocoGenerators@:=function(arg)
     return res;
 end;
 
-StringCocoMerging@:=function(mrg)
-    local  res, str, l, cls, i;
+StringCocoMerging@:=function(gmrg)
+    local  res, str, l, cls, i, mrg;
 
     res:="";
     str:=OutputTextString(res,true);
     SetPrintFormattingStatus(str,false);
     
+    mrg:=gmrg-1;
+    
     l:=0;
-    for cls in mrg-1 do
+    for cls in mrg do
         PrintTo(str,"(");l:=l+1;
         for i in [1..Length(cls)-1] do
             PrintTo(str,cls[i],",");l:=l+1+Length(String(cls[i]));

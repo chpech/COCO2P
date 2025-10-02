@@ -26,7 +26,7 @@ DeclareAttribute( "OrderOfFusion", IsFusionOfTensor); ## documented
 DeclareAttribute( "AsPartition", IsFusionOfTensor); ## documented
 DeclareAttribute( "HomogeneousFusionOrbits", IsTensor and IsTensorOfCC ); ## documented
 
-DeclareCategory( "IsFusionOrbit", IsPartitionOrbit );
+DeclareCategory( "IsFusionOrbit", IsCocoPartitionOrbit );
 DeclareGlobalFunction( "FusionOrbitNC" ); ## undocumented
 DeclareGlobalFunction( "FusionOrbit" );   ## documented
 

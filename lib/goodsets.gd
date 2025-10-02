@@ -25,7 +25,7 @@ DeclareOperation( "PartitionOfGoodSet" , [IsGoodSet] ); ## documented
 
 ################################################################################
 
-DeclareCategory( "IsGoodSetOrbit", IsSetOrbit );
+DeclareCategory( "IsGoodSetOrbit", IsCocoSetOrbit );
 
 DeclareGlobalFunction( "GoodSetOrbit" ); ## documented
 DeclareGlobalFunction( "GoodSetOrbitNC" ); ## documented

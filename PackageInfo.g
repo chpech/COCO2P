@@ -48,8 +48,8 @@ License := "GPL-3.0",
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "0.11">
-##  <!ENTITY RELEASEDATE "29 September 2012">
+##  <!ENTITY VERSION "0.21">
+##  <!ENTITY RELEASEDATE "17 September 2025">
 ##  <#/GAPDoc>
 IssueTrackerURL := "https://github.com/chpech/COCO2P/issues",
 SourceRepository := rec(

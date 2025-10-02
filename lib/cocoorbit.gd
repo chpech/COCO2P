@@ -19,12 +19,10 @@ DeclareOperation( "FirstSubOrbitWithInvariantPropertyOfCocoOrbit", [IsPermGroup,
 
 DeclareAttribute( "ActionOfCocoOrbit", IsCocoOrbit );
 
-DeclareCategory( "IsSetOrbit", IsCocoOrbit );
-#DeclareCategoryFamily( "IsSetOrbit" ); # the category of families of SetOrbits
+DeclareCategory( "IsCocoSetOrbit", IsCocoOrbit );
 
 
-DeclareCategory( "IsPartitionOrbit", IsCocoOrbit );
-#DeclareCategoryFamily( "IsPartitionOrbit" ); # the category of families of PartitionOrbits
+DeclareCategory( "IsCocoPartitionOrbit", IsCocoOrbit );
 
 
 
