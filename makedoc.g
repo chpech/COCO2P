@@ -1,7 +1,13 @@
-path :=
-  Directory(Concatenation(PackageInfo("coco2p")[1].InstallationPath, "/doc"));
-main := "coco.xml";
-files := [];
-bookname := "MyBook";
+#
+# This file is a script which compiles the package manual.
+#
+if fail = LoadPackage("AutoDoc", "2022.07.10") then
+    Error("AutoDoc version 2022.07.10 or newer is required.");
+fi;
 
-MakeGAPDocDoc( path, main, files, bookname );
+AutoDoc( rec(
+    autodoc := true,
+    #extract_examples := true,
+    gapdoc := rec( main := "coco.xml" ),
+    scaffold := rec( MainPage := false, TitlePage := false ),
+) );
