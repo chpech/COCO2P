@@ -293,8 +293,8 @@ Dependencies := rec(
   # list of pairs [package name, version] as above,
   # these package are will be loaded if they are available,
   # but the current package will be loaded if they are not available
-  # SuggestedOtherPackages := [],
-  SuggestedOtherPackages := [["xgap","0"]],
+  SuggestedOtherPackages := [],
+  #SuggestedOtherPackages := [["xgap","0"]],
 
   # *Optional*: a list of pairs as above, denoting those needed packages
   # that must be completely loaded before loading of the current package

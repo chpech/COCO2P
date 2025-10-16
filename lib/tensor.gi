@@ -447,9 +447,9 @@ function(tensor, i)
   return PositionProperty(reflexive, x -> EntryOfTensor(tensor,x,i,i) = 1);
 end);
 
-InstallMethod(StartBlock,
+InstallOtherMethod(StartBlock,
    "for blocked tensors of coherent configurations",
-   [IsTensor and IsTensorOfCC and IsBlockedTensorRep, IsPosInt],
+   [IsTensor and IsBlockedTensorRep, IsPosInt],
 function(tensor, i)
   return tensor!.rowBlk[i];
 end);
@@ -463,9 +463,9 @@ function(tensor, i)
   return PositionProperty(reflexive, x -> EntryOfTensor(tensor,i,x,i) = 1);
 end);
 
-InstallMethod(FinishBlock,
+InstallOtherMethod(FinishBlock,
    "for tensors of coherent configurations",
-   [IsTensor and IsTensorOfCC and IsBlockedTensorRep, IsPosInt],
+   [IsTensor and IsBlockedTensorRep, IsPosInt],
 function(tensor, i)
   return tensor!.colBlk[i];
 end);

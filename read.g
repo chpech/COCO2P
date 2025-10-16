@@ -58,11 +58,11 @@ ReadPackage("coco2p", "lib/colorsemiring.gi");
 ReadPackage("coco2p", "lib/hashtable.gi");
 ReadPackage("coco2p", "lib/nodes.gi");
 
-if TestPackageAvailability("xgap","0")=true then
+if IsPackageLoaded("xgap","0")=true then
     ReadPackage("coco2p", "lib/xgap.gi");
 fi;
 
-if TestPackageAvailability("francy","0")=true then
+if IsPackageLoaded("francy","0")=true then
     ReadPackage("coco2p","lib/francy.gi");
 fi;
 

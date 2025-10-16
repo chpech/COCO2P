@@ -204,7 +204,7 @@ function(tensor)
               domain:=[1..Length(imap)],
               set:=[],               
               maxlength:=Int((OrderOfTensor(tensor)-1)/2),
-              square:=ListWithIdenticalEntries(0,OrderOfTensor(tensor))
+              square:=ListWithIdenticalEntries(OrderOfTensor(tensor),0)
               );
    
    return Objectify(NewType(GoodSetsFamily(tensor), IsSymPartialGoodSet and IsPartialGoodSetRep), cand);
@@ -286,7 +286,7 @@ function(tensor)
               domain:=[1..Length(imap)],
               set:=[],
               maxlength:=Int((OrderOfTensor(tensor)-1)/2),
-              square:=ListWithIdenticalEntries(0,OrderOfTensor(tensor))
+              square:=ListWithIdenticalEntries(OrderOfTensor(tensor),0)
               );
     
     return Objectify(NewType(GoodSetsFamily(tensor), IsAsymPartialGoodSet and IsPartialGoodSetRep), cand);
@@ -531,7 +531,13 @@ function(cand,pt)
     blkIdx:=t!.blkIdx;
     
     
-    
+    #     c
+    #    _.._
+    #    /||\
+    # c /    \ c      
+    #  /      \
+    # +-------->+
+    #a    ?      b
     block:=bm[sb][sb];      # c c*
     ba:=sb/npgs.perm;
     bb:=sb/npgs.perm;

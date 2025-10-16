@@ -104,9 +104,8 @@ end);
 
 InstallGlobalFunction(WLBuildTrivialPartition,
 function(T)
-    local part,nof;
+    local part;
 
-    nof:=NumberOfFibres(T);
     part:=rec();
     part.classes:=[ReflexiveColors(T), Difference([1..OrderOfTensor(T)], ReflexiveColors(T))];
     part.fixed:=[];
