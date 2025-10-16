@@ -19,3 +19,5 @@
 /doc/*.toc
 /doc/_*.xml
 /doc/manual.pdf
+/doc/gapdoc.dtd
+/doc/gapdoc.rnc
