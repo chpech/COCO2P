@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<!DOCTYPE Book SYSTEM "gapdoc.dtd"
-[<!ENTITY COCO "<Package>coco2p</Package>">
-<!ENTITY FRANCY "<Package>Francy</Package>">
-<!ENTITY JUPYTERGAP "<Package>Jupyter-GAP</Package>">
-  ]>
+<!DOCTYPE Book SYSTEM "gapdoc.dtd" [
+ <!ENTITY COCO "<Package>coco2p</Package>">
+ <!ENTITY FRANCY "<Package>Francy</Package>">
+ <!ENTITY JUPYTERGAP "<Package>Jupyter-GAP</Package>">
+ <#Include SYSTEM "_entities.xml">
+]>
 
 <Book Name="coco2p">
   <TitlePage>
     <Title>The  &COCO; Package</Title>
-    <Version>Version 0.21</Version>
+    <Version>Version &VERSION;</Version>
+    <Date>&RELEASEDATE;</Date>
     <Author>Mikhail Klin
     <Email>klin@math.bgu.ac.il
     </Email>
