@@ -1,3 +1,22 @@
+MakeDoc@:=function()
+    local  cp, info, path;
+    
+    cp:=Filename(DirectoryCurrent(),"");
+    info:=PackageInfo("coco2p");
+    if info = [] then
+        ErrorNoReturn("MakeDoc@COCO2P: Can not find the package directory of COCO2P!");
+    fi;
+    info:=info[1];
+    path:=info.InstallationPath;
+    if not ChangeDirectoryCurrent(path) then
+        ErrorNoReturn("MakeDoc@COCO2P: Can not change to package directory!");
+    fi;
+    Read("makedoc.g");
+    if not ChangeDirectoryCurrent(cp) then
+        ErrorNoReturn("MakeDoc@COCO2P: Can not reset current path!");
+    fi;
+end;
+
 StringCocoOrbReps@ := function(arg)
     local i,j,g,dom,str,res,orbs,l,s;
 
