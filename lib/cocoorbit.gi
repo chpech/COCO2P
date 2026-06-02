@@ -34,7 +34,7 @@ InstallMethod(SubOrbitsWithInvariantPropertyOfCocoOrbit,
         "for all coco orbits",
         [IsPermGroup, IsCocoOrbit, IsFunction],
 function(grp,gsorb,func)
-    local  ug, stab, gs, res, cosreps, i, signs, cr, ngs;
+    local  ug, stab, gs, res, cosreps, i, signs, cr, ngs,xres;
 
     ug:=UnderlyingGroupOfCocoOrbit(gsorb);
     
@@ -91,7 +91,7 @@ function(grp,gsorb,func)
             fi;
         od;
         COCOPrint("\b\c");
-    elif ValueOption("nodcos")<>fail then # this is buggy! check!
+    elif ValueOption("nodcos")<>fail then # this is buggy! check! -- checked but to test
         COCOPrint("xxx\t",Size(ug),"\t",Size(stab),"\t",Size(grp),"\t\c");
         cosreps:=RightTransversal(ug,grp);
         ngs:=ConstructorOfCocoOrbitNC(gsorb)(grp,gs, Intersection(stab,grp));
@@ -106,11 +106,17 @@ function(grp,gsorb,func)
         
             i:=(i+1) mod (4*COCORotorMod);
             
-            if func(ActionOfCocoOrbit(gsorb)(gs,cr)) then
-                Add(res, OnCocoOrbits(ngs,cr));
+            if func(ActionOfCocoOrbit(gsorb)(gs,cr^-1)) then
+                AddSet(res, OnCocoOrbits(ngs,cr^-1));
             fi;
         od;
         COCOPrint("\b\c");
+        # cosreps:=List(DoubleCosetRepsAndSizes(ug,stab,grp), x->x[1]);
+                      
+        # ngs:=ConstructorOfCocoOrbitNC(gsorb)(grp,gs, Intersection(stab,grp));
+        # xres:=List(cosreps, x->OnCocoOrbits(ngs,x));
+        # xres:=Filtered(xres, x->func(Representative(x)));
+        # Assert(1,Length(res) = Length(xres));
     else
         COCOPrint("***\t",Size(ug),"\t",Size(stab),"\t",Size(grp),"\t\c");
             
