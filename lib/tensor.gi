@@ -30,8 +30,8 @@ DeclareRepresentation( "IsBlockedTensorRep",
          "rowBlk",          # for each color this stores the starting block $a$ of the color
                             # reflexiveColors[a] is the color of the fibre from which arc of color $i$
                             # start
-         "colBlk",          # same like startBlk, just for the end of arcs
-         "blocks",			# for blocks $a$ and $b$ blocks[a][b] contains the set of colors
+         "colBlk",          # same like rowBlk, just for the end of arcs
+         "blocks",	    # for blocks $a$ and $b$ blocks[a][b] contains the set of colors
                             # for which the start-block is $a$ and the end-block is $b$
          "blkIdx",          # for each color the index in its block
          "knownAutGroup",   #
@@ -252,6 +252,8 @@ end);
 ##################################################
 #F  ComplexProduct
 ##################################################
+
+
 InstallMethod(ComplexProduct,
     "for tensors",
     [IsTensor, IsList, IsList],
@@ -265,6 +267,7 @@ function(tensor, l1,l2)
             od;
         od;
     od;
+    
     return product;
 end);
 
@@ -279,6 +282,35 @@ function(tensor, set1,set2)
             product := product + tensor!.entries[i][j];
         od;
     od;
+    return product;
+end);
+
+InstallMethod(ComplexProduct,
+"for tensors of WL structure constants in representation BlockedTensorRep",
+[IsTensor and IsTensorOfCC and IsBlockedTensorRep, IsList, IsList],
+function(tensor, set1,set2)
+    local  product, m1, m2, blkIdx, blocks, ent, a, b, bbl, c, i, j;
+    
+    product := ListWithIdenticalEntries(Order(tensor),0);
+    m1:=BlockingMat(tensor, set1);
+    m2:=BlockingMat(tensor, set2);
+    blkIdx:=tensor!.blkIdx;
+    blocks:=tensor!.blocks;
+    ent:=tensor!.entries;
+
+    for a in [1..Length(m1)] do
+        for b in [1..Length(m1)] do
+            bbl:=blocks[a][b];
+            for c in [1..Length(m1)] do
+                for i in m1[a][c] do
+                    for j in m2[c][b] do
+                        product{bbl} := product{bbl} + ent[a][b][c][blkIdx[i]][blkIdx[j]];
+                    od;
+                od;
+            od;
+        od;
+    od;
+    
     return product;
 end);
 
