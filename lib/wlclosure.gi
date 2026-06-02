@@ -121,23 +121,34 @@ end);
 
 InstallGlobalFunction(WLBuildPartition,
 function(p)
-    local part,l,i;
-
+    local fc,reps,part,l,i;
+    
+    fc:=ValueOption("fixedclasses");
+        
+    if fc = fail then
+        fc := [];
+    fi;
+    reps:=List(fc, x->p[x][1]);
+    
     part:=rec();
     part.classes:=Set(p,Set);
+    fc:=Set(reps, x->First([1..Length(part.classes)], i->x in part.classes[i]));
     l:=Length(part.classes);
-    part.fixed:=[];
-
-    part.variable:=[1..Length(part.classes)];
+    part.fixed:=fc;
+    part.variable:=Difference([1..l],fc);
+    
     part.instabil:=FiFoNew();
     part.instabilFlags:=List([1..l], x->true);
     for i in [1..l] do
         FiFoAdd(part.instabil,i);
     od;
+    
     part.totest:=FiFoNew();
     part.totestFlags:=List([1..l], x->false);
+    
     part.colorNames:=List([1..Length(part.classes)], x->[x,1]);
     part.numberClasses:=ListWithIdenticalEntries(Length(part.classes), 1);
+    
     return part;
 end);
 

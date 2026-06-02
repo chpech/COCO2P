@@ -32,3 +32,7 @@ DeclareGlobalFunction( "GoodSetOrbitNC" ); ## documented
 DeclareOperation( "HomogeneousGoodSetOrbits", [IsTensor and IsTensorOfCC] ); ## documented
 DeclareAttribute( "HomogeneousSymGoodSetOrbits", IsTensor and IsTensorOfCC ); ## documented
 DeclareAttribute( "HomogeneousAsymGoodSetOrbits", IsTensor and IsTensorOfCC ); ## documented
+
+
+DeclareGlobalFunction( "BlockingMat" );
+

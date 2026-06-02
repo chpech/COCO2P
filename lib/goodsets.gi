@@ -29,7 +29,8 @@ ColDegreeList:=function(T,M)
     return res;
 end;
 
-BlockingMat:=function(T,M)
+InstallGlobalFunction(BlockingMat,
+function(T,M)
     local nof,sb,fb,res,i;
     
     nof:=NumberOfFibres(T);
@@ -40,7 +41,7 @@ BlockingMat:=function(T,M)
         AddSet(res[sb][fb],i);
     od;
     return res;
-end;
+end);
 
 
 ####################################################################################

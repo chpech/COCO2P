@@ -912,19 +912,11 @@ function(cand,pt)
                 od;
             fi;
         fi;
-    # else
-    #     if ForAny([cand!.currentRow..sb-1], x->cand!.degreelist[x]<>cand!.k) then
-    #         Error("test");
-    #         return fail;
-    #     fi;
 
     fi;
         
     npgs.currentRow:=sb;
     
-    # if cand!.set = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,33,34,35,36,37,49,50] and pt = 16 then
-    #     Error("brk1");
-    # fi;
     
     
     
@@ -984,6 +976,7 @@ function(cand,pt)
         ksb:=cand!.startBlock[kmts[1]];
         kfb:=cand!.finishBlock[kmts[1]];
         if k<=pt 
+           or  Length(npgs.set)+Length(kmts) > npgs.maxlength 
            or ksb in npgs.fullrows
            or kfb in npgs.fullrows
            or npgs.kIsForced and (sd[kmts[1]]+npgs.degreelist[ksb]>npgs.k 
@@ -994,6 +987,7 @@ function(cand,pt)
             npgs.domdegreelist[ksb]:=npgs.domdegreelist[ksb]-sd[kmts[1]];
             if npgs.domdegreelist[ksb]+npgs.degreelist[ksb]<npgs.maxdeg then
                 stt[7]:=stt[7]+1;
+                
                 return fail;
             fi;
             if Length(kmts)=2 then
@@ -1161,6 +1155,7 @@ function(cand,pt)
                     fi;
                     if ForAny(block, x->sq[x] <> npgs.lbd) then
                         stt[19]:=stt[19]+1;
+                        
                         return fail;
                     fi;
                 fi;

@@ -98,16 +98,15 @@ end);
 
 
 InstallMethod(ChooseLevel,
-	"for graphic coco posets of color graphs",
-	[IsGraphicCocoPoset and IsGraphicPosetRep, IsCocoNode],
+"for graphic coco posets of color graphs",
+[IsGraphicCocoPoset and IsGraphicPosetRep, IsCocoNode],
 function( cocoposet, data )
     return LevelOfCocoNode(data);
 end );
 
-InstallMethod(
-	CompareLevels,
-	"for graphic coco posets",
-	[ IsGraphicCocoPoset and IsGraphicPosetRep, IsInt, IsInt ],
+InstallMethod(CompareLevels,
+"for graphic coco posets",
+[ IsGraphicCocoPoset and IsGraphicPosetRep, IsInt, IsInt ],
 function( poset, a, b )
     if a < b then
 	return 1;
@@ -119,8 +118,8 @@ function( poset, a, b )
 end);
 
 InstallMethod(GraphicCocoPoset,
-        "for COCO-posets",
-        [IsCocoPoset],
+"for COCO-posets",
+[IsCocoPoset],
 function(cocoposet)
     local   gposet,  vertices,  i,  elm,  j,  lev,levels,NewNode;
 
@@ -162,12 +161,6 @@ function(cocoposet)
     od;
     return gposet;
 end);
-
-
-
-
-
-
 
 InstallMethod(GraphicCocoPoset,
         "for sub color isomorphism posets",
