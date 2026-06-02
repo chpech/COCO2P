@@ -554,7 +554,7 @@ function(S,T,i)
        PbagCopyStabChainNode(S,T);
    else
      StbcChange(S,[i]);
-     if S.orbit[1]<>i then
+     if not IsBound(S.orbit) or S.orbit[1]<>i then
        PbagCopyStabChainNode(S,T);
      else
        S.stabilizer:=T;
