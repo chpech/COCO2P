@@ -95,10 +95,17 @@ function(pos,m)
 end);
 
 InstallMethod(MinimalElementsInCocoPoset,
-        "for COCO-posets",
-        [IsCocoPoset, IsSet],
+"for a COCO-poset and a set",
+[IsCocoPoset, IsSet],
 function(pos,m)
    return Filtered(m, x->Intersection(IdealInCocoPoset(pos,x),m)=[x]);
+end);
+
+InstallOtherMethod(MinimalElementsInCocoPoset,
+"for a COCO-poset",
+[IsCocoPoset],
+function(pos)
+    return MinimalElementsInCocoPoset(pos,[1..Size(pos)]);
 end);
 
 InstallMethod(MaximalElementsInCocoPoset,
@@ -106,6 +113,13 @@ InstallMethod(MaximalElementsInCocoPoset,
         [IsCocoPoset, IsSet],
 function(pos,m)
    return Filtered(m, x->Intersection(FilterInCocoPoset(pos,x),m)=[x]);
+end);
+
+InstallOtherMethod(MaximalElementsInCocoPoset,
+"for a COCO-poset",
+[IsCocoPoset],
+function(pos)
+    return MaximalElementsInCocoPoset(pos,[1..Size(pos)]);
 end);
 
 InstallMethod(InducedCocoPoset,
@@ -158,6 +172,7 @@ function(elements,order,linorder)
     poset:=Objectify(NewType(CocoPosetFam, IsCocoPosetRep), poset);
     
     Info(InfoCOCO,1, "CocoPoset: ",Length(elements)," elements.\n");
+    Info(InfoCOCO,1, "Computing successors and predecessors.\n");
     
     for i in [Length(elements),Length(elements)-1..1] do
         active:=[i+1..Length(elements)];
@@ -169,8 +184,9 @@ function(elements,order,linorder)
                 SubtractSet(active,FilterInCocoPoset(poset,j));
             fi;
         od;
-        Info(InfoCOCO,2,"±");
+        Info(InfoCOCO,1,"±");
     od;
+    Info(InfoCOCO,1, "\nDone computing successors and predecessors.\n");
     MakeImmutable(poset!.successors);
     MakeImmutable(poset!.predecessors);
     return poset;

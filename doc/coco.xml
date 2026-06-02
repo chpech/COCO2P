@@ -2508,17 +2508,23 @@ gap> ]]>
 	<ManSection>
 	  <Oper Name="MinimalElementsInCocoPoset"
 		Arg="poset,set"/>
+	  <Oper Name="MinimalElementsInCocoPoset"
+		Arg="poset"/>
 	  <Description>
 	    This function returns the minimal elements of <A>set</A>
-	    in <A>poset</A>.
+	    in <A>poset</A>. If <A>set</A> is not given, then the minimal
+	    elements of <A>poset</A> are returned.
 	  </Description>
 	</ManSection>
 	<ManSection>
 	  <Oper Name="MaximalElementsInCocoPoset"
 		Arg="poset,set"/>
+	  <Oper Name="MaximalElementsInCocoPoset"
+		Arg="poset"/>
 	  <Description>
 	    This function returns the maximal elements of <A>set</A>
-	    in <A>poset</A>.
+	    in <A>poset</A>. If <A>set</A> is not given, then the maximal
+	    elements of <A>poset</A> are returned.
 	  </Description>
 	</ManSection>
 	<ManSection>
