@@ -2522,8 +2522,10 @@ gap> ]]>
 	</ManSection>
 	<ManSection>
 	  <Oper Name="MaximalElementsInCocoPoset"
+		Label="for a COCO-poset and a set"
 		Arg="poset,set"/>
 	  <Oper Name="MaximalElementsInCocoPoset"
+		Label="for a COCO-poset"
 		Arg="poset"/>
 	  <Description>
 	    This function returns the maximal elements of <A>set</A>
