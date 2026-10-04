@@ -289,7 +289,8 @@ Dependencies := rec(
   # without these, the package will not load
   # NeededOtherPackages := [["GAPDoc", "1.5"]],
   NeededOtherPackages := [["grape", "0"],
-                          ["radiroot", "0"]],
+                          ["radiroot", "0"],
+                          ["io", "0"]],
 
   # list of pairs [package name, version] as above,
   # these package are will be loaded if they are available,
