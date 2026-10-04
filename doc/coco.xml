@@ -1249,8 +1249,10 @@ true]]>
 	</ManSection>
 	<ManSection>
 	  <Oper Name="IsColorIsomorphismOfColorGraphs"
+		Label="for two color graphs and two permutations"
 		Arg="cgr1,cgr2,g,h"/>
 	  <Oper Name="IsColorIsomorphismOfColorGraphs"
+		Label="for two color graphs and a pair of permutations"
 		Arg="cgr1,cgr2,[g,h]"/>
 	  <Description>
 	    This operation returns <C>true</C> if <A>[g,h]</A> is a
@@ -2507,8 +2509,10 @@ gap> ]]>
 	</ManSection>
 	<ManSection>
 	  <Oper Name="MinimalElementsInCocoPoset"
+		Label="for a COCO-poset and a set"
 		Arg="poset,set"/>
 	  <Oper Name="MinimalElementsInCocoPoset"
+		Label="for a COCO-poset"
 		Arg="poset"/>
 	  <Description>
 	    This function returns the minimal elements of <A>set</A>
