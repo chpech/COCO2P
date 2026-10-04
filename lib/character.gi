@@ -7,7 +7,11 @@ function(poly, indet, value)
     return Value(poly, [indet],[value]);
 end);
 
-if TestPackageAvailability("alnuth","3")=true and AL_CurrentPariGpPath()<>fail then
+if not IsBound(AL_CurrentPariGpPath) then
+    AL_CurrentPariGpPath:=ReturnFail;
+fi;
+
+if TestPackageAvailability("alnuth","3")=true and  AL_CurrentPariGpPath()<>fail then
     Print("COCO2P: Using Alnuth and PARI/GP to for factorizing polynomials...\n");
     
     FactorsOfAlgebraicUPol:=function(poly)
