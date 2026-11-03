@@ -92,7 +92,7 @@ function(grp,gsorb,func)
         od;
         COCOPrint("\b\c");
     elif ValueOption("nodcos")<>fail then # this is buggy! check! -- checked but to test
-        COCOPrint("xxx\t",Size(ug),"\t",Size(stab),"\t",Size(grp),"\t\c");
+        #COCOPrint("xxx\t",Size(ug),"\t",Size(stab),"\t",Size(grp),"\t\c");
         cosreps:=RightTransversal(ug,grp);
         ngs:=ConstructorOfCocoOrbitNC(gsorb)(grp,gs, Intersection(stab,grp));
         
@@ -118,10 +118,10 @@ function(grp,gsorb,func)
         # xres:=Filtered(xres, x->func(Representative(x)));
         # Assert(1,Length(res) = Length(xres));
     else
-        COCOPrint("***\t",Size(ug),"\t",Size(stab),"\t",Size(grp),"\t\c");
+        # COCOPrint("***\t",Size(ug),"\t",Size(stab),"\t",Size(grp),"\t\c");
             
         cosreps:=List(DoubleCosetRepsAndSizes(ug,stab,grp), x->x[1]);
-        COCOPrint(Length(cosreps),"\n");
+        # COCOPrint(Length(cosreps),"\n");
                       
         ngs:=ConstructorOfCocoOrbitNC(gsorb)(grp,gs, Intersection(stab,grp));
         res:=List(cosreps, x->OnCocoOrbits(ngs,x));
