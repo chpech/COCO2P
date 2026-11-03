@@ -1,4 +1,16 @@
 DeclareInfoClass("InfoCOCO");
+DeclareInfoClass("InfoCOCOLoading");
+
+SetInfoLevel(InfoCOCOLoading,1);
+
+#Print(banner,"\n");
+
+# InfoCOCOLoading:=InfoPackageLoading;
+
+
+if ValueOption("quiet") = true then
+    SetInfoLevel(InfoCOCOLoading, 0);
+fi;
 
 ReadPackage("coco2p", "lib/highreg.gd"); 
 ReadPackage("coco2p", "lib/redtest.gd"); # internal
@@ -30,27 +42,24 @@ COCOPrint:=ReturnTrue;
 
 DeclareGlobalVariable("GRAPHTYPESCACHE@COCO2P");
 
-
 if TestPackageAvailability("xgap","0")=true then
-    Print("COCO2P: Using XGAP to display posets...\n");
+    Info(InfoCOCOLoading,1, "COCO2P: Using XGAP to display posets...");
 
     ReadPackage("coco2p", "lib/xgap.gd"); #documented
 elif TestPackageAvailability("jupyterkernel","0")=true then
     if TestPackageAvailability("francy","0")=true then
-        Print("COCO2P: Using francy to display posets...\n");
+        Info(InfoCOCOLoading,1, "COCO2P: Using francy to display posets...");
         ReadPackage("coco2p","lib/francy.gd");
     elif IsString(TestPackageAvailability("francy","0")) then
-        Print("COCO2P: Load package francy before coco2p in order to be\n",
-              "        able to display posets.\n");
+        Info(InfoCOCOLoading,1, "COCO2P: Load package francy before coco2p in order to be able to display posets.");
     fi;
 fi;
 
 if IsString(TestPackageAvailability("singular", "12")) then
-  Print("COCO2P: Load package singular before coco2p to speed up\n",
-        "        computations of character tables.\n");
+  Info(InfoCOCOLoading,1, "COCO2P: Load package singular before coco2p to speed up computations of character tables.");
 fi;
 
 if IsString(TestPackageAvailability("xgap","0")) then
-  Print("COCO2P: Load package xgap before coco2p in order to be\n",
-        "        able to display posets.\n");
+  Info(InfoCOCOLoading,1, "COCO2P: Load package xgap before coco2p in order to be able to display posets.");
 fi;
+

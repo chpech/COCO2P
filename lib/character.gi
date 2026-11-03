@@ -12,7 +12,7 @@ if not IsBound(AL_CurrentPariGpPath) then
 fi;
 
 if TestPackageAvailability("alnuth","3")=true and  AL_CurrentPariGpPath()<>fail then
-    Print("COCO2P: Using Alnuth and PARI/GP to for factorizing polynomials...\n");
+    Info(InfoCOCOLoading,1,"COCO2P: Using Alnuth and PARI/GP to for factorizing polynomials...");
     
     FactorsOfAlgebraicUPol:=function(poly)
         local  F, x, a, minpol, L, b, basisF, basisL, coeffs, y, cpoly, 

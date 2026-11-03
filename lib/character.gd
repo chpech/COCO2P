@@ -17,7 +17,7 @@ DeclareProperty( "IsQPolynomial", IsTensor and IsTensorOfCC ); ## documented
 
 DeclareAttribute( "CharacterTableOfTensor", IsTensor and IsCommutativeTensor and IsTensorOfCC); ## documented
 if TestPackageAvailability("singular","12")=true then
-    Print("COCO2P: Using Singular for the computation of Groebner-bases...\n");
+    Info(InfoCOCOLoading,1,"COCO2P: Using Singular for the computation of Groebner-bases...");
     ReducedGroebnerBasis@:=SINGULARGBASIS.GroebnerBasis;
 else
     ReducedGroebnerBasis@:=ReducedGroebnerBasis;
